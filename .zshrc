@@ -84,3 +84,14 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+#vi mode
+bindkey -v
+bindkey jj vi-cmd-mode
+bindkey '^r' history-incremental-search-backward
+#export KEYTIMEOUT=1
+
+
+
+#
+#
