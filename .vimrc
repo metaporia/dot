@@ -59,7 +59,9 @@ let g:airline#extensions#ycm#warning_symbol = 'W:'
 "always on airline
 set laststatus=2
 
-
+"thesaurus 
+"nnoremap <Leader>cs :ThesaurusQueryReplaceCurrentWord<CR>
+vnoremap <Leader>cx y:ThesaurusQueryReplace <C-r>"<CR>
 
 filetype plugin indent on
 set number "line numbers
