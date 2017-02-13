@@ -126,6 +126,11 @@ set expandtab "tabs are spaces
 "line wraping at col 79 would be great
 set nospell
 
+"whitespace chars
+set listchars=tab:▸\ ,eol:¬
+nmap <leader>l :set list!<CR>
+
+
 "key rrmaps
 "blocks gui while running
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR> 
