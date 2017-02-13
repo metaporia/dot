@@ -3,6 +3,9 @@ execute pathogen#infect()
 set exrc "vim will source .vimrc if in pwd
 set secure " this may be hassle as it limits available commands
 
+"nvim specific config
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog ='/usr/bin/python3'
 
 "ycm gcc config
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
