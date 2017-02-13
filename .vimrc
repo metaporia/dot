@@ -43,6 +43,24 @@ let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 1
 au VimEnter * RainbowParenthesesToggle 
 
+"python settings
+augroup grp1
+    syntax on
+        
+    autocmd!
+    autocmd Filetype python let python_highlight_all = 1
+    autocmd FileType python set nowrap 
+augroup END
+
+"word processor mode 
+func! WP() "call from vim cmd line w/ :Pword
+    setlocal formatoptions=1
+    setlocal spell 
+    set formatprg=par
+    setlocal wrap
+    setlocal linebreak
+endfunction
+
 "airline config
 let g:airline_detect_iminsert=1
 let g:airline_powerline_fonts=1
@@ -106,6 +124,7 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab "tabs are spaces
 "line wraping at col 79 would be great
+set nospell
 
 "key rrmaps
 "blocks gui while running
