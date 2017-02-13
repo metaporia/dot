@@ -1,5 +1,9 @@
+if exists('b:current_syntax')
+    finish
+endif
+
 au Bufread,BufNewfile *.txt set filetype=text
-set spell
 set wrap
+set formatoptions=1
 set linebreak
 set nolist "list disables linebreak
