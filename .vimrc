@@ -114,11 +114,14 @@ nnoremap k gk
 "leader shortcuts
 " <mapleader> = "\\"
 
-inoremap jj <esc> 
+inoremap jk <Esc>'^
 nnoremap <C-n> :NERDTreeToggle<CR>
 
 nnoremap <leader>rr :source ~/.vimrc<CR>
 
+syntax on
+syntax enable " whats the diff between on and enable?
+set breakindent " linebreaks observe indentation context
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
