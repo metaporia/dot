@@ -7,6 +7,9 @@ set secure " this may be hassle as it limits available commands
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog ='/usr/bin/python3'
 
+"Nvim (notational velocity config)
+let g:NVIM_database='~/notes/.nvim' " nvim totally broke
+
 "ycm gcc config
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_always_populate_location_list = 1
@@ -45,9 +48,11 @@ au VimEnter * RainbowParenthesesToggle
 
 "python settings
 augroup grp1
-    syntax on
-        
+    
     autocmd!
+    autocmd Filetype python set syntax
+    autocmd Filetype python syntax on
+    autocmd Filetype python colorscheme solarized 
     autocmd Filetype python let python_highlight_all = 1
     autocmd FileType python set nowrap 
 augroup END
@@ -61,13 +66,6 @@ func! WP() "call from vim cmd line w/ :Pword
     setlocal linebreak
 endfunction
 
-"bullets.vim 
-let g:bullets_enabled_file_types=[
-            \'markdown',
-            \'text',
-            \'gitcommit'
-            \'scratch',
-            \]
 
 "airline config
 let g:airline_detect_iminsert=1
