@@ -61,6 +61,14 @@ func! WP() "call from vim cmd line w/ :Pword
     setlocal linebreak
 endfunction
 
+"bullets.vim 
+let g:bullets_enabled_file_types=[
+            \'markdown',
+            \'text',
+            \'gitcommit'
+            \'scratch',
+            \]
+
 "airline config
 let g:airline_detect_iminsert=1
 let g:airline_powerline_fonts=1
