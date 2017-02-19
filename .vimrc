@@ -120,7 +120,7 @@ nnoremap k gk
 "leader shortcuts
 " <mapleader> = "\\"
 
-inoremap jk <Esc>'^
+inoremap jk <Esc>
 nnoremap <C-n> :NERDTreeToggle<CR>
 
 nnoremap <leader>rr :source ~/.vimrc<CR>
