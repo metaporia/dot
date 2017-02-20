@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
   export ZSH=/home/aphoria/.oh-my-zsh
@@ -87,7 +87,7 @@ source $ZSH/oh-my-zsh.sh
 #
 #vi mode
 bindkey -v
-bindkey jj vi-cmd-mode
+bindkey jk vi-cmd-mode
 bindkey '^r' history-incremental-search-backward
 #export KEYTIMEOUT=1
 
