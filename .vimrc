@@ -145,3 +145,4 @@ nmap <leader>l :set list!<CR>
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR> 
  "deselects highlighted search results 
 nnoremap <leader><C-l> :nohlsearch<CR>
+nnoremap ; :
