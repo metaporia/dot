@@ -1,5 +1,5 @@
 execute pathogen#infect()
-
+set nocompatible
 set exrc "vim will source .vimrc if in pwd
 set secure " this may be hassle as it limits available commands
 
