@@ -71,7 +71,10 @@ source $ZSH/oh-my-zsh.sh
 # fi
 alias spak='emacsclient -t'
 alias gspak='emacsclient -c' # throws error without $emacs --daemon 
-
+alias cls='clear'
+alias gdl='git add --all'
+alias gcm='git commit -m' 
+alias gus='git status'
 export EDITOR='vim'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
