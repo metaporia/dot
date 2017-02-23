@@ -1,5 +1,5 @@
 execute pathogen#infect()
-
+set nocompatible
 set exrc "vim will source .vimrc if in pwd
 set secure " this may be hassle as it limits available commands
 
@@ -145,3 +145,4 @@ nmap <leader>l :set list!<CR>
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR> 
  "deselects highlighted search results 
 nnoremap <leader><C-l> :nohlsearch<CR>
+nnoremap ; :
