@@ -121,7 +121,7 @@ nnoremap k gk
 " <mapleader> = "\\"
 
 inoremap jk <Esc>
-nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <F4> :NERDTreeToggle<CR>
 
 nnoremap <leader>rr :source ~/.vimrc<CR>
 
