@@ -307,8 +307,12 @@ you should place your code here."
   (setq-default evil-escape-key-sequence "jk")
   (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-  (global-linum-mode) ;; line # by default
+  (global-relative-linum-mode) ;; line # by default
   (define-key evil-normal-state-map (kbd ";") 'evil-lisp-state-evil-ex)
+
+  (global-unset-key (kbd "\C-h"))
+  (global-set-key  (kbd "\C-h") 'backward-delete-char)
+  (global-set-key "\C-ch" help-map)
   )
 
 
