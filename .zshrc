@@ -69,13 +69,34 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='vim'
 # fi
+
+#emacs daemopn alias
 alias spak='emacsclient -t'
 alias gspak='emacsclient -c' # throws error without $emacs --daemon 
+
 alias cls='clear'
+
+#git aliases
 alias gdl='git add --all'
 alias gcm='git commit -m' 
 alias gus='git status'
-export EDITOR='vim'
+
+#conf aliases
+alias dotz='${EDITOR:-vi} ~/.zshrc' #zsh conf
+alias dotv='${EDITOR:-vi} ~/.vimrc' #vim conf
+alias dott='${EDITOR:-vi} ~/.tmux.conf' #tmux conf
+alias dots='${EDITOR:-vi} ~/.spacemacs' #spacemacs conf
+
+#source aliases
+alias soz='source ~/.zshrc'
+
+#misc aliases
+alias ftw='echo FUCK THE WORLD'
+
+#editor
+alias v='nvim'
+
+export EDITOR='nvim'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
