@@ -1,7 +1,16 @@
 execute pathogen#infect()
 set nocompatible
 set exrc "vim will source .vimrc if in pwd
-set secure " this may be hassle as it limits available commands
+
+"unicode settings
+if has("multi_byte")
+    if &termencoding == ""
+        let &termencoding = &encoding
+    endif
+    set encoding=utf-8
+    setglobal fileencoding=utf-8
+    set fileencodings=ucs-bom,utf-8,latin1
+endif
 
 "nvim specific config
 let g:python_host_prog = '/usr/bin/python'
@@ -52,6 +61,7 @@ augroup grp1
     autocmd!
     autocmd Filetype python set syntax
     autocmd Filetype python syntax on
+    autocmd Filetype python syntax enable
     autocmd Filetype python colorscheme solarized 
     autocmd Filetype python let python_highlight_all = 1
     autocmd FileType python set nowrap 
@@ -119,25 +129,41 @@ nnoremap k gk
 
 "leader shortcuts
 " <mapleader> = "\\"
+let mapleader=" "
 
 inoremap jk <Esc>
 nnoremap <F4> :NERDTreeToggle<CR>
 
+nnoremap <leader>g :GundoToggle<CR>
 nnoremap <leader>rr :source ~/.vimrc<CR>
 
 syntax on
 syntax enable " whats the diff between on and enable?
 set breakindent " linebreaks observe indentation context
+set showbreak=\ \ 
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set smarttab "tab isnerts 'shiftwidth' spaces
 set expandtab "tabs are spaces
 "line wraping at col 79 would be great
 set nospell
+set showmode "shows current mode beneath powerline status bar
+set autoindent
+set ignorecase "case insensitive search
+set smartcase "case sensitive on uppercase search phrase
+set wrap
+set spelllang=en_us
+runtime ftplugin/man.vim
+set hidden "allow undisplayed buffer persistence
+set smartindent "? better i'd guess than stupid indent
 
+"insert newline whilst in command mode 
+nnoremap <leader>o o<Esc>
+nnoremap <leader>O O<Esc>
 "whitespace chars
 set listchars=tab:▸\ ,eol:¬
-nmap <leader>l :set list!<CR>
+nnoremap <leader>l :set list!<CR>
 
 
 "key rrmaps
@@ -146,3 +172,4 @@ nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
  "deselects highlighted search results 
 nnoremap <leader><C-l> :nohlsearch<CR>
 nnoremap ; :
+nnoremap : ;      
