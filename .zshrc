@@ -103,6 +103,7 @@ alias cll='clear;ls -l'
 
 #vless; **depends on nvim fs
 alias les='${EDITOR:-vi} -u ~/less.vim'
+export PAGER="${EDITOR:-vi} -u ~/less.vim"
 
 #editor
 alias v='nvim'

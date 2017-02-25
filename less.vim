@@ -40,6 +40,8 @@ let mapleader=" "
 nnoremap j gj
 nnoremap k gk
 
+inoremap jk <ESC> 
+
 "key rrmaps
 "blocks gui while running
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR> 
