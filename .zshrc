@@ -96,7 +96,9 @@ alias ftw='echo FUCK THE WORLD'
 #editor
 alias v='nvim'
 
+alias ash='/home/aphoria/alacritty/target/release/alacritty'
 export EDITOR='nvim'
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -117,6 +119,7 @@ bindkey -v
 bindkey jk vi-cmd-mode
 bindkey kj vi-cmd-mode
 bindkey '^r' history-incremental-search-backward
+
 #export KEYTIMEOUT=1
 
 

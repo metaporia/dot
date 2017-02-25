@@ -101,7 +101,7 @@ set laststatus=2
 vnoremap <Leader>cx y:ThesaurusQueryReplace <C-r>"<CR>
 
 filetype plugin indent on
-set number "line numbers
+set relativenumber "line numbers
 set showcmd
 set cursorline
 
