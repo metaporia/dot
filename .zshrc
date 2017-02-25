@@ -93,6 +93,17 @@ alias soz='source ~/.zshrc'
 #misc aliases
 alias ftw='echo FUCK THE WORLD'
 
+#tmux 
+alias tsesh='tmux new -s' #call >> tsesh <session_name>
+
+alias ok='okular'
+alias cla='clear;la'
+alias cl='clear;ls'
+alias cll='clear;ls -l'
+
+#vless; **depends on nvim fs
+alias les='${EDITOR:-vi} -u ~/less.vim'
+
 #editor
 alias v='nvim'
 

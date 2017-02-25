@@ -132,6 +132,7 @@ nnoremap k gk
 let mapleader=" "
 
 inoremap jk <Esc>
+inoremap <C-[> <Esc>
 nnoremap <F4> :NERDTreeToggle<CR>
 
 nnoremap <leader>g :GundoToggle<CR>
