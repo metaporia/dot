@@ -166,6 +166,7 @@ nnoremap <leader>O O<Esc>
 set listchars=tab:▸\ ,eol:¬
 nnoremap <leader>l :set list!<CR>
 
+set pastetoggle=<F3>
 
 "key rrmaps
 "blocks gui while running
