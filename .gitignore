@@ -1,0 +1,4 @@
+
+#ignore nvim config symlink
+~/.config/nvim/init.vim
+~/.vim/init.vim
