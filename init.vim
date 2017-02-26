@@ -1,1 +1,1 @@
-/home/aphoria/.vim/.vimrc
+/home/aporia/.vim/.vimrc
