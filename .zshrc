@@ -102,8 +102,10 @@ alias cl='clear;ls'
 alias cll='clear;ls -l'
 
 #vless; **depends on nvim fs
-alias les='${EDITOR:-vi} -u ~/less.vim'
-export PAGER="${EDITOR:-vi} -u ~/less.vim"
+alias les="nvim -c 'set ft=man' -"
+export MANPAGER="nvim -c 'set ft=man' -"
+export PAGER="nvim -c 'set ft=man' -"
+
 
 #editor
 alias v='nvim'

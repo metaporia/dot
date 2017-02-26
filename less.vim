@@ -49,8 +49,8 @@ nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 nnoremap <leader><C-l> :nohlsearch<CR>
 nnoremap ; :
 nnoremap : ;      
-
-
+set paste
+set pastetoggle=<F3>
 
 " Avoid loading this file twice, allow the user to define his own script.
 if exists("loaded_less")
@@ -118,6 +118,10 @@ au VimEnter * set nomod
 
 " Can't modify the text
 "set noma
+function! LessInitFunc()
+  set nopaste
+  :vi!
+endfun
 
 " Give help
 noremap h :call <SID>Help()<CR>
