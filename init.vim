@@ -1,1 +1,0 @@
-/home/aphoria/.vim/.vimrc
