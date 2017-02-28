@@ -2,6 +2,8 @@ execute pathogen#infect()
 set nocompatible
 set exrc "vim will source .vimrc if in pwd
 
+command! -complete=file -nargs=1 Rpdf :r !pdftotext -nopgbrk <q-args> - | fmt -csw78
+
 "unicode settings
 if has("multi_byte")
     if &termencoding == ""
@@ -74,8 +76,13 @@ func! WP() "call from vim cmd line w/ :Pword
     set formatprg=par
     setlocal wrap
     setlocal linebreak
+    nnoremap j gj
+    nnoremap k gk
+    nnoremap gk k
+    nnoremap gj j  
 endfunction
-
+"WP keymap
+nnoremap <leader>wp :call WP()<CR>
 
 "airline config
 let g:airline_detect_iminsert=1
@@ -115,7 +122,7 @@ set showmatch "highlight complementary parentheses
 
 "searching
 set incsearch " single character search buffer
-set hlsearch " highlights search values
+set nohlsearch " highlights search values
 
 "folding -- LEARN THIS
 set foldenable
@@ -124,14 +131,18 @@ set foldnestmax=10
 set foldmethod=indent
 
 "movement by visual/screen line not '\n' delimitted line (i.e., real lines)
-nnoremap j gj
-nnoremap k gk
+"nnoremap j gj
+"nnoremap k gk
+"nnoremap gk k
+"nnoremap gj j  
+
 
 "leader shortcuts
 " <mapleader> = "\\"
 let mapleader=" "
 
 inoremap jk <Esc>
+inoremap kj <Esc>
 inoremap <C-[> <Esc>
 nnoremap <F4> :NERDTreeToggle<CR>
 
@@ -141,7 +152,7 @@ nnoremap <leader>rr :source ~/.vimrc<CR>
 syntax on
 syntax enable " whats the diff between on and enable?
 set breakindent " linebreaks observe indentation context
-set showbreak=\ \ 
+"set showbreak=\ \ 
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -158,6 +169,7 @@ set spelllang=en_us
 runtime ftplugin/man.vim
 set hidden "allow undisplayed buffer persistence
 set smartindent "? better i'd guess than stupid indent
+set history=200
 
 "insert newline whilst in command mode 
 nnoremap <leader>o o<Esc>
@@ -172,6 +184,13 @@ set pastetoggle=<F3>
 "blocks gui while running
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR> 
  "deselects highlighted search results 
-nnoremap <leader><C-l> :nohlsearch<CR>
+nnoremap <leader><C-l> :set nohlsearch!<CR>
 nnoremap ; :
 nnoremap : ;      
+
+"add <up/down> prefix filter functionality their more convenient counterparts,
+"c-n and c-p
+cnoremap <c-p> <up>
+cnoremap <c-n> <down>
+
+

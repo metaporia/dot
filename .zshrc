@@ -106,6 +106,8 @@ alias les="nvim -c 'set ft=man' -"
 export MANPAGER="nvim -c 'set ft=man' -"
 export PAGER="nvim -c 'set ft=man' -"
 
+#axiom/wiki 
+alias viki="nvim -u ~/wiki/.vimrc_wiki"
 
 #editor
 alias v='nvim'
