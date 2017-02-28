@@ -193,4 +193,6 @@ nnoremap : ;
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>
 
+"insert formatted date cmd
+nnoremap <leader>da "=strftime("/%g/%m/%d/%H/%M/%S")<CR>P
 

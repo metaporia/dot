@@ -76,6 +76,8 @@ alias gspak='emacsclient -c' # throws error without $emacs --daemon
 
 alias cls='clear'
 
+alias pop='~/popcorn/Popcorn-Time'
+
 #git aliases
 alias gdl='git add --all'
 alias gcm='git commit -m' 
