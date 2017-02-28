@@ -82,6 +82,8 @@ alias pop='~/popcorn/Popcorn-Time'
 alias gdl='git add --all'
 alias gcm='git commit -m' 
 alias gus='git status'
+alias dif='git difftool -y'
+
 
 #conf aliases
 alias dotz='${EDITOR:-vi} ~/.zshrc' #zsh conf
