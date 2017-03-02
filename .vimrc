@@ -142,7 +142,10 @@ set foldmethod=indent
 let mapleader=" "
 
 inoremap jk <Esc>
-inoremap kj <Esc>
+inoremap jk <Esc>
+vnoremap kj <Esc>
+vnoremap jk <Esc>
+
 inoremap <C-[> <Esc>
 nnoremap <F4> :NERDTreeToggle<CR>
 
