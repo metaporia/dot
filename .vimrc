@@ -142,7 +142,7 @@ set foldmethod=indent
 let mapleader=" "
 
 inoremap jk <Esc>
-inoremap jk <Esc>
+inoremap kj <Esc>
 vnoremap kj <Esc>
 vnoremap jk <Esc>
 
@@ -201,6 +201,3 @@ nnoremap <leader>da "=strftime("/%g/%m/%d/%H/%M/%S")<CR>P
 
 "gui options
 set guioptions="a"
-
-
-
