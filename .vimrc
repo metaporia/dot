@@ -189,7 +189,10 @@ nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
  "deselects highlighted search results 
 nnoremap <leader><C-l> :set nohlsearch!<CR>
 nnoremap ; :
-nnoremap : ;      
+vnoremap ; :
+nnoremap <leader>; ;
+vnoremap <leader>; ;
+
 
 "add <up/down> prefix filter functionality their more convenient counterparts,
 "c-n and c-p

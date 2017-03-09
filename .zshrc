@@ -82,7 +82,8 @@ alias pop='~/popcorn/Popcorn-Time'
 alias gdl='git add --all'
 alias gcm='git commit -m' 
 alias gus='git status'
-alias dif='git difftool -y'
+alias diff='git difftool -yt vimdiff'
+alias dif='git difftool -yt meld'
 
 
 #conf aliases
@@ -108,7 +109,7 @@ alias cll='clear;ls -l'
 #vless; **depends on nvim fs
 alias les="nvim -c 'set ft=man' -"
 export MANPAGER="nvim -c 'set ft=man' -"
-export PAGER="nvim -c 'set ft=man' -"
+export PAGER="nvim"
 
 #axiom/wiki 
 alias viki="nvim -u ~/wiki/.vimrc_wiki"
