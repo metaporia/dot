@@ -188,11 +188,10 @@ set pastetoggle=<F3>
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR> 
  "deselects highlighted search results 
 nnoremap <leader><C-l> :set nohlsearch!<CR>
-nnoremap ; :
-vnoremap ; :
-nnoremap <leader>; ;
-vnoremap <leader>; ;
-
+nnoremap <leader>; :
+vnoremap <leader>; :
+"shortcuts for write ...
+nnoremap <leader>w :w<CR>
 
 "add <up/down> prefix filter functionality their more convenient counterparts,
 "c-n and c-p

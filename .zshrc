@@ -52,7 +52,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git, python, pip, virtualenv, ubuntu, vim)
+plugins=(git, ubuntu, vim)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -105,11 +105,12 @@ alias ok='okular'
 alias cla='clear;la'
 alias cl='clear;ls'
 alias cll='clear;ls -l'
+alias lt='ls -lt'
 
 #vless; **depends on nvim fs
 alias les="nvim -c 'set ft=man' -"
 export MANPAGER="nvim -c 'set ft=man' -"
-export PAGER="nvim"
+#export PAGER="nvim -c 'set paste | set ft=man' - "
 
 #axiom/wiki 
 alias viki="nvim -u ~/wiki/.vimrc_wiki"
@@ -140,10 +141,16 @@ bindkey -v
 bindkey jk vi-cmd-mode
 bindkey kj vi-cmd-mode
 bindkey '^r' history-incremental-search-backward
-
+bindkey '^u' backward-kill-line
+bindkey '^w' backward-kill-word
+bindkey '^h' backward-delete-char
+bindkey '^h' backward-delete-char
 #export KEYTIMEOUT=1
 
 
 
 #
 #
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
