@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
- export PATH=.:$HOME/bin:/usr/local/bin:$PATH
+ export PATH=/usr/bin/vim:.:$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
  export ZSH=~/.oh-my-zsh
@@ -106,20 +106,22 @@ alias cla='clear;la'
 alias cl='clear;ls'
 alias cll='clear;ls -l'
 alias lt='ls -lt'
+alias clt='clear;ls -lt'
+
 
 #vless; **depends on nvim fs
-alias les="nvim -c 'set ft=man' -"
-export MANPAGER="nvim -c 'set ft=man' -"
-#export PAGER="nvim -c 'set paste | set ft=man' - "
+alias les="/usr/bin/vim -c 'set ft=man' -"
+#export MANPAGER="/usr/bin/vim -c 'set ft=man' -"
+#export PAGER="/usr/bin/vim -c 'set paste | set ft=man' - "
 
 #axiom/wiki 
 alias viki="nvim -u ~/wiki/.vimrc_wiki"
 
 #editor
-alias v='nvim'
+alias v='/usr/bin/vim'
 
 alias ash='/home/aphoria/alacritty/target/release/alacritty'
-export EDITOR='nvim'
+export EDITOR='/usr/bin/vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -157,6 +159,11 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH"
 
+#redd: less config
+alias re="less -k/home/aphoria/redd.less"
+#reload ~/redd.lesskey
+alias sore="lesskey -o ~/redd.less ~/redd.lesskey" #poss. mv to ~/redd/{.less, .lesskey}
 
-
+#set env vars
+export LESS="-R -i -M -W"
 

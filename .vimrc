@@ -1,6 +1,6 @@
 execute pathogen#infect()
 set nocompatible
-set exrc "vim will source .vimrc if in pwd
+"set exrc "vim will source .vimrc if in pwd
 
 command! -complete=file -nargs=1 Rpdf :r !pdftotext -nopgbrk <q-args> - | fmt -csw78
 
@@ -18,8 +18,6 @@ endif
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog ='/usr/bin/python3'
 
-"Nvim (notational velocity config)
-let g:NVIM_database='~/notes/.nvim' " nvim totally broke
 
 "ycm gcc config
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
@@ -122,7 +120,7 @@ set showmatch "highlight complementary parentheses
 
 "searching
 set incsearch " single character search buffer
-set nohlsearch " highlights search values
+set hlsearch " highlights search values
 
 "folding -- LEARN THIS
 set foldenable
@@ -139,7 +137,7 @@ set foldmethod=indent
 
 "leader shortcuts
 " <mapleader> = "\\"
-let mapleader=" "
+let mapleader="\<Space>"
 
 inoremap jk <Esc>
 inoremap kj <Esc>
@@ -150,12 +148,12 @@ inoremap <C-[> <Esc>
 nnoremap <F4> :NERDTreeToggle<CR>
 
 nnoremap <leader>g :GundoToggle<CR>
-nnoremap <leader>rr :source ~/.vimrc<CR>
+nnoremap <leader>r :source ~/.vimrc<CR>
 
 syntax on
 syntax enable " whats the diff between on and enable?
 set breakindent " linebreaks observe indentation context
-"set showbreak=\ \ 
+"set showbreak=\->\ 
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -169,7 +167,6 @@ set ignorecase "case insensitive search
 set smartcase "case sensitive on uppercase search phrase
 set wrap
 set spelllang=en_us
-runtime ftplugin/man.vim
 set hidden "allow undisplayed buffer persistence
 set smartindent "? better i'd guess than stupid indent
 set history=200
@@ -179,7 +176,10 @@ nnoremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
 "whitespace chars
 set listchars=tab:▸\ ,eol:¬
-nnoremap <leader>l :set list!<CR>
+
+"v[iew] options leader tree
+nnoremap <leader>vl :set list!<CR>
+nnoremap <leader>vs :set spell!<CR>
 
 set pastetoggle=<F3>
 
@@ -193,13 +193,26 @@ vnoremap <leader>; :
 "shortcuts for write ...
 nnoremap <leader>w :w<CR>
 
-"add <up/down> prefix filter functionality their more convenient counterparts,
-"c-n and c-p
-cnoremap <c-p> <up>
-cnoremap <c-n> <down>
-
 "insert formatted date cmd
 nnoremap <leader>da "=strftime("/%g/%m/%d/%H/%M/%S")<CR>P
 
 "gui options
 set guioptions="a"
+
+"buffer navigation
+nnoremap <leader>j :bn<CR>
+nnoremap <leader>k :bp<CR>
+"alternate buf nav
+nnoremap <c-n> :bn<CR>
+"buff next
+nnoremap <c-p> :bp<CR>
+"buff prev
+nnoremap <c-k> :bd<CR>
+"buf kill
+
+"list buffers
+nnoremap <leader>l :ls<CR>
+
+" man.vim on
+runtime! ftplugin/man.vim
+
