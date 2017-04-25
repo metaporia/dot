@@ -1,8 +1,4 @@
 set nocompatible
-set nobackup "don't ~%.swp me!
-set nowritebackup "^^^; No means No!
-
-
 "set exrc "vim will source .vimrc if in pwd
 
 "pdf -> extractable text
@@ -31,9 +27,10 @@ endif
 
 "colors
 "let g:solarized_termcolors=256
-set bg=dark "match solarized bg col
-colorscheme gruvbox "PapayaWhip alternatively
+colorscheme gruvbox"PapayaWhip alternatively
 
+"describe terminal emulator bg color to vim
+"set background="light"
 
 "rainbows
 "let g:rbpt_colorpairs = [
@@ -67,7 +64,7 @@ augroup grp1
     autocmd Filetype python set syntax
     autocmd Filetype python syntax on
     autocmd Filetype python syntax enable
-    autocmd Filetype python colorscheme solarized 
+    autocmd Filetype python colorscheme 
     autocmd Filetype python let python_highlight_all = 1
     autocmd FileType python set nowrap 
 augroup END
@@ -196,7 +193,6 @@ set pastetoggle=<F3>
 "blocks gui while running
 "nnoremap <F5> :YcmForceCompileAndDiagnostics<CR> 
 
-
  "deselects highlighted search results 
 nnoremap <leader>vh :set nohlsearch!<CR>
 nnoremap <leader>; :
@@ -205,7 +201,7 @@ vnoremap <leader>; :
 nnoremap <leader>w :w<CR>
 
 "insert formatted date cmd
-nnoremap <leader>da "=strftime(" %g/%m/%d/%H/%M/%S")<CR>P
+nnoremap <leader>da "=strftime("/%g/%m/%d/%H/%M/%S")<CR>P
 
 "gui options
 set guioptions="a"
@@ -224,11 +220,5 @@ nnoremap <leader>l :ls<CR>
 " man.vim on
 runtime! ftplugin/man.vim
 
-
-"plugin support
-
-"goyo
-pa goyo
-
-nnoremap <leader>mg :Goyo<CR>
-"pneumonic: m{ode:} g{oyo}
+" tab completion
+inoremap <Tab> <C-X><C-V>
