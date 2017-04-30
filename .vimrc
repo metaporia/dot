@@ -86,7 +86,7 @@ func! WP() "call from vim cmd line w/ :Pword
 endfunction
 
 "WP keymap
-nnoremap <leader>wp :call WP()<CR>
+nnoremap <leader>mw :call WP()<CR>
 
 ""airline config
 "let g:airline_detect_iminsert=1
@@ -151,7 +151,6 @@ vnoremap kj <Esc>
 vnoremap jk <Esc>
 
 inoremap <C-[> <Esc>
-nnoremap <F4> :NERDTreeToggle<CR>
 
 "nnoremap <leader>g :GundoToggle<CR>
 nnoremap <leader>rr :source ~/.vimrc<CR>
@@ -180,6 +179,8 @@ set spelllang=en_us
 set hidden "allow undisplayed buffer persistence
 set history=1000
 
+"yank sys clipboard on ftype: HTML
+set clipboard="html" 
 "insert newline whilst in command mode 
 nnoremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
@@ -232,3 +233,10 @@ pa goyo
 
 nnoremap <leader>mg :Goyo<CR>
 "pneumonic: m{ode:} g{oyo}
+
+nnoremap <leader>gs :Gstatus<CR>
+
+" pomodoro integretion
+nnoremap <leader>dt "=strftime("%H:%M:%S")<CR>P
+
+
