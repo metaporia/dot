@@ -181,6 +181,7 @@ set history=1000
 
 "yank sys clipboard on ftype: HTML
 set clipboard="html" 
+
 "insert newline whilst in command mode 
 nnoremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>

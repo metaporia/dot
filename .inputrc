@@ -1,0 +1,62 @@
+set bell-style visible
+set enable-keypad on  
+set disable-completion off
+set input-meta on 
+set output-meta on 
+
+
+set isearch-terminators 
+
+set bind-tty-special-chars off #adds punctuation as word delimiters
+
+#history 
+set history-preserve-point on
+
+
+set blink-matching-paren on 
+
+set visible-stats on
+
+set keyseq-timeout 150 
+set show-mode-in-prompt on 
+
+set vi-cmd-mode-string "(n)"
+set vi-ins-mode-string "(i)"
+
+
+set editing-mode vi
+#insert mode bindings
+#]
+$if mode=vi
+    #insert mode 
+    set keymap vi-insert 
+    "\en": menu-complete
+    "\ep": menu-complete-backward
+    "\C-n": history-search-forward
+    "\C-p": history-search-backward
+    "\C-l": clear-screen 
+    "\C-a": beginning-of-line
+    "\C-e": end-of-line
+    "jk": vi-movement-mode 
+    #normal mode bindings
+    set keymap vi-command
+    "\C-l": clear-screen 
+    "gg": beginning-of-history
+    "G": end-of-history
+    "\C-a": beginning-of-line
+    "\C-e": end-of-line
+
+$endif
+"\C-a": beginning-of-line
+"\C-e": end-of-line
+
+set show-all-if-ambiguous on #enable single tab completion
+set show-all-if-unmodified on #list immediately, no bell if ambiguous
+set completion-ignore-case on 
+set skip-completed-text on
+set colored-completion-prefix on  
+set colored-stats on 
+
+
+
+
