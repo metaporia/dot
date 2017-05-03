@@ -42,3 +42,8 @@ alias v='vim'
 alias ..='cd ..'
 alias cb='cd -'
 
+
+
+#tmux
+alias tmux='tmux -2' # run in 256color mode 
+
