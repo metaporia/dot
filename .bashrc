@@ -128,5 +128,5 @@ PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 export EDITOR=/usr/bin/vim
 export VISUAL='/usr/bin/vim -g'  
 
-
+export PATH=/home/aporia/ws/bin:$PATH
 
