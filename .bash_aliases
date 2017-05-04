@@ -46,5 +46,10 @@ alias cb='cd -'
 
 #tmux
 alias tmux='tmux -2' # run in 256color mode 
-alias 
+alias ta="tmux -2 attach -t" # attatch to <session>
+alias tn="tmux new -s" #session name here 
+alias tp="tmux list-panes"
+alias tw="tmux list-windows"
+alias ts="tmux list-sessions"
+alias ti="tmux info"
 

@@ -3,6 +3,13 @@ set nobackup "don't ~%.swp me!
 set nowritebackup "^^^; No means No!
 
 
+
+"terminal colors 
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+
 "set exrc "vim will source .vimrc if in pwd
 
 "pdf -> extractable text
@@ -177,10 +184,10 @@ set ignorecase "case insensitive search
 set smartcase "case sensitive on uppercase search phrase
 set spelllang=en_us
 set hidden "allow undisplayed buffer persistence
-set history=1000
+set history=5000
 
 "yank sys clipboard on ftype: HTML
-set clipboard="html" 
+set clipboard=html 
 
 "insert newline whilst in command mode 
 nnoremap <leader>o o<Esc>
