@@ -87,18 +87,18 @@ fi
 
 
 # builtin time (1) fmt conf 
-export TIMEFORMAT=$'\e[0;30m\e[47mreal:%Rs user:%Us sys:%Ss cpu:%P%%\e[0m'
+TIMEFORMAT=$'\e[0;30m\e[47mreal:%Rs user:%Us sys:%Ss cpu:%P%%\e[0m'
 
 #ETERNAL HISTORY !!!
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 
-HISTTIMEFORMAT="[%g/%m/%d/%H:%M:%S]"
+HISTTIMEFORMAT=$'[%g/%m/%d/%H:%M:%S]'
 HISTFILE=~/.bash_hist_inf
-HISTCONTROL=ignoreboth 
+HISTCONTROL='ignoreboth'
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=-1
+HISTSIZE=500
 HISTFILESIZE=-1
 
 set magic-space on 
@@ -125,8 +125,8 @@ fi
 #prompt 
 
 PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-export EDITOR=/usr/bin/vim
-export VISUAL='/usr/bin/vim -g'  
-
-export PATH=/home/aporia/ws/bin:$PATH
-
+EDITOR=/usr/bin/vim
+VISUAL='/usr/bin/vim -g'  
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+PATH=/home/aporia/ws/bin:$PATH
+history -c # clear commands from dotfiles from history 
