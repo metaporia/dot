@@ -3,12 +3,14 @@ set nobackup "don't ~%.swp me!
 set nowritebackup "^^^; No means No!
 
 
-
+syntax on 
 "terminal colors 
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
+"set 16 bit colors
+set t_Co=256
+syntax enable " whats the diff between on and enable?
 
 "set exrc "vim will source .vimrc if in pwd
 
@@ -37,7 +39,7 @@ endif
 "let g:YcmWarningSign = 'w>'
 
 "colors
-"let g:solarized_termcolors=256
+let g:solarized_termcolors=256
 set bg=dark "match solarized bg col
 colorscheme gruvbox "PapayaWhip alternatively
 
@@ -162,8 +164,6 @@ inoremap <C-[> <Esc>
 "nnoremap <leader>g :GundoToggle<CR>
 nnoremap <leader>rr :source ~/.vimrc<CR>
 
-syntax on
-syntax enable " whats the diff between on and enable?
 
 set breakindent " linebreaks observe indentation context
 "set showbreak=\->\ 

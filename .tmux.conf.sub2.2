@@ -24,13 +24,12 @@ bind-key r source-file ~/.tmux.conf \; display "reloaded"
 
 #copy mode
 unbind u 
-set mode-keys vi
-
-bind u copy-mode 
-bind -T copy-mode 'v' send-keys -X begin-selection
-bind -T copy-mode 'y' send-keys -X copy-pipe 'xclip -in -selection clipboard'
-bind -T copy-mode 'u' send-keys -X halfpage-up 
-bind -T copy-mode 'd' send-keys -X halfpage-down
+bind u copy-mode -e
+bind -t vi-copy 'v' begin-selection
+bind -t vi-copy 'y' copy-pipe 'xclip -in -selection clipboard'
+bind -t vi-copy 'r' rectangle-toggle
+bind -t vi-copy 'u' page-up
+bind -t vi-copy 'd' page-down
 
 #paste buffer 
 bind-key -T prefix I paste-buffer 
