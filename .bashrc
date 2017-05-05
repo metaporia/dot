@@ -129,4 +129,10 @@ EDITOR=/usr/bin/vim
 VISUAL='/usr/bin/vim -g'  
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 PATH=/home/aporia/ws/bin:$PATH
+
+PAGER=less 
+
 history -c # clear commands from dotfiles from history 
+
+
+

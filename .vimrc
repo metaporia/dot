@@ -3,14 +3,14 @@ set nobackup "don't ~%.swp me!
 set nowritebackup "^^^; No means No!
 
 
-syntax on 
 "terminal colors 
 set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 "set 16 bit colors
 set t_Co=256
-syntax enable " whats the diff between on and enable?
+"syntax enable " whats the diff between on and enable?
+syntax on 
 
 "set exrc "vim will source .vimrc if in pwd
 
@@ -41,7 +41,7 @@ endif
 "colors
 let g:solarized_termcolors=256
 set bg=dark "match solarized bg col
-colorscheme gruvbox "PapayaWhip alternatively
+"colorscheme gruvbox "PapayaWhip alternatively
 
 
 "rainbows
@@ -122,6 +122,9 @@ nnoremap <leader>mw :call WP()<CR>
 
 filetype plugin indent on
 set relativenumber "line numbers
+nnoremap <leader>vr :set relativenumber!<CR>
+nnoremap <leader>vn :set number!<CR>
+
 set showcmd
 set cursorline
 
@@ -129,7 +132,7 @@ filetype indent on "loade file-type specific indent files (ex: ~/.vim/indent/pyt
 
 set wildmenu "visual autocomplete
 
-set lazyredraw "optimizes rendering efforts
+"set lazyredraw "optimizes rendering efforts
 
 set showmatch "highlight complementary parentheses
 
@@ -184,10 +187,10 @@ set ignorecase "case insensitive search
 set smartcase "case sensitive on uppercase search phrase
 set spelllang=en_us
 set hidden "allow undisplayed buffer persistence
-set history=5000
+set history=1000
 
 "yank sys clipboard on ftype: HTML
-set clipboard=html 
+set clipboard+=unamed,html
 
 "insert newline whilst in command mode 
 nnoremap <leader>o o<Esc>
@@ -217,7 +220,7 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>da "=strftime(" %g/%m/%d/%H/%M/%S")<CR>P
 
 "gui options
-set guioptions="a"
+"set guioptions="a"
 
 "buffer navigation
 nnoremap <c-n> :bn<CR>
