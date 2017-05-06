@@ -210,3 +210,12 @@ nnoremap <leader>is <F3>:r !xclip -selection clipboard -o<CR><F3>
 set bg=dark "inform vim of bg color
 colo gruvbox
 
+
+" gui options. required pre .gvimrc sourcing 
+set guioptions=aceim
+"a : autoselect text to sys sel
+"c : confirm via console; no gui popups
+"e : gui tabline 
+"i : vim icon 
+"m : menu bar (present)
+
