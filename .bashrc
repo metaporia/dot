@@ -122,17 +122,18 @@ if [ -f ~/.bash_env ]; then
     . ~/.bash_env 
 fi 
 
-#prompt 
+#prompt 17/05/08/12/05/21 
 
-PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+export PS1='${debian_chroot:+($debian_chroot)}\u@\h-\D{%g/%m/%d};\A\w\$ '
 EDITOR=/usr/bin/vim
 VISUAL='/usr/bin/vim -g'  
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 PATH=/home/aporia/ws/bin:$PATH
 
 PAGER=less 
+HACKDIR=/home/aporia/games/nethack
+NETHACKDIR=/home/aporia/games/nethack
 
 history -c # clear commands from dotfiles from history 
-
-
+history -r 
 
