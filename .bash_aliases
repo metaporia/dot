@@ -87,4 +87,5 @@ alias ok='~/bin/raise_Okular&'
 alias rg='~/bin/raise_GVIM'
 
  
-
+#nethack
+alias net='nethack -dec'
