@@ -12,6 +12,7 @@ set convert-meta off # allow utf8 i/o
 set bind-tty-special-chars off #adds punctuation as word delimiters
 
 #history 
+set history-size -1
 
 set blink-matching-paren on 
 

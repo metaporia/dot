@@ -26,13 +26,13 @@
 
 
 # Set your character's name.
-#OPTIONS=name:Janet
+OPTIONS=name:metaporia
 
 # Set your character's role, race, gender, and alignment
-#OPTIONS=role:Valkyrie, race:Human, gender:female, align:lawful
+OPTIONS=role:Samurai, race:Human, gender:female, align:lawful
 
 # Set the default dog, cat, and horse names, and your fruit
-#OPTIONS=dogname:Fido
+OPTIONS=dogname:Mercy
 #OPTIONS=catname:Morris
 #OPTIONS=horsename:Silver
 #OPTIONS=fruit:guava
@@ -126,7 +126,7 @@ OPTIONS=fullscreen
 OPTIONS=help
 
 # Hilight pets with a heart symbol (Windows, X11), or inverse attribute (TTY)
-#OPTIONS=hilite_pet
+OPTIONS=hilite_pet
 
 # Visually distinguish piles of objects from individual objects
 OPTIONS=hilite_pile
@@ -148,7 +148,7 @@ OPTIONS=lit_corridor
 #OPTIONS=!mail
 
 # Mention in the message line when walking at a wall. Useful for blind players.
-#OPTIONS=mention_walls
+OPTIONS=mention_walls
 
 # How menus are shown. Values are 'traditional', 'combination',
 # 'full', or 'partial'
@@ -177,10 +177,10 @@ OPTIONS=menu_headings:underline
 OPTIONS=menu_objsyms
 
 # Do not clear the screen before drawing menus, and align menus to right
-#OPTIONS=menu_overlay
+#OPTIONS=nomenu_overlay
 
 # Set the number of messages saved into message history (^P -command)
-OPTIONS=msghistory:500
+OPTIONS=msghistory:1000
 
 # Allows you to change the way recalled messages are displayed.
 # The possible values are:
@@ -243,14 +243,14 @@ OPTIONS=pushweapon
 #OPTIONS=runmode:run
 
 # Ask if you really want to hit your pet
-#OPTIONS=safe_pet
+OPTIONS=safe_pet
 
 # Perform extra data checking.  Wizard-mode only.
 #OPTIONS=sanity_check
 
 # Display a menu of existing saved games for the player to choose from
 # at game startup, if it can. Not all ports support this option.
-#OPTIONS=selectsaved
+OPTIONS=selectsaved
 
 # Which parts of the score file to show at end of game
 #OPTIONS=scores:10 top/2 around/own
@@ -279,7 +279,7 @@ OPTIONS=sortpack
 #OPTIONS=!sparkle
 
 # Boldface monsters and --More-- (default off).
-#OPTIONS=standout
+OPTIONS=standout
 
 # NetHack version level to suppress alert notification messages
 # about feature changes for that and prior versions.

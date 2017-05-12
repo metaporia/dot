@@ -98,7 +98,7 @@ HISTFILE=~/.bash_hist_inf
 HISTCONTROL='ignoreboth'
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=500
+HISTSIZE=-1
 HISTFILESIZE=-1
 
 set magic-space on 
