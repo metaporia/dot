@@ -279,7 +279,7 @@ OPTIONS=sortpack
 #OPTIONS=!sparkle
 
 # Boldface monsters and --More-- (default off).
-OPTIONS=standout
+#OPTIONS=standout
 
 # NetHack version level to suppress alert notification messages
 # about feature changes for that and prior versions.

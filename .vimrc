@@ -13,6 +13,7 @@ set nocompatible "remove for neovim
 
 "backup; preclude .*.sw? clutter
 se nobackup
+se nos
 se nowritebackup
 
 "unicode 
