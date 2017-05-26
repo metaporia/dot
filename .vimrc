@@ -22,7 +22,7 @@ if has("multi_byte")
         let &termencoding = &encoding
     endif
     set encoding=utf-8
-    setglobal fileencoding=utf-7
+    setglobal fileencoding=utf-8
 endif
 
 
@@ -56,6 +56,7 @@ set smartcase
 
 "maintain current indentation if not overridden by filetype settings
 set autoindent
+set smartindent
 
 "don't arbitrarily go to start of new line. yes!! 
 set nostartofline
@@ -73,7 +74,7 @@ set cursorline
 " " dialogue asking if you wish to save changed files.
 set confirm
 
-set visualbell
+set novisualbell
 
 "enable mouse in modes: all
 set mouse=a
@@ -156,7 +157,7 @@ nnoremap <leader>vn :set number!<CR>
 nnoremap <leader>vh :set hlsearch!<CR>
 
 "reload .vimrc 
-nnoremap <leader>r :source ~/.new.vimrc<CR>:echo "reloaded ~.vimrc"<CR> 
+nnoremap <leader>r :source ~/.vimrc<CR>:echo "reloaded ~.vimrc"<CR> 
 
 "write
 nnoremap <leader>w :w<CR>
@@ -169,6 +170,10 @@ nnoremap <leader>e :e!<CR>
 "insert formatted date cmd
 nnoremap <leader>da "=strftime(" %g/%m/%d/%H/%M/%S")<CR>P
 nnoremap <leader>dt "=strftime("%H:%M:%S")<CR>P
+
+" log w style
+nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
+
 
 "buffer nav
 
@@ -218,5 +223,4 @@ set guioptions=aceim
 "c : confirm via console; no gui popups
 "e : gui tabline 
 "i : vim icon 
-"m : menu bar (present)
 

@@ -126,9 +126,9 @@ fi
 
 export PS1='${debian_chroot:+($debian_chroot)}\u@\h-\D{%g/%m/%d};\A\w\$ '
 EDITOR=/usr/bin/vim
-VISUAL='/usr/bin/vim -g'  
+VISUAL=''  
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-PATH=/home/aporia/ws/bin:$PATH
+PATH=/home/aporia/.local/bin:/home/aporia/ws/bin:$PATH
 
 PAGER=less 
 HACKDIR=/home/aporia/games/nethack

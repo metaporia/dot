@@ -39,15 +39,18 @@ $if mode=vi
     "\C-a": beginning-of-line
     "\C-e": end-of-line
     "jk": vi-movement-mode 
+    "\el": vi-yank-arg
     #normal mode bindings
     set keymap vi-command
     "\C-l": clear-screen 
     "gg": beginning-of-history
     "G": end-of-history
+    "\C-a": beginning-of-line
+    "\C-e": end-of-line
+    "\el": vi-yank-arg
+    
 
 $endif
-"\C-a": beginning-of-line
-"\C-e": end-of-line
 
 set show-all-if-ambiguous on #enable single tab completion
 set show-all-if-unmodified on #list immediately, no bell if ambiguous
