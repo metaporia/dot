@@ -224,3 +224,5 @@ set guioptions=aceim
 "e : gui tabline 
 "i : vim icon 
 
+" muse 
+nnoremap <leader>md :new <CR>:r !muse.do<CR>:set ft=vim<CR>gg
