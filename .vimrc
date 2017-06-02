@@ -1,4 +1,3 @@
-" Fri May  5 13:02:37 PDT 2017
 " keane. in reponse to gvim + vim screen flicker. not tmux. vim -U NONE
 " resolves. color issue w vim ^/v tmux, gnome-terminal
 
@@ -218,7 +217,7 @@ colo gruvbox
 
 
 " gui options. required pre .gvimrc sourcing 
-set guioptions=aceim
+set guioptions=acei
 "a : autoselect text to sys sel
 "c : confirm via console; no gui popups
 "e : gui tabline 
