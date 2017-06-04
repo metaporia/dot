@@ -4,10 +4,14 @@
 #ls 
 alias ll='ls -alF'
 alias la='ls -lAh'
-alias l='ls -CF'
+alias l='ls --color=always'
 alias cl='clear;ls'
 alias cla='clear;ls -lAh'
-alias lt='ls -t'
+alias lt='l -t'
+
+#tree
+alias tre='tree -C | less'
+alias tra='tree -aCDt | less'
 
 #git 
 
@@ -89,3 +93,4 @@ alias rg='~/bin/raise_GVIM'
  
 #nethack
 alias net='nethack -dec'
+11:53:22 λ. 

@@ -129,8 +129,9 @@ EDITOR=/usr/bin/vim
 VISUAL=''  
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 PATH=/home/aporia/.local/bin:/home/aporia/ws/bin:$PATH
+LESS="-R"
 
-PAGER=less 
+PAGER='less -R'
 HACKDIR=/home/aporia/games/nethack
 NETHACKDIR=/home/aporia/games/nethack
 
