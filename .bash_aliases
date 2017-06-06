@@ -93,4 +93,3 @@ alias rg='~/bin/raise_GVIM'
  
 #nethack
 alias net='nethack -dec'
-11:53:22 λ. 
