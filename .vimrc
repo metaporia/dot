@@ -213,7 +213,7 @@ nnoremap <leader>is <F3>:r !xclip -selection clipboard -o<CR><F3>
 
 "COLORs n aesthetic bullcrap upon which I fixate
 set bg=dark "inform vim of bg color
-colo gruvbox
+colo solarized
 
 
 " gui options. required pre .gvimrc sourcing 
@@ -229,3 +229,21 @@ nnoremap <leader>md :new <CR>:r !muse.do<CR>:set ft=vim<CR>gg
 
 " path 
 set path=.,/usr/include,~/ws,~/sputum,~/dot,~/Axiom,~/wiki
+"$PATH 
+
+
+" lang specific auGrps
+augroup haskell
+    "clear pre-existing aucmd's
+    autocmd! 
+    "async lint ^ check
+    "autocmd BufWritePost *.hs GhcModCheckAndLintAsync 
+    autocmd FileType haskell nnoremap <buffer> <leader>gt :GhcModType<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gl :GhcModLint<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gh :GhcModCheck<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gi :GhcModInfo<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gc :GhcModTypeClear<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gp :GhcModInfoPreview<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gca :GhcModSplitFunCase<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
+augroup END

@@ -138,3 +138,5 @@ NETHACKDIR=/home/aporia/games/nethack
 history -c # clear commands from dotfiles from history 
 history -r 
 
+# haskell stack completion
+eval "$(stack --bash-completion-script stack)"
