@@ -130,13 +130,14 @@ VISUAL=''
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 PATH=/home/aporia/.local/bin:/home/aporia/ws/bin:$PATH
 LESS="-R"
+VIMRUNTIME=/usr/share/vim/vim80
 
 PAGER='less -R'
 HACKDIR=/home/aporia/games/nethack
 NETHACKDIR=/home/aporia/games/nethack
 
-history -c # clear commands from dotfiles from history 
-history -r 
-
 # haskell stack completion
 eval "$(stack --bash-completion-script stack)"
+
+history -c # clear commands from dotfiles from history 
+history -r 

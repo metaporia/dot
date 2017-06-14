@@ -1,4 +1,5 @@
-$include /etc/inputrc
+$include /etc/inputrc 
+#^^^ non-extant  @17/06/11/11/57/31
 
 
 set bell-style visible
@@ -7,6 +8,7 @@ set input-meta on
 set output-meta on 
 set convert-meta off # allow utf8 i/o 
 
+set mark-directories on
 
 
 set bind-tty-special-chars off #adds punctuation as word delimiters
@@ -40,6 +42,19 @@ $if mode=vi
     "\C-e": end-of-line
     "jk": vi-movement-mode 
     "\el": vi-yank-arg
+    
+    # kill 'til end-of-line 
+    "\C-k": kill-line
+    "\ed": kill-word
+
+    # forwards word
+    "\ef": vi-forward-word
+    "\eb": vi-backward-word
+    #"\C-f":
+    # backwards word
+    # undo -- c-_ is bound by X window manager (zoom)
+    #
+
     #normal mode bindings
     set keymap vi-command
     "\C-l": clear-screen 
@@ -48,6 +63,9 @@ $if mode=vi
     "\C-a": beginning-of-line
     "\C-e": end-of-line
     "\el": vi-yank-arg
+    "u": undo
+    "\ef": vi-forward-word
+    "\eb": vi-backward-word
     
 
 $endif

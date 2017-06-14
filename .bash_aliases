@@ -10,7 +10,7 @@ alias cla='clear;ls -lAh'
 alias lt='l -t'
 
 #tree
-alias tre='tree -C | less'
+#alias tre='tree -C | less'
 alias tra='tree -aCDt | less'
 
 #git 
