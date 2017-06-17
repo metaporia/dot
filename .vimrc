@@ -6,6 +6,7 @@
 "     - no bindings
 "     - mostly platform agnostic (no color, term, etc..)
 scriptencoding utf-8
+set t_Co=256
 
 "ditch vi
 set nocompatible "remove for neovim
@@ -267,6 +268,7 @@ nnoremap <leader>is "*p
 
 "COLORs n aesthetic bullcrap upon which I fixate
 set bg=dark "inform vim of bg color
+let g:solarized_termcolors=256
 colo default
 
 
@@ -326,7 +328,7 @@ endfunction
 " NOTE: vvv: assumes a SINGLE attatched tmux session at any given time
 augroup title
    autocmd!     
-   autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * if TmuxRenameHuh() | call system("tmux rename-window " . expand("%:p")) | endif
+   autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * if TmuxRenameHuh() | call system("tmux rename-window vim" . expand("%:p")) | endif
    autocmd VimLeave * if TmuxRenameHuh() | call system("tmux rename-window bash") | endif
 augroup END
 set title
