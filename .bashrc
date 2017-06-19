@@ -128,7 +128,7 @@ export PS1='${debian_chroot:+($debian_chroot)}\u@\h-\D{%g/%m/%d};\A\w\$ '
 EDITOR=/usr/bin/vim
 VISUAL=''  
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-PATH=/home/aporia/.local/bin:/home/aporia/ws/bin:$PATH
+PATH=/home/aporia/.cargo/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:$PATH
 LESS="-R"
 VIMRUNTIME=/usr/share/vim/vim80
 

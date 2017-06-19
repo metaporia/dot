@@ -304,9 +304,9 @@ augroup haskell
     autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
 
     "formatting, tw, shiftwidth
-    se tw=79
-    se shiftwidth=2
-    se sts=2
+    autocmd FileType haskell se tw=79
+    autocmd FileType haskell se shiftwidth=2
+    autocmd FileType haskell se sts=2
 augroup END
 
 
