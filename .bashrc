@@ -93,7 +93,7 @@ TIMEFORMAT=$'\e[0;30m\e[47mreal:%Rs user:%Us sys:%Ss cpu:%P%%\e[0m'
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 
-HISTTIMEFORMAT=$'[%g/%m/%d/%H:%M:%S]'
+HISTTIMEFORMAT=$'[%g/%m/%d/%H:%M:%S] '
 HISTFILE=~/.bash_hist_inf
 HISTCONTROL='ignoreboth'
 

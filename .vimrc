@@ -139,7 +139,7 @@ set timeoutlen=600
 set ttimeoutlen=200
 
 "tabs
-set shiftwidth=4
+set shiftwidth=0
 set softtabstop=4
 set expandtab
 set smarttab "needs paste toggle to insert (>1) line excerpts 
@@ -217,7 +217,7 @@ nnoremap <leader>r :source ~/.vimrc<CR>:echo "reloaded ~.vimrc"<CR>
 nnoremap <leader>w :w<CR>
 
 "edit! ie reload file. discard changes
-nnoremap <leader>e :e!<CR>
+"nnoremap <leader>e :e!<CR>
 
 "meta data entry 
 
@@ -287,7 +287,6 @@ nnoremap <leader>md :new <CR>:r !muse.do<CR>:set ft=vim<CR>gg
 set path=.,/usr/include,~/ws,~/sputum,~/dot,~/Axiom,~/wiki
 "$PATH 
 
-
 " lang specific auGrps
 augroup haskell
     "clear pre-existing aucmd's
@@ -307,6 +306,18 @@ augroup haskell
     autocmd FileType haskell se tw=79
     autocmd FileType haskell se shiftwidth=2
     autocmd FileType haskell se sts=2
+
+    "direct hoogle integration (ghc-mod esque)
+    nnoremap <leader>h :echo HoogleInfo(expand('<cWORD>'), '-i')<CR>
+    nnoremap <leader>sh :echo HoogleInfo(expand('<cWORD>'), '-n 50')<CR>
+    
+    function! HoogleInfo(searchTerms, flag)
+        let query = "stack exec hoogle -- " . a:flag .  " \'" . a:searchTerms . "\'"  
+        let info = system(query)
+        echo info
+        return ''
+    endfunction
+      
 augroup END
 
 
@@ -337,3 +348,12 @@ augroup title
    autocmd VimLeave * if TmuxRenameHuh() | call system("tmux rename-window bash") | endif
 augroup END
 set title
+
+augroup rust
+    autocmd!
+    autocmd FileType rust nnoremap <leader>rr :!cargo run<CR>
+    autocmd FileType rust :cd expand('%:h')  
+    "autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
+    autocmd FileType rust nnoremap <leader>e :make build \| cw<CR>
+
+augroup END
