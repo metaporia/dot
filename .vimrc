@@ -119,6 +119,7 @@ set cursorline
 set confirm
 
 set novisualbell
+se belloff=all
 
 "enable mouse in modes: all
 set mouse=a
@@ -139,6 +140,7 @@ set timeoutlen=600
 set ttimeoutlen=200
 
 "tabs
+se ts=4
 set shiftwidth=0
 set softtabstop=4
 set expandtab
@@ -188,7 +190,7 @@ let mapleader="\<Space>"
 "toggles
 
 "spell
-nnoremap <leader>vs :set spell!
+nnoremap <leader>vs :set spell!<CR>
 
 "paste 
 set pastetoggle=<F3>
@@ -266,10 +268,16 @@ nnoremap <leader>ic "+p
 "read sys sel1
 nnoremap <leader>is "*p
 
+
+
 "COLORs n aesthetic bullcrap upon which I fixate
-set bg=dark "inform vim of bg color
+set bg=light "inform vim of bg color
 let g:solarized_termcolors=256
-colo default
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
+"colo base16-google-light
 
 
 " gui options. required pre .gvimrc sourcing 
@@ -304,8 +312,8 @@ augroup haskell
 
     "formatting, tw, shiftwidth
     autocmd FileType haskell se tw=79
-    autocmd FileType haskell se shiftwidth=2
-    autocmd FileType haskell se sts=2
+    autocmd FileType haskell se shiftwidth=4
+    autocmd FileType haskell se sts=4
 
     "direct hoogle integration (ghc-mod esque)
     nnoremap <leader>h :echo HoogleInfo(expand('<cWORD>'), '-i')<CR>
@@ -352,8 +360,15 @@ set title
 augroup rust
     autocmd!
     autocmd FileType rust nnoremap <leader>rr :!cargo run<CR>
-    autocmd FileType rust :cd expand('%:h')  
-    "autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
-    autocmd FileType rust nnoremap <leader>e :make build \| cw<CR>
+    "make 
+    nnoremap <leader>e :make build \| cw<CR>
+    autocmd FileType rust compiler cargo
+    autocmd FileType rust setl makeprg=cargo
+    autocmd FileType rust setl tw=79 
 
+augroup END
+
+augroup lineWrap
+        autocmd!
+        autocmd FileType text,conf se wrap | se tw=79 
 augroup END
