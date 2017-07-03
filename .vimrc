@@ -1,4 +1,5 @@
-" keane. in reponse to gvim + vim screen flicker. not tmux. vim -U NONE
+"
+"keane. in reponse to gvim + vim screen flicker. not tmux. vim -U NONE
 " resolves. color issue w vim ^/v tmux, gnome-terminal
 
 "MINIMUM CONFIG
@@ -7,6 +8,7 @@
 "     - mostly platform agnostic (no color, term, etc..)
 scriptencoding utf-8
 set t_Co=256
+"set t_ut=
 
 "ditch vi
 set nocompatible "remove for neovim
@@ -224,8 +226,10 @@ nnoremap <leader>w :w<CR>
 "meta data entry 
 
 "insert formatted date cmd
-nnoremap <leader>da "=strftime(" %g/%m/%d/%H/%M/%S")<CR>P
-nnoremap <leader>dt "=strftime("%H:%M:%S")<CR>P
+nnoremap <leader>ia "=strftime(" %g/%m/%d/%H/%M/%S")<CR>P
+
+
+nnoremap <leader>it "=strftime("%H:%M:%S")<CR>P
 
 " log w style
 nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
@@ -344,7 +348,7 @@ function! TmuxRenameHuh()
     if (has('gui_running') == 0)
         "ren tmux window
         return 1
-    else 
+    else
         return 0
 endfunction
 
@@ -372,3 +376,22 @@ augroup lineWrap
         autocmd!
         autocmd FileType text,conf se wrap | se tw=79 
 augroup END
+
+function! DeadBuf()
+    new | setlocal buftype=nofile | setlocal noswapfile 
+endfunction
+
+function! Define(word)
+    let query = "dict " . '"' . a:word . '"'
+    echo query
+    let definitions = system(query) 
+    silent call DeadBuf() | call bufname("dict") | silent put =definitions | normal ggdd 
+    "call DeadBuf() | 
+endfunction
+
+
+" dict integration, Define keymap hook
+com! -nargs=* Def :call Define("<args>")
+nnoremap <silent> <leader>d  :call Define(expand('<cword>'))<CR>
+
+"statically typed

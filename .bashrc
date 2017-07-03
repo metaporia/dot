@@ -142,6 +142,8 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 
 # haskell stack completion
 eval "$(stack --bash-completion-script stack)"
+eval "$(pandoc --bash-completion)"
+
 
 history -c # clear commands from dotfiles from history 
 history -r 

@@ -93,3 +93,9 @@ alias rg='~/bin/raise_GVIM'
  
 #nethack
 alias net='nethack -dec'
+
+#mimeopen
+alias o='mimeopen'
+
+#mupdf
+alias mu='mupdf'

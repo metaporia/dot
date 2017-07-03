@@ -3,11 +3,14 @@ if &cp | set nocp | endif
 nnoremap  :bd
 nnoremap  :bn
 nnoremap  :bp
+nnoremap  dt "=strftime("%H:%M:%S")P
 nnoremap  rr :!cargo run
+nnoremap <silent>  d :call Define(expand('<cword>'))
+nnoremap  da "=strftime(" %g/%m/%d/%H/%M/%S")P
+nnoremap  e :make build | cw
 nnoremap  sh :echo HoogleInfo(expand('<cWORD>'), '-n 50')
 nnoremap  h :echo HoogleInfo(expand('<cWORD>'), '-i')
 nnoremap  md :new :r !muse.do:set ft=vimgg
-nnoremap  e :make | cw
 nnoremap  is "*p
 nnoremap  ic "+p
 nnoremap  cs "*y
@@ -16,8 +19,8 @@ nnoremap  O O
 nnoremap  o o
 nnoremap  l :ls
 nnoremap  t Go=strftime("%H:%M:%S λ. ")
-nnoremap  dt "=strftime("%H:%M:%S")P
-nnoremap  da "=strftime(" %g/%m/%d/%H/%M/%S")P
+nnoremap  it "=strftime("%H:%M:%S")P
+nnoremap  ia "=strftime(" %g/%m/%d/%H/%M/%S")P
 nnoremap  w :w
 nnoremap  r :source ~/.vimrc:echo "reloaded ~.vimrc" 
 nnoremap  vh :set hlsearch!
@@ -32,14 +35,15 @@ vmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
 vnoremap jk 
 nnoremap <SNR>25_: :=v:count ? v:count : ''
+nnoremap <SNR>26_: :=v:count ? v:count : ''
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
 inoremap jk 
 let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
-set background=dark
 set backspace=indent,eol,start
+set belloff=all
 set clipboard=autoselect,exclude:cons\\|linux,html
 set confirm
 set expandtab
@@ -49,6 +53,7 @@ set guioptions=acei
 set helplang=en
 set hidden
 set ignorecase
+set iminsert=0
 set incsearch
 set laststatus=2
 set listchars=eol:¶,space:.,tab:|·,trail:·,extends:»,precedes:«
@@ -86,27 +91,32 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +148 ch9.hs
-badd +11 ~/sputum/muse/17.06.21
 badd +313 ~/.vimrc
+badd +283 ch9.hs
+badd +11 ~/sputum/muse/17.06.21
+badd +5 ch10.hs
 argglobal
 silent! argdel *
 $argadd ~/sputum/muse/17.06.21
-edit ch9.hs
+edit ~/.vimrc
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
 wincmd t
 set winminheight=1 winheight=1 winminwidth=1 winwidth=1
 argglobal
-nnoremap <buffer>  gcg :GhcModSigCodegen
-nnoremap <buffer>  gca :GhcModSplitFunCase
-nnoremap <buffer>  gp :GhcModInfoPreview
-nnoremap <buffer>  gc :GhcModTypeClear
-nnoremap <buffer>  gi :GhcModInfo
-nnoremap <buffer>  gh :GhcModCheck
-nnoremap <buffer>  gl :GhcModLint
-nnoremap <buffer>  gt :GhcModType
+vnoremap <buffer> <silent> [" :exe "normal! gv"|call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
+nnoremap <buffer> <silent> [" :call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
+vnoremap <buffer> <silent> [] m':exe "normal! gv"|call search('^\s*endf*\%[unction]\>', "bW")
+nnoremap <buffer> <silent> [] m':call search('^\s*endf*\%[unction]\>', "bW")
+vnoremap <buffer> <silent> [[ m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "bW")
+nnoremap <buffer> <silent> [[ m':call search('^\s*fu\%[nction]\>', "bW")
+vnoremap <buffer> <silent> ]" :exe "normal! gv"|call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
+nnoremap <buffer> <silent> ]" :call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
+vnoremap <buffer> <silent> ][ m':exe "normal! gv"|call search('^\s*endf*\%[unction]\>', "W")
+nnoremap <buffer> <silent> ][ m':call search('^\s*endf*\%[unction]\>', "W")
+vnoremap <buffer> <silent> ]] m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "W")
+nnoremap <buffer> <silent> ]] m':call search('^\s*fu\%[nction]\>', "W")
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -124,8 +134,8 @@ setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=s1fl:{-,mb:-,ex:-},:--
-setlocal commentstring=--\ %s
+setlocal comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",:\"
+setlocal commentstring=\"%s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
@@ -142,8 +152,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'haskell'
-setlocal filetype=haskell
+if &filetype != 'vim'
+setlocal filetype=vim
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -165,8 +175,8 @@ setlocal iminsert=0
 setlocal imsearch=2
 setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal indentexpr=GetVimIndent()
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,=end,=else,=cat,=fina,=END,0\\
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
@@ -201,14 +211,14 @@ setlocal smartindent
 setlocal softtabstop=4
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=~/.vim/spell/en.utf-8.add
+setlocal spellfile=
 setlocal spelllang=en_us
 setlocal statusline=
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'haskell'
-setlocal syntax=haskell
+if &syntax != 'vim'
+setlocal syntax=vim
 endif
 setlocal tabstop=4
 setlocal tagcase=
@@ -222,12 +232,13 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 148 - ((64 * winheight(0) + 32) / 65)
+let s:l = 379 - ((45 * winheight(0) + 33) / 67)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-148
-normal! 06|
+379
+normal! 02|
+lcd ~/ws/lang/hs/hs/src
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
