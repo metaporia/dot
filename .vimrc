@@ -153,6 +153,8 @@ set smarttab "needs paste toggle to insert (>1) line excerpts
 
 set breakindent 
 
+set tw=79
+
 
 "errata 
 set showmatch "highligh paren match
