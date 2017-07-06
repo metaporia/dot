@@ -42,7 +42,7 @@ set viminfo+=:1000,
 set viminfo+=@500,
 "lines <- search hist
 set viminfo+=/500,
-set viminfo+=n/home/aporia/dot/.viminfo
+set viminfo+=n/home/aporia/.viminfo
 
 
 "sessions
