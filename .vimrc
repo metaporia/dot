@@ -367,7 +367,7 @@ augroup rust
     autocmd!
     autocmd FileType rust nnoremap <leader>rr :!cargo run<CR>
     "make 
-    nnoremap <leader>e :silent make build \| cw \| redr!<CR>
+    nnoremap <leader>e :make build \| cw<CR>
     autocmd FileType rust compiler cargo
     autocmd FileType rust setl makeprg=cargo
     autocmd FileType rust setl tw=79 
