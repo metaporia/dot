@@ -61,8 +61,8 @@ set ruler
 set runtimepath=~/.vim,~/.vim/pack/plugin/start/vimproc,~/.vim/pack/plugin/start/vim-fugitive,~/.vim/pack/plugin/start/ghcmod-vim,/usr/share/vim/vimfiles,/usr/share/vim/vim80,/usr/share/vim/vimfiles/after,~/.vim/after,~/.vim/pack/plugin/start/ghcmod-vim/after
 set shiftwidth=0
 set showcmd
-set showmatch
 set smartcase
+set showmatch
 set smartindent
 set smarttab
 set softtabstop=4
