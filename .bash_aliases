@@ -99,3 +99,11 @@ alias o='mimeopen'
 
 #mupdf
 alias mu='mupdf'
+
+#--------------------#
+
+# functions #
+
+cheat () { curl -s "http://cheat.sh/$1" ; }
+
+

@@ -1,4 +1,3 @@
-"
 "keane. in reponse to gvim + vim screen flicker. not tmux. vim -U NONE
 " resolves. color issue w vim ^/v tmux, gnome-terminal
 

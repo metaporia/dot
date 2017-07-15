@@ -144,6 +144,57 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 eval "$(stack --bash-completion-script stack)"
 eval "$(pandoc --bash-completion)"
 
+# `curl cheat.sh/$1`
+
+# add this to ~/.bashrc or to ~/.bash.d/cheat.sh and
+#   source ~/.bash.d/cheat.sh
+# in your ~/.bashrc
+
+cheat.sh()
+{
+    # replace native with the color scheme you want
+    # curl cheat.sh/:styles-demo to show the available color schemes
+    curl -s cheat.sh/"$1"?style=native
+}
+
+_cheatsh_complete_cheatsh() 
+{
+    local cur opts #prev
+    _get_comp_words_by_ref -n : cur
+
+    COMPREPLY=()
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts="$(curl -s cheat.sh/:list)"
+
+    #if [[ "${cur}" == ch ]] ; then
+		COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+		__ltrim_colon_completions "$cur"
+        return 0
+    #fi  
+}
+
+complete -F _cheatsh_complete_cheatsh cheat
+
+
+_cheatsh_complete_curl()
+{
+    local cur prev opts
+    _get_comp_words_by_ref -n : cur
+
+    COMPREPLY=()
+    #cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts="$(curl -s cheat.sh/:list | sed s@^@cheat.sh/@)"
+
+    if [[ ${cur} == cheat.sh/* ]] ; then
+		COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+		__ltrim_colon_completions "$cur"
+        return 0
+    fi
+}
+
+complete -F _cheatsh_complete_curl curl
+
 
 history -c # clear commands from dotfiles from history 
 history -r 
