@@ -106,4 +106,8 @@ alias mu='mupdf'
 
 cheat () { curl -s "http://cheat.sh/$1" ; }
 
+weather () { curl "http://wttr.in/$1" ; }
+
+
+
 
