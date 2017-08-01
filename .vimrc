@@ -186,6 +186,7 @@ vnoremap jk <ESC>
 "vnoremap kj <ESC>
 
 "leader
+nmap \ ,
 let mapleader=","
 
 "toggles
