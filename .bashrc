@@ -128,7 +128,7 @@ export PS1='${debian_chroot:+($debian_chroot)}\u@\h-\D{%g/%m/%d};\A\w\$ '
 EDITOR=/usr/bin/vim
 VISUAL=''  
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-PATH=/home/aporia/neovim/bin:/home/aporia/.cargo/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:$PATH
+PATH=/home/aporia/neovim/bin:/home/aporia/.cargo/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:/home/aporia/ws/bin/helpers:$PATH
 
 LESS="-R"
 VIMRUNTIME=/usr/share/vim/vim80
@@ -174,7 +174,7 @@ _cheatsh_complete_cheatsh()
     #fi  
 }
 
-complete -F _cheatsh_complete_cheatsh cheat
+complete -F _cheatsh_complete_cheatsh cheat.sh
 
 
 _cheatsh_complete_curl()
