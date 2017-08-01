@@ -18,7 +18,7 @@ alias tra='tree -aCDt | less'
 ##errata 
 alias gcl="git clone"
 
-alias gl='git log --abbrev-commit'
+alias gl='git log --graph'
 
 alias gt='git tag'
 
