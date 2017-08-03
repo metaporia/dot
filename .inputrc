@@ -41,7 +41,7 @@ $if mode=vi
     "\C-a": beginning-of-line
     "\C-e": end-of-line
     "jk": vi-movement-mode 
-    "\el": vi-yank-arg
+    "\C-y": vi-yank-arg
     
     # kill 'til end-of-line 
     "\C-k": kill-line
@@ -62,10 +62,11 @@ $if mode=vi
     "G": end-of-history
     "\C-a": beginning-of-line
     "\C-e": end-of-line
-    "\el": vi-yank-arg
+    "\C-y": vi-yank-arg
     "u": undo
     "\ef": vi-forward-word
     "\eb": vi-backward-word
+    "\ed": kill-word
     
 
 $endif
