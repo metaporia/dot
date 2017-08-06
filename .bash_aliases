@@ -18,13 +18,13 @@ alias tra='tree -aCDt | less'
 ##errata 
 alias gcl="git clone"
 
-alias gl='git log --graph'
+alias gl='git log --graph --oneline --decorate'
 
 alias gt='git tag'
 
 ##status
-alias gs='git status -s' # -s : sparse output
-alias gsl='git status' # -l : default or long output
+alias gss='git status -s' # -s : sparse output
+alias gs='git status' # -l : default or long output
 alias gsv='git status -v' # -v : verbose output
 
 ##add
@@ -33,8 +33,8 @@ alias gaa='git add -A' # stages ALL
 alias ga='git add' # stages ALL
 
 ##commit
-alias gcn='git commit' # 'n' : pnemonic for 'NO -m flag'
-alias gc='git commit -m' # expects $1: <commit msg> 
+alias gc='git commit' # 'n' : pnemonic for 'NO -m flag'
+alias gcm='git commit -m' # expects $1: <commit msg> 
 alias gctt='git commit -m "tiny tweaks"'  # default commit msg  
 
 ##diff
@@ -47,7 +47,7 @@ alias gp='git push'
 alias gpl='git pull'
 
 ##branch
-alias gb='git branch -v'
+alias gb='git branch -av'
 alias gbd='git branch -vd'
 
 #remote
@@ -88,7 +88,7 @@ alias tkp="tmux kill-pane -t"
 #firefox
 alias fire='~/bin/raise_Fire&'
 alias ok='~/bin/raise_Okular&'
-alias rg='~/bin/raise_GVIM'
+alias rag='~/bin/raise_GVIM'
 
  
 #nethack
