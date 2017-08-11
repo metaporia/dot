@@ -369,6 +369,10 @@ augroup rust
     autocmd FileType rust compiler cargo
     autocmd FileType rust setl makeprg=cargo
     autocmd FileType rust setl tw=79 
+    au FileType rust nmap <leader>db <Plug>(rust-def)
+    au FileType rust nmap <leader>ds <Plug>(rust-def-split)
+    au FileType rust nmap <leader>dv <Plug>(rust-def-vertical)
+    au FileType rust nmap <leader>do <Plug>(rust-doc)
 
 augroup END
 
@@ -395,3 +399,7 @@ com! -nargs=* Def :call Define("<args>")
 nnoremap <silent> <leader>d  :call Define(expand('<cword>'))<CR>
 
 "statically typed
+
+" Rust Racer completion
+let g:racer_cmd="/home/aporia/.cargo/bin/racer"
+
