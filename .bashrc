@@ -141,6 +141,9 @@ NETHACKDIR=/home/aporia/games/nethack
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
+# Rust completion: Racer (see ~/sputum/muse 'Rust Language Server') 
+RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
 # haskell stack completion
 eval "$(stack --bash-completion-script stack)"
 eval "$(pandoc --bash-completion)"
