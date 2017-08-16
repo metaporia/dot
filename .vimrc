@@ -373,7 +373,8 @@ augroup rust
     au FileType rust nmap <leader>ds <Plug>(rust-def-split)
     au FileType rust nmap <leader>dv <Plug>(rust-def-vertical)
     au FileType rust nmap <leader>do <Plug>(rust-doc)
-
+    au FileType rust inoremap <expr> . MayCompleteDot()
+    au FileType rust inoremap <expr> :: MayCompleteColon()
 augroup END
 
 augroup lineWrap
@@ -400,6 +401,18 @@ nnoremap <silent> <leader>d  :call Define(expand('<cword>'))<CR>
 
 "statically typed
 
+
 " Rust Racer completion
 let g:racer_cmd="/home/aporia/.cargo/bin/racer"
+
+" general completion settings
+set completeopt=longest,menuone
+
+func! MayCompleteDot()
+    return ".\<C-X>\<C-O>"
+endfunc
+
+func! MayCompleteColon()
+    return "::\<C-X>\<C-O>"
+endfunc
 
