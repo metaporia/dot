@@ -175,6 +175,8 @@ set clipboard+=html
 "toggle paste mode 
 "bindings
 
+inoremap <c-l> <c-x><c-o>
+
 "Y : yy -> Y : y$ 
 map Y y$
 
@@ -373,8 +375,8 @@ augroup rust
     au FileType rust nmap <leader>ds <Plug>(rust-def-split)
     au FileType rust nmap <leader>dv <Plug>(rust-def-vertical)
     au FileType rust nmap <leader>do <Plug>(rust-doc)
-    au FileType rust inoremap <expr> . MayCompleteDot()
-    au FileType rust inoremap <expr> :: MayCompleteColon()
+    "au FileType rust inoremap <expr> . MayCompleteDot()
+    "au FileType rust inoremap <expr> :: MayCompleteColon()
 augroup END
 
 augroup lineWrap
@@ -406,7 +408,7 @@ nnoremap <silent> <leader>d  :call Define(expand('<cword>'))<CR>
 let g:racer_cmd="/home/aporia/.cargo/bin/racer"
 
 " general completion settings
-set completeopt=longest,menuone
+"set completeopt=menu,preview
 
 func! MayCompleteDot()
     return ".\<C-X>\<C-O>"
@@ -415,4 +417,10 @@ endfunc
 func! MayCompleteColon()
     return "::\<C-X>\<C-O>"
 endfunc
+
+
+" ale rust intregration
+
+let g:ale_linters = {'rust': ['rls']}
+let g:ale_completion_enabled=1
 
