@@ -183,9 +183,7 @@ map Y y$
 
 "ESC -> jk, kj; for modes: visual, normal, ex?
 inoremap jk <ESC>
-"inoremap kj <ESC>
 vnoremap jk <ESC>
-"vnoremap kj <ESC>
 
 "leader
 nmap \ ,
@@ -230,7 +228,6 @@ nnoremap <leader>w :w<CR>
 "insert formatted date cmd
 nnoremap <leader>ia "=strftime(" %g/%m/%d/%H/%M/%S")<CR>P
 
-
 nnoremap <leader>it "=strftime("%H:%M:%S")<CR>P
 
 " log w style
@@ -238,7 +235,6 @@ nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
 
 
 "buffer nav
-
 "buff next
 nnoremap <c-n> :bn<CR>
 
@@ -295,7 +291,6 @@ set guioptions=acei
 
 " muse 
 nnoremap <leader>md :new <CR>:r !muse.do<CR>:set ft=vim<CR>gg
-
 
 " path 
 set path=.,/usr/include,~/ws,~/sputum,~/dot,~/Axiom,~/wiki

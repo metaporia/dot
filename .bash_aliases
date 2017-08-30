@@ -53,7 +53,7 @@ alias gbd='git branch -vd'
 #remote
 alias gr='git remote -v'
 
-
+alias vi='nvim'
 #vim, gvim
 alias vg='vim -g'
 alias v='vim'
@@ -72,6 +72,7 @@ alias cb='cd -'
 alias tmux='tmux -2' # run in 256color mode 
 alias ta="tmux -2 attach -t" # attatch to <session>
 alias tn="tmux new -s" #session name here 
+alias t="tmux new -A -s"
 
 ##list-*
 alias tp="tmux list-panes"
