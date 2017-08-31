@@ -53,7 +53,6 @@ alias gbd='git branch -vd'
 #remote
 alias gr='git remote -v'
 
-alias vi='nvim'
 #vim, gvim
 alias vg='vim -g'
 alias v='vim'
