@@ -1,0 +1,292 @@
+" vim-plug
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'neomake/neomake'
+Plug 'junegunn/goyo.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'rust-lang/rust.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'} 
+Plug 'eagletmt/ghcmod-vim', {'for': 'hs' }
+Plug 'racer-rust/vim-racer'
+Plug 'tpope/vim-surround'
+Plug 'jreybert/vimagit'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  
+Plug 'tpope/vim-fugitive'
+Plug 'luochen1990/rainbow'
+autocmd! User goyo.vim echom 'Goyo is now loaded!'
+call plug#end()
+
+inoremap jk <ESC>
+vnoremap jk <ESC>
+
+"leader
+nnoremap \ ,
+let mapleader = ","
+
+se hidden
+se ignorecase
+
+" backup
+se nobackup
+se noswapfile
+se nowritebackup
+
+se smartcase
+se smartindent
+
+se mouse=a
+
+se timeout
+" mapping timeout
+se timeoutlen=500
+" keycode timeout
+se ttimeoutlen=200
+
+se tw=79
+
+se breakindent
+
+" FIXME
+"se nostartofline
+
+"show status line: always
+set laststatus=2
+"clear (if any) pre-existing value of 'statusline'
+set statusline=
+"far left; items accumlate rightwards
+"time
+set statusline=%{strftime(\"%m-%d\ [%H:%M]\")}
+"full file path
+set statusline+=\ %F\ 
+"filetype, [RO] (opt), buf num
+set statusline+=%y\ %r\ buf:[%n]
+"FAR RIGHT; items accumulate leftwards
+set statusline+=%=
+
+se cursorline
+
+se number
+se relativenumber
+set pastetoggle=<F3>
+
+"COLORs n aesthetic bullcrap upon which I fixate
+
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
+
+"copy/paste
+
+"sys clip
+"append motion to yank
+"yank to sys clip
+nnoremap <leader>c "+y
+
+"yank to sys sel1
+nnoremap <leader>cs "*y
+
+"read sys clip
+nnoremap <leader>ic "+p
+"read sys sel1
+nnoremap <leader>is "*p
+
+"insert formatted date cmd
+nnoremap <leader>ia "=strftime(" %g/%m/%d/%H/%M/%S")<CR>P
+
+nnoremap <leader>it "=strftime("%H:%M:%S")<CR>P
+
+" log w style
+nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
+
+" Magit ldr
+nnoremap <leader>M :Magit<CR>
+
+
+"buffer nav
+"buff next
+nnoremap <c-n> :bn<CR>
+
+"buff prev
+nnoremap <c-p> :bp<CR>
+
+"buf kill
+nnoremap <c-k> :bd<CR>
+
+"list buffers
+nnoremap <leader>l :ls<CR>
+
+set listchars=
+if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
+    " | mulibyte
+    set listchars=eol:¶,space:.,tab:\|·,trail:·,extends:»,precedes:«
+else
+    set listchars=eol:$
+endif
+
+
+"reload .vimrc 
+nnoremap <leader>r :source ~/.nvimrc<CR>:echo "reloaded ~/.nvimrc"<CR> 
+
+"write
+nnoremap <leader>w :w<CR>
+
+" muse 
+nnoremap <leader>md :new <CR>:r !muse.do<CR>:set ft=vim<CR>gg
+
+"make
+nnoremap <leader>e :silent make build \| cw<CR>
+
+" path 
+set path=.,/usr/include,~/ws,~/sputum,~/dot,~/Axiom,~/wiki
+
+
+"tabs
+se ts=4
+set shiftwidth=0
+set softtabstop=4
+set expandtab
+set smarttab "needs paste toggle to insert (>1) line excerpts 
+
+" toggles
+"spell
+nnoremap <leader>vs :set spell!<CR>
+nnoremap <leader>vh :set hlsearch!<CR>
+nnoremap <leader>vl :set list!<CR>
+nnoremap <leader>vr :set relativenumber!<CR>
+
+"inoremap <c-l> <c-x><c-o>
+
+function! DeadBuf()
+    new | setlocal buftype=nofile | setlocal noswapfile 
+endfunction
+
+function! Define(word)
+    let query = "dict " . '"' . a:word . '"'
+    echo query
+    let definitions = system(query) 
+    silent call DeadBuf() | call bufname("dict") | silent put =definitions | normal ggdd 
+    "call DeadBuf() | 
+endfunction
+
+
+" dict integration, Define keymap hook
+com! -nargs=* Def :call Define("<args>")
+nnoremap <silent> <leader>d  :call Define(expand('<cword>'))<CR>
+
+
+"detect gui; call apt tmux rename ...
+function! TmuxRenameHuh()
+    "if in terminal vim
+    if (has('gui_running') == 0)
+        "ren tmux window
+        return 1
+    else
+        return 0
+endfunction
+
+" tmux (arbtt) title bar conf
+" NOTE: vvv: assumes a SINGLE attatched tmux session at any given time
+augroup title
+   autocmd!     
+   autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * if TmuxRenameHuh() | call system("tmux rename-window vim" . expand("%:p")) | endif
+   autocmd VimLeave * if TmuxRenameHuh() | call system("tmux rename-window bash") | endif
+augroup END
+set title
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = '∄'
+let g:airline_symbols.whitespace = 'Ξ'
+
+
+let g:airline_section_b = '%{strftime("%m-%d [%H:%M]")}'
+let g:airline_section_y= 'BN: [%n] %r'
+
+"function
+function! GitInfo()
+  let git = fugitive#head()
+  if git != ''
+    return ' '.fugitive#head()
+  else
+    return ''
+endfunction
+
+se completeopt=menu ",preview
+
+" lang specific auGrps
+augroup haskell
+    "clear pre-existing aucmd's
+    autocmd! 
+    "async lint ^ check
+    "autocmd BufWritePost *.hs GhcModCheckAndLintAsync 
+    autocmd FileType haskell nnoremap <buffer> <leader>gt :GhcModType<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gl :GhcModLint<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gh :GhcModCheck<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gi :GhcModInfo<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gc :GhcModTypeClear<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gp :GhcModInfoPreview<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gca :GhcModSplitFunCase<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
+
+    "formatting, tw, shiftwidth
+    autocmd FileType haskell se tw=79
+    autocmd FileType haskell se shiftwidth=4
+    autocmd FileType haskell se sts=4
+
+    "direct hoogle integration (ghc-mod esque)
+    nnoremap <leader>h :echo HoogleInfo(expand('<cWORD>'), '-i')<CR>
+    nnoremap <leader>sh :echo HoogleInfo(expand('<cWORD>'), '-n 50')<CR>
+    
+    function! HoogleInfo(searchTerms, flag)
+        let query = "stack exec hoogle -- " . a:flag .  " \'" . a:searchTerms . "\'"  
+        let info = system(query)
+        echo info
+        return ''
+    endfunction
+augroup END
+      
+" rust-lang/rust.vim
+augroup rust
+    autocmd!
+    autocmd FileType rust compiler! cargo
+    "autocmd FileType rust nnoremap <leader>e :Neomake cargo \| ll<CR> 
+    autocmd FileType rust setl makeprg=cargo
+    autocmd FileType rust setl tw=79
+    autocmd FileType rust nmap <leader>db <Plug>(rust-def)
+    autocmd FileType rust nmap <leader>ds <Plug>(rust-def-split)
+    autocmd FileType rust nmap <leader>dv <Plug>(rust-def-vertical)
+    autocmd FileType rust nmap <leader>do <Plug>(rust-doc)
+    
+    au BufWritePost *.rs :silent Neomake cargo \| ll<CR>
+
+augroup END
+
+let g:neomake_rust_enabled_makers = ['cargo']
+let g:neomake_open_list=2
+let g:neomake_verbose=3
+
+" rust: racer
+let g:racer_cmd = "/home/aporia/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
+
+" airline
+"let g:airline_powerline_fonts = 1
+let g:deoplete_enable_at_startup = 1
+call deoplete#enable()
+
+" rainbow
+let g:rainbow_active = 1
