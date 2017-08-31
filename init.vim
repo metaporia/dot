@@ -292,3 +292,4 @@ call deoplete#enable()
 
 " rainbow
 let g:rainbow_active = 1
+AirlineRefresh
