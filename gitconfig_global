@@ -1,0 +1,78 @@
+[user]
+	email = kyahnkrafft@me.com
+	name = metaporia
+	password = Policeman2
+[core]
+	editor = /usr/bin/vim
+[credential]
+	helper = cache --timeout 7200
+[alias]
+    # sort by number of letters. within each word arity group commands.
+    
+    # 1
+    a = add
+    b = branch
+    c = commit
+    d = diff
+    f = fetch
+    g = grep
+    l = log --graph --oneline --decorate
+    m = merge
+    o = checkout
+    p = pull
+    r = remote
+    s = status
+    w = whatchanged
+    
+    # 2
+
+    ## add
+    aa = add --all
+    ap = --patch # choose whether to include each change
+    au = add --update # add updated
+
+    ## branch
+    be = branch --edit-description
+    bm = branch --merged # list branches reachable from specified commet | HEAD
+    bnm = branch --no-merged
+
+    ## commit
+    ca = commit --amend
+    can = commit --amend --no-edit
+    ci = commit --interactive
+    cm = commit --message
+
+    ## checkout
+    co = checkout # redundant w 'c' := 'checkout'
+    
+    ## cherry-pick
+    cp = cherry-pick
+
+
+    ## diff
+    dc = diff --cached
+    ds = diff --staged
+    dw = diff --word-diff
+
+    ## clean 
+    cleanest = clean -ffdx # ?????!!!
+    
+    ## grep
+    gg = grep --break --heading --line-number
+
+    ## log
+    lg = log --graph
+    lo = log --oneline
+    lp = log --patch
+    lt = log --topo-order # topological order: descendant commits shown before parents.
+    ls = ls-files
+    ls-ignored = ls-files -others --i --exclude-standard
+
+    ## push
+    pu = push
+
+    ## merge
+    
+
+    ### alias management
+    aliases = "!git config --get-regexp '^alias\\.' || cut -c 7- | sed 's/ / = /'"
