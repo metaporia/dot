@@ -103,6 +103,8 @@ nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
 " Magit ldr
 nnoremap <leader>M :Magit<CR>
 
+" Insert Firefok Active Tab URL
+nnoremap <leader>u :r !factab<CR>
 
 "buffer nav
 "buff next
