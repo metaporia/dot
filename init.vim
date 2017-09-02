@@ -283,7 +283,7 @@ let g:neomake_verbose=3
 
 " rust: racer
 let g:racer_cmd = "/home/aporia/.cargo/bin/racer"
-let g:racer_experimental_completer = 1
+"let g:racer_experimental_completer = 1
 
 " airline
 "let g:airline_powerline_fonts = 1
@@ -292,4 +292,4 @@ call deoplete#enable()
 
 " rainbow
 let g:rainbow_active = 1
-AirlineRefresh
+au! VimEnter * AirlineRefresh
