@@ -12,7 +12,7 @@ set -g history-limit 30000
 #compat encoding 
 setw -g monitor-activity on 
 # take 2 
-set -g default-terminal "tmux-256color"
+set -g default-terminal "screen-256color"
 set -ga terminal-overrides ',xterm-256color:Tc' # truecolor support 
 
 
