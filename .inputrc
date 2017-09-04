@@ -23,8 +23,8 @@ set visible-stats on
 set keyseq-timeout 150 
 set show-mode-in-prompt on 
 
-set vi-cmd-mode-string "(n)"
-set vi-ins-mode-string "(i)"
+set vi-cmd-mode-string "\033[01;34mn "
+set vi-ins-mode-string "\033[01;37mi "
 
 
 set editing-mode vi
