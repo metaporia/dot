@@ -23,8 +23,8 @@ set visible-stats on
 set keyseq-timeout 150 
 set show-mode-in-prompt on 
 
-set vi-cmd-mode-string "\033[01;34mn "
-set vi-ins-mode-string "\033[01;37mi "
+set vi-cmd-mode-string "n " #\033[01;34m
+set vi-ins-mode-string "i " #\033[01;37m
 
 
 set editing-mode vi
@@ -63,7 +63,7 @@ $if mode=vi
     "\C-a": beginning-of-line
     "\C-e": end-of-line
     "\C-y": vi-yank-arg
-    "u": undo
+    "u": vi-undo
     "\ef": vi-forward-word
     "\eb": vi-backward-word
     "\ed": kill-word

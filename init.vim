@@ -13,7 +13,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  
 Plug 'tpope/vim-fugitive'
-Plug 'luochen1990/rainbow'
+"Plug 'luochen1990/rainbow'
+"Plug 'christoomey/vim-tmux-navigator'
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
 
@@ -103,7 +104,7 @@ nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
 " Magit ldr
 nnoremap <leader>M :Magit<CR>
 
-" Insert Firefok Active Tab URL
+" Insert Firefox Active Tab URL
 nnoremap <leader>u :r !factab<CR>
 
 "buffer nav
@@ -272,18 +273,34 @@ augroup rust
     autocmd FileType rust nmap <leader>ds <Plug>(rust-def-split)
     autocmd FileType rust nmap <leader>dv <Plug>(rust-def-vertical)
     autocmd FileType rust nmap <leader>do <Plug>(rust-doc)
-    
-    au BufWritePost *.rs :silent Neomake cargo \| ll<CR>
+
+    au FileType rust nmap <leader>de :call RustExplainErr()<CR>
+    au BufWritePost *.rs :silent Neomake! cargo \| ll<CR>
 
 augroup END
 
+" rust get error explanation
+function! RustExplainErr()
+    let get_err_query = 'rust_err_at_line ' . line('.')
+    let err_num = system(get_err_query)
+    let explaind_q = 'cargo --explain ' . err_num
+    let err_explained = system(explaind_q)
+    call DeadBuf() | call bufname("explained") | setlocal ft=rust | put =err_explained
+endfunction
+
 let g:neomake_rust_enabled_makers = ['cargo']
-let g:neomake_open_list=2
-let g:neomake_verbose=3
+let g:neomake_open_list=0
+let g:neomake_verbose=1
 
 " rust: racer
 let g:racer_cmd = "/home/aporia/.cargo/bin/racer"
 "let g:racer_experimental_completer = 1
+
+" markdown
+augroup Markdown
+    autocmd!
+    autocmd FileType markdown nnoremap <leader>m :silent !pan % &<CR>
+augroup END
 
 " airline
 "let g:airline_powerline_fonts = 1
@@ -291,5 +308,5 @@ let g:deoplete_enable_at_startup = 1
 call deoplete#enable()
 
 " rainbow
-let g:rainbow_active = 1
+"let g:rainbow_active = 1
 au! VimEnter * AirlineRefresh
