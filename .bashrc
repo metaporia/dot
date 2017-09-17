@@ -136,7 +136,7 @@ fi
 EDITOR=/usr/bin/vim
 VISUAL=''  
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-PATH=/home/aporia/neovim/bin:/home/aporia/.cargo/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:/home/aporia/ws/bin/helpers:/home/aporia/.config/base16-shell/scripts:$PATH
+PATH=/home/aporia/neovim/bin:/home/aporia/.cargo/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:/home/aporia/ws/bin/helpers:$PATH
 
 LESS="-R"
 VIMRUNTIME=/usr/share/vim/vim80
@@ -146,8 +146,8 @@ HACKDIR=/home/aporia/games/nethack
 NETHACKDIR=/home/aporia/games/nethack
 
 # base 16 color conf
-#BASE16_SHELL=$HOME/.config/base16-shell/
-#[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # Rust completion: Racer (see ~/sputum/muse 'Rust Language Server') 
 RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"

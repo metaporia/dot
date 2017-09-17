@@ -9,9 +9,6 @@ scriptencoding utf-8
 set t_Co=256
 "set t_ut=
 
-"ditch vi
-set nocompatible "remove for neovim
-
 "backup; preclude .*.sw? clutter
 se nobackup
 se noswapfile

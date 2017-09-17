@@ -65,7 +65,7 @@ set statusline+=%y\ %r\ buf:[%n]
 "FAR RIGHT; items accumulate leftwards
 set statusline+=%=
 
-se cursorline
+"se cursorline
 
 se number
 se relativenumber
@@ -77,6 +77,18 @@ if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
     source ~/.vimrc_background
 endif
+if has("termguicolors")
+    set termguicolors
+endif
+
+" fix LineNr bg/fg contrast probem
+function! MatchLineNrBgToGuibg()
+    let main_bg_id=hlID('Normal')
+    let main_guibg=synIDattr(main_bg_id, 'bg#', "gui")
+    highlight LineNr guibg=main_guibg
+endfunction
+
+"last recourse:    highlight clear LineNr
 
 "copy/paste
 
@@ -310,3 +322,4 @@ call deoplete#enable()
 " rainbow
 "let g:rainbow_active = 1
 au! VimEnter * AirlineRefresh
+call MatchLineNrBgToGuibg()
