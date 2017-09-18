@@ -281,7 +281,7 @@ augroup rust
     "autocmd FileType rust nnoremap <leader>e :Neomake cargo \| ll<CR> 
     autocmd FileType rust setl makeprg=cargo
     autocmd FileType rust setl tw=79
-    autocmd FileType rust nmap <leader>db <Plug>(rust-def)
+    autocmd FileType rust nmap gd <Plug>(rust-def)
     autocmd FileType rust nmap <leader>ds <Plug>(rust-def-split)
     autocmd FileType rust nmap <leader>dv <Plug>(rust-def-vertical)
     autocmd FileType rust nmap <leader>do <Plug>(rust-doc)
