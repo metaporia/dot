@@ -63,7 +63,7 @@ $if mode=vi
     "\C-a": beginning-of-line
     "\C-e": end-of-line
     "\C-y": vi-yank-arg
-    "u": vi-undo
+    "u": undo
     "\ef": vi-forward-word
     "\eb": vi-backward-word
     "\ed": kill-word
