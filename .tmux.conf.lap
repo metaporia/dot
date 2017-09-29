@@ -11,7 +11,7 @@ set -g history-limit 30000
 #
 #compat encoding 
 setw -g monitor-activity on 
-# take 2 
+# take 2. fix c-l clear-screen issue on fresh installs
 set -g default-terminal "screen-256color"
 set -ga terminal-overrides ',xterm-256color:Tc' # truecolor support 
 
