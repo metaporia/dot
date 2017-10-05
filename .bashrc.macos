@@ -1,0 +1,19 @@
+source ~/.bash_aliases
+
+shopt -s histappend
+shopt -s cdspell 
+shopt -s nocasematch 
+shopt -s nocaseglob
+
+export PATH="~/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+pyen activate neovim3
+
+export RUST_SRC_PATH=${HOME}/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src
+
+source .cargo/env
+
+history -c # clear commands from dotfiles from history 
+history -r 
