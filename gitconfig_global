@@ -52,7 +52,7 @@
     ## diff
     dc = diff --cached
     ds = diff --staged
-    dw = diff --word-diff
+    dw = diff --color-words
 
     ## clean 
     cleanest = clean -ffdx # ?????!!!
@@ -61,7 +61,8 @@
     gg = grep --break --heading --line-number
 
     ## log
-    lg = log --graph
+    la = log --graph --all --decorate
+    lg = log --graph 
     lo = log --oneline
     lp = log --patch
     lt = log --topo-order # topological order: descendant commits shown before parents.
