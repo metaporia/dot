@@ -73,10 +73,10 @@ set pastetoggle=<F3>
 
 "COLORs n aesthetic bullcrap upon which I fixate
 
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
+"if filereadable(expand("~/.vimrc_background"))
+"    let base16colorspace=256
+"    source ~/.vimrc_background
+"endif
 if has("termguicolors")
     set termguicolors
 endif
@@ -98,10 +98,10 @@ endfunction
 nnoremap <leader>c "+y
 
 "yank to sys sel1
-nnoremap <leader>cs "*y
+nnoremap <leader>s "*y
 
 "read sys clip
-nnoremap <leader>ic "+p
+nnoremap <leader>p "+p
 "read sys sel1
 nnoremap <leader>is "*p
 
