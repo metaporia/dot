@@ -97,6 +97,12 @@ function! SetSearchColorToIncSearch()
     execute 'highlight Search guibg=' . incs_bg . ' guifg=' . incs_fg 
 endfunction
 
+augroup FixSearchColor
+    au!
+    au ColorScheme * call SetSearchColorToIncSearch()
+    au ColorScheme * call MatchLineNrBgToGuibg()
+augroup END
+
 
 "last recourse:    highlight clear LineNr
 
