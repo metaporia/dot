@@ -188,7 +188,7 @@ function! DeadBuf()
 endfunction
 
 function! Define(word)
-    let query = "dict " . '"' . a:word . '"'
+    let query = "dict " . '"' . a:word . '"' . ' | fmt -t'
     echo query
     let definitions = system(query) 
     silent call DeadBuf() | call bufname("dict") | silent put =definitions | normal ggdd 
