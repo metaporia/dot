@@ -80,6 +80,7 @@ set pastetoggle=<F3>
 if has("termguicolors")
     set termguicolors
 endif
+colo base16-google-light
 
 " fix LineNr bg/fg contrast probem
 function! MatchLineNrBgToGuibg()
@@ -332,7 +333,7 @@ augroup END
 
 " airline
 "let g:airline_powerline_fonts = 1
-let g:deoplete_enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 
 " rainbow
 "let g:rainbow_active = 1
