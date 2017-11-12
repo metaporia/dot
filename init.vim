@@ -94,7 +94,6 @@ function! SetSearchColorToIncSearch()
     let inc_search_id=hlID('IncSearch')
     let incs_bg=synIDattr(inc_search_id, 'bg#', "gui")
     let incs_fg=synIDattr(inc_search_id, 'fg#', "gui")
-    echo incs_fg
     execute 'highlight Search guibg=' . incs_bg . ' guifg=' . incs_fg 
 endfunction
 
