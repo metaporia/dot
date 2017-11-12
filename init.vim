@@ -335,7 +335,23 @@ augroup END
 "let g:airline_powerline_fonts = 1
 let g:deoplete#enable_at_startup = 1
 
+" checkbox
+" <leader>b : insert '□  ' | replace w ▣
+function! CheckBox() 
+    let char = matchstr(getline('.'), '\%' . col('.') . 'c.')
+    if char == "□"
+        echo "matched!"
+        execute "normal r▣"
+    elseif char == "▣"
+        execute "normal r□"
+    else
+        echo "inserted checkbox"
+        execute "normal i□  "
+    endif
+endfunction
+nnoremap <leader>b :call CheckBox()<CR>
+
 " rainbow
 "let g:rainbow_active = 1
 au! VimEnter * AirlineRefresh
-call MatchLineNrBgToGuibg()
+colo base16-google-light
