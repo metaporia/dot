@@ -196,11 +196,16 @@ endfunction
 function! Define(word)
     let query = "dico " . '"' . a:word . '"' . ' | fmt'
     echo query
+    " surmise
     let definitions = system(query) 
-    silent call DeadBuf() | call bufname("dict") | silent put =definitions | normal ggdd 
+    if definitions == "Error:\n"
+        "echo "error"
+        let remote_query = "dico --host gnu.org.ua " . '"' . a:word . '"' . ' | fmt'
+        let definitions = system(remote_query)
+    endif
+    silent call DeadBuf() | call bufname("dico") | silent put =definitions | normal ggdd 
     "call DeadBuf() | 
 endfunction
-
 
 " dict integration, Define keymap hook
 com! -nargs=* Def :call Define("<args>")
