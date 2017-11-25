@@ -194,13 +194,13 @@ function! DeadBuf()
 endfunction
 
 function! Define(word)
-    let query = "dico " . '"' . a:word . '"' . ' | fmt'
+    let query = "dict " . '"' . a:word . '"' . ' | fmt'
     echo query
     " surmise
     let definitions = system(query) 
-    if definitions == "Error:\n"
+    if definitions == "dict (client_read_status): Error reading from socket\nclient_read_status: Success\n"
         "echo "error"
-        let remote_query = "dico --host gnu.org.ua " . '"' . a:word . '"' . ' | fmt'
+        let remote_query = "dict --host gnu.org.ua " . '"' . a:word . '"' . ' | fmt'
         let definitions = system(remote_query)
     endif
     silent call DeadBuf() | call bufname("dico") | silent put =definitions | normal ggdd 
