@@ -181,7 +181,7 @@ set expandtab
 set smarttab "needs paste toggle to insert (>1) line excerpts 
 
 " correct mispelled word to first available correction.
-nnoremap <leader>z :1z=
+nnoremap <leader>z :1z=<CR>
 " toggles
 "spell
 nnoremap <leader>vs :set spell!<CR>
