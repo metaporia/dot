@@ -1,1 +1,1 @@
-server 10.0.0.29 { port 2628 }
+server localhost { port 2628 }

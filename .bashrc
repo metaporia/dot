@@ -135,7 +135,7 @@ fi
 EDITOR=/usr/bin/vim
 VISUAL=''  
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-PATH=/home/aporia/neovim/bin:/home/aporia/.cargo/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:/home/aporia/ws/bin/helpers:$PATH
+PATH=/home/aporia/neovim/bin:/home/aporia/.cargo/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:/home/aporia/ws/bin/helpers:/usr/lib/x86_64-linux-gnu/bin/:$PATH
 
 LESS="-R"
 VIMRUNTIME=/usr/share/vim/vim80
