@@ -3,19 +3,11 @@ timing yes;
 
 pidfile /var/run/dicod/dicod.pid;
 
-module-load-path ("/home/aporia/dico-2.4/modules");
+module-load-path ("/usr/lib/dico");
 
 // Enable handling of databases in dict.org format:
 load-module dictorg {
 	command "dictorg sort trim-ws dbdir=/usr/share/dictd";
-}
-
-load-module gcide;
-database {
-    name "gcide";
-    handler "gcide dbdir=/home/aporia/gcide-0.51";
-    languages-from "en";
-    languages-to "en";
 }
 
 // dicodconfig automatically generates the database sections for dictorg
@@ -156,10 +148,10 @@ strategy all {
 /* load-module substr {
   command "substr";
 }
+*/
 
 # Substr strategy can be quite resource consuming, hence it is better to limit
 # it to 3+ pattern length:
-strategy substr {
-  deny-length-lt 3;
-}
-*/
+# strategy substr {
+#  deny-length-lt 3;
+

@@ -1,11 +1,15 @@
 " vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'neomake/neomake'
+Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'junegunn/goyo.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'rust-lang/rust.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} 
-Plug 'eagletmt/ghcmod-vim', {'for': 'hs' }
+Plug 'eagletmt/ghcmod-vim', {'for': 'haskell' }
+Plug 'eagletmt/neco-ghc', {'for': 'haskell' }
+Plug 'alx741/ghc.vim', {'for': 'haskell' }
+Plug 'Twinside/vim-hoogle', {'for': 'haskell' }
 Plug 'racer-rust/vim-racer'
 Plug 'tpope/vim-surround'
 Plug 'jreybert/vimagit'
@@ -222,79 +226,83 @@ function! TmuxRenameHuh()
         return 1
     else
         return 0
-endfunction
-
-" tmux (arbtt) title bar conf
-" NOTE: vvv: assumes a SINGLE attatched tmux session at any given time
-augroup title
-   autocmd!     
-   autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * if TmuxRenameHuh() | call system("tmux rename-window vim" . expand("%:p")) | endif
-   autocmd VimLeave * if TmuxRenameHuh() | call system("tmux rename-window bash") | endif
-augroup END
-set title
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = '∄'
-let g:airline_symbols.whitespace = 'Ξ'
-
-
-let g:airline_section_b = '%{strftime("%m-%d [%H:%M]")}'
-let g:airline_section_y= 'BN: [%n] %r'
-
-"function
-function! GitInfo()
-  let git = fugitive#head()
-  if git != ''
-    return ' '.fugitive#head()
-  else
-    return ''
-endfunction
-
-se completeopt=menu ",preview
-
-" lang specific auGrps
-augroup haskell
-    "clear pre-existing aucmd's
-    autocmd! 
-    "async lint ^ check
-    "autocmd BufWritePost *.hs GhcModCheckAndLintAsync 
-    autocmd FileType haskell nnoremap <buffer> <leader>gt :GhcModType<CR>
-    autocmd FileType haskell nnoremap <buffer> <leader>gl :GhcModLint<CR>
-    autocmd FileType haskell nnoremap <buffer> <leader>gh :GhcModCheck<CR>
-    autocmd FileType haskell nnoremap <buffer> <leader>gi :GhcModInfo<CR>
-    autocmd FileType haskell nnoremap <buffer> <leader>gc :GhcModTypeClear<CR>
-    autocmd FileType haskell nnoremap <buffer> <leader>gp :GhcModInfoPreview<CR>
-    autocmd FileType haskell nnoremap <buffer> <leader>gca :GhcModSplitFunCase<CR>
-    autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
-
-    "formatting, tw, shiftwidth
-    autocmd FileType haskell se tw=79
-    autocmd FileType haskell se shiftwidth=4
-    autocmd FileType haskell se sts=4
-
-    "direct hoogle integration (ghc-mod esque)
-    nnoremap <leader>h :echo HoogleInfo(expand('<cWORD>'), '-i')<CR>
-    nnoremap <leader>sh :echo HoogleInfo(expand('<cWORD>'), '-n 50')<CR>
-    
-    function! HoogleInfo(searchTerms, flag)
-        let query = "stack exec hoogle -- " . a:flag .  " \'" . a:searchTerms . "\'"  
-        let info = system(query)
-        echo info
-        return ''
     endfunction
+
+    " tmux (arbtt) title bar conf
+    " NOTE: vvv: assumes a SINGLE attatched tmux session at any given time
+    augroup title
+        autocmd!     
+        autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * if TmuxRenameHuh() | call system("tmux rename-window vim" . expand("%:p")) | endif
+        autocmd VimLeave * if TmuxRenameHuh() | call system("tmux rename-window bash") | endif
+    augroup END
+    set title
+
+    if !exists('g:airline_symbols')
+        let g:airline_symbols = {}
+    endif
+
+    let g:airline_left_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_symbols.crypt = '🔒'
+    let g:airline_symbols.linenr = '☰'
+    let g:airline_symbols.linenr = '␊'
+    let g:airline_symbols.linenr = '␤'
+    let g:airline_symbols.maxlinenr = ''
+    let g:airline_symbols.branch = '⎇'
+    let g:airline_symbols.paste = 'ρ'
+    let g:airline_symbols.spell = 'Ꞩ'
+    let g:airline_symbols.notexists = '∄'
+    let g:airline_symbols.whitespace = 'Ξ'
+
+
+    let g:airline_section_b = '%{strftime("%m-%d [%H:%M]")}'
+    let g:airline_section_y= 'BN: [%n] %r'
+
+    "function
+    function! GitInfo()
+        let git = fugitive#head()
+        if git != ''
+            return ' '.fugitive#head()
+        else
+            return ''
+        endfunction
+
+        se completeopt=menu ",preview
+
+        " lang specific auGrps
+        augroup haskell
+            "clear pre-existing aucmd's
+            autocmd! 
+            "async lint ^ check
+            "autocmd BufWritePost *.hs GhcModCheckAndLintAsync 
+            autocmd FileType haskell nnoremap <buffer> <leader>gt :GhcModType<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gl :GhcModLint<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gh :GhcModCheck<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gi :GhcModInfo<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gc :GhcModTypeClear<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gp :GhcModInfoPreview<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gca :GhcModSplitFunCase<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
+
+            au FileType haskell compiler ghc
+            au FileType haskell set kp=hoogle
+            "formatting, tw, shiftwidth
+            autocmd FileType haskell se tw=79
+            autocmd FileType haskell se shiftwidth=4
+            autocmd FileType haskell se sts=4
+
+            "direct hoogle integration (ghc-mod esque)
+            "nnoremap <leader>h :HoogleInfo(expand('<cWORD>'), '-i')<CR>
+            "nnoremap <leader>sh :HoogleInfo(expand('<cWORD>'), '-n 50')<CR>
+            au FileType haskell nnoremap <buffer> K :exec 'HoogleInfo' expand('<cWORD>')<CR>
+            au BufWritePost *.hs :Neomake
+    
+    "function! HoogleInfo(searchTerms, flag)
+    "    let query = "stack exec hoogle -- " . a:flag .  " \'" . a:searchTerms . "\'"  
+    "    let info = system(query)
+    "    echo info
+    "    return ''
+    "endfunction
 augroup END
       
 " rust-lang/rust.vim
