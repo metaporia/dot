@@ -369,3 +369,5 @@ nnoremap <leader>b :call CheckBox()<CR>
 "let g:rainbow_active = 1
 au! VimEnter * AirlineRefresh
 colo base16-google-light
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
