@@ -321,6 +321,8 @@ augroup rust
     au BufWritePost *.rs :silent Neomake! cargo \| ll<CR>
 
 augroup END
+" check tests
+let g:neomake_rust_cargo_command = ['check', '--tests']
 
 " rust get error explanation
 function! RustExplainErr()
