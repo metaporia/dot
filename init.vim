@@ -17,6 +17,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  
 Plug 'tpope/vim-fugitive'
+Plug 'zchee/deoplete-clang', {'for': 'c'}
 "Plug 'luochen1990/rainbow'
 "Plug 'christoomey/vim-tmux-navigator'
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
@@ -367,7 +368,16 @@ function! CheckBox()
 endfunction
 nnoremap <leader>b :call CheckBox()<CR>
 
+"c lang conf
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-4.0/lib/libclang.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/clang/'
+augroup C 
+    au!
+    au BufWritePost *.c :Neomake
+augroup END
 " rainbow
 "let g:rainbow_active = 1
 au! VimEnter * AirlineRefresh
 colo base16-google-light
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
