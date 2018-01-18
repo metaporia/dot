@@ -150,6 +150,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 
 # Rust completion: Racer (see ~/sputum/muse 'Rust Language Server') 
 RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+CARGO_HOME=$HOME/.cargo/
 
 # haskell stack completion
 eval "$(stack --bash-completion-script stack)"
