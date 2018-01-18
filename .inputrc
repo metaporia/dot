@@ -42,7 +42,8 @@ $if mode=vi
     "\C-e": end-of-line
     "jk": vi-movement-mode 
     "\C-y": vi-yank-arg
-    
+    "\C-w": backward-kill-word
+
     # kill 'til end-of-line 
     "\C-k": kill-line
     "\ed": kill-word

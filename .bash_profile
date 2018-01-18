@@ -2,3 +2,5 @@
 
 #/etc/profile loads /etc/profile.d/*.sh; trivial additions 
 source ~/.bashrc
+
+export PATH="$HOME/.cargo/bin:$PATH"
