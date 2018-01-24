@@ -208,4 +208,8 @@ _cheatsh_complete_curl()
 complete -F _cheatsh_complete_curl curl
 
 xset r rate 250 60
+
+export PATH="/home/aporia/.conda3/bin:$PATH"
 set -o history
+
+# added by Anaconda3 installer

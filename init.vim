@@ -201,7 +201,7 @@ function! DeadBuf()
 endfunction
 
 function! Define(word)
-    let query = "dict " . '"' . a:word . '"' . ' | fmt'
+    let query = "dico -d* " . '"' . a:word . '"' . ' | fmt'
     echo query
     " surmise
     let definitions = system(query) 
