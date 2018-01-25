@@ -135,7 +135,7 @@ fi
 EDITOR=/usr/bin/vim
 VISUAL=''  
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-PATH=/home/aporia/neovim/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:/home/aporia/ws/bin/helpers:/usr/lib/x86_64-linux-gnu/bin/:$PATH
+PATH=/sbin:/usr/sbin:/home/aporia/neovim/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:/home/aporia/ws/bin/helpers:/usr/lib/x86_64-linux-gnu/bin/:$PATH
 
 LESS="-R"
 VIMRUNTIME=/usr/share/vim/vim80
@@ -151,6 +151,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 # Rust completion: Racer (see ~/sputum/muse 'Rust Language Server') 
 RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 CARGO_HOME=$HOME/.cargo/
+LD_LIBRARY_PATH=$(rustc --print sysroot):$LD_LIBRARY_PATH
 
 # haskell stack completion
 eval "$(stack --bash-completion-script stack)"
@@ -212,4 +213,3 @@ xset r rate 250 60
 export PATH="/home/aporia/.conda3/bin:$PATH"
 set -o history
 
-# added by Anaconda3 installer
