@@ -4,13 +4,13 @@ Plug 'neomake/neomake'
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'junegunn/goyo.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim', {'for': 'rust' }
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} 
 Plug 'eagletmt/ghcmod-vim', {'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', {'for': 'haskell' }
 Plug 'alx741/ghc.vim', {'for': 'haskell' }
 Plug 'Twinside/vim-hoogle', {'for': 'haskell' }
-Plug 'racer-rust/vim-racer'
+Plug 'racer-rust/vim-racer', {'for': 'rust' }
 Plug 'tpope/vim-surround'
 Plug 'jreybert/vimagit'
 Plug 'vim-airline/vim-airline'
@@ -18,6 +18,17 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  
 Plug 'tpope/vim-fugitive'
 Plug 'zchee/deoplete-clang', {'for': 'c'}
+"Plug 'autozimu/LanguageClient-neovim', {
+"    \ 'branch': 'next',
+"    \ 'do': 'bash install.sh',
+"    \ 'for' : 'rust'
+"    \ }
+"Plug 'vim-scripts/coq-syntax'
+
+"Plug 'trefis/coquille', {'for': 'coq'}
+
+"Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
+"Plug 'Shougo/echodoc.vim'
 "Plug 'luochen1990/rainbow'
 "Plug 'christoomey/vim-tmux-navigator'
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
@@ -52,6 +63,7 @@ se ttimeoutlen=200
 se tw=79
 
 se breakindent
+se noshowmode
 
 " FIXME
 "se nostartofline
@@ -351,6 +363,23 @@ augroup END
 " airline
 "let g:airline_powerline_fonts = 1
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#max_menu_width = 90
+
+"deoplet rust
+let g:deoplete#sources#rust#racer_binary='/home/aporia/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path='/home/aporia/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+
+"rls 
+"let g:LanguageClient_serverCommands = {
+"    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+"    \ 'javascript': ['javascript-typescript-stdio'],
+"    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+"    \ }
+"
+"nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+""nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+"nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
 
 " checkbox
 " <leader>b : insert '□  ' | replace w ▣
