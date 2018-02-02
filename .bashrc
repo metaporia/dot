@@ -135,7 +135,7 @@ fi
 EDITOR=/usr/bin/vim
 VISUAL=''  
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-PATH=/sbin:/usr/sbin:/home/aporia/neovim/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:/home/aporia/ws/bin/helpers:/usr/lib/x86_64-linux-gnu/bin/:$PATH
+PATH=/sbin:/usr/sbin:/home/aporia/neovim/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:/home/aporia/ws/bin/helpers:/usr/lib/x86_64-linux-gnu/bin/:/home/aporia/.config/base16-shell/scripts/:$PATH
 
 LESS="-R"
 VIMRUNTIME=/usr/share/vim/vim80
@@ -144,9 +144,9 @@ PAGER='less -R'
 HACKDIR=/home/aporia/games/nethack
 NETHACKDIR=/home/aporia/games/nethack
 
-# base 16 color conf
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+## base 16 color conf
+#BASE16_SHELL=$HOME/.config/base16-shell/
+#[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # Rust completion: Racer (see ~/sputum/muse 'Rust Language Server') 
 RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
@@ -154,59 +154,59 @@ CARGO_HOME=$HOME/.cargo/
 LD_LIBRARY_PATH=$(rustc --print sysroot):$LD_LIBRARY_PATH
 
 # haskell stack completion
-eval "$(stack --bash-completion-script stack)"
-eval "$(pandoc --bash-completion)"
+#eval "$(stack --bash-completion-script stack)"
+#eval "$(pandoc --bash-completion)"
 
 # `curl cheat.sh/$1`
 
 # add this to ~/.bashrc or to ~/.bash.d/cheat.sh and
 #   source ~/.bash.d/cheat.sh
 # in your ~/.bashrc
-
-cheat.sh()
-{
-    # replace native with the color scheme you want
-    # curl cheat.sh/:styles-demo to show the available color schemes
-    curl -s cheat.sh/"$1"?style=native
-}
-
-_cheatsh_complete_cheatsh() 
-{
-    local cur opts #prev
-    _get_comp_words_by_ref -n : cur
-
-    COMPREPLY=()
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts="$(curl -s cheat.sh/:list)"
-
-    #if [[ "${cur}" == ch ]] ; then
-		COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
-		__ltrim_colon_completions "$cur"
-        return 0
-    #fi  
-}
-
-complete -F _cheatsh_complete_cheatsh cheat.sh
-
-
-_cheatsh_complete_curl()
-{
-    local cur prev opts
-    _get_comp_words_by_ref -n : cur
-
-    COMPREPLY=()
-    #cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts="$(curl -s cheat.sh/:list | sed s@^@cheat.sh/@)"
-
-    if [[ ${cur} == cheat.sh/* ]] ; then
-		COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-		__ltrim_colon_completions "$cur"
-        return 0
-    fi
-}
-
-complete -F _cheatsh_complete_curl curl
+#
+#cheat.sh()
+#{
+#    # replace native with the color scheme you want
+#    # curl cheat.sh/:styles-demo to show the available color schemes
+#    curl -s cheat.sh/"$1"?style=native
+#}
+#
+#_cheatsh_complete_cheatsh() 
+#{
+#    local cur opts #prev
+#    _get_comp_words_by_ref -n : cur
+#
+#    COMPREPLY=()
+#    prev="${COMP_WORDS[COMP_CWORD-1]}"
+#    opts="$(curl -s cheat.sh/:list)"
+#
+#    #if [[ "${cur}" == ch ]] ; then
+#		COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+#		__ltrim_colon_completions "$cur"
+#        return 0
+#    #fi  
+#}
+#
+#complete -F _cheatsh_complete_cheatsh cheat.sh
+#
+#
+#_cheatsh_complete_curl()
+#{
+#    local cur prev opts
+#    _get_comp_words_by_ref -n : cur
+#
+#    COMPREPLY=()
+#    #cur="${COMP_WORDS[COMP_CWORD]}"
+#    prev="${COMP_WORDS[COMP_CWORD-1]}"
+#    opts="$(curl -s cheat.sh/:list | sed s@^@cheat.sh/@)"
+#
+#    if [[ ${cur} == cheat.sh/* ]] ; then
+#		COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+#		__ltrim_colon_completions "$cur"
+#        return 0
+#    fi
+#}
+#
+#complete -F _cheatsh_complete_curl curl
 
 xset r rate 250 60
 
