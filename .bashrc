@@ -183,5 +183,6 @@ fi
 #
 #complete -F _cheatsh_complete_curl curl
 
+base16-gruvbox-dark-hard.sh
 xset r rate 250 60
 set -o history
