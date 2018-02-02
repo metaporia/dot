@@ -331,13 +331,16 @@ augroup rust
     autocmd FileType rust nmap <leader>ds <Plug>(rust-def-split)
     autocmd FileType rust nmap <leader>dv <Plug>(rust-def-vertical)
     autocmd FileType rust nmap <leader>do <Plug>(rust-doc)
+    au FileType rust nnoremap <leader>f :!cargo +nightly fmt<CR>
 
     au FileType rust nmap <leader>de :call RustExplainErr()<CR>
     au BufWritePost *.rs :silent Neomake! cargo \| ll<CR>
+    au FileType rust nnoremap <leader>f :call CargoFmt()<CR>
 
 augroup END
 " check tests
 let g:neomake_rust_cargo_command = ['check', '--tests']
+
 
 " rust get error explanation
 function! RustExplainErr()
