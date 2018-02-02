@@ -129,9 +129,11 @@ augroup END
 "append motion to yank
 "yank to sys clip
 nnoremap <leader>c "+y
+vnoremap <leader>c "+y
 
 "yank to sys sel1
 nnoremap <leader>s "*y
+vnoremap <leader>s "*y
 
 "read sys clip
 nnoremap <leader>p "+p
