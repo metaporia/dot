@@ -1,92 +1,92 @@
 # .tmux.conf
 ## vi keymaps
-set -g aggressive-resize on
+    set -g aggressive-resize on
 
 # disable gibberish on copy/paste
-set -g set-clipboard off
+    set -g set-clipboard off
 #
 #
 #set-option -g renumber-windows on
-set -g history-limit 30000
+    set -g history-limit 30000
 #
 #compat encoding 
-setw -g monitor-activity on 
+    setw -g monitor-activity on 
 # take 2 
-set -g default-terminal "tmux-256color"
-set -ga terminal-overrides ',xterm-256color:Tc' # truecolor support 
+    set -g default-terminal "tmux-256color"
+    set -ga terminal-overrides ',xterm-256color:Tc' # truecolor support 
 
 
 #see: https://deductivelabs.com/en/2016/03/using-true-color-vim-tmux/ 
 #for howto build tmux with truecolor support
 #mouse control
-set -g mouse on 
+    set -g mouse on 
 
 #reload conf 
-unbind r 
-bind-key r source-file ~/.tmux.conf \; display "reloaded"
+    unbind r 
+    bind-key r source-file ~/.tmux.conf \; display "reloaded"
 
 
 #set -g assumepastetime
 
 #copy mode
-unbind u 
-set -g mode-keys vi
+    unbind u 
+    set -g mode-keys vi
 
-bind u copy-mode 
-bind -T copy-mode-vi 'v' send-keys -X begin-selection
-bind -T copy-mode-vi 'y' send-keys -X copy-pipe 'xclip -in -selection clipboard'
-bind -T copy-mode-vi 'u' send-keys -X halfpage-up 
-bind -T copy-mode-vi 'd' send-keys -X halfpage-down
+    bind u copy-mode 
+    bind -T copy-mode-vi 'v' send-keys -X begin-selection
+    bind -T copy-mode-vi 'y' send-keys -X copy-pipe 'xclip -in -selection clipboard'
+    bind -T copy-mode-vi 'u' send-keys -X halfpage-up 
+    bind -T copy-mode-vi 'd' send-keys -X halfpage-down
 
 #paste buffer 
-bind-key -T prefix I paste-buffer 
-bind-key -T prefix y run "tmux show-buffer | xclip -i -selection clipboard"
+    bind-key -T prefix I paste-buffer 
+    bind-key -T prefix y run "tmux show-buffer | xclip -i -selection clipboard"
 #paste x sys <buff> 
-unbind P
+    unbind P
 #sys clip >top of tmux buff stac
-bind-key P run "xclip -o -selection clipboard | tmux loadb -"
+    bind-key P run "xclip -o -selection clipboard | tmux loadb -"
 
 # vim nav
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
+    bind h select-pane -L
+    bind j select-pane -D
+    bind k select-pane -U
+    bind l select-pane -R
 
-bind -T root M-h select-pane -L
-bind -T root M-j select-pane -D
-bind -T root M-k select-pane -U
-bind -T root M-l select-pane -R
+    bind -T root M-h select-pane -L
+    bind -T root M-j select-pane -D
+    bind -T root M-k select-pane -U
+    bind -T root M-l select-pane -R
 
 #resize panes 
 
 # easy resizing of panes
-bind -r J resize-pane -D 5
-bind -r K resize-pane -U 5
-bind -r H resize-pane -L 5
-bind -r L resize-pane -R 5
+    bind -r J resize-pane -D 5
+    bind -r K resize-pane -U 5
+    bind -r H resize-pane -L 5
+    bind -r L resize-pane -R 5
 
-bind-key x kill-pane 
+    bind-key x kill-pane 
 
-set -g renumber-windows on
+    set -g renumber-windows on
 
-set -sg escape-time 0
+    set -sg escape-time 0
 
 #prefix
-unbind C-b
-set -g prefix "C-\_"
+    unbind C-b
+    set -g prefix "C-\_"
 # set -g prefix "C-\_"
 # bind-key "\_" send-prefix   
 
 
 #appearance
-set -g pane-active-border-fg  '#106299'
-set -g status-bg '#4e4e4e'
-set -g status-fg '#000000'
+    set -g pane-active-border-fg  '#106299'
+    set -g status-bg '#4e4e4e'
+    set -g status-fg '#000000'
 
 # history 
-set -g history-file ~/.tmux.hist 
-set -g set-titles on 
-set -g set-titles-string "tmux - #S:#I:#W - \"#h\""
+    set -g history-file ~/.tmux.hist 
+    set -g set-titles on 
+    set -g set-titles-string "tmux - #S:#I:#W - \"#h\""
 
 
 #plugin(s)
@@ -134,10 +134,8 @@ setw -g mode-fg colour0
 # window status
 setw -g window-status-format " #F#I:#W#F "
 setw -g window-status-current-format " #F#I:#W#F "
-setw -g window-status-format "#[fg=brightmagenta]#[bg=black] #I
-#[bg=cyan]#[fg=colour18] #W "
-setw -g window-status-current-format "#[bg=colour0]#[fg=colour9] #I
-#[fg=colour18]#[bg=white] #W "
+setw -g window-status-format "#[fg=brightmagenta]#[bg=black] #I #[bg=cyan]#[fg=colour18] #W "
+setw -g window-status-current-format "#[bg=colour0]#[fg=colour9] #I #[fg=colour18]#[bg=white] #W "
 #setw -g window-status-current-bg default
 #setw -g window-status-current-fg colour11
 #setw -g window-status-current-attr dim
