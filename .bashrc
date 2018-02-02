@@ -26,8 +26,9 @@ fi
 # set a fancy prompt (non-color, unless we know we "want" color)
 
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
+
+# If this is anase "$TERM" in
+case "$TERM" in 
 xterm*|rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
@@ -87,19 +88,13 @@ fi
 
 
 # builtin time (1) fmt conf 
-TIMEFORMAT=$'\e[0;30m\e[47mreal:%Rs user:%Us sys:%Ss cpu:%P%%\e[0m'
 
 #ETERNAL HISTORY !!!
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 
-HISTTIMEFORMAT=$"%g/%m/%d /%H:%M:%S "
-HISTFILE=~/.bash_hist_inf
-HISTCONTROL='ignoreboth'
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=-1
-HISTFILESIZE=-1
 
 set magic-space on 
 
@@ -132,26 +127,6 @@ else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 #export PS1='${debian_chroot:+($debian_chroot)}\u@\h-\D{%g/%m/%d};\A\w\$ '
-EDITOR=/usr/bin/vim
-VISUAL=''  
-PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-PATH=/sbin:/usr/sbin:/home/aporia/neovim/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:/home/aporia/ws/bin/helpers:/usr/lib/x86_64-linux-gnu/bin/:/home/aporia/.config/base16-shell/scripts/:$PATH
-
-LESS="-R"
-VIMRUNTIME=/usr/share/vim/vim80
-
-PAGER='less -R'
-HACKDIR=/home/aporia/games/nethack
-NETHACKDIR=/home/aporia/games/nethack
-
-## base 16 color conf
-#BASE16_SHELL=$HOME/.config/base16-shell/
-#[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-
-# Rust completion: Racer (see ~/sputum/muse 'Rust Language Server') 
-RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-CARGO_HOME=$HOME/.cargo/
-LD_LIBRARY_PATH=$(rustc --print sysroot):$LD_LIBRARY_PATH
 
 # haskell stack completion
 #eval "$(stack --bash-completion-script stack)"
@@ -209,7 +184,4 @@ LD_LIBRARY_PATH=$(rustc --print sysroot):$LD_LIBRARY_PATH
 #complete -F _cheatsh_complete_curl curl
 
 xset r rate 250 60
-
-export PATH="/home/aporia/.conda3/bin:$PATH"
 set -o history
-
