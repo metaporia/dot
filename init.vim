@@ -18,6 +18,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  
 Plug 'tpope/vim-fugitive'
 Plug 'zchee/deoplete-clang', {'for': 'c'}
+Plug 'myfreeweb/intero.nvim', {'for': 'haskell'}
 "Plug 'autozimu/LanguageClient-neovim', {
 "    \ 'branch': 'next',
 "    \ 'do': 'bash install.sh',
@@ -214,8 +215,12 @@ function! DeadBuf()
     new | setlocal buftype=nofile | setlocal noswapfile 
 endfunction
 
-function! Define(word)
-    let query = "dico -d* " . '"' . a:word . '"' . ' | fmt'
+function! Define(word, ...)
+    if a:0 > 0 " a:1 contains search strategy, see ```man dico``` or ```dico --help```
+        let query = "dico -s " . a:1 . " -d* " . '"' . a:word . '"'
+    else
+        let query = "dico -d* " . '"' . a:word . '"' . ' | fmt' 
+    endif
     echo query
     " surmise
     let definitions = system(query) 
@@ -229,7 +234,9 @@ function! Define(word)
 endfunction
 
 " dict integration, Define keymap hook
-com! -nargs=* Def :call Define("<args>")
+com! -nargs=1 Def :call Define("<args>")
+com! -nargs=* Defp :call Define("<args>", "prefix")
+com! -nargs=* Defs :call Define("<args>", "suffix")
 nnoremap <silent> <leader>d  :call Define(expand('<cword>'))<CR>
 
 

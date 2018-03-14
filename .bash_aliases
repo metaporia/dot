@@ -1,5 +1,5 @@
 #aliases 
-
+alias vi=nvim
 
 #ls 
 alias ll='ls -alF'
@@ -8,6 +8,7 @@ alias l='ls --color=always'
 alias cl='clear;ls'
 alias cla='clear;ls -lAh'
 alias lt='l -t'
+
 
 #tree
 #alias tre='tree -C | less'
