@@ -101,6 +101,10 @@ alias o='mimeopen'
 #mupdf
 alias mu='mupdf'
 
+# conda env [de]activation
+alias sa='source activate'
+alias sd='source deactivate'
+
 #--------------------#
 
 # functions #

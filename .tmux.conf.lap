@@ -34,13 +34,13 @@ set -g mode-keys vi
 
 bind u copy-mode 
 bind -T copy-mode-vi 'v' send -X begin-selection
-bind -T copy-mode-vi 'y' send -X copy-pipe "xclip -i >dev/null"
+bind -T copy-mode-vi 'y' send -X copy-pipe "xclip -sel clip"
 bind -T copy-mode-vi 'u' send -X halfpage-up 
 bind -T copy-mode-vi 'd' send -X halfpage-down
 
 #paste buffer 
 bind-key -T prefix I paste-buffer 
-bind-key -T prefix y run -b "tmux save-buffer | xclip -i"
+bind-key -T prefix y run -b "tmux save-buffer | xclip -sel clip"
 #paste x sys <buff> 
 unbind P
 #sys clip >top of tmux buff stac
