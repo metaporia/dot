@@ -29,7 +29,7 @@ Plug 'itchyny/vim-haskell-indent', {'for': 'haskell'}
 
 "Plug 'trefis/coquille', {'for': 'coq'}
 
-"Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
+Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
 "Plug 'Shougo/echodoc.vim'
 "Plug 'luochen1990/rainbow'
 "Plug 'christoomey/vim-tmux-navigator'
