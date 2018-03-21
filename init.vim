@@ -19,6 +19,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-fugitive'
 Plug 'zchee/deoplete-clang', {'for': 'c'}
 Plug 'myfreeweb/intero.nvim', {'for': 'haskell'}
+Plug 'itchyny/vim-haskell-indent', {'for': 'haskell'}
 "Plug 'autozimu/LanguageClient-neovim', {
 "    \ 'branch': 'next',
 "    \ 'do': 'bash install.sh',
@@ -254,7 +255,7 @@ function! TmuxRenameHuh()
     " NOTE: vvv: assumes a SINGLE attatched tmux session at any given time
     augroup title
         autocmd!     
-        autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * if TmuxRenameHuh() | call system("tmux rename-window vim" . expand("%:p")) | endif
+        autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * if TmuxRenameHuh() | call system("tmux rename-window " . expand("%:t")) | endif
         autocmd VimLeave * if TmuxRenameHuh() | call system("tmux rename-window bash") | endif
     augroup END
     set title

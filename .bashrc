@@ -7,6 +7,8 @@ case $- in
     *i*) ;;
       *) return;;
 esac
+export VISUAL=nvim
+export EDITOR="$VISUAL"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
