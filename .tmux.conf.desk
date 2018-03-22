@@ -57,6 +57,8 @@
     bind -T root M-k select-pane -U
     bind -T root M-l select-pane -R
 
+    bind -T root M-z resize-pane -Z
+
 #resize panes 
 
 # easy resizing of panes

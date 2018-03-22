@@ -312,7 +312,9 @@ function! TmuxRenameHuh()
             "formatting, tw, shiftwidth
             autocmd FileType haskell se tw=79
             autocmd FileType haskell se shiftwidth=4
-            autocmd FileType haskell se sts=4
+            autocmd FileType haskell se softtabstop=4
+            autocmd FileType haskell se tabstop=4
+
 
             "direct hoogle integration (ghc-mod esque)
             "nnoremap <leader>h :HoogleInfo(expand('<cWORD>'), '-i')<CR>
