@@ -1,7 +1,6 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -120,7 +119,7 @@ fi
 
 #prompt 17/05/08/12/05/21
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+    xterm-color|*256color) color_prompt=yes;;
 esac
 
 if [ "$color_prompt" = yes ]; then

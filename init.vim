@@ -37,7 +37,6 @@ autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
 
 inoremap jk <ESC>
-vnoremap jk <ESC>
 
 "leader
 nnoremap \ ,
@@ -99,7 +98,7 @@ set pastetoggle=<F3>
 if has("termguicolors")
     set termguicolors
 endif
-colo base16-google-light
+"colo base16-google-light
 
 " fix LineNr bg/fg contrast probem
 function! MatchLineNrBgToGuibg()
@@ -298,12 +297,12 @@ function! TmuxRenameHuh()
             autocmd! 
             "async lint ^ check
             "autocmd BufWritePost *.hs GhcModCheckAndLintAsync 
-            autocmd FileType haskell nnoremap <buffer> <leader>gt :GhcModType<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gl :GhcModLint<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gh :GhcModCheck<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gi :GhcModInfo<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gc :GhcModTypeClear<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gp :GhcModInfoPreview<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gt :GhcModType!<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gl :GhcModLint!<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gh :GhcModCheck!<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gi :GhcModInfo!<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gc :GhcModTypeClear!<CR>
+            autocmd FileType haskell nnoremap <buffer> <leader>gp :GhcModInfoPreview!<CR>
             autocmd FileType haskell nnoremap <buffer> <leader>gca :GhcModSplitFunCase<CR>
             autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
 
@@ -319,15 +318,15 @@ function! TmuxRenameHuh()
             "direct hoogle integration (ghc-mod esque)
             "nnoremap <leader>h :HoogleInfo(expand('<cWORD>'), '-i')<CR>
             "nnoremap <leader>sh :HoogleInfo(expand('<cWORD>'), '-n 50')<CR>
-            au FileType haskell nnoremap <buffer> K :exec 'HoogleInfo' expand('<cWORD>')<CR>
+            au FileType haskell nnoremap <buffer> K :call HoogleDoc(expand('<cWORD>'))<CR>
             au BufWritePost *.hs :Neomake
     
-    "function! HoogleInfo(searchTerms, flag)
-    "    let query = "stack exec hoogle -- " . a:flag .  " \'" . a:searchTerms . "\'"  
-    "    let info = system(query)
-    "    echo info
-    "    return ''
-    "endfunction
+    function! HoogleDoc(searchTerms)
+        let query = "stack hoogle -- -i  \'" . a:searchTerms . "\'"  
+        let info = system(query)
+        let resize = "resize " . (winheight(0) * 1/4) 
+        call DeadBuf() | exe resize | call bufname("HoogleDoc") | setlocal ft=haskell | put =info
+    endfunction
 augroup END
       
 " rust-lang/rust.vim
@@ -375,6 +374,8 @@ augroup Markdown
     autocmd FileType markdown nnoremap <leader>m :silent !pan % &<CR>
 augroup END
 
+set tags=tags;/,codex.tags;/
+
 " airline
 "let g:airline_powerline_fonts = 1
 let g:deoplete#enable_at_startup = 1
@@ -411,6 +412,14 @@ function! CheckBox()
     endif
 endfunction
 nnoremap <leader>b :call CheckBox()<CR>
+" haskell-vim settings
+let g:haskell_enable_quantification = 1
+let g:haskell_enable_recursive_do = 1
+let g:haskell_enable_arrowsyntax = 1
+let g:haskell_enable_pattern_synonyms = 1
+let g:haskell_enable_typeroles = 1
+let g:haskell_enable_static_pointers = 1
+let g:haskell_backpack = 1
 
 "c lang conf
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-4.0/lib/libclang.so.1'
@@ -422,6 +431,5 @@ augroup END
 " rainbow
 "let g:rainbow_active = 1
 au! VimEnter * AirlineRefresh
-colo base16-google-light
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'

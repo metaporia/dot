@@ -14,7 +14,7 @@ setw -g monitor-activity on
 # take 2. fix c-l clear-screen issue on fresh installs
 set -g default-terminal "screen-256color"
 set -ga terminal-overrides ',xterm-256color:Tc' # truecolor support 
-
+set-option -g default-shell "/usr/local/bin/bash"
 
 #see: https://deductivelabs.com/en/2016/03/using-true-color-vim-tmux/ 
 #for howto build tmux with truecolor support
@@ -32,7 +32,7 @@ bind-key r source-file ~/.tmux.conf \; display "reloaded"
 unbind u 
 set -g mode-keys vi
 
-bind u copy-mode 
+bind u copy-mode
 bind -T copy-mode-vi 'v' send -X begin-selection
 bind -T copy-mode-vi 'y' send -X copy-pipe "xclip -sel clip"
 bind -T copy-mode-vi 'u' send -X halfpage-up 
@@ -56,6 +56,7 @@ bind -T root M-h select-pane -L
 bind -T root M-j select-pane -D
 bind -T root M-k select-pane -U
 bind -T root M-l select-pane -R
+bind -T root M-z resize-pane -Z
 
 #resize panes 
 
