@@ -38,6 +38,11 @@ call plug#end()
 
 inoremap jk <ESC>
 
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+
 "leader
 nnoremap \ ,
 let mapleader = ","

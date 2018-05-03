@@ -43,6 +43,8 @@ $if mode=vi
     "jk": vi-movement-mode 
     "\C-y": vi-yank-arg
     "\C-w": backward-kill-word
+    "\C-f": forward-char
+    "\C-b": backward-char
 
     # kill 'til end-of-line 
     "\C-k": kill-line
@@ -69,6 +71,8 @@ $if mode=vi
     "\ef": vi-forward-word
     "\eb": vi-backward-word
     "\ed": kill-word
+    "\C-f": forward-char
+    "\C-b": backward-char
     
 
 $endif
