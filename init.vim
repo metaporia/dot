@@ -71,6 +71,8 @@ se tw=79
 se breakindent
 se noshowmode
 
+set wildignorecase
+
 " FIXME
 "se nostartofline
 
