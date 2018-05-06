@@ -57,6 +57,7 @@ bind -T root M-j select-pane -D
 bind -T root M-k select-pane -U
 bind -T root M-l select-pane -R
 bind -T root M-z resize-pane -Z
+bind -T root M-u copy-mode
 
 #resize panes 
 
