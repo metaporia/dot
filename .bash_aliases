@@ -1,5 +1,6 @@
 #aliases 
 alias vi=nvim
+alias vis='vi -S sesh'
 
 #ls 
 alias ll='ls -alF'
@@ -101,10 +102,16 @@ alias o='mimeopen'
 #mupdf
 alias mu='mupdf'
 
+# make
+alias ma='make all'
+alias mb='make build'
+
 # conda env [de]activation
 alias sa='source activate'
 alias sd='source deactivate'
 
+alias cc='xclip -sel clip'
+alias cs='xclip -sel secondary'
 #--------------------#
 
 # functions #

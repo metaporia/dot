@@ -21,60 +21,65 @@ set blink-matching-paren on
 set visible-stats on
 
 set keyseq-timeout 150 
-set show-mode-in-prompt on 
-
-set vi-cmd-mode-string "n " #\033[01;34m
-set vi-ins-mode-string "i " #\033[01;37m
 
 
-set editing-mode vi
-#insert mode bindings
-#]
-$if mode=vi
-    #insert mode 
-    set keymap vi-insert 
-    "\en": menu-complete
-    "\ep": menu-complete-backward
-    "\C-n": history-search-forward
-    "\C-p": history-search-backward
-    "\C-l": clear-screen 
-    "\C-a": beginning-of-line
-    "\C-e": end-of-line
-    "jk": vi-movement-mode 
-    "\C-y": vi-yank-arg
-    "\C-w": backward-kill-word
-    "\C-f": forward-char
-    "\C-b": backward-char
+$if Bash
+    set show-mode-in-prompt on 
+    set vi-cmd-mode-string "n " #\033[01;34m
+    set vi-ins-mode-string "i " #\033[01;37m
+    set editing-mode vi
+    #insert mode bindings
+    #]
+    $if mode=vi
+        #insert mode 
+        set keymap vi-insert 
+        "\en": menu-complete
+        "\ep": menu-complete-backward
+        "\C-n": history-search-forward
+        "\C-p": history-search-backward
+        "\C-l": clear-screen 
+        "\C-a": beginning-of-line
+        "\C-e": end-of-line
+        "jk": vi-movement-mode 
+        "\C-y": vi-yank-arg
+        "\C-w": backward-kill-word
+        "\C-f": forward-char
+        "\C-b": backward-char
+        "\C-d": delete-char
+        #\C-x": end-of-file
 
-    # kill 'til end-of-line 
-    "\C-k": kill-line
-    "\ed": kill-word
+        # kill 'til end-of-line 
+        "\C-k": kill-line
+        "\ed": kill-word
 
-    # forwards word
-    "\ef": vi-forward-word
-    "\eb": vi-backward-word
-    #"\C-f":
-    # backwards word
-    # undo -- c-_ is bound by X window manager (zoom)
-    #
+        # forwards word
+        "\ef": vi-forward-word
+        "\eb": vi-backward-word
+        #"\C-f":
+        # backwards word
+        # undo -- c-_ is bound by X window manager (zoom)
+        #
 
-    #normal mode bindings
-    set keymap vi-command
-    "\C-l": clear-screen 
-    "gg": beginning-of-history
-    "G": end-of-history
-    "\C-a": beginning-of-line
-    "\C-e": end-of-line
-    "\C-y": vi-yank-arg
-    "u": undo
-    "\C-r": vi-redo
-    "\ef": vi-forward-word
-    "\eb": vi-backward-word
-    "\ed": kill-word
-    "\C-f": forward-char
-    "\C-b": backward-char
-    
+        #normal mode bindings
+        set keymap vi-command
+        "\C-l": clear-screen 
+        "gg": beginning-of-history
+        "G": end-of-history
+        "\C-a": beginning-of-line
+        "\C-e": end-of-line
+        "\C-y": vi-yank-arg
+        "u": undo
+        "\C-r": vi-redo
+        "\ef": vi-forward-word
+        "\eb": vi-backward-word
+        "\ed": kill-word
+        "\C-f": forward-char
+        "\C-b": backward-char
+        "\C-d": delete-char
+        #"\C-x": end-of-file
+        
 
+    $endif
 $endif
 
 set show-all-if-ambiguous on #enable single tab completion

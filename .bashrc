@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 # If not running interactively, don't do anything
+. ~/src/z/z.sh
+. ~/.fzf.bash
 case $- in
     *i*) ;;
       *) return;;
@@ -130,15 +132,11 @@ fi
 #export PS1='${debian_chroot:+($debian_chroot)}\u@\h-\D{%g/%m/%d};\A\w\$ '
 
 # haskell stack completion
-#eval "$(stack --bash-completion-script stack)"
+eval "$(stack --bash-completion-script stack)"
 #eval "$(pandoc --bash-completion)"
 
 # `curl cheat.sh/$1`
 
-# add this to ~/.bashrc or to ~/.bash.d/cheat.sh and
-#   source ~/.bash.d/cheat.sh
-# in your ~/.bashrc
-#
 #cheat.sh()
 #{
 #    # replace native with the color scheme you want
@@ -185,5 +183,5 @@ fi
 #complete -F _cheatsh_complete_curl curl
 
 #base16-gruvbox-dark-hard.sh
-xset r rate 250 60
+xset r off
 set -o history

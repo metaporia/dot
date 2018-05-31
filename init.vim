@@ -1,14 +1,17 @@
 " vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'agude/vim-eldar'
+Plug 'vim-scripts/Sift'
 Plug 'neomake/neomake'
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-Plug 'junegunn/goyo.vim'
+"Plug 'junegunn/goyo.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'rust-lang/rust.vim', {'for': 'rust' }
+"Plug 'bitc/vim-hdevtools', {'for' : 'haskell'}
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} 
 Plug 'eagletmt/ghcmod-vim', {'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', {'for': 'haskell' }
-Plug 'alx741/ghc.vim', {'for': 'haskell' }
+"Plug 'haskell/haskell-ide-engine', {'for': 'haskell'}
 Plug 'Twinside/vim-hoogle', {'for': 'haskell' }
 Plug 'racer-rust/vim-racer', {'for': 'rust' }
 Plug 'tpope/vim-surround'
@@ -16,20 +19,20 @@ Plug 'jreybert/vimagit'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  
-Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-fugitive'
+"Plug 'parsonsmatt/intero-neovim', {'for':'haskell'}
 Plug 'zchee/deoplete-clang', {'for': 'c'}
-Plug 'myfreeweb/intero.nvim', {'for': 'haskell'}
 Plug 'itchyny/vim-haskell-indent', {'for': 'haskell'}
 "Plug 'autozimu/LanguageClient-neovim', {
 "    \ 'branch': 'next',
 "    \ 'do': 'bash install.sh',
-"    \ 'for' : 'rust'
 "    \ }
 "Plug 'vim-scripts/coq-syntax'
 
 "Plug 'trefis/coquille', {'for': 'coq'}
 
 Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
+Plug 'pbrisbin/vim-syntax-shakespeare' 
 "Plug 'Shougo/echodoc.vim'
 "Plug 'luochen1990/rainbow'
 "Plug 'christoomey/vim-tmux-navigator'
@@ -62,15 +65,17 @@ se mouse=a
 
 se timeout
 " mapping timeout
-se timeoutlen=500
+se timeoutlen=200
 " keycode timeout
-se ttimeoutlen=200
+se ttimeoutlen=50
 
 se tw=79
 
 se breakindent
 se noshowmode
 
+let loaded_matchparen = 0
+se lazyredraw
 set wildignorecase
 
 " FIXME
@@ -95,6 +100,11 @@ set statusline+=%=
 se number
 se relativenumber
 set pastetoggle=<F3>
+
+"sessions
+set sessionoptions+=options,globals,curdir,buffers,help,winsize,
+
+
 
 "COLORs n aesthetic bullcrap upon which I fixate
 
@@ -190,11 +200,17 @@ nnoremap <leader>r :source ~/.nvimrc<CR>:echo "reloaded ~/.nvimrc"<CR>
 "write
 nnoremap <leader>w :w<CR>
 
+"overwrite defaulte session "./sesh"
+nnoremap <leader>s :mks! sesh<CR>
+
 " muse 
 nnoremap <leader>md :new <CR>:r !muse.do<CR>:set ft=vim<CR>gg
 
 "make
 nnoremap <leader>e :silent make build \| cw<CR>
+
+" neomake
+nnoremap <leader>n :Neomake<CR>
 
 " path 
 set path=.,/usr/include,~/ws,~/sputum,~/dot,~/Axiom,~/wiki
@@ -285,8 +301,7 @@ function! TmuxRenameHuh()
 
 
     let g:airline_section_b = '%{strftime("%m-%d [%H:%M]")}'
-    let g:airline_section_y= 'BN: [%n] %r'
-
+    let g:airline_section_y= 'BN: [%n] %r' 
     "function
     function! GitInfo()
         let git = fugitive#head()
@@ -304,14 +319,14 @@ function! TmuxRenameHuh()
             autocmd! 
             "async lint ^ check
             "autocmd BufWritePost *.hs GhcModCheckAndLintAsync 
-            autocmd FileType haskell nnoremap <buffer> <leader>gt :GhcModType!<CR>
+            "autocmd FileType haskell nnoremap <buffer> <leader>gt :GhcModType!<CR>
             autocmd FileType haskell nnoremap <buffer> <leader>gl :GhcModLint!<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gh :GhcModCheck!<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gi :GhcModInfo!<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gc :GhcModTypeClear!<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gp :GhcModInfoPreview!<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gca :GhcModSplitFunCase<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
+            "autocmd FileType haskell nnoremap <buffer> <leader>gh :GhcModCheck!<CR>
+            "autocmd FileType haskell nnoremap <buffer> <leader>gi :GhcModInfo!<CR>
+            "autocmd FileType haskell nnoremap <buffer> <leader>gc :GhcModTypeClear!<CR>
+            "autocmd FileType haskell nnoremap <buffer> <leader>gp :GhcModInfoPreview!<CR>
+            "autocmd FileType haskell nnoremap <buffer> <leader>gca :GhcModSplitFunCase<CR>
+            "autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
 
             au FileType haskell compiler ghc
             au FileType haskell set kp=hoogle
@@ -326,7 +341,7 @@ function! TmuxRenameHuh()
             "nnoremap <leader>h :HoogleInfo(expand('<cWORD>'), '-i')<CR>
             "nnoremap <leader>sh :HoogleInfo(expand('<cWORD>'), '-n 50')<CR>
             au FileType haskell nnoremap <buffer> K :call HoogleDoc(expand('<cWORD>'))<CR>
-            au BufWritePost *.hs :Neomake
+            "au BufWritePost *.hs :Neomake! hdevtools
     
     function! HoogleDoc(searchTerms)
         let query = "stack hoogle -- -i  \'" . a:searchTerms . "\'"  
@@ -385,20 +400,26 @@ set tags=tags;/,codex.tags;/
 
 " airline
 "let g:airline_powerline_fonts = 1
+call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy', 'matcher_length'])
+call deoplete#custom#source('_', 'max_menu_width', 90)
+call deoplete#custom#source('_', 'mark', '')
+call deoplete#custom#option('smart_case', v:true)
+
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#max_menu_width = 90
+let g:deoplete#enable_smart_case = 1
+
+let g:deoplete#max_menu_width = 110
 
 "deoplet rust
 let g:deoplete#sources#rust#racer_binary='/home/aporia/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path='/home/aporia/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 
-"rls 
 "let g:LanguageClient_serverCommands = {
-"    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-"    \ 'javascript': ['javascript-typescript-stdio'],
-"    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+"    \ 'haskell': ['hie', '--lsp'],
 "    \ }
-"
+
+" 'rust': ['rustup', 'run', 'stable', 'rls'],
+
 "nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 ""nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
@@ -427,6 +448,10 @@ let g:haskell_enable_pattern_synonyms = 1
 let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 let g:haskell_backpack = 1
+
+" neco-ghc
+let g:necoghc_use_stack = 1 
+let g:necoghc_enable_detailed_browse = 1
 
 "c lang conf
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-4.0/lib/libclang.so.1'

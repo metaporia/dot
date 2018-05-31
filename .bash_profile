@@ -27,3 +27,5 @@ HISTSIZE=-1
 HISTFILESIZE=-1
 
 source ~/.bashrc
+
+export PATH="$HOME/.cargo/bin:$PATH"

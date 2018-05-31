@@ -7,7 +7,7 @@ set -g set-clipboard off
 #
 #
 #set-option -g renumber-windows on
-set -g history-limit 30000
+set -g history-limit 500 
 #
 #compat encoding 
 setw -g monitor-activity on 
