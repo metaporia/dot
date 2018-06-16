@@ -14,6 +14,7 @@
 # take 2 
     set -g default-terminal "tmux-256color"
     set -ga terminal-overrides ',xterm-256color:Tc' # truecolor support 
+    set-option -g default-shell "/usr/bin/fish"
 
 
 #see: https://deductivelabs.com/en/2016/03/using-true-color-vim-tmux/ 

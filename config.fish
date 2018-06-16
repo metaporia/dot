@@ -17,15 +17,15 @@ set -x LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 #   git  #
 ##########
 
-set __fish_git_prompt_showuntrackedfiles 'yes'
-set __fish_git_prompt_showdirtystate 'yes'
-set __fish_git_prompt_color_branch magenta
-set __fish_git_prompt_char_dirtystate '!'
-set __fish_git_prompt_char_untrackedfiles '?'
-set __fish_git_prompt_char_stagedstate '→'
-set __fish_git_prompt_char_stashstate '↩'
-set __fish_git_prompt_char_upstream_ahead '↑'
-set __fish_git_prompt_char_upstream_behind '↓'
+#set __fish_git_prompt_showuntrackedfiles 'yes'
+#set __fish_git_prompt_showdirtystate 'yes'
+#set __fish_git_prompt_color_branch magenta
+#set __fish_git_prompt_char_dirtystate '!'
+#set __fish_git_prompt_char_untrackedfiles '?'
+#set __fish_git_prompt_char_stagedstate '→'
+#set __fish_git_prompt_char_stashstate '↩'
+#set __fish_git_prompt_char_upstream_ahead '↑'
+#set __fish_git_prompt_char_upstream_behind '↓'
 
 
 #########
