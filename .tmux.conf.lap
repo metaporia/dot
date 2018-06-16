@@ -14,7 +14,8 @@ setw -g monitor-activity on
 # take 2. fix c-l clear-screen issue on fresh installs
 set -g default-terminal "screen-256color"
 set -ga terminal-overrides ',xterm-256color:Tc' # truecolor support 
-set-option -g default-shell "/usr/local/bin/bash"
+#set-option -g default-shell "/usr/local/bin/bash"
+set-option -g default-shell "/usr/bin/fish"
 
 #see: https://deductivelabs.com/en/2016/03/using-true-color-vim-tmux/ 
 #for howto build tmux with truecolor support
