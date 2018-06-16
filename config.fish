@@ -1,5 +1,20 @@
 set fish_greeting ""
 
+# PATH
+set -gx PATH /home/aporia/.cargo/bin \
+             /home/aporia/.local/bin \
+             /home/aporia/.config/base16-shell/scripts \
+             /bin \
+             /sbin \
+             /usr/sbin \
+             /home/aporia/ws/bin \
+             /usr/bin \
+             /usr/local/bin \
+             /home/aporia/.conda3/bin \
+             /home/aporia/neovim/bin
+
+
+
 #######################
 #  coloring manpages  #
 #######################
