@@ -101,6 +101,8 @@ se number
 se relativenumber
 set pastetoggle=<F3>
 
+set shell=sh
+
 "sessions
 set sessionoptions+=options,globals,curdir,buffers,help,winsize,
 
