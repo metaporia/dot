@@ -92,7 +92,10 @@ function fish_prompt --description 'Write out the prompt'
 	set_color $fish_color_error
 	end
 
-	echo -n "$suffix "
-
 	set_color normal
+
+    set_color yellow
+	echo -n "$suffix "
+    set_color normal
+
 end
