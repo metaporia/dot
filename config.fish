@@ -81,3 +81,5 @@ alias open='xdg-open'
 # cheat () { curl -s "http://cheat.sh/$1" ; }
 #
 #
+
+thefuck --alias | source
