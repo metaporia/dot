@@ -265,6 +265,12 @@ com! -nargs=* Defs :call Define("<args>", "suffix")
 nnoremap <silent> <leader>d  :call Define(expand('<cword>'))<CR>
 
 
+" trim whitespace in current buffer
+function! TrimWhiteSpace()
+    :%s/\s\+$//e
+    return 0
+endfunction
+
 "detect gui; call apt tmux rename ...
 function! TmuxRenameHuh()
     "if in terminal vim
@@ -383,6 +389,7 @@ function! RustExplainErr()
     let err_explained = system(explaind_q)
     call DeadBuf() | call bufname("explained") | setlocal ft=rust | put =err_explained
 endfunction
+
 
 let g:neomake_rust_enabled_makers = ['cargo']
 let g:neomake_open_list=0
