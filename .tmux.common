@@ -1,0 +1,5 @@
+# tmux config common to both lap, desk, etc..
+
+bind-key -T root M-p copy-mode\;\
+                     send-keys -X start-of-line\;\
+                     send-keys -X search-backward "λ"

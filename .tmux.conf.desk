@@ -1,4 +1,5 @@
 # .tmux.conf
+source ~/dot/.tmux.common
 ## vi keymaps
     set -g aggressive-resize on
 
