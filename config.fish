@@ -56,6 +56,7 @@ abbr gaa='git add --all'
 abbr ga='git add'
 abbr gau='git add -u' # stage modified, deleted, not new.
 abbr gcm='git commit -m'
+abbr gctt='git commit -m \'Tiny tweaks.\''
 abbr gp='git push'
 abbr gb='git branch --all'
 abbr gr='git remote --verbose'
