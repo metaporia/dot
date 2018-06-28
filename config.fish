@@ -7,7 +7,7 @@ set -gx PATH /home/aporia/.cargo/bin \
              /bin \
              /sbin \
              /usr/sbin \
-             /home/aporia/ws/bin \
+             /home/aporia/scripts \
              /usr/bin \
              /usr/local/bin \
              /home/aporia/.conda3/bin \
