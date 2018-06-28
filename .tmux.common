@@ -3,3 +3,7 @@
 bind-key -T root M-p copy-mode\;\
                      send-keys -X start-of-line\;\
                      send-keys -X search-backward "λ"
+
+bind-key -T root M-n copy-mode\;\
+                     send-keys -X end-of-line\;\
+                     send-keys -X search-forward "λ"
