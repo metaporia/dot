@@ -370,6 +370,9 @@ augroup rust
     autocmd FileType rust nmap <leader>ds <Plug>(rust-def-split)
     autocmd FileType rust nmap <leader>dv <Plug>(rust-def-vertical)
     autocmd FileType rust nmap <leader>do <Plug>(rust-doc)
+
+    autocmd FileType rust :setlocal tags=./rusty-tags.vi;/
+    autocmd FileType rust :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
     au FileType rust nnoremap <leader>f :!cargo +nightly fmt<CR>
 
     au FileType rust nmap <leader>de :call RustExplainErr()<CR>
