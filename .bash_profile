@@ -5,7 +5,7 @@
 EDITOR=/usr/bin/vim
 VISUAL=''  
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-PATH=/home/aporia/.conda3/bin:$HOME/.cargo/bin:/home/aporia/neovim/bin:/home/aporia/.local/bin:/home/aporia/ws/bin:/home/aporia/ws/bin/helpers:/usr/lib/x86_64-linux-gnu/bin/:/home/aporia/.config/base16-shell/scripts/:/usr/sbin/:/sbin/:$PATH
+PATH=/home/aporia/.conda3/bin:$HOME/.cargo/bin:/home/aporia/neovim/bin:/home/aporia/.local/bin:/home/aporia/scripts:/home/aporia/ws/bin/helpers:/usr/lib/x86_64-linux-gnu/bin/:/home/aporia/.config/base16-shell/scripts/:/usr/sbin/:/sbin/:$PATH
  
 LESS="-R"
 VIMRUNTIME=/usr/share/vim/vim80
