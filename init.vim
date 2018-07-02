@@ -32,12 +32,16 @@ Plug 'itchyny/vim-haskell-indent', {'for': 'haskell'}
 "Plug 'trefis/coquille', {'for': 'coq'}
 
 Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
-Plug 'pbrisbin/vim-syntax-shakespeare' 
+Plug 'pbrisbin/vim-syntax-shakespeare',
 "Plug 'Shougo/echodoc.vim'
 "Plug 'luochen1990/rainbow'
 "Plug 'christoomey/vim-tmux-navigator'
+Plug 'airblade/vim-gitgutter'
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
+
+se updatetime=100 " gitgutter
+au! BufWrite * GitGutter
 
 inoremap jk <ESC>
 
