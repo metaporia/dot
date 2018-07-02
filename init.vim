@@ -42,6 +42,8 @@ call plug#end()
 
 se updatetime=100 " gitgutter
 au! BufWrite * GitGutter
+let g:gitgutter_override_sign_column_highlight = 0
+highlight clear SignColumn
 
 inoremap jk <ESC>
 
@@ -481,4 +483,4 @@ augroup END
 au! VimEnter * AirlineRefresh
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
-colo sift
+colo base16-gruvbox-dark-hard
