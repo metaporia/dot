@@ -10,6 +10,8 @@
                      magit
                      evil
                      evil-escape
+                     linum-relative
+                     ;; consider 'avy for vimfx-like jumps
                      ))
 ;; see chris whosomebody's dotfiles
 ;; https://github.com/bitemyapp/dotfiles/blob/master/.emacs
@@ -23,10 +25,14 @@
     (package-install package)))
 
 (require 'evil)
-(require 'evil-escape)
 (evil-mode 1)
+
+(require 'evil-escape)
 (evil-escape-mode)
 (setq-default evil-escape-key-sequence "jk")
+
+(require 'linum-relative)
+(linum-relative-on)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
