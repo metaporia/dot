@@ -8,6 +8,8 @@
                      ;;flycheck
                      company
                      magit
+                     evil
+                     evil-escape
                      ))
 ;; see chris whosomebody's dotfiles
 ;; https://github.com/bitemyapp/dotfiles/blob/master/.emacs
@@ -19,6 +21,12 @@
 (dolist (package package-list)
   (when (not (package-installed-p package))
     (package-install package)))
+
+(require 'evil)
+(require 'evil-escape)
+(evil-mode 1)
+(evil-escape-mode)
+(setq-default evil-escape-key-sequence "jk")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
