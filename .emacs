@@ -10,7 +10,8 @@
                      magit
                      evil
                      evil-escape
-		     evil-leader
+                     evil-leader
+                     evil-magit
                      linum-relative
                      company
                      rust-mode ;; rust major-mode
@@ -30,7 +31,7 @@
     (package-install package)))
 
 (require 'magit)
-
+(require 'evil-magit)
 (require 'evil)
 (require 'evil-escape)
 (require 'evil-leader)
