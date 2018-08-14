@@ -28,7 +28,7 @@ Plug 'itchyny/vim-haskell-indent', {'for': 'haskell'}
 "    \ 'do': 'bash install.sh',
 "    \ }
 "Plug 'vim-scripts/coq-syntax'
-
+Plug 'tounaishouta/coq.vim', {'for': 'coq'},
 "Plug 'trefis/coquille', {'for': 'coq'}
 
 Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
