@@ -10,10 +10,10 @@ set -gx PATH /home/aporia/.cargo/bin \
              /home/aporia/scripts \
              /usr/bin \
              /usr/local/bin \
-             /home/aporia/.conda3/bin \
-             /home/aporia/neovim/bin \
-             /home/aporia/Downloads/node-v8.11.2-linux-x64/bin \
-             /home/aporia/src/binaryen/bin
+            #/home/aporia/.conda3/bin \
+            #/home/aporia/neovim/bin \
+            #/home/aporia/Downloads/node-v8.11.2-linux-x64/bin \
+            #/home/aporia/src/binaryen/bin
 
 
 
