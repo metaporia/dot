@@ -406,7 +406,7 @@ let g:neomake_verbose=1
 
 " rust: racer
 let g:racer_cmd = "/home/aporia/.cargo/bin/racer"
-"let g:racer_experimental_completer = 1
+let g:racer_experimental_completer = 0
 
 " markdown
 augroup Markdown
@@ -437,7 +437,10 @@ let g:deoplete#sources#rust#rust_source_path='/home/aporia/.rustup/toolchains/st
 "    \ }
 
 " 'rust': ['rustup', 'run', 'stable', 'rls'],
-
+augroup coq
+    au!
+    au FileType coq se ts=2
+augroup END
 "nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 ""nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
