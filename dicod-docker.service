@@ -1,0 +1,9 @@
+[Unit]
+Description=Dockerized GNU Dico DICT server
+
+[Service]
+ExecStart=/home/aporia/scripts/dicod-docker
+
+[Install]
+WantedBy=multi-user.target
+
