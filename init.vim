@@ -12,7 +12,7 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'eagletmt/ghcmod-vim', {'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', {'for': 'haskell' }
 "Plug 'haskell/haskell-ide-engine', {'for': 'haskell'}
-Plug 'Twinside/vim-hoogle', {'for': 'haskell' }
+"Plug 'Twinside/vim-hoogle', {'for': 'haskell' }
 Plug 'racer-rust/vim-racer', {'for': 'rust' }
 Plug 'tpope/vim-surround'
 Plug 'jreybert/vimagit'
@@ -285,21 +285,21 @@ function! TmuxRenameHuh()
         return 1
     else
         return 0
-    endfunction
+endfunction
 
-    " tmux (arbtt) title bar conf
-    " NOTE: vvv: assumes a SINGLE attatched tmux session at any given time
-    augroup title
-        autocmd!     
-        autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * if TmuxRenameHuh() | call system("tmux rename-window " . expand("%:t")) | endif
-        autocmd VimLeave * if TmuxRenameHuh() | call system("tmux rename-window bash") | endif
-    augroup END
-    set title
+" tmux (arbtt) title bar conf
+" NOTE: vvv: assumes a SINGLE attatched tmux session at any given time
+augroup title
+    autocmd!     
+    autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * if TmuxRenameHuh() | call system("tmux rename-window " . expand("%:t")) | endif
+    autocmd VimLeave * if TmuxRenameHuh() | call system("tmux rename-window bash") | endif
+augroup END
 
-    if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
-    endif
+set title
 
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
     let g:airline_left_sep = ''
     let g:airline_right_sep = ''
     let g:airline_symbols.crypt = '🔒'
@@ -313,58 +313,73 @@ function! TmuxRenameHuh()
     let g:airline_symbols.notexists = '∄'
     let g:airline_symbols.whitespace = 'Ξ'
 
-
     let g:airline_section_b = '%{strftime("%m-%d [%H:%M]")}'
     let g:airline_section_y= 'BN: [%n] %r' 
-    "function
-    function! GitInfo()
-        let git = fugitive#head()
-        if git != ''
-            return ' '.fugitive#head()
-        else
-            return ''
-        endfunction
-
-        se completeopt=menu ",preview
-
-        " lang specific auGrps
-        augroup haskell
-            "clear pre-existing aucmd's
-            autocmd! 
-            "async lint ^ check
-            "autocmd BufWritePost *.hs GhcModCheckAndLintAsync 
-            "autocmd FileType haskell nnoremap <buffer> <leader>gt :GhcModType!<CR>
-            autocmd FileType haskell nnoremap <buffer> <leader>gl :GhcModLint!<CR>
-            "autocmd FileType haskell nnoremap <buffer> <leader>gh :GhcModCheck!<CR>
-            "autocmd FileType haskell nnoremap <buffer> <leader>gi :GhcModInfo!<CR>
-            "autocmd FileType haskell nnoremap <buffer> <leader>gc :GhcModTypeClear!<CR>
-            "autocmd FileType haskell nnoremap <buffer> <leader>gp :GhcModInfoPreview!<CR>
-            "autocmd FileType haskell nnoremap <buffer> <leader>gca :GhcModSplitFunCase<CR>
-            "autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
-
-            au FileType haskell compiler ghc
-            au FileType haskell set kp=hoogle
-            "formatting, tw, shiftwidth
-            autocmd FileType haskell se tw=79
-            autocmd FileType haskell se shiftwidth=4
-            autocmd FileType haskell se softtabstop=4
-            autocmd FileType haskell se tabstop=4
 
 
-            "direct hoogle integration (ghc-mod esque)
-            "nnoremap <leader>h :HoogleInfo(expand('<cWORD>'), '-i')<CR>
-            "nnoremap <leader>sh :HoogleInfo(expand('<cWORD>'), '-n 50')<CR>
-            au FileType haskell nnoremap <buffer> K :call HoogleDoc(expand('<cWORD>'))<CR>
-            "au BufWritePost *.hs :Neomake! hdevtools
-    
+"function
+function! GitInfo()
+    let git = fugitive#head()
+    if git != ''
+        return ' '.fugitive#head()
+    else
+        return ''
+endfunction
+
+se completeopt=menu ",preview
+
+" lang specific auGrps
+augroup haskell
+    "clear pre-existing aucmd's
+    autocmd! 
+    "async lint ^ check
+    "autocmd BufWritePost *.hs GhcModCheckAndLintAsync 
+    "autocmd FileType haskell nnoremap <buffer> <leader>gt :GhcModType!<CR>
+    autocmd FileType haskell nnoremap <buffer> <leader>gl :GhcModLint!<CR>
+    "autocmd FileType haskell nnoremap <buffer> <leader>gh :GhcModCheck!<CR>
+    "autocmd FileType haskell nnoremap <buffer> <leader>gi :GhcModInfo!<CR>
+    "autocmd FileType haskell nnoremap <buffer> <leader>gc :GhcModTypeClear!<CR>
+    "autocmd FileType haskell nnoremap <buffer> <leader>gp :GhcModInfoPreview!<CR>
+    "autocmd FileType haskell nnoremap <buffer> <leader>gca :GhcModSplitFunCase<CR>
+    "autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
+
+    au FileType haskell compiler ghc
+    au FileType haskell set kp=hoogle
+    "formatting, tw, shiftwidth
+    autocmd FileType haskell se tw=79
+    autocmd FileType haskell se shiftwidth=2
+    autocmd FileType haskell se softtabstop=2
+    autocmd FileType haskell se tabstop=2
+
+
+    "direct hoogle integration (ghc-mod esque)
+    "nnoremap <leader>h :HoogleInfo(expand('<cWORD>'), '-i')<CR>
+    "nnoremap <leader>sh :HoogleInfo(expand('<cWORD>'), '-n 50')<CR>
+    au FileType haskell nnoremap <buffer> K :call HoogleDoc(expand('<cWORD>'))<CR>
+    "au BufWritePost *.hs :Neomake! hdevtools
+
     function! HoogleDoc(searchTerms)
         let query = "stack hoogle -- -i  \'" . a:searchTerms . "\'"  
         let info = system(query)
         let resize = "resize " . (winheight(0) * 1/4) 
         call DeadBuf() | exe resize | call bufname("HoogleDoc") | setlocal ft=haskell | put =info
     endfunction
+
+    " haskell-vim settings
+    let g:haskell_enable_quantification = 1
+    let g:haskell_enable_recursive_do = 1
+    let g:haskell_enable_arrowsyntax = 1
+    let g:haskell_enable_pattern_synonyms = 1
+    let g:haskell_enable_typeroles = 1
+    let g:haskell_enable_static_pointers = 1
+    let g:haskell_backpack = 1
+
+    " neco-ghc
+    let g:necoghc_use_stack = 1 
+    let g:necoghc_enable_detailed_browse = 1
+
 augroup END
-      
+  
 " rust-lang/rust.vim
 augroup rust
     autocmd!
@@ -385,28 +400,26 @@ augroup rust
     au BufWritePost *.rs :silent Neomake! cargo \| ll<CR>
     au FileType rust nnoremap <leader>f :call CargoFmt()<CR>
 
+    let g:neomake_rust_enabled_makers = ['cargo']
+    let g:neomake_open_list=0
+    let g:neomake_verbose=1
+
+    " rust: racer
+    let g:racer_cmd = "/home/aporia/.cargo/bin/racer"
+    let g:racer_experimental_completer = 0
+
+    " rust get error explanation
+    function! RustExplainErr()
+        let get_err_query = 'rust_err_at_line ' . line('.')
+        let err_num = system(get_err_query)
+        let explaind_q = 'cargo --explain ' . err_num
+        let err_explained = system(explaind_q)
+        call DeadBuf() | call bufname("explained") | setlocal ft=rust | put =err_explained
+    endfunction
+    " check tests
+    let g:neomake_rust_cargo_command = ['check', '--tests']
 augroup END
-" check tests
-let g:neomake_rust_cargo_command = ['check', '--tests']
 
-
-" rust get error explanation
-function! RustExplainErr()
-    let get_err_query = 'rust_err_at_line ' . line('.')
-    let err_num = system(get_err_query)
-    let explaind_q = 'cargo --explain ' . err_num
-    let err_explained = system(explaind_q)
-    call DeadBuf() | call bufname("explained") | setlocal ft=rust | put =err_explained
-endfunction
-
-
-let g:neomake_rust_enabled_makers = ['cargo']
-let g:neomake_open_list=0
-let g:neomake_verbose=1
-
-" rust: racer
-let g:racer_cmd = "/home/aporia/.cargo/bin/racer"
-let g:racer_experimental_completer = 0
 
 " markdown
 augroup Markdown
@@ -461,18 +474,6 @@ function! CheckBox()
     endif
 endfunction
 nnoremap <leader>b :call CheckBox()<CR>
-" haskell-vim settings
-let g:haskell_enable_quantification = 1
-let g:haskell_enable_recursive_do = 1
-let g:haskell_enable_arrowsyntax = 1
-let g:haskell_enable_pattern_synonyms = 1
-let g:haskell_enable_typeroles = 1
-let g:haskell_enable_static_pointers = 1
-let g:haskell_backpack = 1
-
-" neco-ghc
-let g:necoghc_use_stack = 1 
-let g:necoghc_enable_detailed_browse = 1
 
 "c lang conf
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-4.0/lib/libclang.so.1'

@@ -1,7 +1,8 @@
+set runtimepath+=/usr/share/nvim/sysinit.vim
+
 inoremap jk <Esc>
 let mapleader =','
 nnoremap <leader>w :w<CR>
-nnoremap <leader>r :source ~/.vimrc<CR>
 
 set number
 set relativenumber
