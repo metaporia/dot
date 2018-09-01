@@ -2,7 +2,7 @@
 (require 'package)
 (setq package-archives
       (append '(("melpa" . "https://melpa.org/packages/")
-                ("gnu" . "https://elpa.gnu.org/packages"))
+                ("gnu" . "https://elpa.gnu.org/packages/"))
 	      package-archives))
 ;; ## List of packages to always have installed after startup.
 (setq package-list '(company
@@ -16,7 +16,7 @@
                      company
                      rust-mode ;; rust major-mode
                      racer
-		     org
+                     org
                      ;company-mode
                      ;; consider 'avy for vimfx-like jumps
                      ))
