@@ -26,11 +26,28 @@
 
 ;;;; Helm
 (use-package helm
-  :ensure t)
+  :ensure t
+  :config
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  )
 
 ;;;; Magit
 (use-package magit
   :ensure t)
+
+
+;; Dico wrapper
+;; NB: ~/.emacs.d/config/init-evil.el depends on this.
+(defun define-word-helper (word)
+  "Read a word and pass it to dico(1)."
+  (with-output-to-temp-buffer "*dico-define*"
+    (shell-command (concat "d " word) "*dico-define*" "*Messages*")
+  (pop-to-buffer "*dico-define*")))
+
+(defun define-word ()
+  (interactive)
+  (define-word-helper (thing-at-point 'word () )))
+
 
 ;;;; Evil
 ;; NB: the below _must proceed_ magit, elisp-slime-nav.
@@ -50,6 +67,15 @@
 ;;;; Org
 (require 'init-org)
 
+
+;;;; which-key
+;; TODO: Remove when sufficiently comfortable with emacs bindings.
+;; Alternatively, leave it (as long as it bloats negligibly) and increase the
+;; delay, so that it shows key-chord paths when the user delays (and therefore
+;; probably wants assistance) and remains untriggered when chords are entered quickly.
+
+
+
 ;;;; General Settings (i.e., post-installation conf)
 
 ;; UI
@@ -60,7 +86,7 @@
       inhibit-startup-message t
       inhibit-startup-echo-area-message t)
 (when (boundp 'scroll-bar-mode)
-  (scroll-bar-mode -1)
+  (scroll-bar-mode -1))
 
 (setq vc-follow-symlinks t)
     
@@ -71,6 +97,12 @@
 
 (set-face-attribute 'default nil :height 105) ; 10pt
 
+;;;; Miscellany
+
+;; Helpful when facing the classic "end of file during parsing" error.
+(defun paren-debug-mode ()
+  (show-paren-mode t)
+  (setq show-paren-style 'expression))
 
 ;;;; Managed Settings
 (custom-set-variables
@@ -81,7 +113,7 @@
  '(org-agenda-files (quote ("~/org/todo.org" "~/org/refile.org")))
  '(package-selected-packages
    (quote
-    (helm elisp-slime-nav evil-indent-textobject evil-surround use-package evil-visual-mark-mode racer linum-relative evil-magit evil-leader evil-escape company))))
+    (which-key helm elisp-slime-nav evil-indent-textobject evil-surround use-package evil-visual-mark-mode racer linum-relative evil-magit evil-leader evil-escape company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
