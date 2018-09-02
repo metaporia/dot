@@ -53,7 +53,9 @@
 ;;;; General Settings (i.e., post-installation conf)
 
 ;; UI
-(setq visible-bell t)
+
+;;(setq visible-bell t)
+(setq ring-bell-function 'ignore)
 (setq inhibit-startup-screen t
       inhibit-startup-message t
       inhibit-startup-echo-area-message t)
