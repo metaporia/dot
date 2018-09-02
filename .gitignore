@@ -1,3 +1,15 @@
+
+# Emacs auto-save, etc.
 *~
 .#*
 *#
+
+# ignore contents of emacs.d
+emacs.d/*
+*.elc
+# except:
+!emacs.d/eshell/alias
+!emacs.d/lisp
+!emacs.d/snippets
+!emacs.d/init.el
+!emacs.d/themes
