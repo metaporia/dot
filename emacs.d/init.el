@@ -4,6 +4,7 @@
 (setq package-enable-at-startup nil)
 
 (add-to-list 'load-path (concat user-emacs-directory "config"))
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 	     
 (setq package-archives
       (append '(("melpa" . "https://melpa.org/packages/")
@@ -14,6 +15,13 @@
   (package-refresh-contents)
   (package-install 'use-package))
 (require 'use-package)
+
+;;;; Themes
+(use-package gruvbox-theme
+  :ensure t
+  :config
+  (load-theme 'gruvbox-dark-hard)
+  )
 
 ;;;; Slime (lisp quality of life conf)
 (use-package elisp-slime-nav
@@ -73,8 +81,10 @@
 ;; Alternatively, leave it (as long as it bloats negligibly) and increase the
 ;; delay, so that it shows key-chord paths when the user delays (and therefore
 ;; probably wants assistance) and remains untriggered when chords are entered quickly.
-
-
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
 
 ;;;; General Settings (i.e., post-installation conf)
 
@@ -104,16 +114,22 @@
   (show-paren-mode t)
   (setq show-paren-style 'expression))
 
+
+
+
 ;;;; Managed Settings
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("62c81ae32320ceff5228edceeaa6895c029cc8f43c8c98a023f91b5b339d633f" "f27c3fcfb19bf38892bc6e72d0046af7a1ded81f54435f9d4d09b3bff9c52fc1" default)))
  '(org-agenda-files (quote ("~/org/todo.org" "~/org/refile.org")))
  '(package-selected-packages
    (quote
-    (which-key helm elisp-slime-nav evil-indent-textobject evil-surround use-package evil-visual-mark-mode racer linum-relative evil-magit evil-leader evil-escape company))))
+    (gruvbox-theme which-key helm elisp-slime-nav evil-indent-textobject evil-surround use-package evil-visual-mark-mode racer linum-relative evil-magit evil-leader evil-escape company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
