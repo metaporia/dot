@@ -86,3 +86,6 @@ alias open='xdg-open'
 #
 
 thefuck --alias | source
+
+# OPAM configuration
+# . /home/aporia/.opam/opam-init/init.fish > /dev/null 2> /dev/null or true

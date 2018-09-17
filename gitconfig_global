@@ -4,6 +4,7 @@
 	password = Policeman2
 [core]
 	editor = /usr/bin/vim
+	pager = diff-so-fancy-wrapper | less --tabs=4 -RFX #--pattern '^(Date|added|deleted|modified): '
 [credential]
 	helper = cache --timeout 7200
 [alias]
@@ -79,3 +80,23 @@
     aliases = "!git config --get-regexp '^alias\\.' || cut -c 7- | sed 's/ / = /'"
 [push]
 	default = simple
+
+[color]
+    ui = true
+
+[color "diff-highlight"]
+	oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+
+[color "diff"]
+	meta = yellow
+    frag = magenta bold
+    commit = yellow bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+
+[pager]
+    diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
