@@ -1,0 +1,43 @@
+set editor=`which nvim`
+
+#########
+# Gmail #
+#########
+
+## IMAP
+source "gpg -dq $HOME/.mutt/gmailPass.gpg |"
+set imap_user = "thisaintforuruse@gmail.com"
+set imap_pass = $my_pass
+
+# auto-connect
+unset imap_passive
+set imap_keepalive = 30 
+
+## Folders
+
+set folder = "imaps://imap.gmail.com"
+set postponed = "+[Gmail]/Drafts"
+set spoolfile = "+[Gmail]/All Mail" # unfiltered mail
+set header_cache = ~/.cache/mutt
+set message_cachedir = ~/.cache/mutt
+set certificate_file = ~/.mutt/certificates
+set smtp_url = "smtp://thisaintforuruse@smtp.gmail.com:587/"
+mailboxes = +INBOX
+
+
+###############
+# Keybindings #
+###############
+
+bind index j next-line
+bind index k previous-line
+bind index D delete-message
+bind index u half-up
+bind index d half-down
+
+##############
+# Appearance #
+##############
+
+set sidebar_visible = yes
+

@@ -37,6 +37,10 @@ Plug 'pbrisbin/vim-syntax-shakespeare',
 "Plug 'luochen1990/rainbow'
 "Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
+
+
+" Java dev: comment out 'for' qualifier
+Plug 'dansomething/vim-eclim' , {'for': 'java'}
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
 

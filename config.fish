@@ -14,7 +14,9 @@ set -gx PATH /home/aporia/.cargo/bin \
             #/home/aporia/neovim/bin \
             #/home/aporia/Downloads/node-v8.11.2-linux-x64/bin \
             #/home/aporia/src/binaryen/bin
-
+           
+# cabal-helpel for ghc-mod on ghc 8.0.2 
+set -gx cabal_helper_libexecdir /home/aporia/.stack/snapshots/x86_64-linux-tinfo6/ec517816ac073f28d01bf032904f1d7c80ff0f8d28856121c903edeeb95b927a/8.0.2/libexec/x86_64-linux-ghc-8.0.2/cabal-helper-0.7.3.0/
 
 
 #######################
@@ -85,7 +87,7 @@ alias open='xdg-open'
 #
 #
 
-thefuck --alias | source
+#thefuck --alias | source
 
 # OPAM configuration
 # . /home/aporia/.opam/opam-init/init.fish > /dev/null 2> /dev/null or true
