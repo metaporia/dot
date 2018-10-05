@@ -9,6 +9,10 @@ source "gpg -dq $HOME/.mutt/gmailPass.gpg |"
 set imap_user = "thisaintforuruse@gmail.com"
 set imap_pass = $my_pass
 
+## SMTP
+set smtp_url = "smtps://thisaintforuruse@gmail.com@smtp.gmail.com:465/"
+set smtp_pass = $my_pass
+
 # auto-connect
 unset imap_passive
 set imap_keepalive = 30 
@@ -21,7 +25,6 @@ set spoolfile = "+[Gmail]/All Mail" # unfiltered mail
 set header_cache = ~/.cache/mutt
 set message_cachedir = ~/.cache/mutt
 set certificate_file = ~/.mutt/certificates
-set smtp_url = "smtp://thisaintforuruse@smtp.gmail.com:587/"
 mailboxes = +INBOX
 
 
@@ -29,15 +32,23 @@ mailboxes = +INBOX
 # Keybindings #
 ###############
 
-bind index j next-line
-bind index k previous-line
-bind index D delete-message
-bind index u half-up
-bind index d half-down
+#bind index j next-line
+#bind index k previous-line
+#bind index D delete-message
+#bind index u half-up
+#bind index d half-down
 
 ##############
 # Appearance #
 ##############
 
-set sidebar_visible = yes
+#set sidebar_visible = yes
+
+
+# prefer plain text
+alternative_order text/plain text/enriched text/html
+
+# auto-convert to text/html to text/plain
+auto_view text/html
+
 
