@@ -77,7 +77,7 @@ function fish_prompt --description 'Write out the prompt'
 
     # HOST
     set_color blue
-    echo -n (hostname)
+    echo -n (hostname) | string sub -s1 -l1 | tr -d \n
     echo -n " "
     set_color normal
 
