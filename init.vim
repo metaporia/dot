@@ -177,6 +177,8 @@ nnoremap <leader>it "=strftime("%H:%M:%S")<CR>P
 
 " log w style
 nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
+" dvs
+nnoremap <leader>v o	            --- vs ---<Esc>o
 
 " Magit ldr
 nnoremap <leader>M :Magit<CR>
@@ -297,6 +299,11 @@ augroup title
     autocmd!     
     autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * if TmuxRenameHuh() | call system("tmux rename-window " . expand("%:t")) | endif
     autocmd VimLeave * if TmuxRenameHuh() | call system("tmux rename-window bash") | endif
+augroup END
+
+augroup mutt
+    au!
+    au FileType mail setlocal formatoptions+=aw
 augroup END
 
 set title
