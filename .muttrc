@@ -4,8 +4,9 @@ set editor=`which nvim`
 # Gmail #
 #########
 
+set my_pass = "ycndqnioeawyjgxj"
 ## IMAP
-source "gpg -dq $HOME/.mutt/gmailPass.gpg |"
+#source "gpg -dq $HOME/.mutt/gmailPass.gpg |"
 set imap_user = "thisaintforuruse@gmail.com"
 set imap_pass = $my_pass
 
@@ -27,6 +28,27 @@ set message_cachedir = ~/.cache/mutt
 set certificate_file = ~/.mutt/certificates
 mailboxes = +INBOX
 
+#### Sort
+set sort = reverse-date-received
+set sort_browser = reverse-date
+
+
+
+# prefer plain text
+alternative_order text/plain text/enriched text/html
+
+# auto-convert to text/html to text/plain
+auto_view text/html
+
+set charset = "utf-8"
+set include # include message in reply
+set nomark_old
+set mail_check = 15
+
+ignore *
+unignore from: subject to cc mail-followup-to date
+
+set text_flowed
 
 ###############
 # Keybindings #
@@ -38,17 +60,63 @@ mailboxes = +INBOX
 #bind index u half-up
 #bind index d half-down
 
+# clear defaults
+bind generic             z noop
+bind index,pager,attach  g noop
+bind index,pager         d noop
+bind index,pager         s noop
+bind index,pager         c noop
+bind generic,pager       t noop
+
+bind generic,index,pager \Cf       next-page
+bind generic,index,pager \Cb       previous-page
+bind generic,index       gg        first-entry
+bind generic,index       G         last-entry
+bind pager               gg        top
+bind pager               G         bottom
+bind generic,pager       \Cy       previous-line
+bind generic,index,pager \Ce       next-line
+bind generic,index,pager \Cd       half-down
+bind generic,index,pager \Cu       half-up
+bind generic             zt        current-top
+bind generic             zz        current-middle
+bind generic             zb        current-bottom
+bind index               za        collapse-thread
+bind index               zA        collapse-all
+bind index,pager         N         search-opposite
+bind index               <Backtab> previous-new-then-unread
+
+
+##################
+# Color settings #
+##################
+
+color index      brightgreen    black    ~N
+color index      black        green      ~T
+color index      brightyellow        black      ~F
+color normal brightwhite black
+color hdrdefault brightgreen black
+color quoted green black
+color signature yellow black
+color indicator black green
+color error brightyellow red
+color status brightwhite blue
+color tree brightblue black	# the thread tree in the index menu
+color tilde magenta black
+color message brightcyan black
+color markers brightcyan black
+color attachment brightmagenta black
+color search white green	# how to hilite search patterns in the pager
+color body brightblue black [-a-z_0-9.]+@[-a-z_0-9.]+	# e-mail addresses
+color underline brightgreen black
+color body brightyellow black "(ftp|http|https|svn)://[^ ]+"	# point out URLs
+
+
 ##############
 # Appearance #
 ##############
 
-#set sidebar_visible = yes
-
-
-# prefer plain text
-alternative_order text/plain text/enriched text/html
-
-# auto-convert to text/html to text/plain
-auto_view text/html
+# set sidebar_visible = yes
+# set sidebar_width = 20
 
 
