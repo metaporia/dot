@@ -254,7 +254,7 @@ endfunction
 
 function! Define(word, ...)
     if a:0 > 0 " a:1 contains search strategy, see ```man dico``` or ```dico --help```
-        let query = "dico -s " . a:1 . " -d* " . '"' . a:word . '"'
+        let query = "dico -s " . a:1 . " -d* " . "'" . a:word . "'"
     else
         let query = "dico -d* " . '"' . a:word . '"' . ' | fmt' 
     endif
@@ -276,6 +276,16 @@ com! -nargs=* Defp :call Define("<args>", "prefix")
 com! -nargs=* Defs :call Define("<args>", "suffix")
 nnoremap <silent> <leader>d  :call Define(expand('<cword>'))<CR>
 
+
+function! LsSyn(word)
+    let sedFilter = " | sed 's/,/\\n/g' | sed 's/\\s//g' "
+    let query = "dico -dmoby\-thesaurus " . "'" . a:word . "'" . sedFilter
+    let synList = system(query)
+    silent call DeadBuf() | call bufname("LsSyn") | silent put =synList | normal gg4dj
+endfunction
+" tighten
+com! -nargs=1 LsSyn :call LsSyn("<args>")
+nnoremap <silent> <leader>ls :call LsSyn(expand('<cword>'))<CR>
 
 " trim whitespace in current buffer
 function! TrimWhiteSpace()
