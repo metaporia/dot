@@ -177,8 +177,6 @@ nnoremap <leader>it "=strftime("%H:%M:%S")<CR>P
 
 " log w style
 nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
-" dvs
-nnoremap <leader>v o	            --- vs ---<Esc>o
 
 " Magit ldr
 nnoremap <leader>M :Magit<CR>
@@ -379,6 +377,8 @@ augroup haskell
     au FileType haskell nnoremap <buffer> K :call HoogleDoc(expand('<cWORD>'))<CR>
     "au BufWritePost *.hs :Neomake! hdevtools
 
+    let g:ghcmod_ghc_options = ['-Wall', '-Wredundant-constraints', '-Wunused-binds', '-Wunused-imports', '-Wincomplete-record-updates', '-Wincomplete-uni-patterns', '-Wcompat']
+
     function! HoogleDoc(searchTerms)
         let query = "stack hoogle -- -i  \'" . a:searchTerms . "\'"  
         let info = system(query)
@@ -478,6 +478,10 @@ augroup END
 "nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 ""nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+
+"personal log conf
+au BufRead ~/sputum/muse/* nnoremap <leader>v o            --- vs ---<Esc>o
 
 
 " checkbox
