@@ -481,8 +481,7 @@ augroup END
 
 
 "personal log conf
-au BufRead ~/sputum/muse/* nnoremap <leader>v o            --- vs ---<Esc>o
-
+au BufRead ~/sputum/muse/* nnoremap <leader>v o<Esc>16i <Esc>a--- vs ---<Esc>o
 
 " checkbox
 " <leader>b : insert '□  ' | replace w ▣
