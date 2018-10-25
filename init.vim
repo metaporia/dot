@@ -9,7 +9,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'rust-lang/rust.vim', {'for': 'rust' }
 "Plug 'bitc/vim-hdevtools', {'for' : 'haskell'}
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} 
-Plug 'eagletmt/ghcmod-vim', {'for': 'haskell' }
+"Plug 'eagletmt/ghcmod-vim', {'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', {'for': 'haskell' }
 "Plug 'haskell/haskell-ide-engine', {'for': 'haskell'}
 "Plug 'Twinside/vim-hoogle', {'for': 'haskell' }
@@ -38,6 +38,7 @@ Plug 'pbrisbin/vim-syntax-shakespeare',
 "Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
 
+Plug 'ndmitchell/ghcid', { 'rtp' : 'plugins/nvim' }
 
 " Java dev: comment out 'for' qualifier
 Plug 'dansomething/vim-eclim' , {'for': 'java'}
@@ -254,7 +255,7 @@ function! Define(word, ...)
     if a:0 > 0 " a:1 contains search strategy, see ```man dico``` or ```dico --help```
         let query = "dico -s " . a:1 . " -d* " . "'" . a:word . "'"
     else
-        let query = "dico -d* " . '"' . a:word . '"' . ' | fmt' 
+        let query = "dico -d* " . '-- "' . a:word . '"' . ' | fmt' 
     endif
     echo query
     " surmise
@@ -362,6 +363,8 @@ augroup haskell
     "autocmd FileType haskell nnoremap <buffer> <leader>gca :GhcModSplitFunCase<CR>
     "autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
 
+    " hindent
+    au FileType haskell setlocal formatprg=hindent
     au FileType haskell compiler ghc
     au FileType haskell set kp=hoogle
     "formatting, tw, shiftwidth
