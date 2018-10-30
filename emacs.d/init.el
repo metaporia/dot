@@ -148,7 +148,7 @@
 (tool-bar-mode -1) 
 (menu-bar-mode -1)
 
-(set-face-attribute 'default nil :height 105) ; 10pt
+(set-face-attribute 'default nil :height 80) ; 10pt
 
 ;;;; Miscellany
 
