@@ -355,7 +355,7 @@ augroup haskell
     "async lint ^ check
     "autocmd BufWritePost *.hs GhcModCheckAndLintAsync 
     "autocmd FileType haskell nnoremap <buffer> <leader>gt :GhcModType!<CR>
-    autocmd FileType haskell nnoremap <buffer> <leader>gl :GhcModLint!<CR>
+    "autocmd FileType haskell nnoremap <buffer> <leader>gl :GhcModLint!<CR>
     "autocmd FileType haskell nnoremap <buffer> <leader>gh :GhcModCheck!<CR>
     "autocmd FileType haskell nnoremap <buffer> <leader>gi :GhcModInfo!<CR>
     "autocmd FileType haskell nnoremap <buffer> <leader>gc :GhcModTypeClear!<CR>
@@ -363,44 +363,49 @@ augroup haskell
     "autocmd FileType haskell nnoremap <buffer> <leader>gca :GhcModSplitFunCase<CR>
     "autocmd FileType haskell nnoremap <buffer> <leader>gcg :GhcModSigCodegen<CR>
 
+    "au FileType haskell lcd %:p:h
+ 
+
     " hindent
-    au FileType haskell setlocal formatprg=hindent
-    au FileType haskell compiler ghc
-    au FileType haskell set kp=hoogle
+    "au FileType haskell setlocal formatprg=hindent
+    "au FileType haskell compiler ghc
     "formatting, tw, shiftwidth
-    autocmd FileType haskell se tw=79
-    autocmd FileType haskell se shiftwidth=2
-    autocmd FileType haskell se softtabstop=2
-    autocmd FileType haskell se tabstop=2
+
+    "autocmd FileType haskell se tw=79
+    "autocmd FileType haskell se shiftwidth=2
+    "autocmd FileType haskell se softtabstop=2
+    "autocmd FileType haskell se tabstop=2
 
 
     "direct hoogle integration (ghc-mod esque)
     "nnoremap <leader>h :HoogleInfo(expand('<cWORD>'), '-i')<CR>
     "nnoremap <leader>sh :HoogleInfo(expand('<cWORD>'), '-n 50')<CR>
-    au FileType haskell nnoremap <buffer> K :call HoogleDoc(expand('<cWORD>'))<CR>
     "au BufWritePost *.hs :Neomake! hdevtools
 
-    let g:ghcmod_ghc_options = ['-Wall', '-Wredundant-constraints', '-Wunused-binds', '-Wunused-imports', '-Wincomplete-record-updates', '-Wincomplete-uni-patterns', '-Wcompat']
+    "let g:ghcmod_ghc_options = ['-Wall', '-Wredundant-constraints', '-Wunused-binds', '-Wunused-imports', '-Wincomplete-record-updates', '-Wincomplete-uni-patterns', '-Wcompat']
 
-    function! HoogleDoc(searchTerms)
-        let query = "stack hoogle -- -i  \'" . a:searchTerms . "\'"  
-        let info = system(query)
-        let resize = "resize " . (winheight(0) * 1/4) 
-        call DeadBuf() | exe resize | call bufname("HoogleDoc") | setlocal ft=haskell | put =info
-    endfunction
+    "function! HoogleDoc(searchTerms)
+    "   let query = "stack hoogle -- -i  \'" . a:searchTerms . "\'"  
+    "    let info = system(query)
+    "    let resize = "resize " . (winheight(0) * 1/4) 
+    "    call DeadBuf() | exe resize | call bufname("HoogleDoc") | setlocal ft=haskell | put =info
+    "endfunction
+
+    "au FileType haskell nnoremap <buffer> K :call HoogleDoc(expand('<cWORD>'))<CR>
 
     " haskell-vim settings
-    let g:haskell_enable_quantification = 1
-    let g:haskell_enable_recursive_do = 1
-    let g:haskell_enable_arrowsyntax = 1
-    let g:haskell_enable_pattern_synonyms = 1
-    let g:haskell_enable_typeroles = 1
-    let g:haskell_enable_static_pointers = 1
-    let g:haskell_backpack = 1
+
+    "let g:haskell_enable_quantification = 1
+    "let g:haskell_enable_recursive_do = 1
+    "let g:haskell_enable_arrowsyntax = 1
+    "let g:haskell_enable_pattern_synonyms = 1
+    "let g:haskell_enable_typeroles = 1
+    "let g:haskell_enable_static_pointers = 1
+    "let g:haskell_backpack = 1
 
     " neco-ghc
-    let g:necoghc_use_stack = 1 
-    let g:necoghc_enable_detailed_browse = 1
+    "let g:necoghc_use_stack = 1 
+    "let g:necoghc_enable_detailed_browse = 1
 
 augroup END
   
