@@ -456,7 +456,8 @@ augroup Markdown
     autocmd FileType markdown nnoremap <leader>m :silent !pan % &<CR>
 augroup END
 
-set tags=tags;/,codex.tags;/
+set tags=tags;/tags;,codex.tags;/
+set tags+=ctags;/
 
 " airline
 "let g:airline_powerline_fonts = 1
@@ -489,7 +490,9 @@ augroup END
 
 
 "personal log conf
-au BufRead ~/sputum/muse/* nnoremap <leader>v o<Esc>16i <Esc>a--- vs ---<Esc>o
+au BufRead ~/sputum/muse/* nnoremap <buffer> <leader>v o<Esc>16i <Esc>a--- vs ---<Esc>o
+au BufRead ~/sputum/muse/* setfiletype muse
+au BufRead ~/sputum/muse/* set efm=%EFile:\ %f,%+C>\ (interactive):l:%c:%m,%+Z>\ %.%#,%+C>\ %.%#
 
 " checkbox
 " <leader>b : insert '□  ' | replace w ▣
@@ -514,6 +517,9 @@ augroup C
     au!
     au BufWritePost *.c :Neomake
 augroup END
+
+
+
 " rainbow
 "let g:rainbow_active = 1
 au! VimEnter * AirlineRefresh

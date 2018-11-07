@@ -1,4 +1,4 @@
-execute 'lcd ' . expand('%:p:h')
+"execute 'lcd ' . expand('%:p:h')
 
 nmap <buffer> K :call HoogleDok(expand('<cWORD>'))<CR>
 
@@ -23,15 +23,16 @@ let g:haskell_backpack = 1
 let g:necoghc_use_stack = 1 
 let g:necoghc_enable_detailed_browse = 1
 
-
 if exists('*HoogleDok')
     finish
 endif
 function! HoogleDok(searchTerms)
+    let wd = getcwd()
     execute 'silent lcd ' . expand('%:p:h')
     let query = "stack hoogle -- -i  \'" . a:searchTerms . "\'"  
     let info = system(query)
     let resize = "resize " . (winheight(0) * 1/4) 
+    execute 'lcd ' . wd
     call DeadBuf() | exe resize | call bufname("HoogleDok") | setlocal ft=haskell | put =info
 endfunction
 
