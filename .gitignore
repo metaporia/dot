@@ -4,6 +4,8 @@
 .#*
 *#
 
+nvim/.netrwhist
+
 # ignore contents of emacs.d
 emacs.d/*
 *.elc

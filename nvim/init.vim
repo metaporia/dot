@@ -176,9 +176,6 @@ nnoremap <leader>ia "=strftime(" %g/%m/%d/%H/%M/%S")<CR>P
 
 nnoremap <leader>it "=strftime("%H:%M:%S")<CR>P
 
-" log w style
-nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
-
 " Magit ldr
 nnoremap <leader>M :Magit<CR>
 
@@ -493,6 +490,8 @@ augroup END
 au BufRead ~/sputum/muse/* nnoremap <buffer> <leader>v o<Esc>16i <Esc>a--- vs ---<Esc>o
 au BufRead ~/sputum/muse/* setfiletype muse
 au BufRead ~/sputum/muse/* set efm=%EFile:\ %f,%+C>\ (interactive):l:%c:%m,%+Z>\ %.%#,%+C>\ %.%#
+" log w style
+au FileType muse nnoremap <buffer> <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
 
 " checkbox
 " <leader>b : insert '□  ' | replace w ▣

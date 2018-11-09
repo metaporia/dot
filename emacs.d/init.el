@@ -11,7 +11,7 @@
  '(org-agenda-files (quote ("~/org/todo.org" "~/org/refile.org")))
  '(package-selected-packages
    (quote
-    (intero company-ghc haskell-mode solarized-theme smart-mode-line ## gruvbox-theme which-key helm elisp-slime-nav evil-indent-textobject evil-surround use-package evil-visual-mark-mode racer linum-relative evil-magit evil-leader evil-escape company)))
+    (intero ghc company-ghc haskell-mode solarized-theme smart-mode-line ## gruvbox-theme which-key helm elisp-slime-nav evil-indent-textobject evil-surround use-package evil-visual-mark-mode racer linum-relative evil-magit evil-leader evil-escape company)))
  '(sml/pre-modes-separator (propertize " " (quote face) (quote sml/modes))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -90,12 +90,16 @@
   (define-key company-active-map(kbd "C-n") 'company-select-next-or-abort)
   (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))
 
-;;(use-package company-ghc
-;;  :ensure t
-;;  :config
-;;  (add-to-list 'company-backends 'company-ghc)
-;;  (add-hook
-;;  )
+(use-package company-ghc
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-ghc)
+  (autoload 'ghc-init "ghc" nil t)
+  (autoload 'ghc-debug "ghc" nil t)
+  (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+
+  ;(add-hook
+  )
 
 ;;;; Org
 (require 'init-org)

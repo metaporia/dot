@@ -1,6 +1,7 @@
 "execute 'lcd ' . expand('%:p:h')
 
 nmap <buffer> K :call HoogleDok(expand('<cWORD>'))<CR>
+nmap <buffer> <leader> h cswb%i :: _jk,w
 
 setlocal tw=79
 setlocal shiftwidth=2
