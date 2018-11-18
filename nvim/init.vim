@@ -487,11 +487,11 @@ augroup END
 
 
 "personal log conf
-au BufRead ~/sputum/muse/* nnoremap <buffer> <leader>v o<Esc>16i <Esc>a--- vs ---<Esc>o
-au BufRead ~/sputum/muse/* setfiletype muse
-au BufRead ~/sputum/muse/* set efm=%EFile:\ %f,%+C>\ (interactive):l:%c:%m,%+Z>\ %.%#,%+C>\ %.%#
+au BufEnter ~/sputum/muse/* nnoremap <buffer> <leader>v o<Esc>16i <Esc>a--- vs ---<Esc>o
+au BufEnter ~/sputum/muse/* setfiletype muse
+au BufEnter ~/sputum/muse/* set efm=%EFile:\ %f,%+C>\ (interactive):l:%c:%m,%+Z>\ %.%#,%+C>\ %.%#
 " log w style
-au FileType muse nnoremap <buffer> <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
+nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
 
 " checkbox
 " <leader>b : insert '□  ' | replace w ▣
