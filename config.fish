@@ -64,7 +64,7 @@ abbr gb='git branch --all'
 abbr gr='git remote --verbose'
 abbr gl='git log --graph --oneline --decorate'
 abbr gd='git diff'
-abbr gd='git diff --cached'
+abbr gdc='git diff --cached'
 
 # tmux
 abbr ta='tmux attach -t'
