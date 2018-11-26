@@ -517,11 +517,14 @@ augroup C
     au BufWritePost *.c :Neomake
 augroup END
 
-
-
 " rainbow
 "let g:rainbow_active = 1
+
 au! VimEnter * AirlineRefresh
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
+
+"use one of
 colo base16-gruvbox-dark-hard
+"colo base16-gruvbox-dark-pale
+"colo base16-bright
