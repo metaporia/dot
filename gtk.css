@@ -10,11 +10,11 @@ window.ssd stack headerbar:last-child:backdrop,
 window.ssd stack headerbar:last-child,
 window.ssd decoration,
 window.ssd headerbar.titlebar {
-  border-radius: 1;
+  border-radius: 0.5;
 }
 
 window.ssd headerbar * {
-  margin-top: -10px;
+  margin-top: -100px;
   color: #000000;
 }
 
