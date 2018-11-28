@@ -53,6 +53,7 @@ set -x LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 
 # git
 abbr -a cb='cd -'
+abbr g 'git'
 abbr gs='git status'
 abbr gaa='git add --all'
 abbr ga='git add'
