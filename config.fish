@@ -18,6 +18,7 @@ set -gx PATH /home/aporia/.cargo/bin \
 # cabal-helpel for ghc-mod on ghc 8.0.2 
 set -gx cabal_helper_libexecdir /home/aporia/.stack/snapshots/x86_64-linux-tinfo6/lts-9.21/8.0.2/libexec/x86_64-linux-ghc-8.0.2/cabal-helper-0.7.3.0/
 
+bass source /home/aporia/.nix-profile/etc/profile.d/nix.sh
 
 #######################
 #  coloring manpages  #
@@ -52,38 +53,38 @@ set -x LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 #########
 
 # git
-abbr -a cb='cd -'
-abbr g 'git'
-abbr gs='git status'
-abbr gaa='git add --all'
-abbr ga='git add'
-abbr gau='git add -u' # stage modified, deleted, not new.
-abbr gcm='git commit -m'
-abbr gctt='git commit -m \'Tiny tweaks.\''
-abbr gp='git push'
-abbr gb='git branch --all'
-abbr gr='git remote --verbose'
-abbr gl='git log --graph --oneline --decorate'
-abbr gd='git diff'
-abbr gdc='git diff --cached'
+abbr -a cb 'cd -'
+abbr -a g 'git'
+abbr -a gs 'git status'
+abbr -a gaa 'git add --all'
+abbr -a ga 'git add'
+abbr -a gau 'git add -u' # stage modified, deleted, not new.
+abbr -a gcm 'git commit -m'
+abbr -a gctt 'git commit -m \'Tiny tweaks.\''
+abbr -a gp 'git push'
+abbr -a gb 'git branch --all'
+abbr -a gr 'git remote --verbose'
+abbr -a gl 'git log --graph --oneline --decorate'
+abbr -a gd 'git diff'
+abbr -a gdc 'git diff --cached'
 
 # tmux
-abbr ta='tmux attach -t'
-abbr t='tmux new -A -s' # attach or create <sesh>
-abbr tks='tmux kill-session -t'
-abbr ts='tmux list-sessions'
-abbr tp='tmux list-panes'
-abbr tw='tmux list-windows'
-abbr ti='tmux info'
+abbr -a ta 'tmux attach -t'
+abbr -a t 'tmux new -A -s' # attach or create <sesh>
+abbr -a tks 'tmux kill-session -t'
+abbr -a ts 'tmux list-sessions'
+abbr -a tp 'tmux list-panes'
+abbr -a tw 'tmux list-windows'
+abbr -a ti 'tmux info'
 
 # nvim
-abbr vi=nvim
-abbr vis='vi -S sesh'
+abbr -a vi nvim
+abbr -a vis 'vi -S sesh'
 
 
-abbr mu='mupdf'
+abbr -a mu 'mupdf'
 
-alias open='xdg-open'
+alias open 'xdg-open'
 
 # cheat () { curl -s "http://cheat.sh/$1" ; }
 #
