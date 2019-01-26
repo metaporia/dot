@@ -243,6 +243,9 @@ nnoremap <leader>vh :set hlsearch!<CR>
 nnoremap <leader>vl :set list!<CR>
 nnoremap <leader>vr :set relativenumber!<CR>
 
+" magit
+nnoremap <leader>g :Magit<CR>
+
 "pandoc latex to pdf
 function! RenderMarkdown()
     let query = 'pandoc -fmarkdown+smart ' .  expand('%:r') . '.md -o ' . expand('%:r') . '.pdf --number-sections --pdf-engine=xelatex'
