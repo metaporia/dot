@@ -42,6 +42,7 @@ Plug 'ndmitchell/ghcid', { 'rtp' : 'plugins/nvim' }
 
 " Java dev: comment out 'for' qualifier
 Plug 'dansomething/vim-eclim' , {'for': 'java'}
+Plug 'LnL7/vim-nix' ", {'for': 'nix'}
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
 
@@ -242,6 +243,13 @@ nnoremap <leader>vh :set hlsearch!<CR>
 nnoremap <leader>vl :set list!<CR>
 nnoremap <leader>vr :set relativenumber!<CR>
 
+"pandoc latex to pdf
+function! RenderMarkdown()
+    let query = 'pandoc -fmarkdown+smart ' .  expand('%:r') . '.md -o ' . expand('%:r') . '.pdf --number-sections --pdf-engine=xelatex'
+    echo system(query)
+endfunction
+nnoremap <leader>. :call RenderMarkdown()<CR>
+
 "inoremap <c-l> <c-x><c-o>
 
 function! DeadBuf()
@@ -252,7 +260,7 @@ function! Define(word, ...)
     if a:0 > 0 " a:1 contains search strategy, see ```man dico``` or ```dico --help```
         let query = "dico -s " . a:1 . " -d* " . "'" . a:word . "'"
     else
-        let query = "dico -d* " . '-- "' . a:word . '"' . ' | fmt' 
+        let query = "dico " . '-- "' . a:word . '"' . ' | fmt' 
     endif
     echo query
     " surmise
