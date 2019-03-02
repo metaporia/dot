@@ -5,6 +5,7 @@
 *#
 
 nvim/.netrwhist
+nvim/spell/
 
 # ignore contents of emacs.d
 emacs.d/*
