@@ -16,7 +16,12 @@ set -gx PATH /home/aporia/.cargo/bin \
             #/home/aporia/src/binaryen/bin
            
 # cabal-helpel for ghc-mod on ghc 8.0.2 
-set -gx cabal_helper_libexecdir /home/aporia/.stack/snapshots/x86_64-linux-tinfo6/lts-9.21/8.0.2/libexec/x86_64-linux-ghc-8.0.2/cabal-helper-0.7.3.0/
+switch (hostname)
+case hub
+  set -gx cabal_helper_libexecdir /home/aporia/muse/.stack-work/install/x86_64-linux/lts-9.21/8.0.2/libexec/x86_64-linux-ghc-8.0.2/cabal-helper-0.7.3.0
+case '*'
+    set -gx cabal_helper_libexecdir /home/aporia/.stack/snapshots/x86_64-linux-tinfo6/lts-9.21/8.0.2/libexec/x86_64-linux-ghc-8.0.2/cabal-helper-0.7.3.0/
+end
 
 bass source /home/aporia/.nix-profile/etc/profile.d/nix.sh
 
