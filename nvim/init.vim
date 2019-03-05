@@ -277,11 +277,21 @@ function! Define(word, ...)
     "call DeadBuf() | 
 endfunction
 
+func! GetSelectedText()
+  " uses selection register
+  " source: https://stackoverflow.com/questions/12805922/vim-vmap-send-selected-text-as-parameter-to-function
+  normal gv"*y 
+  let result = getreg("*")
+  normal gv
+  return result
+endfunc
+
 " dict integration, Define keymap hook
 com! -nargs=1 Def :call Define("<args>")
 com! -nargs=* Defp :call Define("<args>", "prefix")
 com! -nargs=* Defs :call Define("<args>", "suffix")
 nnoremap <silent> <leader>d  :call Define(expand('<cword>'))<CR>
+vnoremap <silent> <leader>d :call Define(GetSelectedText())<CR>
 
 
 function! LsSyn(word)
