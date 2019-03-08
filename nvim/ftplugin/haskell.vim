@@ -8,7 +8,11 @@ setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal tabstop=2
 setlocal formatprg=hindent
+let g:haskell_hlint_on_write = 0
 
+if g:haskell_hlint_on_write
+    au BufWrite *.hs :silent Neomake hlint<CR>
+endif
 
 let g:ghcmod_ghc_options = ['-Wall', '-Wredundant-constraints', '-Wunused-binds', '-Wunused-imports', '-Wincomplete-record-updates', '-Wincomplete-uni-patterns', '-Wcompat']
 

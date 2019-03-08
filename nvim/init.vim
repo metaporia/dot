@@ -221,7 +221,9 @@ nnoremap <leader>md :new <CR>:r !muse.do<CR>:set ft=vim<CR>gg
 nnoremap <leader>e :silent make build \| cw<CR>
 
 " neomake
-nnoremap <leader>n :Neomake<CR>
+"nnoremap <leader>n :Neomake<CR>
+nnoremap <leader>n :cn<CR>
+
 
 " path 
 set path=.,/usr/include,~/ws,~/sputum,~/dot,~/Axiom,~/wiki
@@ -287,6 +289,7 @@ func! GetSelectedText()
 endfunc
 
 " dict integration, Define keymap hook
+" TODO unify dict/dico helpers and bindings into plugin; document.
 com! -nargs=1 Def :call Define("<args>")
 com! -nargs=* Defp :call Define("<args>", "prefix")
 com! -nargs=* Defs :call Define("<args>", "suffix")
@@ -529,6 +532,24 @@ function! CheckBox()
     endif
 endfunction
 nnoremap <leader>b :call CheckBox()<CR>
+
+"vimgrep wrapper: search buffers
+function! BuffersList()
+  let all = range(0, bufnr('$'))
+  let res = []
+  for b in all
+    if buflisted(b)
+      call add(res, bufname(b))
+    endif
+  endfor
+  return res
+endfunction
+
+function! GrepBuffers (expression)
+  exec 'vimgrep/'.a:expression.'/ '.join(BuffersList())
+endfunction
+
+command! -nargs=+ GrepBufs call GrepBuffers(<q-args>)
 
 "c lang conf
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-4.0/lib/libclang.so.1'
