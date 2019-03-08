@@ -72,6 +72,7 @@ abbr -a gr 'git remote --verbose'
 abbr -a gl 'git log --graph --oneline --decorate'
 abbr -a gd 'git diff'
 abbr -a gdc 'git diff --cached'
+abbr gca 'git commit --amend --no-edit'
 
 # tmux
 abbr -a ta 'tmux attach -t'

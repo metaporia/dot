@@ -510,12 +510,27 @@ augroup END
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 
-"personal log conf
+" Muse 
 au BufEnter ~/sputum/muse/* nnoremap <buffer> <leader>v o<Esc>16i <Esc>a--- vs ---<Esc>o
 au BufEnter ~/sputum/muse/* setfiletype muse
 au BufEnter ~/sputum/muse/* set efm=%EFile:\ %f,%+C>\ (interactive):l:%c:%m,%+Z>\ %.%#,%+C>\ %.%#
 " log w style
 nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
+
+function! MuseLogEntry()
+    execute "normal Go\<C-r>=strftime(\"%H:%M:%S λ. \")\<CR>"
+    call feedkeys('A', ' ')
+endfunction
+
+function! MuseLastRead()
+    call MuseLogEntry()
+    call feedkeys(system("muse lastRead --suppress-newline") . "\<ESC>") 
+endfunction
+
+command! LogEntry :call LogEntry()
+command! LastRead call MuseLastRead()
+"continue reading
+nnoremap <leader>cr :LastRead<CR>
 
 " checkbox
 " <leader>b : insert '□  ' | replace w ▣
