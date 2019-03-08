@@ -90,6 +90,7 @@ abbr -a vis 'vi -S sesh'
 abbr -a mu 'mupdf'
 
 alias open 'xdg-open'
+abbr magit 'nvim +Magit -c"wincmd o"'
 
 # cheat () { curl -s "http://cheat.sh/$1" ; }
 #
