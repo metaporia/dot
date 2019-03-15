@@ -70,6 +70,9 @@
     ls = ls-files
     ls-ignored = ls-files -others --i --exclude-standard
 
+    graph = log --graph --decorate --format=format:'%C(yellow)%h%Creset %<(13,trunc)%Cblue%ad%Creset %C(bold cyan)%s%Creset %C(dim white)- %an%Creset' --all
+    g = graph
+
     ## push
     pu = push
 
@@ -104,4 +107,4 @@
 [log]
     date = relative
 [format]
-    pretty = format:%h %<(13,trunc)%Cblue%ad%Creset %<(10,trunc)%an %Cgreen%s%Creset 
+    pretty = format:%C(yellow)%h%Creset %<(13,trunc)%Cblue%ad%Creset %<(10,trunc)%an %Cgreen%s%Creset 
