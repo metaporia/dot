@@ -10,6 +10,7 @@ set -gx PATH /home/aporia/.cargo/bin \
              /home/aporia/scripts \
              /usr/bin \
              /usr/local/bin \
+            #/home/aporia/.stack/programs/x86_64-linux/ghcjs-0.2.0.9006020_ghc-7.10.3/bin
             #/home/aporia/.conda3/bin \
             #/home/aporia/neovim/bin \
             #/home/aporia/Downloads/node-v8.11.2-linux-x64/bin \
@@ -73,6 +74,7 @@ abbr -a gl 'git log --graph --oneline --decorate'
 abbr -a gd 'git diff'
 abbr -a gdc 'git diff --cached'
 abbr gca 'git commit --amend --no-edit'
+abbr gg 'git graph'
 
 # tmux
 abbr -a ta 'tmux attach -t'
