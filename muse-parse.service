@@ -1,0 +1,8 @@
+[Unit]
+Description=Parse muse reading logs on boot
+
+[Service]
+ExecStart=/home/aporia/.local/bin/muse parse
+
+[Install]
+WantedBy=multi-user.target
