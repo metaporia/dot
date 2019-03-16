@@ -38,7 +38,7 @@ Plug 'pbrisbin/vim-syntax-shakespeare',
 "Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
 
-Plug 'ndmitchell/ghcid', { 'rtp' : 'plugins/nvim' }
+Plug 'ndmitchell/ghcid', { 'tag': 'v0.6.8', 'rtp' : 'plugins/nvim' }
 
 " Java dev: comment out 'for' qualifier
 Plug 'dansomething/vim-eclim' , {'for': 'java'}
