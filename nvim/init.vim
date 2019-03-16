@@ -43,6 +43,7 @@ Plug 'ndmitchell/ghcid', { 'rtp' : 'plugins/nvim' }
 " Java dev: comment out 'for' qualifier
 Plug 'dansomething/vim-eclim' , {'for': 'java'}
 Plug 'LnL7/vim-nix' ", {'for': 'nix'}
+Plug 'ElmCast/elm-vim', {'for': 'elm'}
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
 
@@ -82,7 +83,7 @@ se timeoutlen=200
 se ttimeoutlen=50
 
 se tw=79
-
+set wrap
 se breakindent
 se noshowmode
 
