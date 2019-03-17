@@ -43,7 +43,7 @@ Plug 'ndmitchell/ghcid', { 'tag': 'v0.6.8', 'rtp' : 'plugins/nvim' }
 " Java dev: comment out 'for' qualifier
 Plug 'dansomething/vim-eclim' , {'for': 'java'}
 Plug 'LnL7/vim-nix' ", {'for': 'nix'}
-Plug 'ElmCast/elm-vim', {'for': 'elm'}
+Plug 'Zaptic/elm-vim', {'for': 'elm'}
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
 
