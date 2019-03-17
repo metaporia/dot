@@ -4,7 +4,7 @@
 	password = Policeman2
 [core]
 	editor = nvim
-    pager = less --tabs=4 -rFX #--pattern '^(Date|added|deleted|modified): '
+    pager = less -SXRF --tabs=4 #-FX #--pattern '^(Date|added|deleted|modified): '
 [credential]
 	helper = cache --timeout 7200
 [alias]
