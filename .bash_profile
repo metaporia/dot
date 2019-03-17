@@ -29,3 +29,4 @@ HISTFILESIZE=-1
 source ~/.bashrc
 
 export PATH="$HOME/.cargo/bin:$PATH"
+if [ -e /home/aporia/.nix-profile/etc/profile.d/nix.sh ]; then . /home/aporia/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
