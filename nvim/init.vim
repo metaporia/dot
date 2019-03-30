@@ -45,8 +45,11 @@ Plug 'dansomething/vim-eclim' , {'for': 'java'}
 Plug 'LnL7/vim-nix' ", {'for': 'nix'}
 Plug 'Zaptic/elm-vim', {'for': 'elm'}
 Plug 'w0rp/ale', {'for':'elm'}
+Plug 'https://gitlab.com/metaporia/muse-vim'
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
+
+let g:muse_vim_log_dir= '/home/aporia/sputum/muse'
 
 se updatetime=100 " gitgutter
 au! BufWrite * GitGutter
@@ -215,9 +218,6 @@ nnoremap <leader>w :w<CR>
 
 "overwrite defaulte session "./sesh"
 nnoremap <leader>s :mks! sesh<CR>
-
-" muse 
-nnoremap <leader>md :new <CR>:r !muse.do<CR>:set ft=vim<CR>gg
 
 "make
 nnoremap <leader>e :silent make build \| cw<CR>
@@ -511,29 +511,6 @@ augroup END
 ""nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
-
-" Muse 
-au BufEnter ~/sputum/muse/* nnoremap <buffer> <leader>v o<Esc>16i <Esc>a--- vs ---<Esc>o
-au BufEnter ~/sputum/muse/* setfiletype muse
-au BufEnter ~/sputum/muse/* set efm=%EFile:\ %f,%+C>\ (interactive):l:%c:%m,%+Z>\ %.%#,%+C>\ %.%#
-" log w style
-nnoremap <leader>t Go<C-r>=strftime("%H:%M:%S λ. ")<CR>
-
-function! MuseLogEntry()
-    execute "normal Go\<C-r>=strftime(\"%H:%M:%S λ. \")\<CR>"
-    call feedkeys('A', ' ')
-endfunction
-
-function! MuseLastRead()
-    call MuseLogEntry()
-    call feedkeys(system("muse lastRead --suppress-newline") . "\<ESC>") 
-endfunction
-
-command! LogEntry :call LogEntry()
-command! LastRead call MuseLastRead()
-"continue reading
-nnoremap <leader>cr :LastRead<CR>
-
 " checkbox
 " <leader>b : insert '□  ' | replace w ▣
 function! CheckBox() 
@@ -614,4 +591,3 @@ endfunction
 com! -nargs=1 Pronounce :call Pronounce("<args>")
 nnoremap <silent> <leader>lp  :call Pronounce(expand('<cword>'))<CR>
 
-" intrepid
