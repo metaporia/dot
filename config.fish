@@ -10,6 +10,7 @@ set -gx PATH /home/aporia/.cargo/bin \
              /home/aporia/scripts \
              /usr/bin \
              /usr/local/bin \
+            /home/aporia/.nvm/versions/node/v11.12.0/bin/
             #/home/aporia/.stack/programs/x86_64-linux/ghcjs-0.2.0.9006020_ghc-7.10.3/bin
             #/home/aporia/.conda3/bin \
             #/home/aporia/neovim/bin \

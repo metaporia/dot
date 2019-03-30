@@ -44,6 +44,7 @@ Plug 'ndmitchell/ghcid', { 'tag': 'v0.6.8', 'rtp' : 'plugins/nvim' }
 Plug 'dansomething/vim-eclim' , {'for': 'java'}
 Plug 'LnL7/vim-nix' ", {'for': 'nix'}
 Plug 'Zaptic/elm-vim', {'for': 'elm'}
+Plug 'w0rp/ale', {'for':'elm'}
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
 
@@ -575,14 +576,42 @@ augroup C
     au BufWritePost *.c :Neomake
 augroup END
 
+"elm & ale
+let g:ale_completion_enabled = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+
 " rainbow
 "let g:rainbow_active = 1
 
 au! VimEnter * AirlineRefresh
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
+au! Filetype elm nnoremap <leader>f :ElmFormat<CR>
 
 "use one of
 colo base16-gruvbox-dark-hard
 "colo base16-gruvbox-dark-pale
 "colo base16-bright
+
+" job_control example:
+"
+"function! s:OnEvent(id, data, event) dict
+"      let str = join(a:data, "\n")
+"      echomsg str
+"endfunction
+"let id = jobstart(['cat'], {'on_stdout': function('s:OnEvent') } )
+" call chansend(id, "hello!")
+
+function! Pronounce(query)
+    call jobstart(['pronounce', a:query], {}) 
+endfunction
+
+com! -nargs=1 Pronounce :call Pronounce("<args>")
+nnoremap <silent> <leader>lp  :call Pronounce(expand('<cword>'))<CR>
+
+" intrepid
