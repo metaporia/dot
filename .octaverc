@@ -1,0 +1,9 @@
+format rat;
+
+# suppress_verbose_help_message = 1;
+
+PS1("λ ");
+
+addpath(pwd);
+
+# N.B. start via `octave -q` to suppress welcome banner
