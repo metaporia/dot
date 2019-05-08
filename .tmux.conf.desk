@@ -142,7 +142,7 @@ setw -g window-status-current-format "#[bg=colour0]#[fg=colour9] #I #[fg=colour1
 #setw -g window-status-bg green
 #setw -g window-status-fg black
 #FIXME
-setw -g window-status-attr reverse
+setw -g window-status-style attr=reverse
 #
 #
 ## Info on left (I don't have a session display for now)
