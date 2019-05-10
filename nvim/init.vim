@@ -259,11 +259,16 @@ nnoremap <leader>. :call RenderMarkdown()<CR>
 
 "inoremap <c-l> <c-x><c-o>
 
-function! DeadBuf()
-    new | setlocal buftype=nofile | setlocal noswapfile 
+function! DeadBuf(orientation)
+    let cmd = "new"
+    if a:orientation == "v"
+        let cmd = "vnew"
+    endif
+    
+    execute cmd . " | setlocal buftype=nofile | setlocal noswapfile"
 endfunction
 
-function! Define(word, ...)
+function! Define(orientation, word, ...)
     if a:0 > 0 " a:1 contains search strategy, see ```man dico``` or ```dico --help```
         let query = "dico -s " . a:1 . " -d* " . "'" . a:word . "'"
     else
@@ -277,7 +282,7 @@ function! Define(word, ...)
         let remote_query = "dict --host gnu.org.ua " . '"' . a:word . '"' . ' | fmt'
         let definitions = system(remote_query)
     endif
-    silent call DeadBuf() | call bufname("dico") | silent put =definitions | normal ggdd 
+    silent call DeadBuf(a:orientation) | call bufname("dico") | silent put =definitions | normal ggdd 
     "call DeadBuf() | 
 endfunction
 
@@ -292,18 +297,20 @@ endfunc
 
 " dict integration, Define keymap hook
 " TODO unify dict/dico helpers and bindings into plugin; document.
-com! -nargs=1 Def :call Define("<args>")
-com! -nargs=* Defp :call Define("<args>", "prefix")
-com! -nargs=* Defs :call Define("<args>", "suffix")
-nnoremap <silent> <leader>d  :call Define(expand('<cword>'))<CR>
-vnoremap <silent> <leader>d :call Define(GetSelectedText())<CR>
+com! -nargs=1 Def :call Define("h", "<args>")
+com! -nargs=* Defp :call Define("h", "<args>", "prefix")
+com! -nargs=* Defs :call Define("h", "<args>", "suffix")
+nnoremap <silent> <leader>d  :call Define('h', expand('<cword>'))<CR>
+vnoremap <silent> <leader>d :call Define('h', GetSelectedText())<CR>
 
+nnoremap <silent> <leader>dv  :call Define('v', expand('<cword>'))<CR>
+vnoremap <silent> <leader>dv :call Define('v', GetSelectedText())<CR>
 
 function! LsSyn(word)
     let sedFilter = " | sed 's/,/\\n/g' | sed 's/\\s//g' "
     let query = "dico -dmoby\-thesaurus " . "'" . a:word . "'" . sedFilter
     let synList = system(query)
-    silent call DeadBuf() | call bufname("LsSyn") | silent put =synList | normal gg4dj
+    silent call DeadBuf("h") | call bufname("LsSyn") | silent put =synList | normal gg4dj
 endfunction
 " tighten
 com! -nargs=1 LsSyn :call LsSyn("<args>")
@@ -567,13 +574,14 @@ let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
+let g:ale_open_list = 0
 au! Filetype elm nnoremap <leader>f :ElmFormat<CR>
 
 "use one of
-colo base16-gruvbox-dark-hard
+"colo base16-gruvbox-dark-hard
 "colo base16-gruvbox-dark-pale
 "colo base16-bright
+colo base16-flat
 
 " job_control example:
 "
