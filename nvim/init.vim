@@ -598,4 +598,5 @@ endfunction
 
 com! -nargs=1 Pronounce :call Pronounce("<args>")
 nnoremap <silent> <leader>lp  :call Pronounce(expand('<cword>'))<CR>
+vnoremap <silent> <leader>lp  :call Pronounce(GetSelectedText())<CR>
 
