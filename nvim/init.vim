@@ -46,6 +46,7 @@ Plug 'LnL7/vim-nix' ", {'for': 'nix'}
 Plug 'Zaptic/elm-vim', {'for': 'elm'}
 Plug 'w0rp/ale', {'for':'elm'}
 Plug 'https://gitlab.com/metaporia/muse-vim'
+Plug 'https://gitlab.com/metaporia/dico-vim'
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
 
@@ -259,6 +260,10 @@ nnoremap <leader>. :call RenderMarkdown()<CR>
 
 "inoremap <c-l> <c-x><c-o>
 
+" opens unwritable buffer in horizontal or vertical split according to the
+" orientation string:
+"   * "v" sets vertical
+"   * otherwise sets horizontal
 function! DeadBuf(orientation)
     let cmd = "new"
     if a:orientation == "v"
@@ -266,24 +271,6 @@ function! DeadBuf(orientation)
     endif
     
     execute cmd . " | setlocal buftype=nofile | setlocal noswapfile"
-endfunction
-
-function! Define(orientation, word, ...)
-    if a:0 > 0 " a:1 contains search strategy, see ```man dico``` or ```dico --help```
-        let query = "dico -s " . a:1 . " -d* " . "'" . a:word . "'"
-    else
-        let query = "dico " . '-- "' . a:word . '"' . ' | fmt' 
-    endif
-    echo query
-    " surmise
-    let definitions = system(query) 
-    if definitions == "dict (client_read_status): Error reading from socket\nclient_read_status: Success\n"
-        "echo "error"
-        let remote_query = "dict --host gnu.org.ua " . '"' . a:word . '"' . ' | fmt'
-        let definitions = system(remote_query)
-    endif
-    silent call DeadBuf(a:orientation) | call bufname("dico") | silent put =definitions | normal ggdd 
-    "call DeadBuf() | 
 endfunction
 
 func! GetSelectedText()
@@ -294,27 +281,6 @@ func! GetSelectedText()
   normal gv
   return result
 endfunc
-
-" dict integration, Define keymap hook
-" TODO unify dict/dico helpers and bindings into plugin; document.
-com! -nargs=1 Def :call Define("h", "<args>")
-com! -nargs=* Defp :call Define("h", "<args>", "prefix")
-com! -nargs=* Defs :call Define("h", "<args>", "suffix")
-nnoremap <silent> <leader>d  :call Define('h', expand('<cword>'))<CR>
-vnoremap <silent> <leader>d :call Define('h', GetSelectedText())<CR>
-
-nnoremap <silent> <leader>dv  :call Define('v', expand('<cword>'))<CR>
-vnoremap <silent> <leader>dv :call Define('v', GetSelectedText())<CR>
-
-function! LsSyn(word)
-    let sedFilter = " | sed 's/,/\\n/g' | sed 's/\\s//g' "
-    let query = "dico -dmoby\-thesaurus " . "'" . a:word . "'" . sedFilter
-    let synList = system(query)
-    silent call DeadBuf("h") | call bufname("LsSyn") | silent put =synList | normal gg4dj
-endfunction
-" tighten
-com! -nargs=1 LsSyn :call LsSyn("<args>")
-nnoremap <silent> <leader>ls :call LsSyn(expand('<cword>'))<CR>
 
 " trim whitespace in current buffer
 function! TrimWhiteSpace()
