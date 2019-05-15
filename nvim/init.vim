@@ -312,6 +312,7 @@ augroup mutt
 augroup END
 
 set title
+au BufEnter * let &titlestring=expand("%:p:~")
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -496,6 +497,9 @@ colo base16-flat
 "endfunction
 "let id = jobstart(['cat'], {'on_stdout': function('s:OnEvent') } )
 " call chansend(id, "hello!")
+
+" dico
+let g:dico_vim_map_keys = 1
 
 function! Pronounce(query)
     call jobstart(['pronounce', a:query], {}) 
