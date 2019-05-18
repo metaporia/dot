@@ -20,8 +20,8 @@
     l = log --graph --oneline --decorate
     m = merge
     o = checkout
-    p = pull
-    r = remote
+    g = pull
+    r = remote -v
     s = status
     w = whatchanged
     
@@ -71,12 +71,16 @@
     ls-ignored = ls-files -others --i --exclude-standard
 
     graph = log --graph --decorate --format=format:'%C(yellow)%h%Creset %<(13,trunc)%Cblue%ad%Creset %C(bold cyan)%s%Creset %C(dim white)- %an%Creset' --all
-    g = graph
 
     ## push
     pu = push
 
+    ### push to all remotes
+    pushall = !git remote | xargs -L1 git push  --all
+    p = pushall
+
     ## merge
+
     
 
     ### alias management

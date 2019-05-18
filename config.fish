@@ -68,14 +68,14 @@ abbr -a ga 'git add'
 abbr -a gau 'git add -u' # stage modified, deleted, not new.
 abbr -a gcm 'git commit -m'
 abbr -a gctt 'git commit -m \'Tiny tweaks.\''
-abbr -a gp 'git push'
+abbr -a gp 'git p'
 abbr -a gb 'git branch --all'
 abbr -a gr 'git remote --verbose'
 abbr -a gl 'git log --graph --oneline --decorate'
 abbr -a gd 'git diff'
 abbr -a gdc 'git diff --cached'
 abbr gca 'git commit --amend --no-edit'
-abbr gg 'git graph'
+abbr gg 'git pull'
 
 # tmux
 abbr -a ta 'tmux attach -t'
