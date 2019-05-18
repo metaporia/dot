@@ -91,12 +91,28 @@ abbr -a ti 'tmux info'
 # nvim
 abbr -a vi nvim
 abbr -a vis 'vi -S sesh'
-
-
-abbr -a mu 'mupdf'
-
-alias open 'xdg-open'
 abbr magit 'nvim +Magit -c"wincmd o"'
+
+# muse
+abbr m 'muse -c search ' 
+abbr mp 'muse parse' 
+
+
+# misc
+abbr -a mu 'mupdf'
+alias open 'xdg-open'
+
+
+################
+# Key-mappings #
+################
+
+bind \ea 'history-token-search-backward'
+
+
+#########
+# Cruft #
+#########
 
 # cheat () { curl -s "http://cheat.sh/$1" ; }
 #
