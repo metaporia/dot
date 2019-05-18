@@ -10,7 +10,8 @@ set -gx PATH /home/aporia/.cargo/bin \
              /home/aporia/scripts \
              /usr/bin \
              /usr/local/bin \
-            /home/aporia/.nvm/versions/node/v11.12.0/bin/
+             /home/aporia/.nvm/versions/node/v11.12.0/bin/ 
+            #/opt/anaconda/bin/
             #/home/aporia/.stack/programs/x86_64-linux/ghcjs-0.2.0.9006020_ghc-7.10.3/bin
             #/home/aporia/.conda3/bin \
             #/home/aporia/neovim/bin \
@@ -104,3 +105,6 @@ abbr magit 'nvim +Magit -c"wincmd o"'
 
 # OPAM configuration
 # . /home/aporia/.opam/opam-init/init.fish > /dev/null 2> /dev/null or true
+
+base16-flat.sh
+
