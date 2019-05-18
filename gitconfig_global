@@ -22,7 +22,7 @@
     o = checkout
     g = pull
     r = remote -v
-    s = status
+    s = status --short
     w = whatchanged
     
     # 2
@@ -67,8 +67,8 @@
     lo = log --oneline
     lp = log --patch
     lt = log --topo-order # topological order: descendant commits shown before parents.
-    ls = ls-files
-    ls-ignored = ls-files -others --i --exclude-standard
+    ls = log --oneline --graph --decorate --stat
+    ls-ignored = ls-files --others --i --exclude-standard
 
     graph = log --graph --decorate --format=format:'%C(yellow)%h%Creset %<(13,trunc)%Cblue%ad%Creset %C(bold cyan)%s%Creset %C(dim white)- %an%Creset' --all
 

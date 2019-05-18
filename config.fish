@@ -63,7 +63,7 @@ set -x LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 # git
 abbr -a cb 'cd -'
 abbr -a g 'git'
-abbr -a gs 'git status'
+abbr -a gs 'git status --short'
 abbr -a gaa 'git add --all'
 abbr -a ga 'git add'
 abbr -a gau 'git add -u' # stage modified, deleted, not new.
@@ -73,6 +73,7 @@ abbr -a gp 'git p'
 abbr -a gb 'git branch --all'
 abbr -a gr 'git remote --verbose'
 abbr -a gl 'git log --graph --oneline --decorate'
+abbr -a gls 'git log --graph --oneline --decorate --stat'
 abbr -a gd 'git diff'
 abbr -a gdc 'git diff --cached'
 abbr gca 'git commit --amend --no-edit'
