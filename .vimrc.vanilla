@@ -3,6 +3,8 @@ set runtimepath+=/usr/share/nvim/sysinit.vim
 inoremap jk <Esc>
 let mapleader =','
 nnoremap <leader>w :w<CR>
+nnoremap <leader>r :source ~/.nvimrc<CR>:echo "reloaded ~/.nvimrc"<CR> 
 
 set number
 set relativenumber
+set hidden
