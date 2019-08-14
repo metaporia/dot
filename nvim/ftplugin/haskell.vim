@@ -40,6 +40,7 @@ function! HoogleDok(searchTerms)
     let info = system(query)
     let resize = "resize " . (winheight(0) * 1/4) 
     execute 'lcd ' . wd
-    call DeadBuf() | exe resize | call bufname("HoogleDok") | setlocal ft=haskell | put =info
+    call DeadBuf('h') | exe resize | call bufname("HoogleDok") | setlocal ft=haskell | put =info
 endfunction
+
 

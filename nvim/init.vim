@@ -1,5 +1,6 @@
 " vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'purescript-contrib/purescript-vim'
 Plug 'agude/vim-eldar'
 Plug 'vim-scripts/Sift'
 Plug 'neomake/neomake'
@@ -8,9 +9,8 @@ Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'chriskempson/base16-vim'
 Plug 'rust-lang/rust.vim', {'for': 'rust' }
 "Plug 'bitc/vim-hdevtools', {'for' : 'haskell'}
-Plug 'Shougo/vimproc.vim', {'do' : 'make'} 
-"Plug 'eagletmt/ghcmod-vim', {'for': 'haskell' }
-Plug 'eagletmt/neco-ghc', {'for': 'haskell' }
+"Plug 'Shougo/vimproc.vim', {'do' : 'make'} 
+"Plug 'eagletmt/neco-ghc', {'for': 'haskell' }
 "Plug 'haskell/haskell-ide-engine', {'for': 'haskell'}
 "Plug 'Twinside/vim-hoogle', {'for': 'haskell' }
 Plug 'racer-rust/vim-racer', {'for': 'rust' }
@@ -38,7 +38,7 @@ Plug 'pbrisbin/vim-syntax-shakespeare',
 "Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
 
-Plug 'ndmitchell/ghcid', { 'tag': 'v0.6.8', 'rtp' : 'plugins/nvim' }
+Plug 'ndmitchell/ghcid', {'rtp': 'plugins/nvim'} "!! enable for muse, eros, { 'tag': 'v0.6.8', 'rtp' : 'plugins/nvim' }
 
 " Java dev: comment out 'for' qualifier
 Plug 'dansomething/vim-eclim' , {'for': 'java'}
@@ -46,7 +46,8 @@ Plug 'LnL7/vim-nix' ", {'for': 'nix'}
 Plug 'Zaptic/elm-vim', {'for': 'elm'}
 Plug 'w0rp/ale', {'for':'elm'}
 Plug 'https://gitlab.com/metaporia/muse-vim'
-Plug 'https://gitlab.com/metaporia/dico-vim'
+Plug 'https://github.com/metaporia/dico-vim'
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
 
@@ -419,7 +420,18 @@ let g:deoplete#sources#rust#rust_source_path='/home/aporia/.rustup/toolchains/st
 augroup coq
     au!
     au FileType coq se ts=2
+    au FileType coq nnoremap <leader>bb :call BreakOn('\.')<CR>
 augroup END
+
+" Splits the current line on the delimiter (followed by a space) into segments
+" and places each segment on a new line below the line of invocation.
+"
+function! BreakOn(delimiter) 
+  execute "s/".a:delimiter." /".a:delimiter."\r/g"
+endfunction
+
+command! -nargs=1 BreakOn call BreakOn(<q-args>)
+
 "nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 ""nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
@@ -504,6 +516,17 @@ let g:dico_vim_map_keys = 1
 function! Pronounce(query)
     call jobstart(['pronounce', a:query], {}) 
 endfunction
+
+" misc utility functions
+
+function! CopyMatches(reg)
+    let hits = []
+    %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+    let reg = empty(a:reg) ? '+' : a:reg
+    execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+
+command! -register CopyMatches call CopyMatches(<q-reg>)
 
 com! -nargs=1 Pronounce :call Pronounce("<args>")
 nnoremap <silent> <leader>lp  :call Pronounce(expand('<cword>'))<CR>
