@@ -27,6 +27,10 @@
     
     # 2
 
+    ## rebase
+    rc = rebase --continue
+    ra = rebase --abort
+
     ## add
     aa = add --all
     ap = --patch # choose whether to include each change
