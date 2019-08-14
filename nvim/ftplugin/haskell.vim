@@ -7,7 +7,7 @@ setlocal tw=79
 setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal tabstop=2
-setlocal formatprg=hindent
+setlocal formatprg=brittany
 let g:haskell_hlint_on_write = 0
 
 au! BufWritePost *.hs silent !hasktags -bR .
