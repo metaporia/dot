@@ -48,6 +48,9 @@ source ~/dot/.tmux.common
 #sys clip >top of tmux buff stac
     bind-key P run "xclip -o -selection clipboard | tmux loadb -"
 
+# if open, clear and reload to ghci pane in current window
+
+    bind-key -T prefix g run "tmuxReloadGhci&"
 # vim nav
     bind h select-pane -L
     bind j select-pane -D
