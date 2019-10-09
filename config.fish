@@ -93,7 +93,7 @@ abbr -a ti 'tmux info'
 # nvim
 abbr -a vi nvim
 abbr -a vis 'vi -S sesh'
-abbr magit 'nvim +Magit -c"wincmd o"'
+abbr magit 'nvim +MagitOnly'
 
 # muse
 abbr m 'muse -c search ' 
