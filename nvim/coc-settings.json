@@ -1,6 +1,7 @@
 { 
     "suggest.enablePreview": true,
     "list.maxPreviewHeight": 25,
+    "diagnostic.checkCurrentLine": true,
     "languageserver": {
       "haskell": {
         "command": "hie-wrapper",
