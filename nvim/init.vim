@@ -79,6 +79,8 @@ let mapleader = ","
 se hidden
 se ignorecase
 
+se undofile
+
 " backup
 se nobackup
 se noswapfile
