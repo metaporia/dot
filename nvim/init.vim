@@ -15,6 +15,7 @@ Plug 'rust-lang/rust.vim', {'for': 'rust' }
 "Plug 'Twinside/vim-hoogle', {'for': 'haskell' }
 Plug 'racer-rust/vim-racer', {'for': 'rust' }
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
