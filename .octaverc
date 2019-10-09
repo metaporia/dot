@@ -1,4 +1,4 @@
-format rat;
+# format rat;
 
 # suppress_verbose_help_message = 1;
 
