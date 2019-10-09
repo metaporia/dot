@@ -48,8 +48,14 @@ Plug 'w0rp/ale', {'for':'elm'}
 Plug 'https://gitlab.com/metaporia/muse-vim'
 Plug 'https://github.com/metaporia/dico-vim'
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
+
+" coc
+"let g:coc_start_at_startup = 0
+"inoremap <silent><expr> <c-space> coc#refresh()
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
 let g:muse_vim_log_dir= '/home/aporia/sputum/muse'
 
@@ -403,7 +409,7 @@ call deoplete#custom#source('_', 'max_menu_width', 90)
 call deoplete#custom#source('_', 'mark', '')
 call deoplete#custom#option('smart_case', v:true)
 
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
 let g:deoplete#enable_smart_case = 1
 
 let g:deoplete#max_menu_width = 110
