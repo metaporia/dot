@@ -26,6 +26,11 @@ let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 let g:haskell_backpack = 1
 
+" coc 
+" disable deoplete, enable coc
+"call deoplete#disable() 
+"execute 'CocStart'
+
 " neco-ghc
 let g:necoghc_use_stack = 1 
 let g:necoghc_enable_detailed_browse = 1
@@ -84,6 +89,6 @@ function! HaskellToplevelDeclaration()
     let &magic = l:magic
 endfunction
 
-xnoremap <buffer> <silent> af :<c-u>call HaskellToplevelDeclaration()<CR>
-onoremap <buffer> <silent> af :<c-u>call HaskellToplevelDeclaration()<CR>
+xnoremap <silent> af :<c-u>call HaskellToplevelDeclaration()<CR>
+onoremap <silent> af :<c-u>call HaskellToplevelDeclaration()<CR>
 
