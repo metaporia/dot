@@ -47,7 +47,6 @@ OPTIONS=pickup_thrown
 # or overLoaded), you will be asked if you want to continue. Persistent.
 OPTIONS=pickup_burden:u
 
-
 # Enable messages about what your character hears
 OPTIONS=acoustics
 
@@ -153,19 +152,6 @@ OPTIONS=mention_walls
 # How menus are shown. Values are 'traditional', 'combination',
 # 'full', or 'partial'
 #OPTIONS=menustyle:full
-
-# Set menu accelerator keys
-OPTIONS=menu_deselect_all:-
-OPTIONS=menu_deselect_page:\
-OPTIONS=menu_first_page:^
-OPTIONS=menu_invert_all:@
-OPTIONS=menu_invert_page:~
-OPTIONS=menu_last_page:|
-OPTIONS=menu_next_page:>
-OPTIONS=menu_previous_page:<
-OPTIONS=menu_search:: 
-OPTIONS=menu_select_all:.
-#OPTIONS=menu_select_page:,
 
 # Controls how the headings in a menu are highlighted.
 # Values are 'none', 'bold', 'dim', 'underline', 'blink', or 'inverse'.
@@ -471,7 +457,7 @@ OPTIONS=menucolors
 # Define color used for a certain menu line. Format is
 # MENUCOLOR="regular expression"=color
 # or
- MENUCOLOR="regular expression"=color&attribute
+ #MENUCOLOR="regular expression"=color&attribute
 #  Show all blessed items in green
 MENUCOLOR=" blessed " = green
 #  Show all holy water in green
