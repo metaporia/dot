@@ -1,7 +1,13 @@
 (use-package evil
   :ensure t
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode t)
+
+  (setq evil-want-C-i-jump t)
+  (setq evil-want-C-u-scroll t)
 
   (setq evil-emacs-state-modes (delq 'ibuffer-mode
 				     ;; from:
@@ -19,7 +25,7 @@
       (if (looking-back "^\s*" 0)
 	  (delete-region (point) (line-beginning-position))
           (evil-delete (+ (line-beginning-position) (current-indentation)) (point))))))
-  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-delete-buffer)
 
   ; slime-nav documentation lookup
   (evil-define-key 'normal emacs-lisp-mode-map (kbd "K")
