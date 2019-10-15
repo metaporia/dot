@@ -212,6 +212,10 @@ nnoremap <c-k> :bd<CR>
 "list buffers
 nnoremap <leader>l :ls<CR>
 
+" format paragraph emacs style
+inoremap <M-q> <C-o>gqap
+nnoremap <M-q> gqap
+
 set listchars=
 if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
     " | mulibyte
