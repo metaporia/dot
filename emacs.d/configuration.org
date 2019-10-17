@@ -178,7 +178,16 @@ Set font size to 10pt.
 (set-face-attribute 'default nil :height 80)
 #+END_SRC
 
-#+RESULTS:
+So how do we add a custom font /and/ get italics? Somehow
+=set-frame-font= with iosevka-normal-normal-normal and a complete
+restart of emacs worked, but it won't persist.
+
+Let's try =set-default-font=
+#+BEGIN_SRC emacs-lisp
+(set-default-font "-CYEL-Iosevka-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1")
+#+END_SRC
+
+Yup, that worked.
 
 * Theme
 
