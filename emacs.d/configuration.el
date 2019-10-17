@@ -18,14 +18,14 @@
 (when (display-graphic-p)
       (blink-cursor-mode -1)
       (scroll-bar-mode -1)
-      (tool-bar-mode -1) 
-      (menu-bar-mode -1))
+      (tool-bar-mode -1))
 
+(menu-bar-mode -1)
 (visual-line-mode t)
 
-(set-face-attribute 'default nil :height 80)
+(set-face-attribute 'default nil :height 83)
 
-(set-default-font "-CYEL-Iosevka-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1")
+(set-frame-font "-CYEL-Iosevka-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1")
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
@@ -227,14 +227,14 @@
 				     ;; from:
 				     evil-emacs-state-modes))
 				     
-  (define-key evil-insert-state-map (kbd "C-u")
-    (lambda ()
-      (interactive)
-      (if (looking-back "^" 0)
-	  (backward-delete-char 1)
-      (if (looking-back "^\s*" 0)
-	  (delete-region (point) (line-beginning-position))
-          (evil-delete (+ (line-beginning-position) (current-indentation)) (point))))))
+  ;;(define-key evil-insert-state-map (kbd "C-u")
+  ;;  (lambda ()
+  ;;    (interactive)
+  ;;    (if (looking-back "^" 0)
+  ;;	  (backward-delete-char 1)
+  ;;    (if (looking-back "^\s*" 0)
+  ;;	  (delete-region (point) (line-beginning-position))
+  ;;        (evil-delete (+ (line-beginning-position) (current-indentation)) (point))))))
   (define-key evil-normal-state-map (kbd "C-k") 'evil-delete-buffer)
 
   ; slime-nav documentation lookup

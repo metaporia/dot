@@ -162,9 +162,9 @@ N.B. Deferred package initialization is set up in [[~/.emacs.d/init.el]].
   (when (display-graphic-p)
         (blink-cursor-mode -1)
         (scroll-bar-mode -1)
-        (tool-bar-mode -1) 
-        (menu-bar-mode -1))
+        (tool-bar-mode -1))
         
+  (menu-bar-mode -1)
   (visual-line-mode t)
 #+END_SRC
 
@@ -175,7 +175,7 @@ N.B. Deferred package initialization is set up in [[~/.emacs.d/init.el]].
 Set font size to 10pt.
 
 #+BEGIN_SRC emacs-lisp
-(set-face-attribute 'default nil :height 80)
+(set-face-attribute 'default nil :height 83)
 #+END_SRC
 
 *** Font Face
@@ -394,8 +394,6 @@ Treat all =*.org= files in [[~/org/][~/org]] as agenda files.
   (global-set-key "\C-cc" 'org-capture)
   (global-set-key "\C-cb" 'org-switchb)
 #+END_SRC
-
-*** Evil org
 
 * Features
 ** Company (completion)
