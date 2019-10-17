@@ -171,23 +171,34 @@ N.B. Deferred package initialization is set up in [[~/.emacs.d/init.el]].
 #+RESULTS:
 
 ** Font
-
+*** Font Size
 Set font size to 10pt.
 
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil :height 80)
 #+END_SRC
 
+*** Font Face
 So how do we add a custom font /and/ get italics? Somehow
 =set-frame-font= with iosevka-normal-normal-normal and a complete
 restart of emacs worked, but it won't persist.
 
 Let's try =set-default-font=
 #+BEGIN_SRC emacs-lisp
-(set-default-font "-CYEL-Iosevka-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1")
+(set-frame-font "-CYEL-Iosevka-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1")
 #+END_SRC
-
 Yup, that worked.
+
+Unfortunately, Iosevka allures me only so well. So now, how
+to find satisfactory font?
+
+Candidates:
+- Iosevka (naturally it's in the running)
+- Hack
+- Inconsolata
+- Fira Code (V2 with ligatures would be divine)
+
+
 
 * Theme
 

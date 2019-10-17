@@ -23,9 +23,9 @@
 
 (visual-line-mode t)
 
-;(set-face-attribute 'default nil :height 80)
+(set-face-attribute 'default nil :height 80)
 
-
+(set-default-font "-CYEL-Iosevka-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1")
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
