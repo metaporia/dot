@@ -5,7 +5,7 @@
 
   (setq org-agenda-files (quote ("~/org")))
   (setq org-directory "~/org")
-  (setq org-dim-blocked-tasks nil)
+  (setq org-agenda-dim-blocked-tasks nil)
 
   ; enable org-indent-mode by default
   (setq org-startup-indented t)
@@ -13,14 +13,13 @@
   (setq org-deadline-warning-days 20)
   (setq org-alphabetical-lists t)
 
-  (setq org-export-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8)
-  (set-charset-priority 'unicode)
-  (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+  (setq org-fast-tag-selection-single-key t)
 
-  (setq org-tag-alist (quote ("school" . ?s)
-			     ("personal" . ?p)
-			     ("note" . ?n))) 
+  (setq org-tag-alist '(("code" . ?c)
+			("meta" . ?m)
+			("note" . ?n)
+			("personal" . ?p)
+			("school" . ?s)))
 
   (setq org-todo-keywords
       ;; The "|" classifies workflow states. To its left lie unfinished states, and to

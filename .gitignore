@@ -14,6 +14,7 @@ emacs.d/*
 !emacs.d/eshell/alias
 !emacs.d/lisp
 !emacs.d/snippets
-!emacs.d/init.el
 !emacs.d/themes
 !emacs.d/config
+!emacs.d/*.org
+!emacs.d/*.el
