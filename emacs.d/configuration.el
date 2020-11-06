@@ -2,14 +2,6 @@
 (when (file-exists-p custom-file)
     (load custom-file))
 
-(setq initial-buffer-choice "~/org/todo.org")
-
-(defun paren-debug-mode ()
-  (show-paren-mode t)
-  (setq show-paren-style 'expression))
-
-(setq vc-follow-symlinks t)
-
 (setq ring-bell-function 'ignore 
       inhibit-startup-screen t
       inhibit-startup-message t
@@ -27,6 +19,53 @@
 
 (set-frame-font "-CYEL-Iosevka-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1")
 
+(use-package elisp-slime-nav
+  :ensure t
+  :config
+  (defun my-hook ()
+    (elisp-slime-nav-mode)
+    (turn-on-eldoc-mode))
+  (add-hook 'emacs-lisp-mode-hook 'my-hook))
+
+(use-package ido
+  :config
+  (ido-mode t)
+  (setq ido-everywhere t)
+  (setq ido-enable-flex-matching t)
+  ; Use the current window when visiting files and buffers with ido
+  (setq ido-default-file-method 'selected-window)
+  (setq ido-default-buffer-method 'selected-window)
+  ; Use the current window for indirect buffer display
+  ;(setq org-indirect-buffer-display 'current-window)
+  (require 'ido-completing-read+)
+  (ido-ubiquitous-mode 1))
+
+(defun define-word-wrapped (word)
+  "Read a word and pass it to dico(1)."
+  (with-output-to-temp-buffer "*dico-define*"
+    (shell-command (concat "d " word) "*dico-define*" "*Messages*")
+  (pop-to-buffer "*dico-define*")))
+
+(defun define-word ()
+  (interactive)
+  (define-word-wrapped (thing-at-point 'word () )))
+
+(use-package company
+  :ensure t
+  :commands global-company-mode
+  :config
+  (add-hook 'after-init-hook 'global-company-mode)
+  (define-key company-active-map(kbd "C-n") 'company-select-next-or-abort)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))
+
+(setq initial-buffer-choice "~/org/todo.org")
+
+(defun paren-debug-mode ()
+  (show-paren-mode t)
+  (setq show-paren-style 'expression))
+
+(setq vc-follow-symlinks t)
+
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
   :config
@@ -40,13 +79,78 @@
   ;(load-theme 'deeper-blue) ; uncomment to set dark blue theme
   )
 
-(use-package elisp-slime-nav
+(use-package undo-tree :ensure t)
+
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  :config
+  (evil-mode t)
+
+  (setq evil-want-C-i-jump t)
+
+  (setq evil-emacs-state-modes (delq 'ibuffer-mode
+				     ;; from:
+				     evil-emacs-state-modes))
+  
+  (setq evil-emacs-state-modes (delq 'completion-list-mode
+				     ;; from:
+				     evil-emacs-state-modes))
+				     
+  (define-key evil-insert-state-map (kbd "C-u")
+    (lambda ()
+      (interactive)
+      (if (looking-back "^" 0)
+	  (backward-delete-char 1)
+      (if (looking-back "^\s*" 0)
+	  (delete-region (point) (line-beginning-position))
+          (evil-delete (+ (line-beginning-position) (current-indentation)) (point))))))
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-delete-buffer)
+
+  ; slime-nav documentation lookup
+  (evil-define-key 'normal emacs-lisp-mode-map (kbd "K")
+    'elisp-slime-nav-describe-elisp-thing-at-point)
+
+  (use-package evil-escape
+    :ensure t
+    :config
+    (evil-escape-mode)
+    (setq-default evil-escape-key-sequence "jk"))
+  
+  (use-package evil-leader
+    :ensure t
+    
+    :config
+    (progn
+	(evil-leader/set-leader ",")
+	;; other leader bindings (?)
+	(evil-leader/set-key
+	  "w" 'save-buffer
+	  "," 'other-window
+	  "h" 'dired-jump ;; tentative
+	  "e" 'pp-eval-last-sexp
+	  "b" 'ibuffer ;; tentative
+	  "d" 'define-word)
+	)
+    (global-evil-leader-mode))
+  
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode))
+
+  (use-package evil-magit
+    :ensure t)
+  )
+
+(use-package evil-collection
+  :after evil
   :ensure t
   :config
-  (defun my-hook ()
-    (elisp-slime-nav-mode)
-    (turn-on-eldoc-mode))
-  (add-hook 'emacs-lisp-mode-hook 'my-hook))
+  (evil-collection-init))
 
 (use-package haskell-mode
   :ensure t
@@ -102,6 +206,13 @@
   (interactive)
   (hoogle-info (thing-at-point 'word () )))
 
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
+(use-package magit :ensure t)
+
 (setq org-agenda-files '("~/org" "~/.emacs.d/configuration.org"))
 (setq org-directory "~/org")
 (setq org-agenda-dim-blocked-tasks nil)
@@ -112,13 +223,16 @@
 (setq org-deadline-warning-days 20)
 (setq org-alphabetical-lists t)
 
+(setq org-list-allow-alphabetical t)
 (setq org-fast-tag-selection-single-key t)
 
 (setq org-tag-alist '(("code" . ?c)
 		      ("meta" . ?m)
 		      ("note" . ?n)
 		      ("personal" . ?p)
-		      ("school" . ?s)))
+		      ("school" . ?s)
+                  ("music" . ?u)
+                  ))
 
 (setq org-todo-keywords
     ;; The "|" classifies workflow states. To its left lie unfinished states, and to
@@ -190,115 +304,6 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-switchb)
 
-(use-package company
-  :ensure t
-  :commands global-company-mode
-  :config
-  (add-hook 'after-init-hook 'global-company-mode)
-  (define-key company-active-map(kbd "C-n") 'company-select-next-or-abort)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))
-
-(defun define-word-wrapped (word)
-  "Read a word and pass it to dico(1)."
-  (with-output-to-temp-buffer "*dico-define*"
-    (shell-command (concat "d " word) "*dico-define*" "*Messages*")
-  (pop-to-buffer "*dico-define*")))
-
-(defun define-word ()
-  (interactive)
-  (define-word-wrapped (thing-at-point 'word () )))
-
-(use-package evil
-  :ensure t
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  :config
-  (evil-mode t)
-
-  (setq evil-want-C-i-jump t)
-
-  (setq evil-emacs-state-modes (delq 'ibuffer-mode
-				     ;; from:
-				     evil-emacs-state-modes))
-  
-  (setq evil-emacs-state-modes (delq 'completion-list-mode
-				     ;; from:
-				     evil-emacs-state-modes))
-				     
-  ;;(define-key evil-insert-state-map (kbd "C-u")
-  ;;  (lambda ()
-  ;;    (interactive)
-  ;;    (if (looking-back "^" 0)
-  ;;	  (backward-delete-char 1)
-  ;;    (if (looking-back "^\s*" 0)
-  ;;	  (delete-region (point) (line-beginning-position))
-  ;;        (evil-delete (+ (line-beginning-position) (current-indentation)) (point))))))
-  (define-key evil-normal-state-map (kbd "C-k") 'evil-delete-buffer)
-
-  ; slime-nav documentation lookup
-  (evil-define-key 'normal emacs-lisp-mode-map (kbd "K")
-    'elisp-slime-nav-describe-elisp-thing-at-point)
-
-  (use-package evil-escape
-    :ensure t
-    :config
-    (evil-escape-mode)
-    (setq-default evil-escape-key-sequence "jk"))
-  
-  (use-package evil-leader
-    :ensure t
-    
-    :config
-    (progn
-	(evil-leader/set-leader ",")
-	;; other leader bindings (?)
-	(evil-leader/set-key
-	  "w" 'save-buffer
-	  "," 'other-window
-	  "h" 'dired-jump ;; tentative
-	  "e" 'pp-eval-last-sexp
-	  "b" 'ibuffer ;; tentative
-	  "d" 'define-word)
-	)
-    (global-evil-leader-mode))
-  
-  (use-package evil-surround
-    :ensure t
-    :config
-    (global-evil-surround-mode))
-
-  (use-package evil-magit
-    :ensure t)
-  )
-
-(use-package ido
-  :config
-  (ido-mode t)
-  (setq ido-everywhere t)
-  (setq ido-enable-flex-matching t)
-  ; Use the current window when visiting files and buffers with ido
-  (setq ido-default-file-method 'selected-window)
-  (setq ido-default-buffer-method 'selected-window)
-  ; Use the current window for indirect buffer display
-  ;(setq org-indirect-buffer-display 'current-window)
-  (require 'ido-completing-read+)
-  (ido-ubiquitous-mode 1))
-
-(use-package magit :ensure t)
-
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
-
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
-
 (use-package evil-org
   :ensure t
   :after org
@@ -309,3 +314,15 @@
 	      (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+
+(setq org-format-options (plist-put org-format-latex-options :scale 2.0))
+(setq org-latex-create-formula-image-program 'dvisvgm)
+
+(setq doc-view-resolution 300)
+;; shrink high-res image to appropriate size
+
+;; FIXME these are interactive functions, dummy. The resolution fix
+;;is unaffected by there abscence however
+
+;;(doc-view-fit-page-to-window)
+;;(doc-view-fit-height-to-window) (doc-view-fit-width-to-window)

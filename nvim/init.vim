@@ -9,7 +9,7 @@ Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'chriskempson/base16-vim'
 Plug 'rust-lang/rust.vim', {'for': 'rust' }
 "Plug 'bitc/vim-hdevtools', {'for' : 'haskell'}
-"Plug 'Shougo/vimproc.vim', {'do' : 'make'} 
+"Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 "Plug 'eagletmt/neco-ghc', {'for': 'haskell' }
 "Plug 'haskell/haskell-ide-engine', {'for': 'haskell'}
 "Plug 'Twinside/vim-hoogle', {'for': 'haskell' }
@@ -19,7 +19,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'tpope/vim-fugitive'
 "Plug 'parsonsmatt/intero-neovim', {'for':'haskell'}
 Plug 'zchee/deoplete-clang', {'for': 'c'}
@@ -50,8 +50,22 @@ Plug 'https://gitlab.com/metaporia/muse-vim'
 Plug 'https://github.com/metaporia/dico-vim'
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 call plug#end()
+
+" netrw
+
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_winsize= 25
+
+" pandoc
+
+"" hard line wrap at 80 char
+let g:pandoc#formatting#textwidth=80
+let g:pandoc#formatting#mode='hA'
 
 " coc
 "let g:coc_start_at_startup = 0
@@ -117,7 +131,7 @@ set statusline=
 "time
 set statusline=%{strftime(\"%m-%d\ [%H:%M]\")}
 "full file path
-set statusline+=\ %F\ 
+set statusline+=\ %F\
 "filetype, [RO] (opt), buf num
 set statusline+=%y\ %r\ buf:[%n]
 "FAR RIGHT; items accumulate leftwards
@@ -159,7 +173,7 @@ function! SetSearchColorToIncSearch()
     let inc_search_id=hlID('IncSearch')
     let incs_bg=synIDattr(inc_search_id, 'bg#', "gui")
     let incs_fg=synIDattr(inc_search_id, 'fg#', "gui")
-    execute 'highlight Search guibg=' . incs_bg . ' guifg=' . incs_fg 
+    execute 'highlight Search guibg=' . incs_bg . ' guifg=' . incs_fg
 endfunction
 
 augroup FixSearchColor
@@ -225,8 +239,8 @@ else
 endif
 
 
-"reload .vimrc 
-nnoremap <leader>r :source ~/.nvimrc<CR>:echo "reloaded ~/.nvimrc"<CR> 
+"reload .vimrc
+nnoremap <leader>r :source ~/.nvimrc<CR>:echo "reloaded ~/.nvimrc"<CR>
 
 "write
 nnoremap <leader>w :w<CR>
@@ -242,7 +256,7 @@ nnoremap <leader>e :silent make build \| cw<CR>
 nnoremap <leader>n :cn<CR>
 
 
-" path 
+" path
 set path=.,/usr/include,~/ws,~/sputum,~/dot,~/Axiom,~/wiki
 
 
@@ -251,7 +265,7 @@ se ts=4
 set shiftwidth=0
 set softtabstop=4
 set expandtab
-set smarttab "needs paste toggle to insert (>1) line excerpts 
+set smarttab "needs paste toggle to insert (>1) line excerpts
 
 " correct misspelled word to first available correction.
 nnoremap <leader>z 1z=
@@ -283,14 +297,14 @@ function! DeadBuf(orientation)
     if a:orientation == "v"
         let cmd = "vnew"
     endif
-    
+
     execute cmd . " | setlocal buftype=nofile | setlocal noswapfile"
 endfunction
 
 func! GetSelectedText()
   " uses selection register
   " source: https://stackoverflow.com/questions/12805922/vim-vmap-send-selected-text-as-parameter-to-function
-  normal gv"*y 
+  normal gv"*y
   let result = getreg("*")
   normal gv
   return result
@@ -315,7 +329,7 @@ endfunction
 " tmux (arbtt) title bar conf
 " NOTE: vvv: assumes a SINGLE attatched tmux session at any given time
 augroup title
-    autocmd!     
+    autocmd!
     autocmd BufEnter,BufReadPost,FileReadPost,BufNewFile * if TmuxRenameHuh() | call system("tmux rename-window " . expand("%:t")) | endif
     autocmd VimLeave * if TmuxRenameHuh() | call system("tmux rename-window bash") | endif
 augroup END
@@ -345,7 +359,7 @@ endif
     let g:airline_symbols.whitespace = 'Ξ'
 
     let g:airline_section_b = '%{strftime("%m-%d [%H:%M]")}'
-    let g:airline_section_y= 'BN: [%n] %r' 
+    let g:airline_section_y= 'BN: [%n] %r'
 
 
 "function
@@ -363,7 +377,7 @@ se completeopt=menu ",preview
 augroup rust
     autocmd!
     autocmd FileType rust compiler! cargo
-    "autocmd FileType rust nnoremap <leader>e :Neomake cargo \| ll<CR> 
+    "autocmd FileType rust nnoremap <leader>e :Neomake cargo \| ll<CR>
     autocmd FileType rust setl makeprg=cargo
     autocmd FileType rust setl tw=79
     autocmd FileType rust nmap gd <Plug>(rust-def)
@@ -439,7 +453,7 @@ augroup END
 " Splits the current line on the delimiter (followed by a space) into segments
 " and places each segment on a new line below the line of invocation.
 "
-function! BreakOn(delimiter) 
+function! BreakOn(delimiter)
   execute "s/".a:delimiter." /".a:delimiter."\r/g"
 endfunction
 
@@ -451,7 +465,7 @@ command! -nargs=1 BreakOn call BreakOn(<q-args>)
 
 " checkbox
 " <leader>b : insert '□  ' | replace w ▣
-function! CheckBox() 
+function! CheckBox()
     let char = matchstr(getline('.'), '\%' . col('.') . 'c.')
     if char == "□"
         echo "matched!"
@@ -486,7 +500,7 @@ command! -nargs=+ GrepBufs call GrepBuffers(<q-args>)
 "c lang conf
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-4.0/lib/libclang.so.1'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/clang/'
-augroup C 
+augroup C
     au!
     au BufWritePost *.c :Neomake
 augroup END
@@ -512,7 +526,8 @@ au! Filetype elm nnoremap <leader>f :ElmFormat<CR>
 "colo base16-gruvbox-dark-hard
 "colo base16-gruvbox-dark-pale
 "colo base16-bright
-colo base16-flat
+"colo base16-flat
+colo base16-irblack
 
 " job_control example:
 "
@@ -527,7 +542,7 @@ colo base16-flat
 let g:dico_vim_map_keys = 1
 
 function! Pronounce(query)
-    call jobstart(['pronounce', a:query], {}) 
+    call jobstart(['pronounce', a:query], {})
 endfunction
 
 " misc utility functions

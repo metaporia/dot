@@ -13,8 +13,8 @@ source ~/dot/.tmux.common
 #compat encoding 
     setw -g monitor-activity on 
 # take 2 
-    set -g default-terminal "tmux-256color"
-    set -ga terminal-overrides ',xterm-256color:Tc' # truecolor support 
+    #set -g default-terminal "tmux-256color"
+    set -sa terminal-overrides ',alacritty:RGB' # truecolor support 
     set-option -g default-shell "/usr/bin/fish"
 
 

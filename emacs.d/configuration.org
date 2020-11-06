@@ -118,35 +118,6 @@ store them elsewhere
 
 #+RESULTS:
 : ~/.emacs.d/custom.el
-
-* Misc
-** On startup open personal org file by default
-
-#+BEGIN_SRC emacs-lisp
-(setq initial-buffer-choice "~/org/todo.org")
-#+END_SRC
-
-** TODO research garbage collection (see gc-cons-threshold and
-[[https://emacs.stackexchange.com/questions/34342/is-there-any-downside-to-setting-gc-cons-threshold-very-high-and-collecting-ga][this solution on stack exchange]]).
-
-** TODO suppress results of babel elisp blocks in this file--it's mere clutter
-
-** Parentheses debug mode
-
-Provide function [[elisp:paren-debug-mode][paren-debug-mode]].
-Helpful when facing the classic "end of file during parsing" error.
-
-#+BEGIN_SRC emacs-lisp
-  (defun paren-debug-mode ()
-    (show-paren-mode t)
-    (setq show-paren-style 'expression))
-#+END_SRC
-
-
-** Follow Visual Links
-#+BEGIN_SRC emacs-lisp
-(setq vc-follow-symlinks t)
-#+END_SRC
 * Startup
 
 N.B. Deferred package initialization is set up in [[~/.emacs.d/init.el]].
@@ -197,6 +168,94 @@ Candidates:
 - Hack
 - Inconsolata
 - Fira Code (V2 with ligatures would be divine)
+* Elisp
+
+Load =slime= for navigation and documentation echoes.
+#+BEGIN_SRC emacs-lisp
+  (use-package elisp-slime-nav
+    :ensure t
+    :config
+    (defun my-hook ()
+      (elisp-slime-nav-mode)
+      (turn-on-eldoc-mode))
+    (add-hook 'emacs-lisp-mode-hook 'my-hook))
+#+END_SRC
+* Ido
+Enable ido completion wherever possible.
+#+BEGIN_SRC emacs-lisp
+(use-package ido
+  :config
+  (ido-mode t)
+  (setq ido-everywhere t)
+  (setq ido-enable-flex-matching t)
+  ; Use the current window when visiting files and buffers with ido
+  (setq ido-default-file-method 'selected-window)
+  (setq ido-default-buffer-method 'selected-window)
+  ; Use the current window for indirect buffer display
+  ;(setq org-indirect-buffer-display 'current-window)
+  (require 'ido-completing-read+)
+  (ido-ubiquitous-mode 1))
+#+END_SRC
+* Dictionary (dico/dicod)
+
+Dico wrapper—note this relies on =dico= and, ideally, =dicod=.
+
+N.B. The mapping <leader>-d is bound by =evil=.
+#+BEGIN_SRC emacs-lisp
+(defun define-word-wrapped (word)
+  "Read a word and pass it to dico(1)."
+  (with-output-to-temp-buffer "*dico-define*"
+    (shell-command (concat "d " word) "*dico-define*" "*Messages*")
+  (pop-to-buffer "*dico-define*")))
+
+(defun define-word ()
+  (interactive)
+  (define-word-wrapped (thing-at-point 'word () )))
+
+#+END_SRC
+
+* Company (completion)
+
+Bind vim completion popup navigation <C-n>, <C-p>
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :commands global-company-mode
+    :config
+    (add-hook 'after-init-hook 'global-company-mode)
+    (define-key company-active-map(kbd "C-n") 'company-select-next-or-abort)
+    (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))
+#+END_SRC
+
+* Misc
+** On startup open personal org file by default
+
+#+BEGIN_SRC emacs-lisp
+(setq initial-buffer-choice "~/org/todo.org")
+#+END_SRC
+
+** TODO research garbage collection (see gc-cons-threshold and
+[[https://emacs.stackexchange.com/questions/34342/is-there-any-downside-to-setting-gc-cons-threshold-very-high-and-collecting-ga][this solution on stack exchange]]).
+
+** TODO suppress results of babel elisp blocks in this file--it's mere clutter
+
+** Parentheses debug mode
+
+Provide function [[elisp:paren-debug-mode][paren-debug-mode]].
+Helpful when facing the classic "end of file during parsing" error.
+
+#+BEGIN_SRC emacs-lisp
+  (defun paren-debug-mode ()
+    (show-paren-mode t)
+    (setq show-paren-style 'expression))
+#+END_SRC
+
+
+** Follow Visual Links
+#+BEGIN_SRC emacs-lisp
+(setq vc-follow-symlinks t)
+#+END_SRC
 
 
 
@@ -222,21 +281,99 @@ Load =smart-mode-line=.
   )
 #+END_SRC
 
-* Languages
-** Elisp
 
-Load =slime= for navigation and documentation echoes.
+* Evil
+
+*** Undo Tree
+**** TODO map g- and g+ to chronological undo
 #+BEGIN_SRC emacs-lisp
-  (use-package elisp-slime-nav
+(use-package undo-tree :ensure t)
+
+#+END_SRC
+*** Evil Itself
+#+BEGIN_SRC emacs-lisp
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  :config
+  (evil-mode t)
+
+  (setq evil-want-C-i-jump t)
+
+  (setq evil-emacs-state-modes (delq 'ibuffer-mode
+				     ;; from:
+				     evil-emacs-state-modes))
+  
+  (setq evil-emacs-state-modes (delq 'completion-list-mode
+				     ;; from:
+				     evil-emacs-state-modes))
+				     
+  (define-key evil-insert-state-map (kbd "C-u")
+    (lambda ()
+      (interactive)
+      (if (looking-back "^" 0)
+	  (backward-delete-char 1)
+      (if (looking-back "^\s*" 0)
+	  (delete-region (point) (line-beginning-position))
+          (evil-delete (+ (line-beginning-position) (current-indentation)) (point))))))
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-delete-buffer)
+
+  ; slime-nav documentation lookup
+  (evil-define-key 'normal emacs-lisp-mode-map (kbd "K")
+    'elisp-slime-nav-describe-elisp-thing-at-point)
+
+  (use-package evil-escape
     :ensure t
     :config
-    (defun my-hook ()
-      (elisp-slime-nav-mode)
-      (turn-on-eldoc-mode))
-    (add-hook 'emacs-lisp-mode-hook 'my-hook))
+    (evil-escape-mode)
+    (setq-default evil-escape-key-sequence "jk"))
+  
+  (use-package evil-leader
+    :ensure t
+    
+    :config
+    (progn
+	(evil-leader/set-leader ",")
+	;; other leader bindings (?)
+	(evil-leader/set-key
+	  "w" 'save-buffer
+	  "," 'other-window
+	  "h" 'dired-jump ;; tentative
+	  "e" 'pp-eval-last-sexp
+	  "b" 'ibuffer ;; tentative
+	  "d" 'define-word)
+	)
+    (global-evil-leader-mode))
+  
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode))
+
+  (use-package evil-magit
+    :ensure t)
+  )
+#+END_SRC
+*** Evil Collection
+
+NB: the below /must proceed/ magit, elisp-slime-nav.
+
+#+BEGIN_SRC emacs-lisp
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+
+
+
+
 #+END_SRC
 
-** Haskell
+* Haskell
 #+BEGIN_SRC emacs-lisp
 (use-package haskell-mode
   :ensure t
@@ -296,8 +433,29 @@ Load =slime= for navigation and documentation echoes.
 
 #+END_SRC
 
-** Org
-*** Agenda 
+* Which-Key
+
+TODO: Remove when sufficiently comfortable with emacs bindings.
+Alternatively, leave it (as long as it bloats negligibly) and increase
+the delay, so that it shows key-chord paths when the user delays (and
+therefore probably wants assistance) and remains untriggered when
+chords are entered quickly.
+
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+#+END_SRC
+
+* Magit
+
+#+BEGIN_SRC emacs-lisp
+(use-package magit :ensure t)
+#+END_SRC
+
+* Org
+** Agenda 
 
 Treat all =*.org= files in [[~/org/][~/org]] as agenda files.
 
@@ -307,7 +465,7 @@ Treat all =*.org= files in [[~/org/][~/org]] as agenda files.
   (setq org-agenda-dim-blocked-tasks nil)
 #+END_SRC
 
-*** TODO Document These Settings
+** TODO Document These Settings
 
 #+BEGIN_SRC emacs-lisp
   ; enable org-indent-mode by default
@@ -316,13 +474,16 @@ Treat all =*.org= files in [[~/org/][~/org]] as agenda files.
   (setq org-deadline-warning-days 20)
   (setq org-alphabetical-lists t)
 
+  (setq org-list-allow-alphabetical t)
   (setq org-fast-tag-selection-single-key t)
 
   (setq org-tag-alist '(("code" . ?c)
 			("meta" . ?m)
 			("note" . ?n)
 			("personal" . ?p)
-			("school" . ?s)))
+			("school" . ?s)
+                    ("music" . ?u)
+                    ))
 
   (setq org-todo-keywords
       ;; The "|" classifies workflow states. To its left lie unfinished states, and to
@@ -395,153 +556,7 @@ Treat all =*.org= files in [[~/org/][~/org]] as agenda files.
   (global-set-key "\C-cb" 'org-switchb)
 #+END_SRC
 
-* Features
-** Company (completion)
-
-Bind vim completion popup navigation <C-n>, <C-p>
-
 #+BEGIN_SRC emacs-lisp
-  (use-package company
-    :ensure t
-    :commands global-company-mode
-    :config
-    (add-hook 'after-init-hook 'global-company-mode)
-    (define-key company-active-map(kbd "C-n") 'company-select-next-or-abort)
-    (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))
-#+END_SRC
-** Dictionary (dico/dicod)
-
-Dico wrapper—note this relies on =dico= and, ideally, =dicod=.
-
-N.B. The mapping <leader>-d is bound by =evil=.
-#+BEGIN_SRC emacs-lisp
-(defun define-word-wrapped (word)
-  "Read a word and pass it to dico(1)."
-  (with-output-to-temp-buffer "*dico-define*"
-    (shell-command (concat "d " word) "*dico-define*" "*Messages*")
-  (pop-to-buffer "*dico-define*")))
-
-(defun define-word ()
-  (interactive)
-  (define-word-wrapped (thing-at-point 'word () )))
-
-#+END_SRC
-** Evil
-*** Evil Itself
-#+BEGIN_SRC emacs-lisp
-(use-package evil
-  :ensure t
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  :config
-  (evil-mode t)
-
-  (setq evil-want-C-i-jump t)
-
-  (setq evil-emacs-state-modes (delq 'ibuffer-mode
-				     ;; from:
-				     evil-emacs-state-modes))
-  
-  (setq evil-emacs-state-modes (delq 'completion-list-mode
-				     ;; from:
-				     evil-emacs-state-modes))
-				     
-  (define-key evil-insert-state-map (kbd "C-u")
-    (lambda ()
-      (interactive)
-      (if (looking-back "^" 0)
-	  (backward-delete-char 1)
-      (if (looking-back "^\s*" 0)
-	  (delete-region (point) (line-beginning-position))
-          (evil-delete (+ (line-beginning-position) (current-indentation)) (point))))))
-  (define-key evil-normal-state-map (kbd "C-k") 'evil-delete-buffer)
-
-  ; slime-nav documentation lookup
-  (evil-define-key 'normal emacs-lisp-mode-map (kbd "K")
-    'elisp-slime-nav-describe-elisp-thing-at-point)
-
-  (use-package evil-escape
-    :ensure t
-    :config
-    (evil-escape-mode)
-    (setq-default evil-escape-key-sequence "jk"))
-  
-  (use-package evil-leader
-    :ensure t
-    
-    :config
-    (progn
-	(evil-leader/set-leader ",")
-	;; other leader bindings (?)
-	(evil-leader/set-key
-	  "w" 'save-buffer
-	  "," 'other-window
-	  "h" 'dired-jump ;; tentative
-	  "e" 'pp-eval-last-sexp
-	  "b" 'ibuffer ;; tentative
-	  "d" 'define-word)
-	)
-    (global-evil-leader-mode))
-  
-  (use-package evil-surround
-    :ensure t
-    :config
-    (global-evil-surround-mode))
-
-  (use-package evil-magit
-    :ensure t)
-  )
-#+END_SRC
-** Ido
-Enable ido completion wherever possible.
-#+BEGIN_SRC emacs-lisp
-(use-package ido
-  :config
-  (ido-mode t)
-  (setq ido-everywhere t)
-  (setq ido-enable-flex-matching t)
-  ; Use the current window when visiting files and buffers with ido
-  (setq ido-default-file-method 'selected-window)
-  (setq ido-default-buffer-method 'selected-window)
-  ; Use the current window for indirect buffer display
-  ;(setq org-indirect-buffer-display 'current-window)
-  (require 'ido-completing-read+)
-  (ido-ubiquitous-mode 1))
-#+END_SRC
-
-** Magit
-
-#+BEGIN_SRC emacs-lisp
-(use-package magit :ensure t)
-#+END_SRC
-
-** Which-Key
-
-TODO: Remove when sufficiently comfortable with emacs bindings.
-Alternatively, leave it (as long as it bloats negligibly) and increase
-the delay, so that it shows key-chord paths when the user delays (and
-therefore probably wants assistance) and remains untriggered when
-chords are entered quickly.
-
-#+BEGIN_SRC emacs-lisp
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
-#+END_SRC
-** Evil Collection
-
-NB: the below /must proceed/ magit, elisp-slime-nav.
-
-#+BEGIN_SRC emacs-lisp
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
-
 (use-package evil-org
   :ensure t
   :after org
@@ -552,7 +567,35 @@ NB: the below /must proceed/ magit, elisp-slime-nav.
 	      (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
-
-
 #+END_SRC
 
+** Latex
+
+Upscale latex block previews to compensate for high DPI screen.
+
+Examples:
+$$x = \cos\theta$$
+$$x = 1 - \sin^2\theta$$
+
+#+BEGIN_SRC emacs-lisp
+(setq org-format-options (plist-put org-format-latex-options :scale 2.0))
+(setq org-latex-create-formula-image-program 'dvisvgm)
+#+END_SRC
+
+*** DONE render higher resolution pdfs with doc-view (or pdf-tools)
+CLOSED: [2019-10-17 Thu 21:31]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-10-17 Thu 21:31]
+:END:
+As yet, they're all blurry.
+#+BEGIN_SRC emacs-lisp
+  (setq doc-view-resolution 300)
+  ;; shrink high-res image to appropriate size
+
+  ;; FIXME these are interactive functions, dummy. The resolution fix
+  ;;is unaffected by there abscence however
+
+  ;;(doc-view-fit-page-to-window)
+  ;;(doc-view-fit-height-to-window) (doc-view-fit-width-to-window)
+#+END_SRC
+That did it! Courtesy of [[https://emacs.stackexchange.com/questions/876/improve-doc-view-display-quality][this post on the emacs stack exchange]].

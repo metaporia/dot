@@ -19,8 +19,8 @@ set -gx PATH /home/aporia/.cargo/bin \
             #/home/aporia/neovim/bin \
             #/home/aporia/Downloads/node-v8.11.2-linux-x64/bin \
             #/home/aporia/src/binaryen/bin
-           
-# cabal-helpel for ghc-mod on ghc 8.0.2 
+
+# cabal-helpel for ghc-mod on ghc 8.0.2
 #switch (hostname)
 #case hub
 #  set -gx cabal_helper_libexecdir /home/aporia/muse/.stack-work/install/x86_64-linux/lts-9.21/8.0.2/libexec/x86_64-linux-ghc-8.0.2/cabal-helper-0.7.3.0
@@ -95,9 +95,12 @@ abbr -a vi nvim
 abbr -a vis 'vi -S sesh'
 abbr magit 'nvim +MagitOnly'
 
+# gcide
+abbr -a gc 'gcide -ne'
+
 # muse
-abbr m 'muse -c search ' 
-abbr mp 'muse parse' 
+abbr m 'muse -c search '
+abbr mp 'muse parse'
 
 
 # misc
@@ -153,5 +156,9 @@ end
 # OPAM configuration
 # . /home/aporia/.opam/opam-init/init.fish > /dev/null 2> /dev/null or true
 
-base16-flat.sh
+# base16-flat.sh
+base16-irblack.sh
 
+# ghcup-env
+set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME
+test -f /home/aporia/.ghcup/env ; and set -gx PATH $HOME/.cabal/bin /home/aporia/.ghcup/bin $PATH

@@ -67,6 +67,7 @@
 
     ## log
     la = log --graph --all --decorate
+    lf = log --graph --decorate --pretty=full
     lg = log --graph 
     lo = log --oneline
     lp = log --patch
