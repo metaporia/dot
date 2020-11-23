@@ -4,7 +4,8 @@
 quiet yes
 
 # default server
-open localhost
+# prefer 127.0.0.1 to localhost to avoid issues with vpn
+open 127.0.0.1
 
 # search in all dbs
 database *
