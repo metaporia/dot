@@ -15,9 +15,11 @@
 (menu-bar-mode -1)
 (visual-line-mode t)
 
-(set-face-attribute 'default nil :height 83)
+(set-face-attribute 'default nil :height 120)
+(set-face-attribute 'mode-line nil :height 140)
 
-(set-frame-font "-CYEL-Iosevka-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1")
+(setq default-frame-alist '((font . "Iosevka-16")))
+;;(set-frame-font "-CYEL-Iosevka-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1")
 
 (use-package elisp-slime-nav
   :ensure t
@@ -37,7 +39,7 @@
   (setq ido-default-buffer-method 'selected-window)
   ; Use the current window for indirect buffer display
   ;(setq org-indirect-buffer-display 'current-window)
-  (require 'ido-completing-read+)
+  (use-package ido-completing-read+ :ensure t)
   (ido-ubiquitous-mode 1))
 
 (defun define-word-wrapped (word)

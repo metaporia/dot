@@ -10,40 +10,40 @@ source ~/dot/.tmux.common
 #set-option -g renumber-windows on
     set -g history-limit 30000
 #
-#compat encoding 
-    setw -g monitor-activity on 
-# take 2 
-    #set -g default-terminal "tmux-256color"
-    set -sa terminal-overrides ',alacritty:RGB' # truecolor support 
+#compat encoding
+    setw -g monitor-activity on
+# take 2
+    set -g default-terminal "tmux-256color"
+    set -sa terminal-overrides ',alacritty:RGB' # truecolor support
     set-option -g default-shell "/usr/bin/fish"
 
 
-#see: https://deductivelabs.com/en/2016/03/using-true-color-vim-tmux/ 
+#see: https://deductivelabs.com/en/2016/03/using-true-color-vim-tmux/
 #for howto build tmux with truecolor support
 #mouse control
-    set -g mouse on 
+    set -g mouse on
 
-#reload conf 
-    unbind r 
+#reload conf
+    unbind r
     bind-key r source-file ~/.tmux.conf \; display "reloaded"
 
 
 #set -g assumepastetime
 
 #copy mode
-    unbind u 
+    unbind u
     set -g mode-keys vi
 
-    bind u copy-mode 
+    bind u copy-mode
     bind -T copy-mode-vi 'v' send-keys -X begin-selection
     bind -T copy-mode-vi 'y' send-keys -X copy-pipe 'xclip -in -selection clipboard'
-    bind -T copy-mode-vi 'u' send-keys -X halfpage-up 
+    bind -T copy-mode-vi 'u' send-keys -X halfpage-up
     bind -T copy-mode-vi 'd' send-keys -X halfpage-down
 
-#paste buffer 
-    bind-key -T prefix I paste-buffer 
+#paste buffer
+    bind-key -T prefix I paste-buffer
     bind-key -T prefix y run "tmux show-buffer | xclip -i -selection clipboard"
-#paste x sys <buff> 
+#paste x sys <buff>
     unbind P
 #sys clip >top of tmux buff stac
     bind-key P run "xclip -o -selection clipboard | tmux loadb -"
@@ -64,7 +64,7 @@ source ~/dot/.tmux.common
 
     bind -T root M-z resize-pane -Z
 
-#resize panes 
+#resize panes
 
 # easy resizing of panes
     bind -r J resize-pane -D 5
@@ -72,7 +72,7 @@ source ~/dot/.tmux.common
     bind -r H resize-pane -L 5
     bind -r L resize-pane -R 5
 
-    bind-key x kill-pane 
+    bind-key x kill-pane
 
     set -g renumber-windows on
 
@@ -82,16 +82,16 @@ source ~/dot/.tmux.common
     unbind C-b
     set -g prefix "C-\_"
 # set -g prefix "C-\_"
-# bind-key "\_" send-prefix   
+# bind-key "\_" send-prefix
 
 
 #appearance
     set -g pane-active-border-style fg='#106299'
-    set -g status-style bg='#4e4e4e',fg='#000000' 
+    set -g status-style bg='#4e4e4e',fg='#000000'
 
-# history 
-    set -g history-file ~/.tmux.hist 
-    set -g set-titles on 
+# history
+    set -g history-file ~/.tmux.hist
+    set -g set-titles on
     set -g set-titles-string "tmux - #S:#I:#W - \"#h\""
 
 
@@ -102,10 +102,10 @@ source ~/dot/.tmux.common
 #set -g @resurrect-save 'S'
 #set -g @resurrect-restore 'R'
 
-#nethack keybindings 
+#nethack keybindings
 # available commands
-# bash:  c-e c-i c-w c-] c-g c-h c-f 
-# tmux -T prefix: a b e, [A-Z] U [^DHIJKLMP] 
+# bash:  c-e c-i c-w c-] c-g c-h c-f
+# tmux -T prefix: a b e, [A-Z] U [^DHIJKLMP]
 
 
 # List of plugins
@@ -123,7 +123,7 @@ source ~/dot/.tmux.common
 ## Status bar design
 # status line
 set -g status-justify left
-set -g status-bg default
+set -g status-bg black
 set -g status-fg colour12
 set -g status-interval 5
 

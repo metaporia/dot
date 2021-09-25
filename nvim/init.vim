@@ -49,7 +49,7 @@ Plug 'w0rp/ale', {'for':'elm'}
 Plug 'https://gitlab.com/metaporia/muse-vim'
 Plug 'https://github.com/metaporia/dico-vim'
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
@@ -316,6 +316,9 @@ function! TrimWhiteSpace()
     return 0
 endfunction
 
+
+command! TrimWhiteSpace call TrimWhiteSpace()
+
 "detect gui; call apt tmux rename ...
 function! TmuxRenameHuh()
     "if in terminal vim
@@ -458,6 +461,15 @@ function! BreakOn(delimiter)
 endfunction
 
 command! -nargs=1 BreakOn call BreakOn(<q-args>)
+
+function! JoinParagraphs()
+    let l:save = winsaveview()
+    %s/.\+\zs\n\ze[^\n]/ /
+    call winrestview(l:save)
+endfunction
+
+command! JoinParagraphs call JoinParagraphs()
+
 
 "nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 ""nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>

@@ -28,7 +28,6 @@ set -gx PATH /home/aporia/.cargo/bin \
 #    set -gx cabal_helper_libexecdir /home/aporia/.stack/snapshots/x86_64-linux-tinfo6/lts-9.21/8.0.2/libexec/x86_64-linux-ghc-8.0.2/cabal-helper-0.7.3.0/
 #end
 
-bass source /home/aporia/.nix-profile/etc/profile.d/nix.sh
 
 #######################
 #  coloring manpages  #
@@ -160,5 +159,7 @@ end
 base16-irblack.sh
 
 # ghcup-env
-set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME
-test -f /home/aporia/.ghcup/env ; and set -gx PATH $HOME/.cabal/bin /home/aporia/.ghcup/bin $PATH
+#set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME
+#test -f /home/aporia/.ghcup/env ; and set -gx PATH $HOME/.cabal/bin /home/aporia/.ghcup/bin $PATH
+
+#bass source ~/.nix-profile/etc/profile.d/nix.sh

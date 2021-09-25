@@ -1,4 +1,5 @@
 function fish_prompt --description 'Write out the prompt'
+	set -l last_status $status # must be run first
 	if not set -q __fish_git_prompt_show_informative_status
 		set -g __fish_git_prompt_show_informative_status 1
 	end
@@ -54,7 +55,6 @@ function fish_prompt --description 'Write out the prompt'
 		set -g __fish_git_prompt_color_cleanstate green --bold
 	end
 
-	set -l last_status $status
 
 	if not set -q __fish_prompt_normal
 		set -g __fish_prompt_normal (set_color normal)
@@ -77,7 +77,7 @@ function fish_prompt --description 'Write out the prompt'
 
     # HOST
     set_color blue
-    echo -n (hostname) | string sub -s1 -l1 | tr -d \n
+    echo -n (uname -n) | string sub -s1 -l1 | tr -d \n
     echo -n " "
     set_color normal
 
@@ -88,11 +88,14 @@ function fish_prompt --description 'Write out the prompt'
 
 	printf '%s ' (__fish_vcs_prompt)
 
-	if not test $last_status -eq 0
-	set_color $fish_color_error
+	if [ $last_status -ne 0 ]
+        set_color $fish_error_color
+        echo -n -s (kill -l $last_status) " "
+        set_color normal
+        # TODO reset status when user hits enter on empty line
+        set -le $status
 	end
 
-	set_color normal
 
     set_color yellow
 	echo -n "$suffix "

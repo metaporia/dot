@@ -1,8 +1,7 @@
-Host gitlab
-    HostName gitlab.com
-    IdentityFile ~/.ssh/gitlab
-
 Host github
     HostName github.com
     IdentityFile ~/.ssh/github
-    
+
+Host gitlab
+    HostName gitlab.com
+    IdentityFile ~/.ssh/gitlab

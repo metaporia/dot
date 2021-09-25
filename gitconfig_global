@@ -2,6 +2,8 @@
 	email = kyahnkrafft@me.com
 	name = metaporia
 	password = Policeman2
+[init]
+    defaultBranch = main
 [core]
 	editor = nvim
     pager = less -SXRF --tabs=4 #-FX #--pattern '^(Date|added|deleted|modified): '
@@ -117,3 +119,8 @@
     date = relative
 [format]
     pretty = format:%C(yellow)%h%Creset %<(13,trunc)%Cblue%ad%Creset %<(10,trunc)%an %Cgreen%s%Creset 
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
