@@ -1,24 +1,25 @@
 set fish_greeting ""
 
 # PATH
-set -gx PATH /home/aporia/.cargo/bin \
-             /home/aporia/.local/bin \
-             /home/aporia/.config/base16-shell/scripts \
-             /bin \
-             /sbin \
-             /usr/sbin \
-             /home/aporia/scripts \
-             /usr/bin \
-             /usr/local/bin \
-             /home/aporia/.stack/programs/x86_64-linux/ghc-tinfo6-8.6.5/bin \
-             /home/aporia/.nvm/versions/node/v11.12.0/bin
-
-            #/opt/anaconda/bin/
-            #/home/aporia/.stack/programs/x86_64-linux/ghcjs-0.2.0.9006020_ghc-7.10.3/bin
-            #/home/aporia/.conda3/bin \
-            #/home/aporia/neovim/bin \
-            #/home/aporia/Downloads/node-v8.11.2-linux-x64/bin \
-            #/home/aporia/src/binaryen/bin
+#set -gx PATH /home/aporia/.cargo/bin \
+#             /home/aporia/.local/bin \
+#             /home/aporia/.config/base16-shell/scripts \
+#             /bin \
+#             /sbin \
+#             /usr/sbin \
+#             /home/aporia/scripts \
+#             /usr/bin \
+#             /usr/local/bin \
+#             /home/aporia/.stack/programs/x86_64-linux/ghc-tinfo6-8.6.5/bin \
+#             /home/aporia/.nvm/versions/node/v11.12.0/bin \
+#             /home/aporia/.nix-profile/bin/
+#
+#            #/opt/anaconda/bin/
+#            #/home/aporia/.stack/programs/x86_64-linux/ghcjs-0.2.0.9006020_ghc-7.10.3/bin
+#            #/home/aporia/.conda3/bin \
+#            #/home/aporia/neovim/bin \
+#            #/home/aporia/Downloads/node-v8.11.2-linux-x64/bin \
+#            #/home/aporia/src/binaryen/bin
 
 # cabal-helpel for ghc-mod on ghc 8.0.2
 #switch (hostname)
@@ -162,4 +163,4 @@ base16-irblack.sh
 #set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME
 #test -f /home/aporia/.ghcup/env ; and set -gx PATH $HOME/.cabal/bin /home/aporia/.ghcup/bin $PATH
 
-#bass source ~/.nix-profile/etc/profile.d/nix.sh
+bass source ~/.nix-profile/etc/profile.d/nix.sh
