@@ -155,6 +155,7 @@ with import <nixpkgs> {};
         owner = "metaporia";
         repo = "scripts";
         rev = "cd169e08dceb7e18fcf6ad799a77e4d9453ca42b";
+        sha256= "1a4wms8l6fywj1m25cr2g5nw01mq0jkkapp0b11f749knynfsjar";
       };
 
     };
