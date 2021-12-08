@@ -154,6 +154,7 @@ with import <nixpkgs> {};
       source = fetchFromGitLab {
         owner = "metaporia";
         repo = "scripts";
+        rev = "cd169e08dceb7e18fcf6ad799a77e4d9453ca42b";
       };
 
     };
