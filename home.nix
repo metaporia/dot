@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 
+with import <nixpkgs> {};
+
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -148,6 +150,13 @@
     ".config/fish/functions/fish_title.fish".source = ./fish_title.fish;
 
     ".gitconfig".source = ./gitconfig_global;
+    "scripts" = {
+      source = fetchFromGitLab {
+        owner = "metaporia";
+        repo = "scripts";
+      };
+
+    };
 
   };
 
