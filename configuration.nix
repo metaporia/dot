@@ -5,6 +5,14 @@
 { config, pkgs, ... }:
 
 {
+# Uncomment to enable nix flakes:
+#  nix = {
+#    package = pkgs.nixFlakes;
+#    extraOptions = ''
+#      experimental-features = nix-command flakes
+#    '';
+#  };
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -20,7 +28,7 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
   boot.initrd.checkJournalingFS = false;
-  
+
   networking.hostName = "kerfu"; # Define your hostname.
   networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
 
@@ -52,7 +60,7 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.autorun = false;
   services.xserver.desktopManager.gnome.enable = true;
-  
+
 
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -121,14 +129,15 @@
   #};
 
   users.users.aporia = {
-  	isNormalUser = true;
-  	home = "/home/aporia";
-	extraGroups = [ "wheel" "docker" "networkmanager"];
-	hashedPassword = "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
-	packages = with pkgs; [
-	  git
-	  home-manager
-	];
+    isNormalUser = true;
+    shell = pkgs.fish;
+    home = "/home/aporia";
+    extraGroups = [ "wheel" "docker" "networkmanager"];
+    hashedPassword = "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
+    packages = with pkgs; [
+      git
+      home-manager
+    ];
   };
 
 }

@@ -15,7 +15,7 @@ source ~/dot/.tmux.common
 # take 2
     set -g default-terminal "tmux-256color"
     set -sa terminal-overrides ',alacritty:RGB' # truecolor support
-    set-option -g default-shell "/usr/bin/fish"
+    set-option -g default-shell "/home/aporia/.nix-profile/bin/fish"
 
 
 #see: https://deductivelabs.com/en/2016/03/using-true-color-vim-tmux/
