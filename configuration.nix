@@ -58,19 +58,36 @@
   services.xserver = {
     enable = true;
 
-    # Enable touchpad
-    libinput.enable = true;
+    # forcefully kill X
+    enableCtrlAltBackspace = true;
 
-    displayManager.lightdm.enable = true;
+    # Enable touchpad see `man libinput` for more options
+    libinput = {
+      enable = true;
+      touchpad = {
+        disableWhileTyping = true;
+        tapping = true;
+      };
+    };
+
+    displayManager = {
+      lightdm.enable = true;
+      autoLogin = {
+        enable = true;
+        user = "aporia";
+      };
+    };
 
     # Enable the GNOME Desktop Environment.
-    xserver.autorun = false;
-    xserver.desktopManager.gnome.enable = true;
+    autorun = false;
+    desktopManager.gnome = {
+      enable = true;
+    };
 
     # Configure keymap in X11
-    xserver.layout = "us";
-    xserver.xkbVariant = "dvorak";
-    xserver.xkbOptions = "ctrl:swapcaps";
+    layout = "us";
+    xkbVariant = "dvorak";
+    xkbOptions = "ctrl:swapcaps";
   };
 
   # Enable CUPS to print documents.
