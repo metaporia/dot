@@ -19,6 +19,9 @@
       #<home-manager/nixos>
     ];
 
+  # use latest kernel for framework laptop wifi card support
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Use the GRUB 2 boot loader.
   boot.loader.systemd.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -28,7 +31,7 @@
   # Define on which hard drive you want to install Grub.
 
   networking.hostName = "kerfuffle"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;
 
   # Set your time zone.
   # time.timeZone = "Europe/Amsterdam";
@@ -37,9 +40,7 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.wlan0.useDHCP = true;
-  networking.interfaces.vethc2de6cc.useDHCP = true;
-  networking.interfaces.docker0.useDHCP = true;
+  #networking.interfaces.wlan0.useDHCP = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
