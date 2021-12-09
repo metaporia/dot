@@ -20,10 +20,11 @@
     ];
 
   # use latest kernel for framework laptop wifi card support
+  # see kvark/dotfiles on github for full (working) framework laptop config
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Use the GRUB 2 boot loader.
-  boot.loader.systemd.enable = true;
+  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   # boot.loader.grub.efiSupport = true;
   # boot.loader.grub.efiInstallAsRemovable = true;
@@ -54,19 +55,24 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver = {
+    enable = true;
 
+    # Enable touchpad
+    libinput.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.autorun = false;
-  services.xserver.desktopManager.gnome.enable = true;
+    displayManager.lightdm.enable = true;
 
+    # Enable the GNOME Desktop Environment.
+    xserver.autorun = false;
+    xserver.desktopManager.gnome.enable = true;
 
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbVariant = "dvorak";
-  services.xserver.xkbOptions = "ctrl:swapcaps";
+    # Configure keymap in X11
+    xserver.layout = "us";
+    xserver.xkbVariant = "dvorak";
+    xserver.xkbOptions = "ctrl:swapcaps";
+  };
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
