@@ -162,4 +162,5 @@ base16-irblack.sh
 #set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME
 #test -f /home/aporia/.ghcup/env ; and set -gx PATH $HOME/.cabal/bin /home/aporia/.ghcup/bin $PATH
 
-#bass source ~/.nix-profile/etc/profile.d/nix.sh
+set fish_function_path $fish_function_path ~/src/plugin-foreign-env/functions
+fenv source /etc/profile.d/nix.sh
