@@ -19,6 +19,7 @@ with import <nixpkgs> {};
     vlc
     wmctrl
     xclip
+    gnome.dconf-editor
   ];
 
   # This value determines the Home Manager release that your
@@ -142,6 +143,7 @@ with import <nixpkgs> {};
 
   home.file = {
 
+    ".config/gtk-3.0/gtk.css".source = ./gtk.css;
     ".tmux.conf".source = ./.tmux.conf.desk;
     # ".config/alacritty/alacritty.yml".source = "./alacritty.yml"
 
@@ -162,13 +164,70 @@ with import <nixpkgs> {};
 
   };
 
-  ########
-  # TMUX #
-  ########
-
   programs.bat = {
     enable = true;
     config = { theme = "TwoDark"; };
+  };
+
+  #########
+  # GNOME #
+  #########
+
+  dconf.settings = {
+
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      custom-keybindings =
+        let numberOfCustomKeybindings = 4;
+            prefix = "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom";
+            upTo = n: let go = acc: if acc == n then [n] else [acc] ++ go (acc + 1); in go 0;
+        # NB: update as keybindings are added
+        in builtins.map (x: prefix + builtins.toString x + "/") (upTo
+        (numberOfCustomKeybindings - 1));
+      };
+
+    "org/gnome/desktop/wm/keybindings" = {
+      toggle-maximized=["<Alt>m"];
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      binding = "<Primary><Alt>t";
+      command = "/home/aporia/scripts/raise_tmux";
+      name = "raise_tmux";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      binding = "<Primary><Alt>w";
+      command = "/home/aporia/scripts/raise_primary_web";
+      name = "raise primary web";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+      binding = "<Primary><Alt>s";
+      command = "/home/aporia/scripts/raise_secondary_web";
+      name = "raise secondary web";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
+      binding = "<Primary><Alt>p";
+      command = "/home/aporia/scripts/raise_vlc";
+      name = "raise vlc";
+    };
+
+    # View split on left, right
+    "org/gnome/mutter/keybindings" = {
+      toggle-tiled-left = ["<Primary><Alt>h"];
+    };
+
+    "org/gnome/mutter/keybindings" = {
+      toggle-tiled-right = ["<Primary><Alt>l"];
+    };
+
+
+
+
+
+
+
   };
 
 
