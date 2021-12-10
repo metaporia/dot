@@ -9,7 +9,7 @@ with import <nixpkgs> {};
   home.homeDirectory = "/home/aporia";
 
   # TODO add .dico & dicod service
-  nixpkgs.overlays = [ (import ./dico-overlay.nix)];
+  nixpkgs.overlays = (import ./nix-overlays);
   home.packages = with pkgs; [
     dico
     alacritty
@@ -27,6 +27,8 @@ with import <nixpkgs> {};
     #gnomeExtensions.hide-top-bar
     nixos-option
     git-lfs
+    nottetris2
+    nix-prefetch-git
   ];
 
 
@@ -52,6 +54,13 @@ with import <nixpkgs> {};
     enable = true;
   };
 
+  # TODO so I noticed that my macbook's dict output had indentation sensitive
+  # line-wrapping. Apparently dict-gcide's conversion of the *.CIDE files is
+  # better than that of dico (who knew!); but in any case the data is a
+  # shit-show, as we well know, and dict seems to handle it better. So, we
+  # should switch from dico to dict (which may involve making a dict-gcide nix
+  # package--see arch's dict-gcide), and then get back to work sanitizing that
+  # damn dictionary (remember to update to 0.53--oh god the progress staled!).
   systemd.user.startServices = "sd-switch"; # requires dbus session
   systemd.user.services = {
       dicod = {
@@ -172,6 +181,7 @@ with import <nixpkgs> {};
   home.file = {
 
 
+    ".ssh/config".source = ./sshconfig;
     ".config/gtk-3.0/gtk.css".source = ./gtk.css;
     ".tmux.conf".source = ./.tmux.conf.desk;
     # ".config/alacritty/alacritty.yml".source = "./alacritty.yml"
