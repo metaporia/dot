@@ -74,7 +74,10 @@
     };
 
     displayManager = {
-      lightdm.enable = true;
+      lightdm = {
+        enable = true;
+        greeter.enable = false;
+      };
       autoLogin = {
         enable = true;
         user = "aporia";
@@ -82,7 +85,7 @@
     };
 
     # Enable the GNOME Desktop Environment.
-    autorun = false;
+    autorun = true;
     desktopManager.gnome = {
       enable = true;
     };
