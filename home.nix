@@ -31,7 +31,6 @@ with import <nixpkgs> {};
     nix-prefetch-git
   ];
 
-
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
@@ -53,6 +52,7 @@ with import <nixpkgs> {};
   programs.firefox = {
     enable = true;
   };
+
 
   # TODO so I noticed that my macbook's dict output had indentation sensitive
   # line-wrapping. Apparently dict-gcide's conversion of the *.CIDE files is
@@ -103,6 +103,11 @@ with import <nixpkgs> {};
     enable = true;
     extraConfig = (builtins.readFile ./nvim/init.vim);
   };
+
+  imports = [
+
+    (import ./gnome-kbd-shortcuts.nix) # enable gnome shortcuts
+  ];
 
   programs.fish = {
     enable = true;
@@ -180,7 +185,6 @@ with import <nixpkgs> {};
 
   home.file = {
 
-
     ".ssh/config".source = ./sshconfig;
     ".config/gtk-3.0/gtk.css".source = ./gtk.css;
     ".tmux.conf".source = ./.tmux.conf.desk;
@@ -214,71 +218,71 @@ with import <nixpkgs> {};
   # GNOME #
   #########
 
-  dconf.settings = {
+  #dconf.settings = {
 
-    "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings =
-        let numberOfCustomKeybindings = 4;
-            prefix = "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom";
-            upTo = n: let go = acc: if acc == n then [n] else [acc] ++ go (acc + 1); in go 0;
-        # NB: update as keybindings are added
-        in builtins.map (x: prefix + builtins.toString x + "/") (upTo
-        (numberOfCustomKeybindings - 1));
-      };
+  #  "org/gnome/settings-daemon/plugins/media-keys" = {
+  #    custom-keybindings =
+  #      let numberOfCustomKeybindings = 4;
+  #          prefix = "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom";
+  #          upTo = n: let go = acc: if acc == n then [n] else [acc] ++ go (acc + 1); in go 0;
+  #      # NB: update as keybindings are added
+  #      in builtins.map (x: prefix + builtins.toString x + "/") (upTo
+  #      (numberOfCustomKeybindings - 1));
+  #    };
 
-    "org/gnome/desktop/wm/keybindings" = {
-      toggle-maximized=["<Alt>m"];
-    };
+  #  "org/gnome/desktop/wm/keybindings" = {
+  #    toggle-maximized=["<Alt>m"];
+  #  };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      binding = "<Primary><Alt>t";
-      command = "/home/aporia/scripts/raise_tmux";
-      name = "raise_tmux";
-    };
+  #  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+  #    binding = "<Primary><Alt>t";
+  #    command = "/home/aporia/scripts/raise_tmux";
+  #    name = "raise_tmux";
+  #  };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-      binding = "<Primary><Alt>w";
-      command = "/home/aporia/scripts/raise_primary_web";
-      name = "raise primary web";
-    };
+  #  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+  #    binding = "<Primary><Alt>w";
+  #    command = "/home/aporia/scripts/raise_primary_web";
+  #    name = "raise primary web";
+  #  };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-      binding = "<Primary><Alt>s";
-      command = "/home/aporia/scripts/raise_secondary_web";
-      name = "raise secondary web";
-    };
+  #  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+  #    binding = "<Primary><Alt>s";
+  #    command = "/home/aporia/scripts/raise_secondary_web";
+  #    name = "raise secondary web";
+  #  };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-      binding = "<Primary><Alt>p";
-      command = "/home/aporia/scripts/raise_vlc";
-      name = "raise vlc";
-    };
+  #  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
+  #    binding = "<Primary><Alt>p";
+  #    command = "/home/aporia/scripts/raise_vlc";
+  #    name = "raise vlc";
+  #  };
 
-    # View split on left, right
-    "org/gnome/mutter/keybindings" = {
-      toggle-tiled-left = ["<Primary><Alt>h"];
-    };
+  #  # View split on left, right
+  #  "org/gnome/mutter/keybindings" = {
+  #    toggle-tiled-left = ["<Primary><Alt>h"];
+  #  };
 
-    "org/gnome/mutter/keybindings" = {
-      toggle-tiled-right = ["<Primary><Alt>l"];
-    };
+  #  "org/gnome/mutter/keybindings" = {
+  #    toggle-tiled-right = ["<Primary><Alt>l"];
+  #  };
 
-    "org/gnome/desktop/interface" = {
-      gtk-key-theme = "Emacs";
-    };
+  #  "org/gnome/desktop/interface" = {
+  #    gtk-key-theme = "Emacs";
+  #  };
 
-    "org/gnome/desktop/peripherals/touchpad" = {
-      tap-to-click = true;
-    };
+  #  "org/gnome/desktop/peripherals/touchpad" = {
+  #    tap-to-click = true;
+  #  };
 
-    # remember to set firefox's layout.css.devPixelsPerPx to match
-    "org/gnome/desktop/interface" = {
-      text-scaling-factor = 1.4;
-    };
+  #  # remember to set firefox's layout.css.devPixelsPerPx to match
+  #  "org/gnome/desktop/interface" = {
+  #    text-scaling-factor = 1.4;
+  #  };
 
 
 
-  };
+  #};
 
 
 

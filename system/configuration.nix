@@ -2,6 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+# Installation notes:
+# - partition and mount drive(s)
+# - clone ~/dot to somewhere in the root partition
+# - run nix-generate-config
+# - symlink dot/system to /etc/nixos but backup the hardware-configuration.nix
+#   first--or at least check for discrepancies.
+# - run nix-install
+
 { config, pkgs, ... }:
 
 {
@@ -17,6 +25,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       #<home-manager/nixos>
+      ./wm/gnome.nix
     ];
 
   # Allow installation of proprietary packages
@@ -39,7 +48,8 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
+  #time.timeZone = "America/Los_Angeles";
+  services.localtime.enable = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -57,47 +67,56 @@
     font = "Lat2-Terminus16";
   };
 
-  # Enable the X11 windowing system.
+  ## Enable the X11 windowing system.
+  #services.xserver = {
+  #  enable = true;
+
+  #  # forcefully kill X
+  #  enableCtrlAltBackspace = true;
+
+  #  # Enable touchpad see `man libinput` for more options
+  #  libinput = {
+  #    enable = true;
+  #    touchpad = {
+  #      disableWhileTyping = true;
+  #      tapping = true;
+  #    };
+  #  };
+
+  #  displayManager = {
+  #    lightdm = {
+  #      enable = true;
+  #      greeter.enable = false;
+  #    };
+  #    autoLogin = {
+  #      enable = true;
+  #      user = "aporia";
+  #    };
+  #  };
+
+  #  # Enable the GNOME Desktop Environment.
+  #  autorun = true;
+  #  desktopManager.gnome = {
+  #    enable = true;
+  #  };
+
+  #  # Configure keymap in X11
+  #  layout = "us";
+  #  xkbVariant = "dvorak";
+  #  xkbOptions = "ctrl:swapcaps";
+  #};
+
+  # enable xkb keymap in console
+  console.useXkbConfig = true;
+
+
   services.xserver = {
-    enable = true;
-
-    # forcefully kill X
-    enableCtrlAltBackspace = true;
-
-    # Enable touchpad see `man libinput` for more options
-    libinput = {
-      enable = true;
-      touchpad = {
-        disableWhileTyping = true;
-        tapping = true;
-      };
-    };
-
-    displayManager = {
-      lightdm = {
-        enable = true;
-        greeter.enable = false;
-      };
-      autoLogin = {
-        enable = true;
-        user = "aporia";
-      };
-    };
-
-    # Enable the GNOME Desktop Environment.
-    autorun = true;
-    desktopManager.gnome = {
-      enable = true;
-    };
-
     # Configure keymap in X11
     layout = "us";
     xkbVariant = "dvorak";
     xkbOptions = "ctrl:swapcaps";
   };
 
-  # enable xkb keymap in console
-  console.useXkbConfig = true;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
