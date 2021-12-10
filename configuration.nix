@@ -19,6 +19,9 @@
       #<home-manager/nixos>
     ];
 
+  # Allow installation of proprietary packages
+  nixpkgs.config.allowUnfree = true;
+
   # use latest kernel for framework laptop wifi card support
   # see kvark/dotfiles on github for full (working) framework laptop config
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -35,7 +38,7 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "America/Los_Angeles";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config

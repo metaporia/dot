@@ -8,19 +8,27 @@ with import <nixpkgs> {};
   home.username = "aporia";
   home.homeDirectory = "/home/aporia";
 
+  # TODO add .dico & dicod service
+  nixpkgs.overlays = [ (import ./dico-overlay.nix)];
   home.packages = with pkgs; [
+    dico
     alacritty
     docker
     exa
     fd
-    firefox
     ripgrep
     tmux
     vlc
     wmctrl
     xclip
     gnome.dconf-editor
+    #gnome.gnome-tweaks
+    #chrome-gnome-shell
+    #gnomeExtensions.hide-top-bar
+    nixos-option
+    git-lfs
   ];
+
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -32,24 +40,34 @@ with import <nixpkgs> {};
   # changes in each release.
   home.stateVersion = "21.05";
 
+  #services.gnome3.chrome-gnome-shell.enable = true;
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.firefox.package = pkgs.firefox.override {
+    cfg = { enableGnomeExtensions = true; };
+  };
+
+  programs.firefox = {
+    enable = true;
+  };
 
   # TODO:
   # - add dicod-docker service with something like:
   #
-  # systemd.user = {
-  #   services = {
-  #     dicod-docker = {
-  #       Unit = { description = "Dockerized GNU Dico DICT server" };
-  #       Service = {
-  #         # docker run --name="dicod" --rm -d -p2628 beryj7/dicod-docker:latest
-  #         ExecStart = "/home/aporia/scripts/dicod-docker";
-  # 	    WantedBy = "multi-user.target";
-  #       };
-  #     };
-  #   };
-  # };
+  systemd.user.services = {
+      dicod = {
+        Unit = {
+          Description = "Dockerized GNU Dico DICT server";
+        };
+        Service = {
+          # docker run --name="dicod" --rm -d -p2628 beryj7/dicod-docker:latest
+          ExecStart = "${pkgs.dico}/bin/dicod -f";
+        };
+      };
+  };
+
+  xdg.configFile."nix/nix.conf".source = ./nix.conf;
 
   ##########
   # NEOVIM #
@@ -83,6 +101,15 @@ with import <nixpkgs> {};
       bind \cs 'prepend_command sudo'
       fish_add_path /home/aporia/scripts/
       set fish_greeting
+
+      # colorize manpages
+      set -x LESS_TERMCAP_mb \e'[01;31m'       # begin blinking
+      set -x LESS_TERMCAP_md \e'[01;38;5;74m'  # begin bold
+      set -x LESS_TERMCAP_me \e'[0m'           # end mode
+      set -x LESS_TERMCAP_se \e'[0m'           # end standout-mode
+      set -x LESS_TERMCAP_so \e'[38;5;246m'    # begin standout-mode - info box
+      set -x LESS_TERMCAP_ue \e'[0m'           # end underline
+      set -x LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
     '';
 
     functions = {
@@ -143,6 +170,7 @@ with import <nixpkgs> {};
 
   home.file = {
 
+
     ".config/gtk-3.0/gtk.css".source = ./gtk.css;
     ".tmux.conf".source = ./.tmux.conf.desk;
     # ".config/alacritty/alacritty.yml".source = "./alacritty.yml"
@@ -161,6 +189,8 @@ with import <nixpkgs> {};
       };
 
     };
+
+    ".dico".source = ./.dico;
 
   };
 
@@ -222,9 +252,18 @@ with import <nixpkgs> {};
       toggle-tiled-right = ["<Primary><Alt>l"];
     };
 
+    "org/gnome/desktop/interface" = {
+      gtk-key-theme = "Emacs";
+    };
 
+    "org/gnome/desktop/peripherals/touchpad" = {
+      tap-to-click = true;
+    };
 
-
+    # remember to set firefox's layout.css.devPixelsPerPx to match
+    "org/gnome/desktop/interface" = {
+      text-scaling-factor = 1.4;
+    };
 
 
 
