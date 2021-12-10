@@ -25,6 +25,7 @@
   # use latest kernel for framework laptop wifi card support
   # see kvark/dotfiles on github for full (working) framework laptop config
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -54,7 +55,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "dvorak";
   };
 
   # Enable the X11 windowing system.
@@ -92,6 +92,9 @@
     xkbVariant = "dvorak";
     xkbOptions = "ctrl:swapcaps";
   };
+
+  # enable xkb keymap in console
+  console.useXkbConfig = true;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
