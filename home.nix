@@ -52,17 +52,18 @@ with import <nixpkgs> {};
     enable = true;
   };
 
-  # TODO:
-  # - add dicod-docker service with something like:
-  #
+  systemd.user.startServices = "sd-switch"; # requires dbus session
   systemd.user.services = {
       dicod = {
         Unit = {
-          Description = "Dockerized GNU Dico DICT server";
+          Description = "GNU Dico DICT server";
         };
         Service = {
           # docker run --name="dicod" --rm -d -p2628 beryj7/dicod-docker:latest
           ExecStart = "${pkgs.dico}/bin/dicod -f";
+        };
+        Install = {
+          WantedBy = ["default.target"];
         };
       };
   };
