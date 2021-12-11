@@ -25,8 +25,9 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       #<home-manager/nixos>
-      # ./wm/gnome.nix
-      ./wm/i3.nix
+      # for some reason when both are imported
+      ./wm/gnome.nix
+      # ./wm/i3.nix
     ];
 
   # Allow installation of proprietary packages
