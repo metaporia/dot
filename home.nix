@@ -16,12 +16,6 @@ with import <nixpkgs> {};
     docker
     exa
     fd
-    ripgrep
-    tmux
-    vlc
-    wmctrl
-    xclip
-    gnome.dconf-editor
     #gnome.gnome-tweaks
     #chrome-gnome-shell
     #gnomeExtensions.hide-top-bar
@@ -106,7 +100,8 @@ with import <nixpkgs> {};
 
   imports = [
 
-    (import ./gnome-kbd-shortcuts.nix) # enable gnome shortcuts
+    # (import ./gnome-kbd-shortcuts.nix) # enable gnome shortcuts
+    (import ./i3.nix)
   ];
 
   programs.fish = {

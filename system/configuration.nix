@@ -25,7 +25,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       #<home-manager/nixos>
-      ./wm/gnome.nix
+      # ./wm/gnome.nix
+      ./wm/i3.nix
     ];
 
   # Allow installation of proprietary packages
@@ -68,31 +69,37 @@
   };
 
   ## Enable the X11 windowing system.
-  #services.xserver = {
-  #  enable = true;
+  services.xserver = {
+    enable = true;
 
-  #  # forcefully kill X
-  #  enableCtrlAltBackspace = true;
+    # forcefully kill X
+    enableCtrlAltBackspace = true;
 
-  #  # Enable touchpad see `man libinput` for more options
-  #  libinput = {
-  #    enable = true;
-  #    touchpad = {
-  #      disableWhileTyping = true;
-  #      tapping = true;
-  #    };
-  #  };
+    # Enable touchpad see `man libinput` for more options
+    libinput = {
+      enable = true;
+      touchpad = {
+        disableWhileTyping = true;
+        tapping = true;
+      };
+    };
 
-  #  displayManager = {
-  #    lightdm = {
-  #      enable = true;
-  #      greeter.enable = false;
-  #    };
-  #    autoLogin = {
-  #      enable = true;
-  #      user = "aporia";
-  #    };
-  #  };
+    # Configure keymap in X11
+    layout = "us";
+    xkbVariant = "dvorak";
+    xkbOptions = "ctrl:swapcaps";
+
+    displayManager = {
+      lightdm = {
+        enable = true;
+        greeter.enable = false;
+      };
+      autoLogin = {
+        enable = true;
+        user = "aporia";
+      };
+    };
+  };
 
   #  # Enable the GNOME Desktop Environment.
   #  autorun = true;
@@ -108,14 +115,6 @@
 
   # enable xkb keymap in console
   console.useXkbConfig = true;
-
-
-  services.xserver = {
-    # Configure keymap in X11
-    layout = "us";
-    xkbVariant = "dvorak";
-    xkbOptions = "ctrl:swapcaps";
-  };
 
 
   # Enable CUPS to print documents.
@@ -143,6 +142,8 @@
     git
     tmux
   ];
+
+  programs.dconf.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
