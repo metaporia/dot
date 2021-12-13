@@ -1,14 +1,12 @@
 { config, pkgs, ... }:
 
-with import <nixpkgs> {};
-
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "aporia";
   home.homeDirectory = "/home/aporia";
 
-  # TODO add .dico & dicod service
+  # TODO turn metaporia/nottetris2 into a flake
   nixpkgs.overlays = (import ./nix-overlays);
   home.packages = with pkgs; [
     dico
@@ -196,7 +194,7 @@ with import <nixpkgs> {};
 
     ".gitconfig".source = ./programs/git/gitconfig_global;
     "scripts" = {
-      source = fetchFromGitLab {
+      source = pkgs.fetchFromGitLab {
         owner = "metaporia";
         repo = "scripts";
         rev = "cd169e08dceb7e18fcf6ad799a77e4d9453ca42b";

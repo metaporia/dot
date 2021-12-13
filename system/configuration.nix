@@ -13,13 +13,12 @@
 { config, pkgs, ... }:
 
 {
-# Uncomment to enable nix flakes:
-#  nix = {
-#    package = pkgs.nixFlakes;
-#    extraOptions = ''
-#      experimental-features = nix-command flakes
-#    '';
-#  };
+
+ # Enable nix flakes
+ nix.package = pkgs.nixUnstable;
+ nix.extraOptions = ''
+   experimental-features = nix-command flakes
+ '';
 
   imports =
     [ # Include the results of the hardware scan.
