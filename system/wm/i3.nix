@@ -1,5 +1,7 @@
 { config, lib, pkgs, ... }:
 
+# TODO
+# - ssh-agent (i think we need gnome keyring
 {
   # Enable the X11 windowing system.
   services.xserver.windowManager.i3 = {
