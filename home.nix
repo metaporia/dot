@@ -100,7 +100,7 @@ with import <nixpkgs> {};
   programs.neovim = {
     #package = pkgs.myNeovim; # how to override with vim-plug??
     enable = true;
-    extraConfig = (builtins.readFile ./nvim/init.vim);
+    extraConfig = (builtins.readFile ./programs/nvim/init.vim);
   };
 
   imports = [
@@ -185,16 +185,16 @@ with import <nixpkgs> {};
 
   home.file = {
 
-    ".ssh/config".source = ./sshconfig;
+    ".ssh/config".source = ./programs/ssh/sshconfig;
     ".config/gtk-3.0/gtk.css".source = ./gtk.css;
-    ".tmux.conf".source = ./.tmux.conf.desk;
+    ".tmux.conf".source = ./programs/tmux/.tmux.conf.desk;
     # ".config/alacritty/alacritty.yml".source = "./alacritty.yml"
 
     #".config/fish/config.fish".source = ./config.fish;
-    ".config/fish/functions/fish_prompt.fish".source = ./fish_prompt.fish;
-    ".config/fish/functions/fish_title.fish".source = ./fish_title.fish;
+    ".config/fish/functions/fish_prompt.fish".source = ./programs/fish/fish_prompt.fish;
+    ".config/fish/functions/fish_title.fish".source = ./programs/fish/fish_title.fish;
 
-    ".gitconfig".source = ./gitconfig_global;
+    ".gitconfig".source = ./programs/git/gitconfig_global;
     "scripts" = {
       source = fetchFromGitLab {
         owner = "metaporia";
@@ -205,7 +205,7 @@ with import <nixpkgs> {};
 
     };
 
-    ".dico".source = ./.dico;
+    ".dico".source = ./programs/dico;
 
   };
 
