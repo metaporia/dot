@@ -32,7 +32,7 @@
 
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings =
-            let numberOfCustomKeybindings = 4;
+            let numberOfCustomKeybindings = 5;
                 prefix = "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom";
                 upTo = n: let go = acc: if acc == n then [n] else [acc] ++ go (acc + 1); in go 0;
             # NB: update as keybindings are added
@@ -66,6 +66,12 @@
           binding = "<Primary><Alt>p";
           command = "/home/aporia/scripts/raise_vlc";
           name = "raise vlc";
+        };
+
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
+          binding = "<Primary><Alt>g";
+          command = "/home/aporia/scripts/raise_not_tetris";
+          name = "raise not tetris";
         };
 
         # View split on left, right
