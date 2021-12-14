@@ -183,9 +183,9 @@
 
   home.file = {
 
+    ".tmux.conf".source = ./programs/tmux/tmux.conf;
     ".ssh/config".source = ./programs/ssh/sshconfig;
     ".config/gtk-3.0/gtk.css".source = ./gtk.css;
-    ".tmux.conf".source = ./programs/tmux/.tmux.conf.desk;
     # ".config/alacritty/alacritty.yml".source = "./alacritty.yml"
 
     #".config/fish/config.fish".source = ./config.fish;
