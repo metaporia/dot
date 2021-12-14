@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -10,6 +10,8 @@
     dico
     alacritty
     docker
+    scripts
+    firefox
     exa
     fd
     ripgrep
@@ -40,13 +42,13 @@
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
 
-  programs.firefox.package = pkgs.firefox.override {
-    cfg = { enableGnomeExtensions = true; };
-  };
+  #programs.firefox = {
+  #  enable = true;
+  #};
 
-  programs.firefox = {
-    enable = true;
-  };
+  #programs.firefox.package = pkgs.firefox.override {
+  #  cfg = { enableGnomeExtensions = true; };
+  #};
 
 
   # TODO so I noticed that my macbook's dict output had indentation sensitive
@@ -110,7 +112,7 @@
     shellInit = ''
       bind \ea 'history-token-search-backward'
       bind \cs 'prepend_command sudo'
-      fish_add_path /home/aporia/scripts/
+      #fish_add_path /home/aporia/scripts/
       set fish_greeting
 
       # colorize manpages

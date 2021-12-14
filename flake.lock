@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1639430993,
-        "narHash": "sha256-hOTsN76jnikHi1358CSBubcpxreAAfmLHdUnkBYn52c=",
+        "lastModified": 1639506187,
+        "narHash": "sha256-6wcFhEaA14bHbbr7xgpMv2QEXOEp1vleW7pB6siJXrQ=",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "ea5591d225c379d7b0ad594ab901bec498aefe91",
+        "rev": "c61fc1c288bd1fdf96261ba5574a12cf8f9be70b",
         "type": "github"
       },
       "original": {
@@ -40,7 +40,28 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "scripts": "scripts"
+      }
+    },
+    "scripts": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1639515710,
+        "narHash": "sha256-+dW/p29B1DATcvoU1PFZ5LLh6VtWQksJvLoEZzDLMho=",
+        "owner": "metaporia",
+        "repo": "scripts",
+        "rev": "88d33e7a3d60297549df5daeb2411fa5fc7859ae",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "metaporia",
+        "repo": "scripts",
+        "type": "gitlab"
       }
     }
   },

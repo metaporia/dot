@@ -12,20 +12,33 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:rycee/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    scripts.url = "gitlab:metaporia/scripts";
+    scripts.inputs.nixpkgs.follows = "nixpkgs";
 
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, scripts, ... }:
+  let
+    system = "x86_64-linux";
+    scriptsOverlay = final: prev:
+    { scripts = scripts.packages.x86_64-linux.scripts; };
+    #pkgs = import nixpkgs {
+    #  inherit system;
+    #  config.allowUnfree = true; # from hlissner's dotfiles--redundant?
+    #  overlays = [ scriptsOverlay ];
+    #};
+  in
+  {
     nixosConfigurations = {
       kerfuffle = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
         modules = [
           ./system/configuration.nix
           home-manager.nixosModules.home-manager {
             # Use system pkgs for hm; disables nixpkgs.* options in ./home.nix.
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            nixpkgs.overlays = (import ./nix-overlays);
+            nixpkgs.overlays = (import ./nix-overlays) ++ [scriptsOverlay];
             home-manager.users.aporia = import ./home.nix;
 
           }
