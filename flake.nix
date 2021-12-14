@@ -6,7 +6,8 @@
   # - hlissner's dotfiles: https://github.com/hlissner/dotfiles
   # - tweag.io article on NixOS managament with flakes: https://www.tweag.io/blog/2020-07-31-nixos-flakes/
 
-  # TODO add home-manager
+  # Rebuild system with `cd ~/dot; sudo nixos-rebuild switch --flake '.#kerfuffle"`
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:rycee/home-manager/master";
