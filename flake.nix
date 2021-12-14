@@ -20,12 +20,10 @@
   outputs = inputs@{ self, nixpkgs, home-manager, scripts, ... }:
   let
     system = "x86_64-linux";
-    scriptsOverlay = final: prev:
-    { scripts = scripts.packages.x86_64-linux.scripts; };
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true; # from hlissner's dotfiles--redundant?
-      overlays = [ scriptsOverlay ] ++ (import ./nix-overlays);
+      overlays = [ scripts.overlay ] ++ (import ./nix-overlays);
     };
   in
   {
@@ -39,8 +37,6 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            # I prefer to apply overlays myself and pass the modified package
-            # set 
             #nixpkgs.overlays = (import ./nix-overlays); # ++ [scriptsOverlay];
             home-manager.users.aporia = import ./home.nix {inherit pkgs;};
 
