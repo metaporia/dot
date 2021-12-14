@@ -1,7 +1,7 @@
-self: super:
+final: prev:
 
 {
-  dico = super.dico.overrideAttrs (oldAttrs: rec {
+  dico = prev.dico.overrideAttrs (oldAttrs: rec {
 
     ## ADDED
     # This looks like it will work but perhaps it should be done in my user

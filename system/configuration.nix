@@ -68,6 +68,9 @@
     font = "Lat2-Terminus16";
   };
 
+  # TODO is this necessary?
+  services.dbus.enable = true;
+
   ## Enable the X11 windowing system.
   services.xserver = {
     enable = true;

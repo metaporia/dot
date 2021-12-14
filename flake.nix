@@ -22,8 +22,10 @@
         modules = [
           ./system/configuration.nix
           home-manager.nixosModules.home-manager {
+            # Use system pkgs for hm; disables nixpkgs.* options in ./home.nix.
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            nixpkgs.overlays = (import ./nix-overlays);
             home-manager.users.aporia = import ./home.nix;
 
           }

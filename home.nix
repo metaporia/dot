@@ -6,8 +6,6 @@
   home.username = "aporia";
   home.homeDirectory = "/home/aporia";
 
-  # TODO turn metaporia/nottetris2 into a flake
-  nixpkgs.overlays = (import ./nix-overlays);
   home.packages = with pkgs; [
     dico
     alacritty
@@ -19,7 +17,7 @@
     xclip
     vlc
     tmux
-    #gnome.gnome-tweaks
+    gnome.gnome-tweaks
     #chrome-gnome-shell
     #gnomeExtensions.hide-top-bar
     nixos-option
@@ -40,7 +38,7 @@
 
   #services.gnome3.chrome-gnome-shell.enable = true;
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  #programs.home-manager.enable = true;
 
   programs.firefox.package = pkgs.firefox.override {
     cfg = { enableGnomeExtensions = true; };
@@ -203,7 +201,7 @@
 
     };
 
-    ".dico".source = ./programs/dico;
+    ".dico".source = ./programs/dico/.dico;
 
   };
 
