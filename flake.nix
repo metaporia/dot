@@ -22,11 +22,11 @@
     system = "x86_64-linux";
     scriptsOverlay = final: prev:
     { scripts = scripts.packages.x86_64-linux.scripts; };
-    #pkgs = import nixpkgs {
-    #  inherit system;
-    #  config.allowUnfree = true; # from hlissner's dotfiles--redundant?
-    #  overlays = [ scriptsOverlay ];
-    #};
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true; # from hlissner's dotfiles--redundant?
+      overlays = [ scriptsOverlay ] ++ (import ./nix-overlays);
+    };
   in
   {
     nixosConfigurations = {
@@ -38,8 +38,11 @@
             # Use system pkgs for hm; disables nixpkgs.* options in ./home.nix.
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            nixpkgs.overlays = (import ./nix-overlays) ++ [scriptsOverlay];
-            home-manager.users.aporia = import ./home.nix;
+
+            # I prefer to apply overlays myself and pass the modified package
+            # set 
+            #nixpkgs.overlays = (import ./nix-overlays); # ++ [scriptsOverlay];
+            home-manager.users.aporia = import ./home.nix {inherit pkgs;};
 
           }
         ];

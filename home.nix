@@ -193,16 +193,6 @@
     ".config/fish/functions/fish_title.fish".source = ./programs/fish/fish_title.fish;
 
     ".gitconfig".source = ./programs/git/gitconfig_global;
-    "scripts" = {
-      source = pkgs.fetchFromGitLab {
-        owner = "metaporia";
-        repo = "scripts";
-        rev = "cd169e08dceb7e18fcf6ad799a77e4d9453ca42b";
-        sha256= "1a4wms8l6fywj1m25cr2g5nw01mq0jkkapp0b11f749knynfsjar";
-      };
-
-    };
-
     ".dico".source = ./programs/dico/.dico;
 
   };
