@@ -51,7 +51,6 @@
   #  cfg = { enableGnomeExtensions = true; };
   #};
 
-
   # TODO so I noticed that my macbook's dict output had indentation sensitive
   # line-wrapping. Apparently dict-gcide's conversion of the *.CIDE files is
   # better than that of dico (who knew!); but in any case the data is a
@@ -61,18 +60,14 @@
   # damn dictionary (remember to update to 0.53--oh god the progress staled!).
   systemd.user.startServices = "sd-switch"; # requires dbus session
   systemd.user.services = {
-      dicod = {
-        Unit = {
-          Description = "GNU Dico DICT server";
-        };
-        Service = {
-          # docker run --name="dicod" --rm -d -p2628 beryj7/dicod-docker:latest
-          ExecStart = "${pkgs.dico}/bin/dicod -f";
-        };
-        Install = {
-          WantedBy = ["default.target"];
-        };
+    dicod = {
+      Unit = { Description = "GNU Dico DICT server"; };
+      Service = {
+        # docker run --name="dicod" --rm -d -p2628 beryj7/dicod-docker:latest
+        ExecStart = "${pkgs.dico}/bin/dicod -f";
       };
+      Install = { WantedBy = [ "default.target" ]; };
+    };
   };
 
   xdg.configFile."nix/nix.conf".source = ./nix.conf;
@@ -81,7 +76,7 @@
   # NEOVIM #
   ##########
 
-    # Alternatively, use neovim module:
+  # Alternatively, use neovim module:
   # super jank: the above links in the whole ./nvim/ dir, while the below
   # overwrites ./nvim/init.vim with itself (ik, ik--it's a dumpster fire)
   # As yet vim-plug installs itself from init.vim, the downside being that it
@@ -127,23 +122,23 @@
     '';
 
     functions = {
-    prepend_command = ''
-      set -l prepend $argv[1]
-      if test -z "$prepend"
-          echo "prepend_command needs one argument"
-          return 1
-      end
+      prepend_command = ''
+        set -l prepend $argv[1]
+        if test -z "$prepend"
+            echo "prepend_command needs one argument"
+            return 1
+        end
 
-      set -l cmd (commandline)
-      if test -z "$cmd"
-          commandline -r $history[1]
-      end
+        set -l cmd (commandline)
+        if test -z "$cmd"
+            commandline -r $history[1]
+        end
 
-      set -l old_cursor (commandline -C)
-      commandline -C 0
-      commandline -i "$prepend "
-      commandline -C (math $old_cursor + (echo $prepend | wc -c))
-    '';
+        set -l old_cursor (commandline -C)
+        commandline -C 0
+        commandline -i "$prepend "
+        commandline -C (math $old_cursor + (echo $prepend | wc -c))
+      '';
 
     };
     shellAbbrs = {
@@ -190,8 +185,10 @@
     # ".config/alacritty/alacritty.yml".source = "./alacritty.yml"
 
     #".config/fish/config.fish".source = ./config.fish;
-    ".config/fish/functions/fish_prompt.fish".source = ./programs/fish/fish_prompt.fish;
-    ".config/fish/functions/fish_title.fish".source = ./programs/fish/fish_title.fish;
+    ".config/fish/functions/fish_prompt.fish".source =
+      ./programs/fish/fish_prompt.fish;
+    ".config/fish/functions/fish_title.fish".source =
+      ./programs/fish/fish_title.fish;
 
     ".gitconfig".source = ./programs/git/gitconfig_global;
     ".dico".source = ./programs/dico/.dico;
@@ -202,77 +199,5 @@
     enable = true;
     config = { theme = "TwoDark"; };
   };
-
-  #########
-  # GNOME #
-  #########
-
-  #dconf.settings = {
-
-  #  "org/gnome/settings-daemon/plugins/media-keys" = {
-  #    custom-keybindings =
-  #      let numberOfCustomKeybindings = 4;
-  #          prefix = "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom";
-  #          upTo = n: let go = acc: if acc == n then [n] else [acc] ++ go (acc + 1); in go 0;
-  #      # NB: update as keybindings are added
-  #      in builtins.map (x: prefix + builtins.toString x + "/") (upTo
-  #      (numberOfCustomKeybindings - 1));
-  #    };
-
-  #  "org/gnome/desktop/wm/keybindings" = {
-  #    toggle-maximized=["<Alt>m"];
-  #  };
-
-  #  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-  #    binding = "<Primary><Alt>t";
-  #    command = "/home/aporia/scripts/raise_tmux";
-  #    name = "raise_tmux";
-  #  };
-
-  #  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-  #    binding = "<Primary><Alt>w";
-  #    command = "/home/aporia/scripts/raise_primary_web";
-  #    name = "raise primary web";
-  #  };
-
-  #  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-  #    binding = "<Primary><Alt>s";
-  #    command = "/home/aporia/scripts/raise_secondary_web";
-  #    name = "raise secondary web";
-  #  };
-
-  #  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-  #    binding = "<Primary><Alt>p";
-  #    command = "/home/aporia/scripts/raise_vlc";
-  #    name = "raise vlc";
-  #  };
-
-  #  # View split on left, right
-  #  "org/gnome/mutter/keybindings" = {
-  #    toggle-tiled-left = ["<Primary><Alt>h"];
-  #  };
-
-  #  "org/gnome/mutter/keybindings" = {
-  #    toggle-tiled-right = ["<Primary><Alt>l"];
-  #  };
-
-  #  "org/gnome/desktop/interface" = {
-  #    gtk-key-theme = "Emacs";
-  #  };
-
-  #  "org/gnome/desktop/peripherals/touchpad" = {
-  #    tap-to-click = true;
-  #  };
-
-  #  # remember to set firefox's layout.css.devPixelsPerPx to match
-  #  "org/gnome/desktop/interface" = {
-  #    text-scaling-factor = 1.4;
-  #  };
-
-
-
-  #};
-
-
 
 }

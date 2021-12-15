@@ -14,20 +14,19 @@
 
 {
 
- # Enable nix flakes
- nix.package = pkgs.nixUnstable;
- nix.extraOptions = ''
-   experimental-features = nix-command flakes
- '';
+  # Enable nix flakes
+  nix.package = pkgs.nixUnstable;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
 
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      #<home-manager/nixos>
-      # for some reason when both are imported
-      ./wm/gnome.nix
-      # ./wm/i3.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    #<home-manager/nixos>
+    # for some reason when both are imported
+    ./wm/gnome.nix
+    # ./wm/i3.nix
+  ];
 
   # Allow installation of proprietary packages
   nixpkgs.config.allowUnfree = true;
@@ -64,9 +63,7 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-  };
+  console = { font = "Lat2-Terminus16"; };
 
   # TODO is this necessary?
   services.dbus.enable = true;
@@ -104,37 +101,11 @@
     };
   };
 
-  #  # Enable the GNOME Desktop Environment.
-  #  autorun = true;
-  #  desktopManager.gnome = {
-  #    enable = true;
-  #  };
-
-  #  # Configure keymap in X11
-  #  layout = "us";
-  #  xkbVariant = "dvorak";
-  #  xkbOptions = "ctrl:swapcaps";
-  #};
-
   # enable xkb keymap in console
   console.useXkbConfig = true;
 
-
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.jane = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  # };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -148,25 +119,6 @@
 
   programs.dconf.enable = true;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -175,25 +127,18 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
 
-
   # don't persist user state not declared in configuration.nix
   users.mutableUsers = false;
   #users.defaultUserShell = pkgs.fish;
-
-  #home-manager.users.aporia = { pkgs, ... }: {
-  #  programs.bash.enable = true;
-  #};
 
   users.users.aporia = {
     isNormalUser = true;
     shell = pkgs.fish;
     home = "/home/aporia";
-    extraGroups = [ "wheel" "docker" "networkmanager"];
-    hashedPassword = "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
-    packages = with pkgs; [
-      git
-      home-manager
-    ];
+    extraGroups = [ "wheel" "docker" "networkmanager" ];
+    hashedPassword =
+      "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
+    packages = with pkgs; [ git home-manager ];
   };
 
 }

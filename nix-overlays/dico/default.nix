@@ -15,29 +15,27 @@ final: prev:
     };
 
     dicodConf = ''
-        /* A sample configuration for GNU dicod */
+      /* A sample configuration for GNU dicod */
 
-        capability (mime,xversion);
-        timing yes;
-        access-log-file "/var/log/dictd-access_log";
-        access-log-format "%h %l %u %t \"%r\" %>s %b \"\" \"%C\"";
+      capability (mime,xversion);
+      timing yes;
+      access-log-file "/var/log/dictd-access_log";
+      access-log-format "%h %l %u %t \"%r\" %>s %b \"\" \"%C\"";
 
-        // ADDED
-        module-load-path ("${placeholder "out"}/lib/dico");
-        load-module gcide;
-        database {
-            name "gcide";
-            handler "gcide dbdir=${placeholder "out"}/gcide-${gcideVersion}";
-        }
+      // ADDED
+      module-load-path ("${placeholder "out"}/lib/dico");
+      load-module gcide;
+      database {
+          name "gcide";
+          handler "gcide dbdir=${placeholder "out"}/gcide-${gcideVersion}";
+      }
 
-        max-children 10;
-        inactivity-timeout 5;
-      '';
+      max-children 10;
+      inactivity-timeout 5;
+    '';
 
     # TODO allow toggling of flags
-    configureFlags = [
-      "--with-pcre"
-    ];
+    configureFlags = [ "--with-pcre" ];
 
     postInstall = ''
       mkdir -p $out/etc/

@@ -30,9 +30,7 @@
 
     # Enable the GNOME Desktop Environment.
     autorun = true;
-    desktopManager.gnome = {
-      enable = true;
-    };
+    desktopManager.gnome = { enable = true; };
 
   };
 
