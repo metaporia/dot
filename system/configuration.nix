@@ -115,6 +115,7 @@
     firefox
     git
     tmux
+    nix-doc
   ];
 
   programs.dconf.enable = true;

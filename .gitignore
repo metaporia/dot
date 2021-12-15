@@ -4,6 +4,8 @@ result/
 .#*
 *#
 
+tags
+
 nvim/.netrwhist
 nvim/spell/
 
