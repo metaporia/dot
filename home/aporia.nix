@@ -100,7 +100,7 @@
   imports = [
 
     (import ./gnome-kbd-shortcuts.nix) # enable gnome shortcuts
-    #(import ../i3.nix)
+    #(import ./i3.nix)
   ];
 
   programs.fish = {

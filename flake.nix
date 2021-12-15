@@ -38,7 +38,7 @@
             home-manager.nixosModules.home-manager
             {
               # Use system pkgs for hm; disables nixpkgs.* options in
-              # ./users/aporia.nix.
+              # ./home/aporia.nix.
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
 
@@ -52,15 +52,15 @@
               nixpkgs.pkgs = pkgs;
 
               # Instead of letting the module system pass `pkgs` and `config` to
-              # `./users/aporia.nix`, we can specify them ourselves like so:
+              # `./home/aporia.nix`, we can specify them ourselves like so:
               #
               # ```
-              # home-manager.users.aporia = import ./users/aporia.nix {
+              # home-manager.users.aporia = import ./home/aporia.nix {
               #   inherit pkgs;
               #   config = pkgs.config;
               # };
               # ```
-              home-manager.users.aporia.imports = [ ./users/aporia.nix ];
+              home-manager.users.aporia.imports = [ ./home/aporia.nix ];
 
             }
           ];
