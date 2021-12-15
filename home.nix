@@ -26,6 +26,7 @@
     git-lfs
     nottetris2
     nix-prefetch-git
+    nixfmt
   ];
 
   # This value determines the Home Manager release that your
