@@ -181,7 +181,7 @@
 
     ".tmux.conf".source = ../config/tmux/tmux.conf;
     ".ssh/config".source = ../config/ssh/sshconfig;
-    ".config/gtk-3.0/gtk.css".source = ../gtk.css;
+    ".config/gtk-3.0/gtk.css".source = ../config/gtk/gtk.css;
     # ".config/alacritty/alacritty.yml".source = "../alacritty.yml"
 
     #".config/fish/config.fish".source = ../config.fish;
