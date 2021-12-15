@@ -35,8 +35,8 @@
         commandline -i "$prepend "
         commandline -C (math $old_cursor + (echo $prepend | wc -c))
       '';
-
     };
+
     shellAbbrs = {
       cb = "cd -";
       g = "git";
@@ -52,7 +52,7 @@
       gl = "git log --graph --oneline --decorate";
       gls = "git log --graph --oneline --decorate --stat";
       gd = "git diff";
-      gdc = "git diff --cached";
+      gds = "git diff --staged";
       gca = "git commit --amend --no-edit";
       gg = "git pull";
       ta = "tmux attach -t";
@@ -72,5 +72,4 @@
       open = "xdg-open";
     };
   };
-
 }
