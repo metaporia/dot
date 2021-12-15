@@ -23,6 +23,10 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true; # from hlissner's dotfiles--redundant?
+
+      # Alternatively, overlays can be specified in the NixOS home-manager
+      # module as follows:
+      # > nixpkgs.overlays = (import ./nix-overlays); # ++ [scriptsOverlay]
       overlays = [ scripts.overlay ] ++ (import ./nix-overlays);
     };
   in
@@ -37,8 +41,25 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            #nixpkgs.overlays = (import ./nix-overlays); # ++ [scriptsOverlay];
-            home-manager.users.aporia = import ./home.nix {inherit pkgs;};
+            # Pass augmented nixpkgs to all modules.
+            #
+            # Our customized package set won't be used by home-manager without
+            # this.
+            #
+            # I believe it would otherwise default to the `nixpkgs.config` (?)
+            # of the `nixpkgs` in scope.
+            nixpkgs.pkgs = pkgs;
+
+            # Instead of letting the module system pass `pkgs` and `config` to
+            # `./home.nix`, we can specify them ourselves like so:
+            #
+            # ```
+            # home-manager.users.aporia = import ./home.nix {
+            #   inherit pkgs;
+            #   config = pkgs.config;
+            # };
+            # ```
+            home-manager.users.aporia.imports = [ ./home.nix ];
 
           }
         ];
