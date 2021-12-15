@@ -80,14 +80,6 @@
   # NEOVIM #
   ##########
 
-  # simplest method; just places ./nvim/ in ~/.config/
-  # for some reason this breaks initial invocation of `home-manager switch`.
-  # It seemed to work after neovim was installed already, however.
-  #xdg.configFile."nvim" = {
-  #  source = ./nvim;
-  #  recursive = true;
-  #};
-
     # Alternatively, use neovim module:
   # super jank: the above links in the whole ./nvim/ dir, while the below
   # overwrites ./nvim/init.vim with itself (ik, ik--it's a dumpster fire)
@@ -99,6 +91,14 @@
     #package = pkgs.myNeovim; # how to override with vim-plug??
     enable = true;
     extraConfig = (builtins.readFile ./programs/nvim/init.vim);
+  };
+
+  # simplest method; just places ./nvim/ in ~/.config/
+  # for some reason this breaks initial invocation of `home-manager switch`.
+  # It seemed to work after neovim was installed already, however.
+  xdg.configFile."nvim/ftplugin" = {
+    source = ./programs/nvim/ftplugin;
+    recursive = true;
   };
 
   imports = [
