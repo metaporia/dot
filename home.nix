@@ -86,14 +86,14 @@
   programs.neovim = {
     #package = pkgs.myNeovim; # how to override with vim-plug??
     enable = true;
-    extraConfig = (builtins.readFile ./programs/nvim/init.vim);
+    extraConfig = (builtins.readFile ./config/nvim/init.vim);
   };
 
   # simplest method; just places ./nvim/ in ~/.config/
   # for some reason this breaks initial invocation of `home-manager switch`.
   # It seemed to work after neovim was installed already, however.
   xdg.configFile."nvim/ftplugin" = {
-    source = ./programs/nvim/ftplugin;
+    source = ./config/nvim/ftplugin;
     recursive = true;
   };
 
@@ -179,19 +179,19 @@
 
   home.file = {
 
-    ".tmux.conf".source = ./programs/tmux/tmux.conf;
-    ".ssh/config".source = ./programs/ssh/sshconfig;
+    ".tmux.conf".source = ./config/tmux/tmux.conf;
+    ".ssh/config".source = ./config/ssh/sshconfig;
     ".config/gtk-3.0/gtk.css".source = ./gtk.css;
     # ".config/alacritty/alacritty.yml".source = "./alacritty.yml"
 
     #".config/fish/config.fish".source = ./config.fish;
     ".config/fish/functions/fish_prompt.fish".source =
-      ./programs/fish/fish_prompt.fish;
+      ./config/fish/fish_prompt.fish;
     ".config/fish/functions/fish_title.fish".source =
-      ./programs/fish/fish_title.fish;
+      ./config/fish/fish_title.fish;
 
-    ".gitconfig".source = ./programs/git/gitconfig_global;
-    ".dico".source = ./programs/dico/.dico;
+    ".gitconfig".source = ./config/git/gitconfig_global;
+    ".dico".source = ./config/dico/.dico;
 
   };
 
