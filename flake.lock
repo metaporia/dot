@@ -51,11 +51,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1639520401,
-        "narHash": "sha256-QeUOzCE1I0JifOyfc8k6a8CSc6CrG4mlrlu/natZSMM=",
+        "lastModified": 1639544201,
+        "narHash": "sha256-zmnekVaMWXMAZ7EueZn33aDfJj+1+KgUoWS4oOm5z84=",
         "owner": "metaporia",
         "repo": "scripts",
-        "rev": "1e3db9b21ec93fe9a2b7598d406065a99196fce8",
+        "rev": "ffd5f669ee51d485972a83c7ededd0187a206dc5",
         "type": "gitlab"
       },
       "original": {
