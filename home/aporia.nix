@@ -98,8 +98,8 @@
   };
 
   imports = [
-    (import ./fish.nix)
-    (import ./gnome-kbd-shortcuts.nix)
+    ./fish.nix
+    ./gnome-kbd-shortcuts.nix
     #./i3.nix
   ];
 
