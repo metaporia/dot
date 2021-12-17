@@ -19,7 +19,7 @@
 
     functions = {
       prepend_command = ''
-        et -l prepend $argv[1]
+        set -l prepend $argv[1]
         if test -z "$prepend"
             echo "prepend_command needs one argument"
             return 1
