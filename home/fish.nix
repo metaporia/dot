@@ -1,4 +1,12 @@
 {
+
+  home.file = {
+    ".config/fish/functions/fish_prompt.fish".source =
+      ../config/fish/fish_prompt.fish;
+    ".config/fish/functions/fish_title.fish".source =
+      ../config/fish/fish_title.fish;
+  };
+
   programs.fish = {
     enable = true;
     shellInit = ''

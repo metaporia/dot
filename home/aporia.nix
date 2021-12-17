@@ -103,18 +103,12 @@
     #./i3.nix
   ];
 
-    home.file = {
+  home.file = {
 
     ".tmux.conf".source = ../config/tmux/tmux.conf;
     ".ssh/config".source = ../config/ssh/sshconfig;
     ".config/gtk-3.0/gtk.css".source = ../config/gtk/gtk.css;
     # ".config/alacritty/alacritty.yml".source = "../alacritty.yml"
-
-    #".config/fish/config.fish".source = ../config.fish;
-    ".config/fish/functions/fish_prompt.fish".source =
-      ../config/fish/fish_prompt.fish;
-    ".config/fish/functions/fish_title.fish".source =
-      ../config/fish/fish_title.fish;
 
     ".gitconfig".source = ../config/git/gitconfig_global;
     ".dico".source = ../config/dico/.dico;
