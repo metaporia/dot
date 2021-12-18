@@ -1,5 +1,9 @@
 { pkgs, ... }: {
   xsession.enable = true;
+  xsession.profileExtra = ''
+    eval $(${pkgs.gnome.gnome-keyring}/bin/gnome-keyring-daemon --daemonize --components=ssh,secrets)
+    export SSH_AUTH_SOCK
+  '';
   xsession.windowManager.i3 = rec {
     enable = true;
     package = pkgs.i3-gaps;
