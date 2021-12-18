@@ -35,6 +35,7 @@
           inherit system;
           modules = [
             ./system/configuration.nix
+            ./system/wm/i3.nix
             home-manager.nixosModules.home-manager
             {
               # Use system pkgs for hm; disables nixpkgs.* options in
@@ -60,7 +61,8 @@
               #   config = pkgs.config;
               # };
               # ```
-              home-manager.users.aporia.imports = [ ./home/aporia.nix ];
+              home-manager.users.aporia.imports =
+                [ ./home/aporia.nix ./home/i3.nix ];
 
             }
           ];

@@ -24,7 +24,7 @@
     ./hardware-configuration.nix
     #<home-manager/nixos>
     # for some reason when both are imported
-    ./wm/gnome.nix
+    # ./wm/gnome.nix
     # ./wm/i3.nix
   ];
 
@@ -51,6 +51,8 @@
   time.timeZone = "America/Los_Angeles";
   services.localtime.enable = true;
 
+  hardware.pulseaudio.enable = true;
+
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
@@ -69,37 +71,37 @@
   services.dbus.enable = true;
 
   ## Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
+  #services.xserver = {
+  #  enable = true;
 
-    # forcefully kill X
-    enableCtrlAltBackspace = true;
+  #  # forcefully kill X
+  #  enableCtrlAltBackspace = true;
 
-    # Enable touchpad see `man libinput` for more options
-    libinput = {
-      enable = true;
-      touchpad = {
-        disableWhileTyping = true;
-        tapping = true;
-      };
-    };
+  #  # Enable touchpad see `man libinput` for more options
+  #  libinput = {
+  #    enable = true;
+  #    touchpad = {
+  #      disableWhileTyping = true;
+  #      tapping = true;
+  #    };
+  #  };
 
-    # Configure keymap in X11
-    layout = "us";
-    xkbVariant = "dvorak";
-    xkbOptions = "ctrl:swapcaps";
+  #  # Configure keymap in X11
+  #  layout = "us";
+  #  xkbVariant = "dvorak";
+  #  xkbOptions = "ctrl:swapcaps";
 
-    displayManager = {
-      lightdm = {
-        enable = true;
-        greeter.enable = false;
-      };
-      autoLogin = {
-        enable = true;
-        user = "aporia";
-      };
-    };
-  };
+  #  displayManager = {
+  #    lightdm = {
+  #      enable = true;
+  #      greeter.enable = false;
+  #    };
+  #    autoLogin = {
+  #      enable = true;
+  #      user = "aporia";
+  #    };
+  #  };
+  #};
 
   # enable xkb keymap in console
   console.useXkbConfig = true;
@@ -136,7 +138,7 @@
     isNormalUser = true;
     shell = pkgs.fish;
     home = "/home/aporia";
-    extraGroups = [ "wheel" "docker" "networkmanager" ];
+    extraGroups = [ "wheel" "docker" "networkmanager" "audio" ];
     hashedPassword =
       "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
     packages = with pkgs; [ git home-manager ];

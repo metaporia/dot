@@ -7,6 +7,7 @@
   home.homeDirectory = "/home/aporia";
 
   home.packages = with pkgs; [
+    xorg.xev
     dico
     alacritty
     docker
@@ -19,7 +20,7 @@
     xclip
     vlc
     tmux
-    gnome.gnome-tweaks
+    #gnome.gnome-tweaks
     #chrome-gnome-shell
     #gnomeExtensions.hide-top-bar
     nixos-option
@@ -58,7 +59,7 @@
   # should switch from dico to dict (which may involve making a dict-gcide nix
   # package--see arch's dict-gcide), and then get back to work sanitizing that
   # damn dictionary (remember to update to 0.53--oh god the progress staled!).
-  systemd.user.startServices = "sd-switch"; # requires dbus session
+  #systemd.user.startServices = "sd-switch"; # requires dbus session
   systemd.user.services = {
     dicod = {
       Unit = { Description = "GNU Dico DICT server"; };
@@ -99,7 +100,7 @@
 
   imports = [
     ./fish.nix
-    ./gnome-kbd-shortcuts.nix
+    # ./gnome-kbd-shortcuts.nix
     #./i3.nix
   ];
 
