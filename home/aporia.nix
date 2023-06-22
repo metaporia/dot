@@ -97,8 +97,12 @@
     recursive = true;
   };
 
+  programs.fish = {
+    enable = true;
+  };
+
   imports = [
-    ./fish.nix
+    #./fish.nix
     ./gnome-kbd-shortcuts.nix
     #./i3.nix
   ];
