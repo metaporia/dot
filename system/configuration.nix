@@ -130,7 +130,7 @@
 
   # don't persist user state not declared in configuration.nix
   users.mutableUsers = false;
-  #users.defaultUserShell = pkgs.fish;
+  programs.fish.enable = true;
 
   users.users.aporia = {
     isNormalUser = true;

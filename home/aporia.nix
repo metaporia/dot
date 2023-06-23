@@ -24,7 +24,7 @@
     #gnomeExtensions.hide-top-bar
     nixos-option
     git-lfs
-    nottetris2
+    #nottetris2 # FIXME
     nix-prefetch-git
     nixfmt
   ];
@@ -97,12 +97,8 @@
     recursive = true;
   };
 
-  programs.fish = {
-    enable = true;
-  };
-
   imports = [
-    #./fish.nix
+    ./fish.nix
     ./gnome-kbd-shortcuts.nix
     #./i3.nix
   ];
