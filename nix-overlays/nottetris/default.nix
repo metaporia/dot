@@ -1,15 +1,20 @@
-self: super:
+final: prev:
+
+let 
+      system = prev.system;
+      pkgArchive = prev.callPackage import (builtins.fetchGit {
+# Descriptive name to make the store path easier to identify
+      name = "archived_love_0_7";
+      url = "https://github.com/NixOS/nixpkgs/";
+      ref = "refs/heads/nixpkgs-unstable";
+      rev = "f76bef61369be38a10c7a1aa718782a60340d9ff";
+  }) { inherit system; };
+
+in 
 
 {
+  nottetris2 = pkgArchive.nottetris2;
+
   # Uses fork at gitlab.com/metaporia/not-tetris with dvorak-friendly bindings.
-  nottetris2 = super.nottetris2.overrideAttrs (oldAttrs: rec {
-    version = "2.0";
-    pname = "nottetris2";
-    src = super.fetchFromGitHub {
-      owner = "metaporia";
-      repo = "nottetris2";
-      rev = "dee1e1451ae38c6b4b5680b7fd41d2a289861b83";
-      sha256 = "0rjlmvcm4c69yln0panj4p0mms5w6b0w5c5bnjrpmylkbgqncipy";
-    };
-  });
+  #nottetris2 = import ./nottetris2.nix {pkgs=prev;};
 }

@@ -51,6 +51,12 @@
   time.timeZone = "America/Los_Angeles";
   services.localtime.enable = true;
 
+  services.locate = {
+  	enable = true;
+	locate = pkgs.plocate;
+	interval = "hourly";
+  };
+
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
@@ -136,7 +142,7 @@
     isNormalUser = true;
     shell = pkgs.fish;
     home = "/home/aporia";
-    extraGroups = [ "wheel" "docker" "networkmanager" ];
+    extraGroups = [ "wheel" "docker" "networkmanager" "plocate"];
     hashedPassword =
       "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
     packages = with pkgs; [ git home-manager ];
