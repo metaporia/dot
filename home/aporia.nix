@@ -8,7 +8,6 @@
 
   home.packages = with pkgs; [
     dico
-    alacritty
     docker
     scripts
     firefox
@@ -72,6 +71,7 @@
 
   xdg.configFile."nix/nix.conf".source = ../nix.conf;
 
+  
   ##########
   # NEOVIM #
   ##########
@@ -118,6 +118,10 @@
   programs.bat = {
     enable = true;
     config = { theme = "TwoDark"; };
+  };
+
+  programs.kitty = {
+  	enable = true;
   };
 
 }
