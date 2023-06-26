@@ -124,6 +124,16 @@
     nix-doc
   ];
 
+  #########
+  # FONTS #
+  #########
+
+  fonts.fonts = with pkgs; [
+  	(nerdfonts.override { fonts = [ "DroidSansMono" ]; })
+  ];
+
+
+
   programs.dconf.enable = true;
 
   # This value determines the NixOS release from which the default
