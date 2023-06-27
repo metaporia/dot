@@ -83,17 +83,17 @@
   # updates plugin on VimEnter which will undoubtedly break shit at an
   # unopportune moment
   # TODO somehow add the rest of ./nvim (e.g., ftplugin &co)
-  programs.neovim = {
-    #package = pkgs.myNeovim; # how to override with vim-plug??
-    enable = true;
-    extraConfig = (builtins.readFile ../config/nvim/init.vim);
-  };
+  #programs.neovim = {
+  #  #package = pkgs.myNeovim; # how to override with vim-plug??
+  #  enable = true;
+  #  #extraConfig = (builtins.readFile ../config/nvim/init.vim);
+  #};
 
   # simplest method; just places ./nvim/ in ~/.config/
   # for some reason this breaks initial invocation of `home-manager switch`.
   # It seemed to work after neovim was installed already, however.
-  xdg.configFile."nvim/ftplugin" = {
-    source = ../config/nvim/ftplugin;
+  xdg.configFile."nvim" = {
+    source = ../config/nvim;
     recursive = true;
   };
 

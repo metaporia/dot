@@ -2,7 +2,7 @@ local M = {}
 
 function M.reload_config()
     for name,_ in pairs(package.loaded) do
-        if name:match('^keane') and not name:match('nvim-tree') then
+        if name:match('^aporia') and not name:match('nvim-tree') then
             package.loaded[name] = nil
         end
     end

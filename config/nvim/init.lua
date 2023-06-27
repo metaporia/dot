@@ -19,7 +19,7 @@ vim.g.maplocalleader = ","
 
 -- 'plugins' is a directory of (lazy) plugin specifications
 -- 'opts' is lazy.nvim configuration
-require("lazy").setup("keane.plugins")
+require("lazy").setup("aporia.plugins")
 
-require("keane.config.keymaps")
-require("keane.config.options")
+require("aporia.config.keymaps")
+require("aporia.config.options")

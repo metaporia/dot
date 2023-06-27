@@ -11,7 +11,7 @@ noremap('n', '\\', ',')
 noremap('i', 'jk', '<Esc>')
 noremap('n', '<Leader>w', ':w<CR>')
 
-noremap('n', '<Leader>r', require('keane.reload').reload_config)
+noremap('n', '<Leader>r', require('aporia.reload').reload_config)
 
 noremap('n', '<C-n>', ':bn<CR>') -- buffers
 noremap('n', '<C-p>', ':bp<CR>')
