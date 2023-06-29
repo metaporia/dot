@@ -49,7 +49,7 @@
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
-  services.localtime.enable = true;
+  services.localtimed.enable = true;
 
   services.locate = {
   	enable = true;
@@ -109,6 +109,19 @@
 
   # enable xkb keymap in console
   console.useXkbConfig = true;
+
+  # enable sound server
+
+  # rtkit is optional but recommended
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+  };
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
