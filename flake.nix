@@ -32,6 +32,7 @@
     in {
       nixosConfigurations = {
         kerfuffle = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
           inherit system;
           modules = [
             ./system/configuration.nix

@@ -10,7 +10,7 @@
 #   first--or at least check for discrepancies.
 # - run nix-install
 
-{ config, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 
 {
 
@@ -19,6 +19,10 @@
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
+
+
+  # use nixos nixpkgs for flake commands like 'nix shell nixpkgs#hello'
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
