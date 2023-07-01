@@ -21,3 +21,4 @@ emacs.d/*
 !emacs.d/config
 !emacs.d/*.org
 !emacs.d/*.el
+lazy-lock.json

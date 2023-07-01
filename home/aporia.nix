@@ -7,6 +7,7 @@
   home.homeDirectory = "/home/aporia";
 
   home.packages = with pkgs; [
+    stremio
     dico
     docker
     scripts
@@ -26,6 +27,8 @@
     #nottetris2 # FIXME
     nix-prefetch-git
     nixfmt
+    love_0_7
+    nottetris2
   ];
 
   # This value determines the Home Manager release that your
