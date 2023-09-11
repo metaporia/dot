@@ -7,12 +7,14 @@
       ../config/fish/fish_title.fish;
   };
 
+  # TODO fish not correctly sourcing environment variables (e.g., EDITOR = nvim)
   programs.fish = {
     enable = true;
     shellInit = ''
       bind \ea 'history-token-search-backward'
       bind \cs 'prepend_command sudo'
       #fish_add_path /home/aporia/scripts/
+      fish_add_path /home/aporia/.local/bin
       set fish_greeting
 
       # colorize manpages

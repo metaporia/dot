@@ -28,6 +28,13 @@ return {
 
     },
 
+    {
+        -- TODO lazy load
+        url = 'https://gitlab.com/metaporia/muse-vim',
+        config = function ()
+            vim.g.muse_vim_log_dir = "~/.muse/entries"
+        end
+    },
 
 }
 

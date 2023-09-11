@@ -20,6 +20,7 @@ noremap('n', '<C-k>', ':bd<CR>')
 noremap('n', '<Leader>vh', ':se hlsearch!<CR>')
 noremap('n', '<Leader>vl', ':se list!<CR>')
 noremap('n', '<Leader>vs', ':se spell!<CR>')
+noremap('n', '<Leader>z', '1z=')
 
 -- system clipboard
 noremap('n', '<Leader>c', '"+y') -- yank to clip

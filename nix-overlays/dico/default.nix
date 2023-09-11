@@ -30,6 +30,11 @@ final: prev:
           handler "gcide dbdir=${placeholder "out"}/gcide-${gcideVersion}";
       }
 
+      // TODO Enable handling of databases in dict.org format:
+      load-module dictorg {
+          command "dictorg sort trim-ws dbdir=${placeholder "out"}/share/dictd";
+      }
+
       max-children 10;
       inactivity-timeout 5;
     '';

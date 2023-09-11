@@ -7,8 +7,8 @@
   home.homeDirectory = "/home/aporia";
 
   home.packages = with pkgs; [
-    stremio
     dico
+    dictdDBs.wordnet
     docker
     scripts
     firefox
@@ -29,6 +29,13 @@
     nixfmt
     love_0_7
     nottetris2
+    transmission-qt
+    sqlitebrowser
+    path-of-building
+    # cs19
+    gnat
+    llvmPackages_9.clang-unwrapped
+
   ];
 
   # This value determines the Home Manager release that your
@@ -74,6 +81,7 @@
 
   xdg.configFile."nix/nix.conf".source = ../nix.conf;
 
+
   
   ##########
   # NEOVIM #
@@ -103,8 +111,14 @@
   imports = [
     ./fish.nix
     ./gnome-kbd-shortcuts.nix
+    #./dicod.nix 
     #./i3.nix
   ];
+
+  # FIXME WIP dicod config 
+  #xdg.configFile."dicod.conf" = {
+  #  text = import ./dicod.nix;
+  #};
 
   home.file = {
 

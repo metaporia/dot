@@ -78,6 +78,10 @@
   # TODO is this necessary?
   services.dbus.enable = true;
 
+  # cpu temp fix
+  services.auto-cpufreq.enable = true;
+  services.thermald.enable = true;
+
   ## Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -130,6 +134,9 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
+  environment.variables.EDITOR = "nvim";
+  environment.localBinInPath = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -180,5 +187,6 @@
   nix.binaryCachePublicKeys =
     [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" ];
   nix.binaryCaches = [ "https://hydra.iohk.io" ];
+
 
 }

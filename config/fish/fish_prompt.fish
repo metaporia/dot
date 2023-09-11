@@ -81,10 +81,18 @@ function fish_prompt --description 'Write out the prompt'
     echo -n " "
     set_color normal
 
+    # NIX Shell
+    set -l nix_shell_info (
+        if test -n "$IN_NIX_SHELL"
+            echo -n " (nix)"
+        end
+    )
+
 	# PWD
 	set_color $color_cwd
 	echo -n (prompt_pwd)
 	set_color normal
+    echo -n -s "$nix_shell_info"
 
 	printf '%s ' (__fish_vcs_prompt)
 
