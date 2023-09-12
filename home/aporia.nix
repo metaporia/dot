@@ -7,8 +7,10 @@
   home.homeDirectory = "/home/aporia";
 
   home.packages = with pkgs; [
+    # DICO
     dico
     dictdDBs.wordnet
+    dictdDBs.wiktionary
     docker
     scripts
     firefox
@@ -73,7 +75,7 @@
       Unit = { Description = "GNU Dico DICT server"; };
       Service = {
         # docker run --name="dicod" --rm -d -p2628 beryj7/dicod-docker:latest
-        ExecStart = "${pkgs.dico}/bin/dicod -f";
+        ExecStart = "${pkgs.dico}/bin/dicod -f --config=/home/aporia/.config/dicod.conf";
       };
       Install = { WantedBy = [ "default.target" ]; };
     };
@@ -111,14 +113,9 @@
   imports = [
     ./fish.nix
     ./gnome-kbd-shortcuts.nix
-    #./dicod.nix 
+    ./dicod.nix 
     #./i3.nix
   ];
-
-  # FIXME WIP dicod config 
-  #xdg.configFile."dicod.conf" = {
-  #  text = import ./dicod.nix;
-  #};
 
   home.file = {
 

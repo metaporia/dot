@@ -1,4 +1,7 @@
+# FIXME WIP dicod config 
 {pkgs, dico, ... }:
-''
-hello 2!
-''
+{
+    xdg.configFile."dicod.conf" = {
+      text = pkgs.callPackage ./dicod-conf.nix {};
+    };
+}
