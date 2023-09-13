@@ -146,6 +146,7 @@
     git
     tmux
     nix-doc
+    nix-index
   ];
 
   #########
