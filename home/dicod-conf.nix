@@ -17,14 +17,19 @@ database {
   handler "gcide dbdir=${dico}/gcide-${dico.gcideVersion}";
 }
 
-// TODO Enable handling of databases in dict.org format:
-load-module  dict_wordnet {
-  command "dictorg sort trim-ws dbdir=${dictdDBs.wordnet}/share/dictd";
+// instantiate dict handler
+load-module dict {
+    command "dictorg sort trim-ws dbdir=/run/current-system/etc/profiles/per-user/aporia/share/dictd/";   
 }
 
 database {
     name "wordnet";
-    handler "dict_wordnet database=wn";
+    handler "dict database=wn";
+}
+
+database {
+    name "wiktionary";
+    handler "dict database=wiktionary-en";
 }
 
 max-children 10;
