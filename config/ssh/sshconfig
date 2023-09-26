@@ -5,3 +5,9 @@ Host github
 Host gitlab
     HostName gitlab.com
     IdentityFile ~/.ssh/gitlab
+
+Host cs
+    User kryahnkrafft
+    HostName jeff.cis.cabrillo.edu
+    IdentityFile ~/.ssh/cs19
+

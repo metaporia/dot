@@ -37,6 +37,9 @@
     # cs19
     gnat
     llvmPackages_9.clang-unwrapped
+    sshfs
+    cling
+    gdb
 
   ];
 
