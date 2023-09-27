@@ -34,9 +34,11 @@
     transmission-qt
     sqlitebrowser
     path-of-building
+    lua-language-server
     # cs19
-    gnat
-    llvmPackages_9.clang-unwrapped
+    clang_12
+    llvmPackages_12.libcxx
+    clang-tools_12
     sshfs
     cling
     gdb

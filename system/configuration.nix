@@ -147,6 +147,7 @@
     tmux
     nix-doc
     nix-index
+    gcc
   ];
 
   #########
