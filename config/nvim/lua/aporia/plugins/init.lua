@@ -8,6 +8,15 @@ return {
       require('neodev').setup({})
     end
   },
+
+  {
+    'kylechui/nvim-surround',
+    config = function ()
+      require("nvim-surround").setup()
+    end
+
+  },
+
   { 'tiagovla/tokyodark.nvim',
     opts = {},
     config = function(_, opts)
@@ -79,7 +88,6 @@ return {
     end
 
   },
-  
 
 
   {
@@ -87,11 +95,21 @@ return {
     config = function ()
       local lspconfig = require('lspconfig')
 
+      --lspconfig.clangd.setup {
+      --  on_attach = on_attach,
+      --  --capabilities = lspconfig.capabilities,
+      --  --cmd = {
+      --  --  "clangd",
+      --  --  "--background-index",
+      --  --  "--suggest-missing-includes",
+      --  --  "--all-scopes-completion",
+      --  --  "--completion-stlye=detailed",
+      --  --},
+      --}
 
-      lspconfig.clangd.setup {
-        on_attach = on_attach,
-      }
+
       lspconfig.lua_ls.setup {
+        on_attach = on_attach,
         settings = {
           Lua = {
             workspace = { checkThirdParty = false },
@@ -186,6 +204,8 @@ return {
 
     end
   },
+
+  { 'L3MON4D3/LuaSnip' },
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -194,25 +214,75 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
+      'saadparwaiz1/cmp_luasnip',
     },
     config = function ()
       local cmp = require'cmp'
       local lspconfig = require('lspconfig')
       local lsp_defaults = lspconfig.util.default_config
+      local luasnip = require'luasnip'
 
       lsp_defaults.capabilities = vim.tbl_deep_extend(
-      'force',
-      lsp_defaults.capabilities,
-      require('cmp_nvim_lsp').default_capabilities()
+        'force',
+        lsp_defaults.capabilities,
+        require('cmp_nvim_lsp').default_capabilities()
       )
+
+      lspconfig.clangd.setup({ })
+      lspconfig.nil_ls.setup {
+        capabilities = lsp_defaults.capabilities,
+        settings = {
+          ['nil'] = {
+            testSetting = 42,
+            --formatting = { "nixpkgs-fmt" },
+          },
+        },
+      }
+
+
       cmp.setup( {
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end
+        },
         sources = cmp.config.sources({
           { name = 'nvim_lsp', },
           { name = 'buffer', },
+          { name = 'luasnip', },
+          { name = 'path', },
         }),
         mapping = {
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ["<CR>"] = cmp.mapping.confirm({select = true, bahavior = cmp.ConfirmBehavior.Replace}),
+          ["<C-y>"] = cmp.mapping.confirm({select = false}),
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { 'i', 's'}),
+          ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+        },
+
+        window = {
+          documentation = cmp.config.window.bordered(),
+          completion = cmp.config.window.bordered({
+            winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
+          }),
         }
       })
     end

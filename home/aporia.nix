@@ -34,7 +34,10 @@
     transmission-qt
     sqlitebrowser
     path-of-building
+    # lsps
     lua-language-server
+    nil
+    nixpkgs-fmt
     # cs19
     clang_12
     llvmPackages_12.libcxx

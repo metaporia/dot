@@ -148,6 +148,8 @@
     nix-doc
     nix-index
     gcc
+    lutris
+    wine
   ];
 
   #########
