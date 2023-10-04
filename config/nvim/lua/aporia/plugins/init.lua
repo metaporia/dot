@@ -25,6 +25,16 @@ return {
     end
   },
 
+  { 'navarasu/onedark.nvim',
+    config = function()
+      require('onedark').setup {
+        style = 'darker',
+
+      }
+      --require('onedark').load()
+    end
+  },
+
   {
     'echasnovski/mini.surround',
     version = '*',
