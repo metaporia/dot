@@ -24,6 +24,14 @@ return {
       vim.keymap.set('n', '<Leader>m', "<Cmd>lua require('maximize').toggle()<CR>")
     end
   },
+
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function()
+      require("ibl").setup()
+    end
+  },
+
   ------------------
   -- COLORSCHEMES -- 
   ------------------
@@ -50,6 +58,14 @@ return {
     config = function()
       vim.o.background = 'dark'
       vim.g.gruvbox_material_background = 'hard' -- hard, medium, soft
+    end
+  },
+
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('lualine').setup {}
     end
   },
 
