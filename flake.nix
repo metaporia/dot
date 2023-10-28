@@ -54,7 +54,7 @@
 
               # pin system nixpkgs to that of the flake input
               nix.nixPath = let path = toString ./.; 
-                in [ "repl=${path}/repl.nix" "nixpkgs=${nixpkgs}/nixpkgs" ];
+                in [ "repl=${path}/repl.nix" "nixpkgs=${nixpkgs}" ];
 
               # Instead of letting the module system pass `pkgs` and `config` to
               # `./home/aporia.nix`, we can specify them ourselves like so:
