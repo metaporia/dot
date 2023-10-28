@@ -46,6 +46,7 @@
     sshfs
     cling
     gdb
+    cmake # for nvim telescope fzf native extension
 
   ];
 
@@ -147,8 +148,12 @@
 
   programs.kitty = {
   	enable = true;
-    settings = {
-        cursor_shape = "beam";
+    extraConfig = ''
+      modify_font underline_thickness 150%
+      modify_font underline_position 2
+    '';
+    settings = { 
+      cursor_shape = "beam"; 
     };
   };
 
