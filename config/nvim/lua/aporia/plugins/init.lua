@@ -28,7 +28,9 @@ return {
   {
     'lukas-reineke/indent-blankline.nvim',
     config = function()
-      require("ibl").setup()
+      require("ibl").setup {
+        scope = { highlight = {"Function", "Label" }},
+      }
     end
   },
 
@@ -70,14 +72,30 @@ return {
   },
 
   {
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.4',
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-fzf-native.nvim' },
+    config = function()
+      local builtin = require('telescope.builtin')
+      vim.keymap.set('n', '<leader>f', builtin.find_files, {})
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+      vim.keymap.set('n', '<leader>b', builtin.buffers, {})
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+    end,
+  },
+
+  { 'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+  },
+
+  {
     'echasnovski/mini.surround',
     version = '*',
     lazy = false,
-    config = function ()
+    config = function()
       require('mini.surround').setup()
     end
   },
-
   { 'lewis6991/gitsigns.nvim',
     config = function ()
       require('gitsigns').setup ()

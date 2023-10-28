@@ -22,6 +22,17 @@ noremap('n', '<Leader>vl', ':se list!<CR>')
 noremap('n', '<Leader>vs', ':se spell!<CR>')
 noremap('n', '<Leader>z', '1z=')
 
+noremap('i', '<C-f>', '<Right>')
+noremap('i', '<C-b>', '<Left>')
+noremap('i', '<C-e>', '<Esc>A')
+noremap('i', '<C-a>', '<Esc>I')
+noremap('i', '<M-f>', '<Esc>ea')
+noremap('i', '<M-b>', '<Esc>bi')
+
+
+-- emacs movements insert mode
+-- 
+
 -- system clipboard
 noremap('n', '<Leader>c', '"+y') -- yank to clip
 noremap('v', '<Leader>c', '"+y')
