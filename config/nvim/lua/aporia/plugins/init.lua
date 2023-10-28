@@ -17,6 +17,10 @@ return {
 
   },
 
+  ------------------
+  -- COLORSCHEMES -- 
+  ------------------
+
   { 'tiagovla/tokyodark.nvim',
     opts = {},
     config = function(_, opts)
@@ -32,6 +36,13 @@ return {
 
       }
       --require('onedark').load()
+    end
+  },
+
+  { 'sainnhe/gruvbox-material',
+    config = function()
+      vim.o.background = 'dark'
+      vim.g.gruvbox_material_background = 'hard' -- hard, medium, soft
     end
   },
 
@@ -59,19 +70,11 @@ return {
   },
 
   {
-    url = 'https://gitlab.com/metaporia/muse-vim',
-    lazy = false,
-    init = function ()
-      -- TODO add nix flake for muse
-    end
-
-  },
-
-  {
     -- TODO lazy load
     url = 'https://gitlab.com/metaporia/muse-vim',
-    config = function ()
-      vim.g.muse_vim_log_dir = "~/.muse/entries"
+    lazy = false,
+    init= function ()
+      vim.g.muse_vim_log_dir = "~/sputum/muse"
     end
   },
 

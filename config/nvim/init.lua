@@ -24,3 +24,5 @@ require("lazy").setup("aporia.plugins")
 
 require("aporia.config.keymaps")
 require("aporia.config.options")
+
+
