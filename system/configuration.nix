@@ -148,6 +148,7 @@
     nix-doc
     nix-index
     gcc
+    gnumake
     lutris
     wine
   ];

@@ -39,6 +39,7 @@
     nil
     nixpkgs-fmt
     # cs19
+    lldb_12
     clang_12
     llvmPackages_12.libcxx
     clang-tools_12
@@ -90,6 +91,8 @@
   };
 
   xdg.configFile."nix/nix.conf".source = ../nix.conf;
+
+  xdg.configFile."clangd/config.yaml".source = ../config/clangd-config.yaml;
 
 
   
