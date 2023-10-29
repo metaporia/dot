@@ -38,7 +38,7 @@ return {
   -- COLORSCHEMES -- 
   ------------------
 
-  { 'tiagovla/tokyodark.nvim',
+  { 'tiagovla/tokyodark.nvim', -- TODO replace with folke's?
     opts = {},
     config = function(_, opts)
       require("tokyodark").setup(opts)
