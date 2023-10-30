@@ -17,6 +17,7 @@
     exa
     fd
     ripgrep
+    hyperfine
     wmctrl
     xclip
     vlc
