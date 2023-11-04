@@ -30,11 +30,13 @@
     #nottetris2 # FIXME
     nix-prefetch-git
     nixfmt
+    # apps
     love_0_7
     nottetris2
     transmission-qt
     sqlitebrowser
     path-of-building
+    libsForQt5.okular
     # lsps
     lua-language-server
     nil
