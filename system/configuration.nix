@@ -22,7 +22,11 @@
 
 
   # use nixos nixpkgs for flake commands like 'nix shell nixpkgs#hello'
-  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+  nix.registry = { 
+    nixpkgs.flake = inputs.nixpkgs;
+    unstable.flake = inputs.nixpkgs;
+  };
+
 
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -152,6 +156,10 @@
     lutris
     wine
   ];
+
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+  users.extraGroups.virtualbox.members = ["aporia"];
 
   #########
   # FONTS #
