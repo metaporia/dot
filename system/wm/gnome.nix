@@ -20,7 +20,7 @@
     displayManager = {
       lightdm = {
         enable = true;
-        greeter.enable = false;
+        greeter.enable = true; # FIXME: nix-path
       };
       #autoLogin = {
       #  enable = true;
