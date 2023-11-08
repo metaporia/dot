@@ -187,6 +187,7 @@
 
   # test user to debug <nixpkgs> flake interaction
   users.users.test = {
+    home = "/home/test";
     isNormalUser = true;
     shell = pkgs.fish;
     extraGroups = [ "wheel" "networkmanager" "plocate"];
