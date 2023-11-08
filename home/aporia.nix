@@ -94,7 +94,7 @@
     };
   };
 
-  xdg.configFile."nix/nix.conf".source = ../nix.conf;
+  #xdg.configFile."nix/nix.conf".source = ../nix.conf;
 
   xdg.configFile."clangd/config.yaml".source = ../config/clangd-config.yaml;
 

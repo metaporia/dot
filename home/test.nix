@@ -25,6 +25,10 @@
     ./fish.nix
     ./gnome-kbd-shortcuts.nix
   ];
+
+  home.file = {
+    ".tmux.conf".source = ../config/tmux/tmux.conf;
+  };
 }
 
 

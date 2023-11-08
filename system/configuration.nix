@@ -10,22 +10,35 @@
 #   first--or at least check for discrepancies.
 # - run nix-install
 
-{ config, inputs, pkgs, ... }:
+{ config, lib, inputs, pkgs, ... }:
 
 {
 
-  # Enable nix flakes
-  nix.package = pkgs.nixUnstable;
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
+  
+  # FIXME nix-path
+  nix = {
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
+    # This will additionally add your inputs to the system's legacy channels
+    # Making legacy nix commands consistent as well, awesome!
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+
+    settings = {  # FIXME nix-path
+      experimental-features = "nix-command flakes";
+      auto-optimise-store = true;
+    };
+  };
+
+
+  # Enable nix flakes 
+  # what does this do?
+  nix.package = pkgs.nixUnstable;
 
   # use nixos nixpkgs for flake commands like 'nix shell nixpkgs#hello'
-  nix.registry = { 
-    nixpkgs.flake = inputs.nixpkgs;
-    unstable.flake = inputs.nixpkgs;
-  };
+  ##nix.registry = { 
+  ##  nixpkgs.flake = inputs.nixpkgs;
+  ##  unstable.flake = inputs.nixpkgs;
+  ##};
 
 
   imports = [ # Include the results of the hardware scan.
