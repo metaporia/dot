@@ -66,6 +66,7 @@
               # };
               # ```
               home-manager.users.aporia.imports = [ ./home/aporia.nix ];
+              home-manager.users.test.imports = [ ./home/test.nix ];
 
             }
           ];
