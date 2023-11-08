@@ -112,10 +112,10 @@
         enable = true;
         greeter.enable = false;
       };
-      autoLogin = {
-        enable = true;
-        user = "aporia";
-      };
+      #autoLogin = {
+      #  enable = true;
+      #  user = "aporia";
+      #};
     };
   };
 
