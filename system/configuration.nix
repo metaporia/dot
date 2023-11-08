@@ -110,7 +110,7 @@
     displayManager = {
       lightdm = {
         enable = true;
-        greeter.enable = false;
+        #greeter.enable = false;
       };
       #autoLogin = {
       #  enable = true;
