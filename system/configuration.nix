@@ -157,9 +157,9 @@
     wine
   ];
 
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
-  users.extraGroups.virtualbox.members = ["aporia"];
+  #virtualisation.virtualbox.host.enable = true;
+  #virtualisation.virtualbox.host.enableExtensionPack = true;
+  #users.extraGroups.virtualbox.members = ["aporia"];
 
   #########
   # FONTS #
@@ -184,6 +184,14 @@
   # don't persist user state not declared in configuration.nix
   users.mutableUsers = false;
   programs.fish.enable = true;
+
+  # test user to debug <nixpkgs> flake interaction
+  users.users.test = {
+    isNormalUser = true;
+    shell = pkgs.fish;
+    extraGroups = [ "wheel" "networkmanager" "plocate"];
+    packages = with pkgs; [ git ];
+  };
 
   users.users.aporia = {
     isNormalUser = true;
