@@ -21,10 +21,12 @@
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+    nixPath = let path = toString ./.; in 
+      [ "repl=${path}/repl.nix" ] ++ 
+      lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     # pin system nixpkgs to that of the flake input
-    #nix.nixPath = let path = toString ./.; in [ "repl=${path}/repl.nix" "nixpkgs=${nixpkgs}" ];
+    
 
 
     settings = {  # FIXME nix-path
@@ -220,7 +222,7 @@
     extraGroups = [ "wheel" "docker" "networkmanager" "plocate"];
     hashedPassword =
       "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
-    packages = with pkgs; [ git ];
+    packages = with pkgs; [ git home-manager ];
   };
 
   # haskell.nix: enable binary cache
