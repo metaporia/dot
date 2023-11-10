@@ -151,13 +151,17 @@
 
   programs.kitty = {
   	enable = true;
+    shellIntegration.enableFishIntegration = true;
     extraConfig = ''
       modify_font underline_thickness 150%
       modify_font underline_position 2
+      font_family Source Code Pro
     '';
     settings = { 
       cursor_shape = "beam"; 
     };
+    keybindings = {};
+
   };
 
 }
