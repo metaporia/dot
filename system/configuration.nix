@@ -23,6 +23,10 @@
     # Making legacy nix commands consistent as well, awesome!
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
+    # pin system nixpkgs to that of the flake input
+    #nix.nixPath = let path = toString ./.; in [ "repl=${path}/repl.nix" "nixpkgs=${nixpkgs}" ];
+
+
     settings = {  # FIXME nix-path
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
@@ -216,7 +220,7 @@
     extraGroups = [ "wheel" "docker" "networkmanager" "plocate"];
     hashedPassword =
       "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
-    packages = with pkgs; [ git home-manager ];
+    packages = with pkgs; [ git ];
   };
 
   # haskell.nix: enable binary cache
