@@ -8,7 +8,7 @@
 tags
 
 nvim/.netrwhist
-nvim/spell/
+config/nvim/spell/
 
 # ignore contents of emacs.d
 emacs.d/*

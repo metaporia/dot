@@ -29,7 +29,7 @@
     git-lfs
     #nottetris2 # FIXME
     nix-prefetch-git
-    nixfmt
+    nixpkgs-fmt
     # apps
     love_0_7
     nottetris2
