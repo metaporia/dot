@@ -1,17 +1,18 @@
 -- default plugin spec. all files in ../plugins/ will be merged into single
 -- spec and loaded by lazy.nvim
-
 return {
 
-  { "folke/neodev.nvim",
-    config = function ()
-      require('neodev').setup({})
+  { 'jdhao/better-escape.vim',
+    config = function()
+      -- default timout is 150ms
+      vim.g.better_escape_interval = 200
+      vim.g.better_escape_shortcut = 'jk'
     end
   },
 
   {
     'kylechui/nvim-surround',
-    config = function ()
+    config = function()
       require("nvim-surround").setup()
     end
 
@@ -30,18 +31,19 @@ return {
     config = function()
       require("ibl").setup {
         scope = {
-          highlight = {"Function", "Label"},
-          include = { node_type = { nix = { "attrset_expression" }}},
+          highlight = { "Function", "Label" },
+          include = { node_type = { nix = { "attrset_expression" } } },
         },
       }
     end
   },
 
   ------------------
-  -- COLORSCHEMES -- 
+  -- COLORSCHEMES --
   ------------------
 
-  { 'tiagovla/tokyodark.nvim', -- TODO replace with folke's?
+  {
+    'tiagovla/tokyodark.nvim', -- TODO replace with folke's?
     opts = {},
     config = function(_, opts)
       require("tokyodark").setup(opts)
@@ -49,7 +51,8 @@ return {
     end
   },
 
-  { 'navarasu/onedark.nvim',
+  {
+    'navarasu/onedark.nvim',
     config = function()
       require('onedark').setup {
         style = 'darker',
@@ -59,7 +62,8 @@ return {
     end
   },
 
-  { 'sainnhe/gruvbox-material',
+  {
+    'sainnhe/gruvbox-material',
     config = function()
       vim.o.background = 'dark'
       vim.g.gruvbox_material_background = 'hard' -- hard, medium, soft
@@ -87,8 +91,10 @@ return {
     end,
   },
 
-  { 'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build =
+    'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
   },
 
   {
@@ -99,16 +105,17 @@ return {
       require('mini.surround').setup()
     end
   },
-  { 'lewis6991/gitsigns.nvim',
-    config = function ()
-      require('gitsigns').setup ()
+  {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
     end
   },
 
   {
     'metaporia/dico-vim',
     lazy = false,
-    init = function ()
+    init = function()
       vim.g.dico_vim_map_keys = 1
     end
   },
@@ -117,7 +124,7 @@ return {
     -- TODO lazy load
     url = 'https://gitlab.com/metaporia/muse-vim',
     lazy = false,
-    init= function ()
+    init = function()
       vim.g.muse_vim_log_dir = "~/sputum/muse"
     end
   },
@@ -125,8 +132,8 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    event="BufRead",
-    config = function ()
+    event = "BufRead",
+    config = function()
       local configs = require 'nvim-treesitter.configs'
       configs.setup {
         -- TODO:
@@ -146,10 +153,34 @@ return {
 
   },
 
+  {
+    "Robitx/gp.nvim",
+    config = function()
+      local conf = {
+        -- chat_model = "gpt-3.5",
+      }
+      require('gp').setup(conf)
+    end
+  },
 
+  -- lspconfig revision
+  -- desiderata:
+  -- - auto completion
+  -- - snippets
+  -- - root detection
+  -- - formatting
+  -- - treesitter texobjects
+  --
+  --{ "folke/neodev.nvim", },
   {
     'neovim/nvim-lspconfig',
-    config = function ()
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      -- "folke/neodev.nvim",
+    },
+    config = function()
+
+      -- require('neodev').setup({ })
       local lspconfig = require('lspconfig')
 
       --lspconfig.clangd.setup {
@@ -164,9 +195,32 @@ return {
       --  --},
       --}
 
+      local lsp_defaults = lspconfig.util.default_config
 
+      local caps = vim.tbl_deep_extend(
+        'force',
+        lsp_defaults.capabilities,
+        require('cmp_nvim_lsp').default_capabilities()
+      )
+
+      lspconfig.clangd.setup({
+        capabilities = caps,
+      })
+      lspconfig.nil_ls.setup {
+        capabilities = caps,
+        settings = {
+          ['nil'] = {
+            formatting = { command = { "nixpkgs-fmt" } },
+            nix = {
+              autoEvalInputs = true,
+            },
+
+          },
+        },
+      }
       lspconfig.lua_ls.setup {
-        on_attach = on_attach,
+        -- on_attach = on_attach,
+        capabilities = caps,
         settings = {
           Lua = {
             workspace = { checkThirdParty = false },
@@ -174,7 +228,8 @@ return {
         },
         on_init = function(client)
           local path = client.workspace_folders[1].name
-          if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+          if not vim.loop.fs_stat(path .. '/.luarc.json')
+              and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
             client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
               Lua = {
                 runtime = {
@@ -195,8 +250,8 @@ return {
                 }
               }
             })
-
-            client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+            client.notify("workspace/didChangeConfiguration",
+              { settings = client.config.settings })
           end
           return true
         end
@@ -207,7 +262,6 @@ return {
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
       vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
       vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
       -- Add border to lsp floating windows
       local _border = "single"
 
@@ -223,8 +277,8 @@ return {
         }
       )
 
-      vim.diagnostic.config{
-        float={border=_border}
+      vim.diagnostic.config {
+        float = { border = _border }
       }
 
       -- Use LspAttach autocommand to only map the following keys
@@ -257,8 +311,6 @@ return {
           end, opts)
         end,
       })
-
-
     end
   },
 
@@ -266,64 +318,53 @@ return {
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
+      --'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'saadparwaiz1/cmp_luasnip',
+      'L3MON4D3/LuaSnip',
     },
-    config = function ()
-      local cmp = require'cmp'
-      local lspconfig = require('lspconfig')
-      local lsp_defaults = lspconfig.util.default_config
-      local luasnip = require'luasnip'
+    config = function()
+      local cmp = require 'cmp'
+      local luasnip = require 'luasnip'
 
-      lsp_defaults.capabilities = vim.tbl_deep_extend(
-        'force',
-        lsp_defaults.capabilities,
-        require('cmp_nvim_lsp').default_capabilities()
-      )
+      local has_words_before = function()
+        unpack = unpack or table.unpack
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+      end
 
-      lspconfig.clangd.setup({ })
-      lspconfig.nil_ls.setup {
-        capabilities = lsp_defaults.capabilities,
-        settings = {
-          ['nil'] = {
-            testSetting = 42,
-            formatting = { "nixpkgs-fmt" },
-          },
-        },
-      }
-
-
-      cmp.setup( {
+      cmp.setup({
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end
         },
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp', },
-          { name = 'buffer', },
-          { name = 'luasnip', },
-          { name = 'path', },
-        }),
+
         mapping = {
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ['<C-Space>'] = cmp.mapping.complete(),
-          ["<CR>"] = cmp.mapping.confirm({select = true, bahavior = cmp.ConfirmBehavior.Replace}),
-          ["<C-y>"] = cmp.mapping.confirm({select = false}),
+          ["<CR>"] = cmp.mapping.confirm({
+            select = true,
+            bahavior = cmp.ConfirmBehavior.Replace }),
+          ["<C-y>"] = cmp.mapping.confirm({ select = false }),
+          ["<C-e>"] = cmp.mapping.abort(),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
               luasnip.expand_or_jump()
+            elseif has_words_before() then
+              cmp.complete()
             else
               fallback()
             end
-          end, { 'i', 's'}),
+          end, { 'i', 's' }),
           ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
@@ -340,9 +381,33 @@ return {
           completion = cmp.config.window.bordered({
             winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
           }),
-        }
+        },
+
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp', },
+          { name = 'buffer', },
+          { name = 'luasnip', },
+          { name = 'path', },
+        }),
+        -- Use buffer source for `/` and `?` (if you enabled `native_menu`,
+        -- this won't work anymore).
+        cmp.setup.cmdline({ '/', '?' }, {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = {
+            { name = 'buffer' }
+          }
+        }),
+
+        cmp.setup.cmdline(':', {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = cmp.config.sources({
+            { name = 'path' }
+          }, {
+            { name = 'cmdline' }
+          })
+        })
+
       })
     end
   },
 }
-

@@ -13,7 +13,7 @@ opt.softtabstop = 4
 opt.expandtab = true
 opt.smarttab = true
 
-opt.textwidth = 90
+opt.textwidth = 80
 opt.breakindent = true
 
 opt.swapfile = false
@@ -29,5 +29,5 @@ opt.termguicolors = true
 
 opt.listchars = 'eol:¶,space:.,tab:|·,trail:·,extends:»,precedes:«'
 
-opt.timeoutlen = 150
-opt.ttimeoutlen = 50
+--opt.timeoutlen = 150
+--opt.ttimeoutlen = 50
