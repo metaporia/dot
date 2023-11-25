@@ -8,6 +8,12 @@
 
   home.packages = with pkgs; [
     # DICO
+    # TODO enable in dicod-conf module
+    dicts.jargon
+    dicts.moby-thesaurus
+    dicts.foldoc
+    dicts.devils
+
     dico
     dictdDBs.wordnet
     dictdDBs.wiktionary
@@ -50,6 +56,7 @@
     cling
     gdb
     cmake # for nvim telescope fzf native extension
+    zoom-us
 
   ];
 
@@ -99,7 +106,7 @@
   xdg.configFile."clangd/config.yaml".source = ../config/clangd-config.yaml;
 
 
-  
+
   ##########
   # NEOVIM #
   ##########
@@ -128,7 +135,7 @@
   imports = [
     ./fish.nix
     ./gnome-kbd-shortcuts.nix
-    ./dicod.nix 
+    ./dicod.nix
     #./i3.nix
   ];
 
@@ -150,17 +157,17 @@
   };
 
   programs.kitty = {
-  	enable = true;
+    enable = true;
     shellIntegration.enableFishIntegration = true;
     extraConfig = ''
       modify_font underline_thickness 150%
       modify_font underline_position 2
       font_family Source Code Pro
     '';
-    settings = { 
-      cursor_shape = "beam"; 
+    settings = {
+      cursor_shape = "beam";
     };
-    keybindings = {};
+    keybindings = { };
 
   };
 
