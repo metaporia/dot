@@ -29,7 +29,7 @@ in
   };
 
 
-  config = mkIf config.services.dicod.enable {
+  config = mkIf cfg.enable {
 
     # - Enable service dicod
 
@@ -49,10 +49,10 @@ in
     # - enable all packages in list
     home.packages = let 
     joined = pkgs.symlinkJoin {
-        name = "joined";
-        paths = [ pkgs.dicts.jargon pkgs.dicts.foldoc ] ;
+        name = "joined-dicod-dicts";
+        paths = cfg.packages ;
       };
-    in [ pkgs.dicts.jargon ];
+    in [ joined ];
 
     # TODO handle all dico related packages, including dict-db
     # - add handler 

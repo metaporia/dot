@@ -80,7 +80,7 @@
   services.dicod = {
     enable = true;
     # TODO enable dicod module support for dictDBS.*
-    #packages = with pkgs.dicts; with pkgs; [];
+    packages = with pkgs.dicts; with pkgs; [ jargon foldoc moby-thesaurus ];
   };
 
   # TODO so I noticed that my macbook's dict output had indentation sensitive
