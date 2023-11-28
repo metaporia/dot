@@ -14,25 +14,34 @@
 
 {
 
-  
+
   # FIXME nix-path
   nix = {
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = let path = toString ./.; in 
-      [ "repl=${path}/repl.nix" ] ++ 
+    nixPath = let path = toString ./.; in
+      [ "repl=${path}/repl.nix" ] ++
       lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     # pin system nixpkgs to that of the flake input
-    
 
 
-    settings = {  # FIXME nix-path
+
+    settings = {
+      # FIXME nix-path
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
+
+      # Binary Cache for Haskell.nix
+      trusted-public-keys = [
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+      ];
+
+      substituters = [ "https://cache.iog.io" ];
     };
+
   };
 
 
@@ -47,7 +56,8 @@
   ##};
 
 
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     #<home-manager/nixos>
     # for some reason when both are imported
@@ -78,10 +88,15 @@
   time.timeZone = "America/Los_Angeles";
   services.localtimed.enable = true;
 
+  services.dictd = {
+    enable = true;
+    DBs = with pkgs.dicts; with pkgs; [ gcide pkgs.dictdDBs.wiktionary jargon moby-thesaurus ];
+  };
+
   services.locate = {
-  	enable = true;
-	locate = pkgs.plocate;
-	interval = "hourly";
+    enable = true;
+    locate = pkgs.plocate;
+    interval = "hourly";
   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -185,7 +200,7 @@
   #########
 
   fonts.fonts = with pkgs; [
-  	(nerdfonts.override { fonts = [ "DroidSansMono" ]; })
+    (nerdfonts.override { fonts = [ "DroidSansMono" ]; })
   ];
 
 
@@ -209,7 +224,7 @@
     home = "/home/test";
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "networkmanager" "plocate"];
+    extraGroups = [ "wheel" "networkmanager" "plocate" ];
     hashedPassword =
       "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
     packages = with pkgs; [ git ];
@@ -219,7 +234,7 @@
     isNormalUser = true;
     shell = pkgs.fish;
     home = "/home/aporia";
-    extraGroups = [ "wheel" "docker" "networkmanager" "plocate"];
+    extraGroups = [ "wheel" "docker" "networkmanager" "plocate" ];
     hashedPassword =
       "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
     packages = with pkgs; [ git home-manager ];

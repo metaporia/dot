@@ -39,12 +39,12 @@ in
   elements = makeDictdDB "elements";
   foldoc = makeDictdDB "foldoc";
   gazetteer = makeDictdDB "gazetteer";
-  # gcide = makeDictdDB "gcide";
+  gcide = makeDictdDB "gcide";
   hitchcock = makeDictdDB "hitchcock";
   jargon = makeDictdDB "jargon";
   moby-thesaurus = makeDictdDB "moby-thesaurus";
   vera = makeDictdDB "vera";
-  # web1913 = makeDictdDB "web1913";
+  web1913 = makeDictdDB "web1913";
   # wn = makeDictdDB "wn";
   world95 = makeDictdDB "world95";
 } 

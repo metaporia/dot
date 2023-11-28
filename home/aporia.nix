@@ -8,11 +8,6 @@
 
   home.packages = with pkgs; [
     # DICO
-    # TODO enable in dicod-conf module
-    dicts.jargon
-    dicts.moby-thesaurus
-    dicts.foldoc
-    dicts.devils
 
     dico
     dictdDBs.wordnet
@@ -82,6 +77,12 @@
   #  cfg = { enableGnomeExtensions = true; };
   #};
 
+  services.dicod = {
+    enable = true;
+    # TODO enable dicod module support for dictDBS.*
+    #packages = with pkgs.dicts; with pkgs; [];
+  };
+
   # TODO so I noticed that my macbook's dict output had indentation sensitive
   # line-wrapping. Apparently dict-gcide's conversion of the *.CIDE files is
   # better than that of dico (who knew!); but in any case the data is a
@@ -90,16 +91,18 @@
   # package--see arch's dict-gcide), and then get back to work sanitizing that
   # damn dictionary (remember to update to 0.53--oh god the progress staled!).
   systemd.user.startServices = "sd-switch"; # requires dbus session
-  systemd.user.services = {
-    dicod = {
-      Unit = { Description = "GNU Dico DICT server"; };
-      Service = {
-        # docker run --name="dicod" --rm -d -p2628 beryj7/dicod-docker:latest
-        ExecStart = "${pkgs.dico}/bin/dicod -f --config=/home/aporia/.config/dicod.conf";
-      };
-      Install = { WantedBy = [ "default.target" ]; };
-    };
-  };
+
+  # Now defined in ./modules/dicod.nix
+  #systemd.user.services = {
+  #  dicod = {
+  #    Unit = { Description = "GNU Dico DICT server"; };
+  #    Service = {
+  #      # docker run --name="dicod" --rm -d -p2628 beryj7/dicod-docker:latest
+  #      ExecStart = "${pkgs.dico}/bin/dicod -f --config=/home/aporia/.config/dicod.conf";
+  #    };
+  #    Install = { WantedBy = [ "default.target" ]; };
+  #  };
+  #};
 
   #xdg.configFile."nix/nix.conf".source = ../nix.conf;
 
@@ -127,15 +130,19 @@
   # simplest method; just places ./nvim/ in ~/.config/
   # for some reason this breaks initial invocation of `home-manager switch`.
   # It seemed to work after neovim was installed already, however.
+
+  # Based on: https://github.com/nix-community/home-manager/issues/589
+  # Not sure of the internals but hm manages the link and links it to the actual
+  # config dir allowing for nvim config mutability without a system rebuild
   xdg.configFile."nvim" = {
-    source = ../config/nvim;
-    recursive = true;
+    source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath ../config/nvim);
   };
 
   imports = [
     ./fish.nix
     ./gnome-kbd-shortcuts.nix
     ./dicod.nix
+    ./modules/dicod.nix
     #./i3.nix
   ];
 
