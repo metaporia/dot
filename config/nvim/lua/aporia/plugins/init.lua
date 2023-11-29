@@ -2,7 +2,8 @@
 -- spec and loaded by lazy.nvim
 return {
 
-  { 'jdhao/better-escape.vim',
+  {
+    'jdhao/better-escape.vim',
     config = function()
       -- default timout is 150ms
       vim.g.better_escape_interval = 200
@@ -46,8 +47,8 @@ return {
     'tiagovla/tokyodark.nvim', -- TODO replace with folke's?
     opts = {},
     config = function(_, opts)
-      require("tokyodark").setup(opts)
-      vim.cmd [[colorscheme tokyodark]]
+      --require("tokyodark").setup(opts)
+      --vim.cmd [[colorscheme tokyodark]]
     end
   },
 
@@ -67,6 +68,7 @@ return {
     config = function()
       vim.o.background = 'dark'
       vim.g.gruvbox_material_background = 'hard' -- hard, medium, soft
+      vim.cmd [[colorscheme gruvbox-material]]
     end
   },
 
@@ -179,7 +181,6 @@ return {
       -- "folke/neodev.nvim",
     },
     config = function()
-
       -- require('neodev').setup({ })
       local lspconfig = require('lspconfig')
 
@@ -302,7 +303,7 @@ return {
           vim.keymap.set('n', '<space>wl', function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, opts)
-          vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+          vim.keymap.set('n', '<space>d', vim.lsp.buf.type_definition, opts)
           vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
           vim.keymap.set({ 'n', 'v' }, '<space>a', vim.lsp.buf.code_action, opts)
           vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
@@ -336,24 +337,47 @@ return {
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
 
+      --vim.o.completopt = 'menu,menuone,noselect'
+      --
+      local cmd_keymap = {
+        ["<C-e>"] = cmp.mapping(function(_)
+          cmp.confirm({ select = true })
+        end, { 'i', 'c', 's' }),
+        ['<Tab>'] = cmp.mapping(function(_)
+          if cmp.visible() then
+            cmp.select_next_item()
+          else
+            cmp.complete()
+          end
+        end, { 'i', 'c', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          else
+            fallback()
+          end
+        end, { 'i', 'c', 's' }),
+      }
       cmp.setup({
+        experimental = {
+          ghost_text = true,
+        },
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end
         },
-
         mapping = {
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ["<C-n>"] = cmp.mapping.select_next_item(),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
+          ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+          ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
           ['<C-Space>'] = cmp.mapping.complete(),
           ["<CR>"] = cmp.mapping.confirm({
-            select = true,
-            bahavior = cmp.ConfirmBehavior.Replace }),
-          ["<C-y>"] = cmp.mapping.confirm({ select = false }),
-          ["<C-e>"] = cmp.mapping.abort(),
+            select = false, -- if true,
+            bahavior = cmp.ConfirmBehavior.Insert }),
+          ["<C-y>"] = cmp.mapping.abort(),
+          ["<C-e>"] = cmp.mapping.confirm( {select = true}),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -377,9 +401,11 @@ return {
         },
 
         window = {
+          -- TODO: fix for gruvbox
           documentation = cmp.config.window.bordered(),
           completion = cmp.config.window.bordered({
-            winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
+            -- winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None' -- old
+            winhighlight = 'Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None',
           }),
         },
 
@@ -392,21 +418,21 @@ return {
         -- Use buffer source for `/` and `?` (if you enabled `native_menu`,
         -- this won't work anymore).
         cmp.setup.cmdline({ '/', '?' }, {
-          mapping = cmp.mapping.preset.cmdline(),
+          mapping = cmd_keymap,
           sources = {
             { name = 'buffer' }
           }
         }),
 
+
         cmp.setup.cmdline(':', {
-          mapping = cmp.mapping.preset.cmdline(),
+          mapping = cmd_keymap,
           sources = cmp.config.sources({
             { name = 'path' }
           }, {
             { name = 'cmdline' }
           })
         })
-
       })
     end
   },
