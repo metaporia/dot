@@ -15,14 +15,15 @@
 {
 
 
+
   # FIXME nix-path
   nix = {
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = let path = toString ./.; in
-      [ "repl=${path}/repl.nix" ] ++
+    nixPath = let path = toString ../.; in
+      [ "repl=${path}/repl.nix" "nixpkgs-overlay=${path}/nix-overlays"] ++
       lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     # pin system nixpkgs to that of the flake input
@@ -88,10 +89,10 @@
   time.timeZone = "America/Los_Angeles";
   services.localtimed.enable = true;
 
-  services.dictd = {
-    enable = true;
-    DBs = with pkgs.dicts; with pkgs; [ gcide pkgs.dictdDBs.wiktionary jargon moby-thesaurus ];
-  };
+  #services.dictd = {
+  #  enable = true;
+  #  DBs = with pkgs.dicts; with pkgs; [ pkgs.dictdDBs.wordnet gcide pkgs.dictdDBs.wiktionary jargon moby-thesaurus ];
+  #};
 
   services.locate = {
     enable = true;

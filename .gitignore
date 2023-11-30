@@ -6,6 +6,9 @@ result
 .#*
 *#
 
+.nixd.nix
+.nixd.json
+
 tags
 
 nvim/.netrwhist

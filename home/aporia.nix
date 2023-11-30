@@ -10,8 +10,8 @@
     # DICO
 
     dico
-    dictdDBs.wordnet
-    dictdDBs.wiktionary
+    #dictdDBs.wordnet
+    #dictdDBs.wiktionary
     docker
     scripts
     firefox
@@ -52,6 +52,8 @@
     gdb
     cmake # for nvim telescope fzf native extension
     zoom-us
+    # nvim deps
+    nixd
 
   ];
 
@@ -77,19 +79,39 @@
   #  cfg = { enableGnomeExtensions = true; };
   #};
 
+# (OLD) TODO so I noticed that my macbook's dict output had indentation sensitive
+# line-wrapping. Apparently dict-gcide's conversion of the *.CIDE files is
+# better than that of dico (who knew!); but in any case the data is a
+# shit-show, as we well know, and dict seems to handle it better. So, we
+# should switch from dico to dict (which may involve making a dict-gcide nix
+# package--see arch's dict-gcide), and then get back to work sanitizing that
+# damn dictionary (remember to update to 0.53--oh god the progress staled!).
+# 
+# NB: gcide 0.48 was converted (poorly in spots) to the DICT format.
+# [this](https://github.com/rickysarraf-notmine/gcide) seems to be the likely
+# converter program. It puts it all neatly formatted into a *.dict file, and
+# then dictd just queries it. no runtime shenanigans required to pretty print
+# definitions
   services.dicod = {
     enable = true;
-    # TODO enable dicod module support for dictDBS.*
-    packages = with pkgs.dicts; with pkgs; [ jargon foldoc moby-thesaurus ];
+# TODO: enable dicod module support for dictDBS.*
+# TODO: gcide is enabled in dico overlay
+    packages = with pkgs.dicts; with pkgs; [ 
+      # for now enalbe all from dict-dbs
+      devils
+      dictdDBs.wiktionary
+      dictdDBs.wordnet
+      easton
+      elements
+      foldoc
+      hitchcock
+      jargon
+      moby-thesaurus
+      vera
+      world95
+      ];
   };
 
-  # TODO so I noticed that my macbook's dict output had indentation sensitive
-  # line-wrapping. Apparently dict-gcide's conversion of the *.CIDE files is
-  # better than that of dico (who knew!); but in any case the data is a
-  # shit-show, as we well know, and dict seems to handle it better. So, we
-  # should switch from dico to dict (which may involve making a dict-gcide nix
-  # package--see arch's dict-gcide), and then get back to work sanitizing that
-  # damn dictionary (remember to update to 0.53--oh god the progress staled!).
   systemd.user.startServices = "sd-switch"; # requires dbus session
 
   # Now defined in ./modules/dicod.nix
@@ -134,9 +156,10 @@
   # Based on: https://github.com/nix-community/home-manager/issues/589
   # Not sure of the internals but hm manages the link and links it to the actual
   # config dir allowing for nvim config mutability without a system rebuild
-  xdg.configFile."nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath ../config/nvim);
-  };
+  # FIXME currently requires manual symlink
+  #xdg.configFile."nvim" = {
+  #  source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath ../config/nvim);
+  #};
 
   imports = [
     ./fish.nix

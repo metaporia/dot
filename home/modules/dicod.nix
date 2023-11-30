@@ -20,46 +20,70 @@ in
 
     make-handlers = mkEnableOption (mdDoc "make database handlers");
 
-    # default to ${dicts}/share/dictd/dicod.conf
     configPath = mkOption {
       type = types.path;
       default = ""; # /etc/dicod.conf
     };
 
-  };
-
-
-  config = mkIf cfg.enable {
-
-    # - Enable service dicod
-
-    #systemd.user.services =
-    #  {
-    #    dicod = {
-    #      Unit = { Description = "GNU Dico DICT server"; };
-    #      Service = {
-    #        # docker run --name="dicod" --rm -d -p2628 beryj7/dicod-docker:latest
-    #        ExecStart = "${pkgs.dico}/bin/dicod -f
-    #        --config=${config.home.homeDirectory}/.config/dicod.conf";
-    #      };
-    #      Install = { WantedBy = [ "default.target" ]; };
-    #    };
-    #  };
-
-    # - enable all packages in list
-    home.packages = let 
-    joined = pkgs.symlinkJoin {
-        name = "joined-dicod-dicts";
-        paths = cfg.packages ;
-      };
-    in [ joined ];
-
-    # TODO handle all dico related packages, including dict-db
-    # - add handler 
-    # - add gcide to pkgs.dicts, then possibly just use dictd
-
+    accessLogDir = mkOption {
+      type = types.path;
+      default = config.xdg.configHome;
+    };
 
   };
 
 
-}
+  config = mkIf cfg.enable
+    (
+      let
+        # NB `joined` must be extracted to `let...in` or else passing it to
+        # `home.packages` throws a type error (doesn't see `joined` as a package)
+        dictlist = map
+          (x: {
+            name = x.name;
+            filename = x;
+          })
+          cfg.packages;
+
+
+        joined = pkgs.symlinkJoin {
+          name = "joined-dicod-dicts";
+          paths = cfg.packages;
+        };
+
+        collected = pkgs.dictsCollector {
+          enableGcide = true;
+          accessLogDir = cfg.accessLogDir;
+          inherit dictlist;
+          dbDir = "${joined}/share/dictd";
+        };
+
+      in
+      {
+
+        # - Enable service dicod
+
+        systemd.user.services =
+          {
+            dicod = {
+              Unit = { Description = "GNU Dico DICT server"; };
+              Service = {
+                # docker run --name="dicod" --rm -d -p2628 beryj7/dicod-docker:latest
+                ExecStart = "${pkgs.dico}/bin/dicod -f --config=${collected}/share/dicod/dicod.conf";
+              };
+              Install = { WantedBy = [ "default.target" ]; };
+            };
+          };
+
+        # - enable all packages in list
+        home.packages = [ pkgs.dico joined ];
+
+        # TODO handle all dico related packages, including dict-db
+        # - add handler 
+        # - add gcide to pkgs.dicts, then possibly just use dictd
+
+
+      });
+
+
+  }

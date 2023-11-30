@@ -4,8 +4,9 @@ let
     love_0_7 = import ./love_0_7;
     nottetris2 = import ./nottetris;
     #moby-thesaurus = import ./moby-thesaurus;
-    dicts = import ./dicts; 
+    dicts = import ./dicts;
   };
   # TODO automate this
   # see https://nixos.wiki/wiki/Overlays
-in with overlays; [ dicts dico love_0_7 nottetris2 ]
+in
+with overlays; [ dico love_0_7 nottetris2 dicts ]
