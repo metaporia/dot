@@ -1,12 +1,16 @@
+# Load all overlays in directory. An overlay is expected to have one of two
+# forms:
+# - a directory containing a default.nix, e.g., ./my-overlay/default.nix; or,
+# - a single file, e.g., ./my-overlay.nix
+
+# NB. ./default.nix or ./auto.nix is excluded as it's the final overlay
 let
-  overlays = {
-    dico = (import ./dico);
-    love_0_7 = import ./love_0_7;
-    nottetris2 = import ./nottetris;
-    #moby-thesaurus = import ./moby-thesaurus;
-    dicts = import ./dicts;
-  };
-  # TODO automate this
-  # see https://nixos.wiki/wiki/Overlays
+  collectOverlays = with builtins; path: map (n: import (path + ("/" + n)))
+    (filter
+      (n: (match "[^.].*\\.nix" n != null && n != "default.nix"
+      ) ||
+      pathExists (path + ("/" + n + "/default.nix")))
+      (attrNames (readDir path)));
 in
-with overlays; [ dico love_0_7 nottetris2 dicts ]
+
+collectOverlays ./.

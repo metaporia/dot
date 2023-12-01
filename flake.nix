@@ -29,6 +29,7 @@
         # > nixpkgs.overlays = (import ./nix-overlays); # ++ [scriptsOverlay]
         overlays = [ scripts.overlay ] ++ (import ./nix-overlays);
       };
+      # TODO use flake-compat to apply overlays for nix-* tools
     in {
       nixosConfigurations = {
         kerfuffle = nixpkgs.lib.nixosSystem {
