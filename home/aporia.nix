@@ -96,8 +96,9 @@
     enable = true;
 # TODO: enable dicod module support for dictDBS.*
 # TODO: gcide is enabled in dico overlay
-    packages = with pkgs.dicts; with pkgs; [ 
-      # for now enalbe all from dict-dbs
+    packages = let dictdDBs = pkgs.dictdDBs;
+    in with pkgs.dicts; [ 
+    # for now enable all from dict-dbs
       devils
       dictdDBs.wiktionary
       dictdDBs.wordnet
@@ -109,7 +110,7 @@
       moby-thesaurus
       vera
       world95
-      ];
+    ];
   };
 
   systemd.user.startServices = "sd-switch"; # requires dbus session

@@ -76,7 +76,21 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      require('lualine').setup {}
+      require('lualine').setup {
+        sections = {
+          lualine_a = { 'mode' },
+          lualine_b = { 'branch' },
+          lualine_c = {
+            {
+              'filename',
+              path = 1
+            }
+          },
+          lualine_x = { 'diagnostics' },
+          lualine_y = { 'filetype' },
+          lualine_z = { 'progress', 'location' }
+        }
+      }
     end
   },
 
@@ -119,6 +133,17 @@ return {
     lazy = false,
     init = function()
       vim.g.dico_vim_map_keys = 1
+      -- Trial to see whether to use dedicated key or leader plus repeat.
+      -- A dedicated key is faster but the leader+repeat leaves more keys
+      -- unmapped.
+      vim.keymap.set('n',
+        '<space>d',
+        ":call Define('h', expand('<cword>'))<CR>",
+        { noremap = true })
+      vim.keymap.set('n',
+        '<Leader>dd',
+        ":call Define('h', expand('<cword>'))<CR>",
+        { noremap = true })
     end
   },
 
@@ -131,6 +156,15 @@ return {
     end
   },
 
+  -- Non-lspconfig haskell plugin, handles lsp,
+  -- see ~/.config/nvim/after/ftplugin/haskell.lua for keymaps
+  {
+    'mrcjkb/haskell-tools.nvim',
+    version = '^3', -- Recommended
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
+  },
+
   {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
@@ -141,16 +175,35 @@ return {
         -- TODO:
         --  * lua indent
         --  * cpp clangd, clang-format, indentation
-        ensure_installed = { "cpp", "nix", "lua", "vim", "vimdoc", "query" },
+        ensure_installed =
+        { "markdown",
+          "markdown_inline",
+          "haskell",
+          "cpp",
+          "nix",
+          "lua",
+          "vim",
+          "vimdoc",
+          "query" },
         --auto_install = true,
         --ignore_install = { "javascript" },
         highlight = {
           enable = true,
         },
         indent = {
-          enable = true
+          enable = true,
+          disable = { "markdown", "markdown_inline" },
+        },
+        incremental_selection = {
+          enable = true,
         }
       }
+
+      -- normal mode 'zi' to enable folding
+      vim.opt.foldmethod = 'expr'
+      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+      vim.opt.foldlevelstart = 2
+      vim.opt.foldenable = false
     end
 
   },
@@ -161,7 +214,7 @@ return {
       local conf = {
         -- chat_model = "gpt-3.5",
       }
-      require('gp').setup(conf)
+      --require('gp').setup(conf)
     end
   },
 
@@ -182,6 +235,7 @@ return {
     },
     config = function()
       -- require('neodev').setup({ })
+      --
       local lspconfig = require('lspconfig')
 
       --lspconfig.clangd.setup {
@@ -207,18 +261,11 @@ return {
       lspconfig.clangd.setup({
         capabilities = caps,
       })
-      lspconfig.nil_ls.setup {
-        capabilities = caps,
-        settings = {
-          ['nil'] = {
-            formatting = { command = { "nixpkgs-fmt" } },
-            nix = {
-              autoEvalInputs = true,
-            },
 
-          },
-        },
-      }
+      lspconfig.nixd.setup({
+        capabilities = caps,
+      })
+
       lspconfig.lua_ls.setup {
         -- on_attach = on_attach,
         capabilities = caps,
@@ -245,7 +292,9 @@ return {
                     vim.env.VIMRUNTIME
                     -- "${3rd}/luv/library"
                     -- "${3rd}/busted/library",
-                  }
+                  },
+                  hint = { enable = true }
+
                   -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
                   -- library = vim.api.nvim_get_runtime_file("", true)
                 }
@@ -263,9 +312,41 @@ return {
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
       vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
       vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-      -- Add border to lsp floating windows
-      local _border = "single"
 
+      -- Add border to lsp floating windows
+      local _border = "rounded"
+
+      -- set normal background so it doesn't look square
+      -- TODO move out of lspconfig?
+      local set_hl_for_floating_window = function()
+        vim.api.nvim_set_hl(0, 'NormalFloat', {
+          link = 'Normal',
+
+        })
+        vim.api.nvim_set_hl(0, 'FloatBorder', {
+          bg = 'none',
+        })
+      end
+
+      set_hl_for_floating_window()
+
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        pattern = '*',
+        desc = 'Avoid overwritten by loading color schemes later',
+        callback = set_hl_for_floating_window,
+      })
+
+      -- for square popups
+      local __border = {
+        { "🭽", "FloatBorder" },
+        { "▔", "FloatBorder" },
+        { "🭾", "FloatBorder" },
+        { "▕", "FloatBorder" },
+        { "🭿", "FloatBorder" },
+        { "▁", "FloatBorder" },
+        { "🭼", "FloatBorder" },
+        { "▏", "FloatBorder" },
+      }
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
         vim.lsp.handlers.hover, {
           border = _border
@@ -279,7 +360,8 @@ return {
       )
 
       vim.diagnostic.config {
-        float = { border = _border }
+        float = { border = _border },
+        virtual_text = { prefix = '●' }
       }
 
       -- Use LspAttach autocommand to only map the following keys
@@ -316,6 +398,7 @@ return {
   },
 
   { 'L3MON4D3/LuaSnip' },
+  { 'mrcjkb/haskell-snippets.nvim' },
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -326,10 +409,14 @@ return {
       'hrsh7th/cmp-cmdline',
       'saadparwaiz1/cmp_luasnip',
       'L3MON4D3/LuaSnip',
+      'mrcjkb/haskell-snippets.nvim'
     },
     config = function()
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      -- does this lazy load or doesn't it matter for snippets?
+      local haskell_snippets = require('haskell-snippets').all
+      luasnip.add_snippets('haskell', haskell_snippets, { key = 'haskell' })
 
       local has_words_before = function()
         unpack = unpack or table.unpack
@@ -358,6 +445,16 @@ return {
           end
         end, { 'i', 'c', 's' }),
       }
+
+      -- close completion menu when opening cmdline window from cmdline with
+      -- `<C-f>`
+      vim.api.nvim_create_autocmd({ "CmdwinEnter" }, {
+        pattern = { "*" },
+        callback = function()
+          cmp.close()
+        end
+      })
+
       cmp.setup({
         experimental = {
           ghost_text = true,
@@ -377,7 +474,7 @@ return {
             select = false, -- if true,
             bahavior = cmp.ConfirmBehavior.Insert }),
           ["<C-y>"] = cmp.mapping.abort(),
-          ["<C-e>"] = cmp.mapping.confirm( {select = true}),
+          ["<C-e>"] = cmp.mapping.confirm({ select = true }),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()

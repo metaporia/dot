@@ -15,6 +15,7 @@ in
     enableGcide = true;
     accessLogDir = "logdir";
     dictlist = dbs;
+    dbDir = "dbDir";
   };
 }
 
