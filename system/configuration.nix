@@ -67,7 +67,7 @@
   ];
 
   # Allow installation of proprietary packages
-  nixpkgs.config.allowUnfree = true;
+  #nixpkgs.config.allowUnfree = true;
 
   # use latest kernel for framework laptop wifi card support
   # see kvark/dotfiles on github for full (working) framework laptop config

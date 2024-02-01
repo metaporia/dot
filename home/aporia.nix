@@ -7,6 +7,8 @@
   home.homeDirectory = "/home/aporia";
 
   home.packages = with pkgs; [
+    # editors
+    emacs
     # DICO
 
     dico
@@ -15,7 +17,7 @@
     docker
     scripts
     firefox
-    exa
+    eza # TODO fix scripts to use eza
     fd
     ripgrep
     hyperfine

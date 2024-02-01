@@ -9,7 +9,7 @@
   home.packages = with pkgs; [
     firefox
     scripts
-    exa
+    eza
     ripgrep
     xclip
     tmux
