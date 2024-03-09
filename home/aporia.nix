@@ -11,6 +11,10 @@
     emacs
     # DICO
 
+    # pandoc/latex
+    pandoc
+    texliveMinimal
+
     dico
     #dictdDBs.wordnet
     #dictdDBs.wiktionary
@@ -44,6 +48,7 @@
     lua-language-server
     nil
     nixpkgs-fmt
+    # compiler toolchains
     # cs19
     lldb_12
     clang_12
