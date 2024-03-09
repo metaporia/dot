@@ -16,6 +16,7 @@ config/nvim/spell/
 
 # ignore contents of emacs.d
 emacs.d/*
+elpa
 *.elc
 # except:
 !emacs.d/eshell/alias
