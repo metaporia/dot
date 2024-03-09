@@ -13,7 +13,7 @@
 
     # pandoc/latex
     pandoc
-    texliveMinimal
+    texliveSmall
 
     dico
     #dictdDBs.wordnet
