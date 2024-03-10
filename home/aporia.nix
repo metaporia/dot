@@ -21,6 +21,7 @@
     docker
     scripts
     firefox
+    discord
     eza # TODO fix scripts to use eza
     fd
     ripgrep
