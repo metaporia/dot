@@ -24,6 +24,11 @@
         inherit system;
         config.allowUnfree = true; # from hlissner's dotfiles--redundant?
 
+        # marked insecure; see issue: CVE-2024-27297
+        config.permittedInsecurePackages = [
+          "nix-2.16.2"
+        ];
+
         # Alternatively, overlays can be specified in the NixOS home-manager
         # module as follows:
         # > nixpkgs.overlays = (import ./nix-overlays); # ++ [scriptsOverlay]
