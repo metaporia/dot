@@ -23,7 +23,7 @@
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
     nixPath = let path = toString ../.; in
-      [ "repl=${path}/repl.nix" "nixpkgs-overlay=${path}/nix-overlays"] ++
+      [ "repl=${path}/repl.nix" "nixpkgs-overlay=${path}/nix-overlays" ] ++
       lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     # pin system nixpkgs to that of the flake input
@@ -96,8 +96,9 @@
 
   services.locate = {
     enable = true;
-    locate = pkgs.plocate;
+    package = pkgs.plocate;
     interval = "hourly";
+    localuser = null;
   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -138,9 +139,11 @@
     };
 
     # Configure keymap in X11
-    layout = "us";
-    xkbVariant = "dvorak";
-    xkbOptions = "ctrl:swapcaps";
+    xkb = {
+      layout = "us";
+      variant = "dvorak";
+      options = "ctrl:swapcaps";
+    };
 
     displayManager = {
       lightdm = {
@@ -200,7 +203,7 @@
   # FONTS #
   #########
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "DroidSansMono" ]; })
   ];
 
