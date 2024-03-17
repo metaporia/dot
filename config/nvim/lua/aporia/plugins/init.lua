@@ -39,6 +39,7 @@ return {
     end
   },
 
+
   ------------------
   -- COLORSCHEMES --
   ------------------
@@ -231,10 +232,18 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
-      -- "folke/neodev.nvim",
+      --"folke/neodev.nvim",
     },
     config = function()
-      -- require('neodev').setup({ })
+      --require('neodev').setup({
+      --  override = function(root_dir, library)
+      --    if root_dir:find("/home/aporia/dot/config/nvim", 1, true) == 1 then
+      --      library.enabled = true
+      --      library.plugins = true
+      --    end
+      --  end
+      --})
+
       --
       local lspconfig = require('lspconfig')
 
@@ -269,42 +278,45 @@ return {
       lspconfig.lua_ls.setup {
         -- on_attach = on_attach,
         capabilities = caps,
-        settings = {
-          Lua = {
-            workspace = { checkThirdParty = false },
-          }
-        },
         on_init = function(client)
-          local path = client.workspace_folders[1].name
-          if not vim.loop.fs_stat(path .. '/.luarc.json')
-              and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-            client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-              Lua = {
-                runtime = {
-                  -- Tell the language server which version of Lua you're using
-                  -- (most likely LuaJIT in the case of Neovim)
-                  version = 'LuaJIT'
-                },
-                -- Make the server aware of Neovim runtime files
-                workspace = {
-                  checkThirdParty = false,
-                  library = {
-                    vim.env.VIMRUNTIME
-                    -- "${3rd}/luv/library"
-                    -- "${3rd}/busted/library",
-                  },
-                  hint = { enable = true }
-
-                  -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-                  -- library = vim.api.nvim_get_runtime_file("", true)
-                }
+          --local path = client.workspace_folders[1].name
+          --if not vim.loop.fs_stat(path .. '/.luarc.json')
+          --    and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            runtime = {
+              -- Tell the language server which version of Lua you're using
+              -- (most likely LuaJIT in the case of Neovim)
+              version = 'LuaJIT',
+              path = {
+                'lua/?.lua',
+                'lua/?/init.lua',
               }
-            })
-            client.notify("workspace/didChangeConfiguration",
-              { settings = client.config.settings })
-          end
+            },
+            diagnostics = {
+              globals = { "vim" },
+            },
+            -- Make the server aware of Neovim runtime files
+            workspace = {
+              checkThirdParty = false,
+              --library = {
+              --  -- https://stackoverflow.com/questions/75880481/cant-use-lua-lsp-in-neovim
+              --  --(vim.env.VIMRUNTIME .. "/lua"),
+              --  --(vim.fn.stdpath "data" .. "/lazy"), -- ~/.local/share/nvim
+              --  --(vim.fn.stdpath "data" .. "/lazy"), -- ~/.local/share/nvim
+              --  -- "${3rd}/luv/library"
+              --  -- "${3rd}/busted/library",
+              --},
+              -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+              library = vim.api.nvim_get_runtime_file("", true),
+              hint = { enable = true }
+
+            }
+          })
+          client.notify("workspace/didChangeConfiguration",
+            { settings = client.config.settings })
           return true
-        end
+        end,
+        settings = { Lua = {} },
       }
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -375,9 +387,9 @@ return {
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
           local opts = { buffer = ev.buf }
-          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+          vim.keymap.set({ 'n', 'v' }, 'gD', vim.lsp.buf.declaration, opts)
+          vim.keymap.set({ 'n', 'v' }, 'gd', vim.lsp.buf.definition, opts)
+          vim.keymap.set({ 'n', 'v' }, 'K', vim.lsp.buf.hover, opts)
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
           vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
@@ -472,7 +484,8 @@ return {
           ['<C-Space>'] = cmp.mapping.complete(),
           ["<CR>"] = cmp.mapping.confirm({
             select = false, -- if true,
-            bahavior = cmp.ConfirmBehavior.Insert }),
+            bahavior = cmp.ConfirmBehavior.Insert
+          }),
           ["<C-y>"] = cmp.mapping.abort(),
           ["<C-e>"] = cmp.mapping.confirm({ select = true }),
           ["<Tab>"] = cmp.mapping(function(fallback)
@@ -508,8 +521,10 @@ return {
 
         sources = cmp.config.sources({
           { name = 'nvim_lsp', },
-          { name = 'buffer', },
           { name = 'luasnip', },
+          { name = 'nvim_lua', },
+          { name = 'buffer', },
+          { name = 'omni', },
           { name = 'path', },
         }),
         -- Use buffer source for `/` and `?` (if you enabled `native_menu`,

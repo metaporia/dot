@@ -18,7 +18,7 @@ noremap('n', '<Leader>r', require('aporia.reload').reload_config)
 -- 3. runs command
 -- 4. ends capture
 -- 5. puts results in dead buffer
-noremap('n', '<leader>rr', 'q:kyypI redir @r | <Esc>A | redir end<Esc>2f|')
+noremap('n', '<leader>rr', 'q:kyypI redir @r | execute "<Esc>A" | redir end<Esc>2f|')
 
 noremap('n', '<C-n>', ':bn<CR>') -- buffers
 noremap('n', '<C-p>', ':bp<CR>')
