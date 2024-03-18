@@ -23,7 +23,7 @@
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
     nixPath = let path = toString ../.; in
-      [ "repl=${path}/repl.nix" "nixpkgs-overlay=${path}/nix-overlays" ] ++
+      [ "repl=${path}/repl.nix" "nixpkgs-overlays=${path}/overlays" ] ++
       lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     # pin system nixpkgs to that of the flake input

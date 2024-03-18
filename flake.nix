@@ -31,8 +31,8 @@
 
         # Alternatively, overlays can be specified in the NixOS home-manager
         # module as follows:
-        # > nixpkgs.overlays = (import ./nix-overlays); # ++ [scriptsOverlay]
-        overlays = [ scripts.overlay ] ++ (import ./nix-overlays);
+        # > nixpkgs.overlays = (import ./overlays); # ++ [scriptsOverlay]
+        overlays = [ scripts.overlay ] ++ (import ./overlays);
       };
       # TODO use flake-compat to apply overlays for nix-* tools
     in {
