@@ -13,4 +13,4 @@ let
       (attrNames (readDir path)));
 in
 
-collectOverlays ./.
+collectOverlays ./overlays
