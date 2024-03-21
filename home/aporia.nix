@@ -87,38 +87,39 @@
   #  cfg = { enableGnomeExtensions = true; };
   #};
 
-# (OLD) TODO so I noticed that my macbook's dict output had indentation sensitive
-# line-wrapping. Apparently dict-gcide's conversion of the *.CIDE files is
-# better than that of dico (who knew!); but in any case the data is a
-# shit-show, as we well know, and dict seems to handle it better. So, we
-# should switch from dico to dict (which may involve making a dict-gcide nix
-# package--see arch's dict-gcide), and then get back to work sanitizing that
-# damn dictionary (remember to update to 0.53--oh god the progress staled!).
-# 
-# NB: gcide 0.48 was converted (poorly in spots) to the DICT format.
-# [this](https://github.com/rickysarraf-notmine/gcide) seems to be the likely
-# converter program. It puts it all neatly formatted into a *.dict file, and
-# then dictd just queries it. no runtime shenanigans required to pretty print
-# definitions
+  # (OLD) TODO so I noticed that my macbook's dict output had indentation sensitive
+  # line-wrapping. Apparently dict-gcide's conversion of the *.CIDE files is
+  # better than that of dico (who knew!); but in any case the data is a
+  # shit-show, as we well know, and dict seems to handle it better. So, we
+  # should switch from dico to dict (which may involve making a dict-gcide nix
+  # package--see arch's dict-gcide), and then get back to work sanitizing that
+  # damn dictionary (remember to update to 0.53--oh god the progress staled!).
+  # 
+  # NB: gcide 0.48 was converted (poorly in spots) to the DICT format.
+  # [this](https://github.com/rickysarraf-notmine/gcide) seems to be the likely
+  # converter program. It puts it all neatly formatted into a *.dict file, and
+  # then dictd just queries it. no runtime shenanigans required to pretty print
+  # definitions
   services.dicod = {
     enable = true;
-# TODO: enable dicod module support for dictDBS.*
-# TODO: gcide is enabled in dico overlay
-    packages = let dictdDBs = pkgs.dictdDBs;
-    in with pkgs.dicts; [ 
-    # for now enable all from dict-dbs
-      devils
-      dictdDBs.wiktionary
-      dictdDBs.wordnet
-      easton
-      elements
-      foldoc
-      hitchcock
-      jargon
-      moby-thesaurus
-      vera
-      world95
-    ];
+    # TODO: enable dicod module support for dictDBS.*
+    # TODO: gcide is enabled in dico overlay
+    packages =
+      let dictdDBs = pkgs.dictdDBs;
+      in with pkgs.dicts; [
+        # for now enable all from dict-dbs
+        devils
+        dictdDBs.wiktionary
+        dictdDBs.wordnet
+        easton
+        elements
+        foldoc
+        hitchcock
+        jargon
+        moby-thesaurus
+        vera
+        world95
+      ];
   };
 
   systemd.user.startServices = "sd-switch"; # requires dbus session
@@ -208,6 +209,13 @@
     };
     keybindings = { };
 
+  };
+
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
+    };
   };
 
 }
