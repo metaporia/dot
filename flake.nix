@@ -12,66 +12,69 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:rycee/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     scripts.url = "gitlab:metaporia/scripts";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
 
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, scripts, ... }:
+  outputs = inputs@{ flake-parts, self, nixpkgs, home-manager, scripts, ... }:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true; # from hlissner's dotfiles--redundant?
+      # pkgs = import nixpkgs {
+      #   inherit system;
+      #   config.allowUnfree = true; # from hlissner's dotfiles--redundant?
 
-        # marked insecure; see issue: CVE-2024-27297
-        config.permittedInsecurePackages = [
-          "nix-2.16.2"
-        ];
+      #   # marked insecure; see issue: CVE-2024-27297
+      #   config.permittedInsecurePackages = [
+      #     "nix-2.16.2"
+      #   ];
 
         # Alternatively, overlays can be specified in the NixOS home-manager
         # module as follows:
         # > nixpkgs.overlays = (import ./overlays); # ++ [scriptsOverlay]
         overlays = [ scripts.overlay ] ++ (import ./my-overlays.nix);
-      };
-      # TODO use flake-compat to apply overlays for nix-* tools
-    in {
-      nixosConfigurations = {
-        kerfuffle = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          inherit system;
-          modules = [
-            ./system/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              # Use system pkgs for hm; disables nixpkgs.* options in
-              # ./home/aporia.nix.
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
+      # };
+    in
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
+      flake = {
+        nixosConfigurations = {
+          kerfuffle = nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs; };
+            system = "x86_64-linux";
+            modules = [
+              ./system/configuration.nix
+              home-manager.nixosModules.home-manager
+              {
+                # Use system pkgs for hm; disables nixpkgs.* options in
+                # ./home/aporia.nix.
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
 
-              # Pass augmented nixpkgs to all modules.
-              #
-              # Our customized package set won't be used by home-manager without
-              # this.
-              #
-              # I believe it would otherwise default to the `nixpkgs.config` (?)
-              # of the `nixpkgs` in scope.
-              nixpkgs.pkgs = pkgs;
+                # Pass augmented nixpkgs to all modules.
+                #
+                # Our customized package set won't be used by home-manager without
+                # this.
+                #
+                # I believe it would otherwise default to the `nixpkgs.config` (?)
+                # of the `nixpkgs` in scope.
+                nixpkgs.pkgs = pkgs;
 
-              # Instead of letting the module system pass `pkgs` and `config` to
-              # `./home/aporia.nix`, we can specify them ourselves like so:
-              #
-              # ```
-              # home-manager.users.aporia = import ./home/aporia.nix {
-              #   inherit pkgs;
-              #   config = pkgs.config;
-              # };
-              # ```
-              home-manager.users.aporia.imports = [ ./home/aporia.nix ];
-              home-manager.users.test.imports = [ ./home/test.nix ];
+                # Instead of letting the module system pass `pkgs` and `config` to
+                # `./home/aporia.nix`, we can specify them ourselves like so:
+                #
+                # ```
+                # home-manager.users.aporia = import ./home/aporia.nix {
+                #   inherit pkgs;
+                #   config = pkgs.config;
+                # };
+                # ```
+                home-manager.users.aporia.imports = [ ./home/aporia.nix ];
+                home-manager.users.test.imports = [ ./home/test.nix ];
 
-            }
-          ];
+              }
+            ];
+          };
         };
       };
     };
