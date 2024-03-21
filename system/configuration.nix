@@ -199,9 +199,15 @@
     wine
   ];
 
-  #virtualisation.virtualbox.host.enable = true;
-  #virtualisation.virtualbox.host.enableExtensionPack = true;
-  #users.extraGroups.virtualbox.members = ["aporia"];
+
+  # Virtualisation
+  virtualisation.virtualbox.host = {
+    enable = true;
+    enableExtensionPack = true;
+  };
+  users.extraGroups.virtualbox.members = [ "aporia" ];
+
+
 
   #########
   # FONTS #
