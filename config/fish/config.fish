@@ -34,13 +34,17 @@ set fish_greeting ""
 #  coloring manpages  #
 #######################
 
-set -x LESS_TERMCAP_mb \e'[01;31m'       # begin blinking
-set -x LESS_TERMCAP_md \e'[01;38;5;74m'  # begin bold
-set -x LESS_TERMCAP_me \e'[0m'           # end mode
-set -x LESS_TERMCAP_se \e'[0m'           # end standout-mode
-set -x LESS_TERMCAP_so \e'[38;5;246m'    # begin standout-mode - info box
-set -x LESS_TERMCAP_ue \e'[0m'           # end underline
-set -x LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
+
+# groff change broke coloring; see https://bbs.archlinux.org/viewtopic.php?id=287185
+set -gx GROFF_NO_SGR 1
+
+set -gx LESS_TERMCAP_mb \e'[01;31m'       # begin blinking
+set -gx LESS_TERMCAP_md \e'[01;38;5;74m'  # begin bold
+set -gx LESS_TERMCAP_me \e'[0m'           # end mode
+set -gx LESS_TERMCAP_se \e'[0m'           # end standout-mode
+set -gx LESS_TERMCAP_so \e'[38;5;246m'    # begin standout-mode - info box
+set -gx LESS_TERMCAP_ue \e'[0m'           # end underline
+set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 
 
 ##########
