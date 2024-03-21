@@ -201,11 +201,17 @@
 
 
   # Virtualisation
-  virtualisation.virtualbox.host = {
-    enable = true;
-    enableExtensionPack = true;
-  };
-  users.extraGroups.virtualbox.members = [ "aporia" ];
+
+  # virtualbox
+  #virtualisation.virtualbox.host = {
+  #  enable = true;
+  #  enableExtensionPack = true;
+  #};
+  #users.extraGroups.virtualbox.members = [ "aporia" ];
+
+  # qemu/kvm
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
 
 
