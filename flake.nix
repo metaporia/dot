@@ -49,15 +49,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
 
-              # Pass augmented nixpkgs to all modules.
-              #
-              # Our customized package set won't be used by home-manager without
-              # this.
-              #
-              # I believe it would otherwise default to the `nixpkgs.config` (?)
-              # of the `nixpkgs` in scope.
-              nixpkgs.pkgs = pkgs;
-
               # Instead of letting the module system pass `pkgs` and `config` to
               # `./home/aporia.nix`, we can specify them ourselves like so:
               #
