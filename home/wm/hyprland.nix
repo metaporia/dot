@@ -9,12 +9,14 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
+    #package = pkgs.hyprland;
 
     xwayland.enable = true;
 
     # enable hyprland-session.target on hyprland startup
-    #systemd.enable = true;
+    systemd.enable = true;
   };
+
+  programs.waybar.enable = true;
 
 }

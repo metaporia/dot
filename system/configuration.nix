@@ -186,6 +186,7 @@
     gnumake
     lutris
     wine
+    kitty
   ];
 
 
