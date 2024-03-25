@@ -204,6 +204,8 @@
       modify_font underline_thickness 150%
       modify_font underline_position 2
       font_family Source Code Pro
+      initial_window_width  640
+      initial_window_height 400
     '';
     settings = {
       cursor_shape = "beam";

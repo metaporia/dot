@@ -7,6 +7,9 @@
 #   flake-parts, though massively overkill, would work.
 { config, pkgs, ... }:
 {
+
+  home.file.".config/hypr/hyprland.conf".source = ../config/hyprland.conf;
+
   wayland.windowManager.hyprland = {
     enable = true;
     #package = pkgs.hyprland;
@@ -15,20 +18,20 @@
 
     # enable hyprland-session.target on hyprland startup
     systemd.enable = true;
-    settings = {
-      input = {
-        kb_layout = "us";
-        kb_variant = "dvorak";
-        kb_options = "caps:ctrl_modifier";
-      };
-      "$mod" = "SUPER";
-      bind =
-        [
-          "$mod, F, exec, firefox"
-          "$mod, T, exec, kitty"
-          "ALT_L, T, exec, kitty"
-        ];
-    };
+    #settings = {
+    #  input = {
+    #    kb_layout = "us";
+    #    kb_variant = "dvorak";
+    #    kb_options = "caps:ctrl_modifier";
+    #  };
+    #  "$mod" = "SUPER";
+    #  bind =
+    #    [
+    #      "$mod, F, exec, firefox"
+    #      "$mod, T, exec, kitty"
+    #      "ALT_L, T, exec, kitty"
+    #    ];
+    #};
   };
 
   programs.waybar.enable = true;
