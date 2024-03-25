@@ -173,7 +173,7 @@
 
   imports = [
     ./fish.nix
-    ./gnome-kbd-shortcuts.nix
+    #./gnome-kbd-shortcuts.nix
     ./dicod.nix
     ./modules/dicod.nix
     #./i3.nix

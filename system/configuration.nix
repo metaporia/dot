@@ -59,6 +59,30 @@
   ##  nixpkgs.flake = inputs.nixpkgs;
   ##  unstable.flake = inputs.nixpkgs;
   ##};
+  programs.hyprland.enable = true;
+  # Enable the X11 windowing system.
+  services.xserver = {
+    enable = true;
+
+    # forcefully kill X
+    enableCtrlAltBackspace = true;
+
+    # Enable touchpad see `man libinput` for more options
+    libinput = {
+      enable = true;
+      touchpad = {
+        disableWhileTyping = true;
+        tapping = true;
+      };
+    };
+
+    # Configure keymap in X11
+    xkb = {
+      layout = "us";
+      variant = "dvorak";
+      options = "ctrl:swapcaps";
+    };
+  };
 
 
   imports = [
@@ -66,7 +90,7 @@
     ./hardware-configuration.nix
     #<home-manager/nixos>
     # for some reason when both are imported
-    #./wm/gnome.nix
+    # ./wm/gnome.nix
     # ./wm/i3.nix
   ];
 
