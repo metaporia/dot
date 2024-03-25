@@ -15,6 +15,16 @@
 
     # enable hyprland-session.target on hyprland startup
     systemd.enable = true;
+    settings = {
+      "$mod" = "SUPER";
+      bind =
+        [
+          "$mod, F, exec, firefox"
+          "$mod, T, exec, kitty"
+          "SUPER, T, exec, kitty"
+          "ALT_L, T, exec, kitty"
+        ];
+    };
   };
 
   programs.waybar.enable = true;
