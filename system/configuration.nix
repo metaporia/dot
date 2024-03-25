@@ -126,41 +126,6 @@
   services.auto-cpufreq.enable = true;
   services.thermald.enable = true;
 
-  ## Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-
-    # forcefully kill X
-    enableCtrlAltBackspace = true;
-
-    # Enable touchpad see `man libinput` for more options
-    libinput = {
-      enable = true;
-      touchpad = {
-        disableWhileTyping = true;
-        tapping = true;
-      };
-    };
-
-    # Configure keymap in X11
-    xkb = {
-      layout = "us";
-      variant = "dvorak";
-      options = "ctrl:swapcaps";
-    };
-
-    displayManager = {
-      lightdm = {
-        enable = true;
-        #greeter.enable = false;
-      };
-      #autoLogin = {
-      #  enable = true;
-      #  user = "aporia";
-      #};
-    };
-  };
-
   # enable xkb keymap in console
   console.useXkbConfig = true;
 

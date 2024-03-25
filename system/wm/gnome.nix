@@ -17,6 +17,13 @@
       };
     };
 
+    # Configure keymap in X11
+    xkb = {
+      layout = "us";
+      variant = "dvorak";
+      options = "ctrl:swapcaps";
+    };
+
     displayManager = {
       lightdm = {
         enable = true;
