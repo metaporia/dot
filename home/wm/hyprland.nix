@@ -16,12 +16,16 @@
     # enable hyprland-session.target on hyprland startup
     systemd.enable = true;
     settings = {
+      input = {
+        kb_layout = "us";
+        kb_variant = "dvorak";
+        kb_options = "caps:ctrl_modifier";
+      };
       "$mod" = "SUPER";
       bind =
         [
           "$mod, F, exec, firefox"
           "$mod, T, exec, kitty"
-          "SUPER, T, exec, kitty"
           "ALT_L, T, exec, kitty"
         ];
     };
