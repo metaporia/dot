@@ -35,7 +35,8 @@
         overlays = [ scripts.overlay ] ++ (import ./my-overlays.nix);
       };
       # TODO use flake-compat to apply overlays for nix-* tools
-    in {
+    in
+    {
       nixosConfigurations = {
         kerfuffle = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
@@ -48,6 +49,12 @@
               # ./home/aporia.nix.
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              #
+              # Pass augmented nixpkgs to all modules.
+              #
+              # Our customized package set won't be used by home-manager without
+              # this (or at least the pkgs.config won't be passed along).
+              nixpkgs.pkgs = pkgs;
 
               # Instead of letting the module system pass `pkgs` and `config` to
               # `./home/aporia.nix`, we can specify them ourselves like so:

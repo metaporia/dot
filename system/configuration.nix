@@ -66,7 +66,7 @@
     ./hardware-configuration.nix
     #<home-manager/nixos>
     # for some reason when both are imported
-    ./wm/gnome.nix
+    #./wm/gnome.nix
     # ./wm/i3.nix
   ];
 

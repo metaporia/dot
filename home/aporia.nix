@@ -177,6 +177,7 @@
     ./dicod.nix
     ./modules/dicod.nix
     #./i3.nix
+    ./wm/hyprland.nix
   ];
 
   home.file = {
