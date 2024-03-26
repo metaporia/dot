@@ -176,6 +176,7 @@
   # requires nixos-rebuild with `--impure` flag
   home.file.".config/hypr/hyprland.conf" = {
     source = config.lib.file.mkOutOfStoreSymlink
+
       "/home/aporia/dot/config/hyprland.conf";
   };
 
