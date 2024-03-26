@@ -18,6 +18,7 @@
       set fish_greeting
 
       # colorize manpages
+      set -gx GROFF_NO_SGR 1
       set -x LESS_TERMCAP_mb \e'[01;31m'       # begin blinking
       set -x LESS_TERMCAP_md \e'[01;38;5;74m'  # begin bold
       set -x LESS_TERMCAP_me \e'[0m'           # end mode
