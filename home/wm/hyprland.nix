@@ -17,7 +17,9 @@
     xwayland.enable = true;
 
     # enable hyprland-session.target on hyprland startup
+    # unclear what this does
     systemd.enable = true;
+
     # kbd layout set from ../../config/hyprland.conf
     #settings = {
     #  input = {
