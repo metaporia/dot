@@ -18,6 +18,7 @@
     dico
     #dictdDBs.wordnet
     #dictdDBs.wiktionary
+    just
     docker
     scripts
     firefox
