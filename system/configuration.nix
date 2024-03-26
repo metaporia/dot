@@ -211,7 +211,7 @@
   #########
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "DroidSansMono" ]; })
+    (nerdfonts.override { fonts = [ "DroidSansMono" "SourceCodePro" ]; })
   ];
 
 
