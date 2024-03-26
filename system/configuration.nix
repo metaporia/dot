@@ -60,6 +60,7 @@
   ##  unstable.flake = inputs.nixpkgs;
   ##};
   programs.hyprland.enable = true;
+  system.nixos.tags = [ "hypr" ];
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;

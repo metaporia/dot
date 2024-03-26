@@ -8,7 +8,7 @@
 { config, pkgs, ... }:
 {
 
-  home.file.".config/hypr/hyprland.conf".source = ../config/hyprland.conf;
+  #home.file.".config/hypr/hyprland.conf".source = ../config/hyprland.conf;
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -18,6 +18,7 @@
 
     # enable hyprland-session.target on hyprland startup
     systemd.enable = true;
+    # kbd layout set from ../../config/hyprland.conf
     #settings = {
     #  input = {
     #    kb_layout = "us";
