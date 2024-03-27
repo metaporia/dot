@@ -29,3 +29,5 @@ elpa
 lazy-lock.json
 
 tmp
+
+*.ignore.*

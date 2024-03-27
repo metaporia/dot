@@ -9,6 +9,9 @@
 {
 
   #home.file.".config/hypr/hyprland.conf".source = ../config/hyprland.conf;
+  home.packages = with pkgs; [
+    swaynotificationcenter
+  ];
 
   wayland.windowManager.hyprland = {
     enable = true;
