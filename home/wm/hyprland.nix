@@ -10,7 +10,12 @@
 
   #home.file.".config/hypr/hyprland.conf".source = ../config/hyprland.conf;
   home.packages = with pkgs; [
+    # wayland
+    wev
     swaynotificationcenter
+    playerctl
+
+    # hyprland specific
   ];
 
   wayland.windowManager.hyprland = {
@@ -23,15 +28,16 @@
     # unclear what this does
     systemd.enable = true;
 
-    extraConfig = pkgs.callPackage ./hyprland-conf.nix {};
+    extraConfig = pkgs.callPackage ./hyprland-conf.nix { };
 
     # kbd layout set from ../../config/hyprland.conf
-    #settings = {
-    #  input = {
-    #    kb_layout = "us";
-    #    kb_variant = "dvorak";
-    #    kb_options = "caps:ctrl_modifier";
-    #  };
+    settings = {
+      input = {
+        kb_layout = "us";
+        kb_variant = "dvorak";
+        kb_options = "caps:ctrl_modifier";
+      };
+    };
     #  "$mod" = "SUPER";
     #  bind =
     #    [

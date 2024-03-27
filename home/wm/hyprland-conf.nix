@@ -149,6 +149,18 @@ device {
 # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
 windowrulev2 = suppressevent maximize, class:.* # You'll probably like this.
 
+# Audio keybinds
+binde=, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+binde=, XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ 
+binde=, XF86AudioLowerVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%- 
+binde=, XF86AudioNext, exec, playerctl next
+binde=, XF86AudioPrev, exec, playerctl previous
+binde=, XF86AudioPlay, exec, playerctl play-pause
+binde=, XF86AudioStop, exec, playerctl play-pause
+
+# brightness
+
+# print screen
 
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 $mainMod = SUPER
