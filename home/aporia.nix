@@ -18,6 +18,7 @@
     dico
     #dictdDBs.wordnet
     #dictdDBs.wiktionary
+    killall
     just
     docker
     scripts

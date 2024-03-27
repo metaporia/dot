@@ -198,6 +198,12 @@
     #jack.enable = true;
   };
 
+  # SSH
+  services.openssh = {
+    enable = true;
+    #passwordAuthentication = false;
+  };
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
