@@ -38,13 +38,19 @@
       # FIXME nix-path
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
+      builders-use-substitutes = true;
 
       # Binary Cache for Haskell.nix
       trusted-public-keys = [
         "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+        "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       ];
 
-      substituters = [ "https://cache.iog.io" ];
+
+      substituters = [
+        "https://cache.iog.io"
+        "https://anyrun.cachix.org"
+      ];
     };
 
   };
@@ -201,6 +207,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    inputs.anyrun.packages.${system}.anyrun-with-all-plugins
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     firefox

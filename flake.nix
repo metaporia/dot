@@ -9,15 +9,21 @@
   # Rebuild system with `cd ~/dot; sudo nixos-rebuild switch --flake '.#kerfuffle"`
 
   inputs = {
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager.url = "github:rycee/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
     scripts.url = "gitlab:metaporia/scripts";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
 
+    anyrun.url = "github:Kirottu/anyrun";
+    anyrun.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, scripts, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, scripts, anyrun, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -67,6 +73,10 @@
               # ```
               home-manager.users.aporia.imports = [ ./home/aporia.nix ];
               home-manager.users.test.imports = [ ./home/test.nix ];
+
+              home-manager.sharedModules = [
+                anyrun.homeManagerModules.default
+              ];
 
             }
           ];

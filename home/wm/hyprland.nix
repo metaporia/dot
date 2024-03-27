@@ -7,7 +7,7 @@
 #   flake-parts, though massively overkill, would work.
 
 # see https://wiki.archlinux.org/title/Hyprland
-{ config, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 {
 
   #home.file.".config/hypr/hyprland.conf".source = ../config/hyprland.conf;
@@ -28,6 +28,24 @@
   ];
 
   programs.waybar.enable = true;
+  programs.anyrun = {
+    enable = true;
+    config = {
+      # enable plugins via flake output or here?
+      plugins = 
+        #with inputs.anyrun.packages.${pkgs.system};
+      [
+      #applications
+      #randr
+      #stdin
+      #symbols
+      #translate
+      #websearch
+      #dictionary
+      #kidex
+      ];
+    };
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
