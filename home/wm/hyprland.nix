@@ -12,10 +12,15 @@
 
   imports = [ ../programs/anyrun.nix ];
 
+  # see https://www.funtoo.org/OpenSSH_Key_Management,_Part_1
   programs.keychain = {
     enable = true;
     enableFishIntegration = true;
     keys = [ "github" "gitlab" ];
+    extraFlags = [
+      # use ~/.ssh/config IdentityFile to map keys names to paths
+      #"--confhost"
+    ];
   };
 
   programs.ssh = {
