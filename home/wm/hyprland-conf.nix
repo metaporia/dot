@@ -6,10 +6,10 @@
 # TODO:
 # - [x] notification daemon, e.g., dunst, mako, swaync
 #   - swaync
-# - [ ] widgets/gui interface for audio, network, bluetooth
-# - [ ] check whether xdg desktop portal works (for file pickers0
+# - [x] widgets/gui interface for audio, network, bluetooth
+# - [x] check whether xdg desktop portal works (for file pickers0
 # - [ ] authentication agent
-# - [ ] qt5 wayland support (necessary?)
+# - [x] qt5 wayland support (necessary?)
 #
 # - [x] clipboard manager (tmux, nvim integration)
 #
@@ -133,7 +133,7 @@ gestures {
 
 misc {
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
-    force_default_wallpaper = -1 # Set to 0 or 1 to disable the anime mascot wallpapers
+    force_default_wallpaper = 1 # Set to 0 or 1 to disable the anime mascot wallpapers
 }
 
 # Example per-device config
