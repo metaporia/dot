@@ -174,10 +174,10 @@
   #};
 
   # requires nixos-rebuild with `--impure` flag
-  xdg.configFile."hypr/hyprland.conf" = {
-    source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath 
-      ../config/hyprland.conf);
-  };
+  #xdg.configFile."hypr/hyprland.conf" = {
+  #  source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath 
+  #    ../config/hyprland.conf);
+  #
 
   imports = [
     ./fish.nix

@@ -23,6 +23,8 @@
     # unclear what this does
     systemd.enable = true;
 
+    extraConfig = pkgs.callPackage ./hyprland-conf.nix {};
+
     # kbd layout set from ../../config/hyprland.conf
     #settings = {
     #  input = {

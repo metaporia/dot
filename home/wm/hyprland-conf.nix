@@ -1,4 +1,7 @@
+{ pkgs, ... }: 
+''
 # hyprland.conf
+#
 #
 # TODO:
 # - [x] notification daemon, e.g., dunst, mako, swaync
@@ -21,6 +24,7 @@
 # See https://wiki.hyprland.org/Configuring/Monitors/
 # monitor=name,resolution,position,scale
 monitor=,preferred,auto,1.33333
+
 
 
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
@@ -207,3 +211,4 @@ bind = $mainMod, mouse_up, workspace, e-1
 # Move/resize windows with mainMod + LMB/RMB and dragging
 bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod, mouse:273, resizewindow
+''
