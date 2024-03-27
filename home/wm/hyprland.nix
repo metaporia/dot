@@ -12,6 +12,11 @@
 
   imports = [ ../programs/anyrun.nix ];
 
+
+  programs.ssh = {
+    enable = true;
+  };
+
   #home.file.".config/hypr/hyprland.conf".source = ../config/hyprland.conf;
   home.packages = with pkgs; [
     # Wayland
@@ -20,6 +25,9 @@
     wl-clipboard
     wl-clip-persist
     wl-clipboard-x11 # for neovim/tmux compatibility
+
+    # authentication agent
+    polkit-kde-agent
 
     wev
     swaynotificationcenter

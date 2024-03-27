@@ -60,6 +60,13 @@
   # what does this do?
   nix.package = pkgs.nixUnstable;
 
+
+  ################### 
+  # Hyprland Config #
+  ################### 
+
+  security.polkit.enable = true;
+
   # use nixos nixpkgs for flake commands like 'nix shell nixpkgs#hello'
   ##nix.registry = { 
   ##  nixpkgs.flake = inputs.nixpkgs;
@@ -203,6 +210,9 @@
     enable = true;
     #passwordAuthentication = false;
   };
+
+  programs.ssh.startAgent = true;
+
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
