@@ -77,6 +77,12 @@
       };
     };
 
+    # for hyprland, why the fuck does it need to be disabled?
+    # it should default to false
+    displayManager = {
+      lightdm.enable = false;
+    };
+
     # Configure keymap in X11
     xkb = {
       layout = "us";

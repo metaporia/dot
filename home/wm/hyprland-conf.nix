@@ -11,9 +11,9 @@
 # - [ ] authentication agent
 # - [ ] qt5 wayland support (necessary?)
 #
-# - [ ] clipboard manager (tmux, nvim integration)
+# - [x] clipboard manager (tmux, nvim integration)
 #
-# - [ ] get function keys working
+# - [x] get function keys working
 # - [ ] app launcher/command palette
 # - [ ] wallpaper
 # - [x] fix kitty italic font clipping
