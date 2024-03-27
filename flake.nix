@@ -74,6 +74,8 @@
               home-manager.users.aporia.imports = [ ./home/aporia.nix ];
               home-manager.users.test.imports = [ ./home/test.nix ];
 
+              home-manager.extraSpecialArgs = { inherit inputs; };
+
               home-manager.sharedModules = [
                 anyrun.homeManagerModules.default
               ];

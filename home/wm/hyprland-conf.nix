@@ -25,6 +25,12 @@
 # monitor=name,resolution,position,scale
 monitor=,preferred,auto,1.33333
 
+# See https://wiki.hyprland.org/Configuring/XWayland/
+xwayland {
+  force_zero_scaling = true
+}
+
+env = GDK_SCALE,2
 
 
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
@@ -169,6 +175,8 @@ binde = , XF86MonBrightnessDown, exec, brightnessctl s 5%-
 $mainMod = SUPER
 
 $altMod = ALT_L
+
+bind = $altMod, space, exec, anyrun
 
 # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 bind = $mainMod, Q, exec, $terminal
