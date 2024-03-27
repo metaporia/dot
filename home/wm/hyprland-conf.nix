@@ -31,7 +31,8 @@ monitor=,preferred,auto,1.33333
 
 # Execute your favorite apps at launch
 #exec-once = waybar & hyprpaper & firefox
-exec-once = waybar & swaync 
+exec-once = waybar & swaync
+exec-once=wl-clip-persist --clipboard both
 
 # Source a file (multi-file configs)
 # source = ~/.config/hypr/myColors.conf
