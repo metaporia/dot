@@ -19,7 +19,9 @@
     keys = [ "github" "gitlab" ];
     extraFlags = [
       # use ~/.ssh/config IdentityFile to map keys names to paths
-      #"--confhost"
+      "--confhost"
+      "--quiet"
+
     ];
   };
 
