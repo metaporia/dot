@@ -61,6 +61,22 @@
   ##};
   programs.hyprland.enable = true;
   system.nixos.tags = [ "hypr" ];
+  # see https://github.com/erictossell/nixflakes/blob/main/modules/hyprland/greetd/default.nix
+  services.greetd = {
+    enable = true;
+    restart = false;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+        user = "aporia";
+      };
+      initial_session = {
+        command = "Hyprland";
+        user = "aporia";
+      };
+    };
+  };
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
