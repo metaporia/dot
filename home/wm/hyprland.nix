@@ -12,6 +12,11 @@
 
   imports = [ ../programs/anyrun.nix ];
 
+  programs.keychain = {
+    enable = true;
+    enableFishIntegration = true;
+    keys = [ "github" "gitlab" ];
+  };
 
   programs.ssh = {
     enable = true;
