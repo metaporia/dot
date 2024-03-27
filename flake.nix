@@ -77,7 +77,7 @@
               home-manager.extraSpecialArgs = { inherit inputs; };
 
               home-manager.sharedModules = [
-                anyrun.homeManagerModules.default
+                #anyrun.homeManagerModules.default
               ];
 
             }
