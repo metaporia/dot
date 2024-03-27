@@ -27,11 +27,8 @@
     fd
     ripgrep
     hyperfine
-    wmctrl
-    xclip
     vlc
     tmux
-    gnome.gnome-tweaks
     #chrome-gnome-shell
     #gnomeExtensions.hide-top-bar
     nixos-option

@@ -1,6 +1,12 @@
 { config, lib, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    xclip
+    wmctrl
+    gnome.gnome-tweaks
+  ];
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
