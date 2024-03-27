@@ -116,7 +116,10 @@
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
-  services.localtimed.enable = true;
+
+  services.automatic-timezoned.enable = true;
+
+  # services.geoclue.enable = true;
 
   #services.dictd = {
   #  enable = true;

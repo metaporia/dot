@@ -158,7 +158,9 @@ binde=, XF86AudioPrev, exec, playerctl previous
 binde=, XF86AudioPlay, exec, playerctl play-pause
 binde=, XF86AudioStop, exec, playerctl play-pause
 
-# brightness
+# Brightness
+binde = , XF86MonBrightnessUp, exec, brightnessctl s +5%
+binde = , XF86MonBrightnessDown, exec, brightnessctl s 5%-
 
 # print screen
 

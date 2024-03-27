@@ -5,18 +5,29 @@
 #
 #   A special config flag could be passed via specialArgs (I think) or
 #   flake-parts, though massively overkill, would work.
+
+# see https://wiki.archlinux.org/title/Hyprland
 { config, pkgs, ... }:
 {
 
   #home.file.".config/hypr/hyprland.conf".source = ../config/hyprland.conf;
   home.packages = with pkgs; [
-    # wayland
+    # Wayland
+
+    # clipboard
+    wl-clipboard
+    wl-clip-persist
+    wl-clipboard-x11 # for neovim/tmux compatibility
+
     wev
     swaynotificationcenter
     playerctl
+    brightnessctl
 
     # hyprland specific
   ];
+
+  programs.waybar.enable = true;
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -48,6 +59,5 @@
     #};
   };
 
-  programs.waybar.enable = true;
 
 }
