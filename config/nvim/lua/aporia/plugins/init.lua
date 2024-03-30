@@ -3,6 +3,41 @@
 return {
 
   {
+    'ziontee113/color-picker.nvim',
+    ft = { 'css' },
+
+    config = function()
+      require('color-picker').setup()
+      local opts = { noremap = true, silent = true }
+
+      -- TODO sensible leader prefix for misc bindings
+      vim.keymap.set("n", "<leader>fc", "<cmd>PickColor<cr>", opts)
+      -- vim.keymap.set("i", "<C-c>", "<cmd>PickColorInsert<cr>", opts)
+
+      -- vim.keymap.set("n", "your_keymap", "<cmd>ConvertHEXandRGB<cr>", opts)
+      -- vim.keymap.set("n", "your_keymap", "<cmd>ConvertHEXandHSL<cr>", opts)
+
+      require("color-picker").setup({ -- for changing icons & mappings
+        -- ["icons"] = { "ﱢ", "" },
+        -- ["icons"] = { "ﮊ", "" },
+        -- ["icons"] = { "", "ﰕ" },
+        -- ["icons"] = { "", "" },
+        -- ["icons"] = { "", "" },
+        ["icons"] = { "ﱢ", "" },
+        ["border"] = "rounded", -- none | single | double | rounded | solid | shadow
+        ["keymap"] = {   -- mapping example:
+          ["U"] = "<Plug>ColorPickerSlider5Decrease",
+          ["O"] = "<Plug>ColorPickerSlider5Increase",
+        },
+        ["background_highlight_group"] = "Normal", -- default
+        ["border_highlight_group"] = "FloatBorder", -- default
+        ["text_highlight_group"] = "Normal", --default
+      })
+    end
+
+  },
+
+  {
     'jdhao/better-escape.vim',
     config = function()
       -- default timout is 150ms
@@ -173,6 +208,10 @@ return {
     config = function()
       local configs = require 'nvim-treesitter.configs'
       configs.setup {
+        auto_install = false,
+        sync_install = false,
+        ignore_install = {},
+        modules = {},
         -- TODO:
         --  * lua indent
         --  * cpp clangd, clang-format, indentation
@@ -185,7 +224,10 @@ return {
           "lua",
           "vim",
           "vimdoc",
-          "query" },
+          "query",
+          "json",
+          "bash"
+        },
         --auto_install = true,
         --ignore_install = { "javascript" },
         highlight = {

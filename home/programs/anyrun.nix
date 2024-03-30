@@ -7,8 +7,9 @@
       # enable plugins via flake output or here?
       plugins =
         with inputs.anyrun.packages.${pkgs.system};
-        [
+        [ # plugin order determines result ordering in picker
           applications
+          shell
           randr
           stdin
           symbols

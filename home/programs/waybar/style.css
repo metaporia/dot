@@ -1,0 +1,76 @@
+  /* `otf-font-awesome` is required to be installed for icons */
+*{    
+    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    color: rgb(0, 120, 175);
+
+}
+
+window#waybar {
+    background-color: rgb(50, 50, 50);
+}
+
+/* simple modules but not workspaces */
+label.module {
+    background-color: rgb(0, 0, 0);
+    padding: 0 20px;
+    padding-bottom: 2px;
+    border-radius: 15px;
+}
+
+
+/* WORKSPACES */
+
+/* see https://github.com/Alexays/Waybar/wiki/Module:-Hyprland */
+
+#workspaces button.active {
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+}
+
+#workspaces button {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0,0,0);
+  border-radius: 15px;
+
+  padding: 0 10px;
+  padding-right: 15px;
+  padding-bottom: 2px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* AUDIO */
+
+/* BATTERY */
+
+#battery.charging, #battery.plugged {
+    color: #fff9de;
+    background-color: #628815;
+}
+
+#battery.warning {
+    color: #3e4003;
+    background-color: #fdc20a;
+}
+
+/*
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+*/
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+/*#battery.critical:not(.charging) { */
+#battery.critical:not(.charging) {
+    background-color: #d74632;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}

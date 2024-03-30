@@ -277,6 +277,7 @@
   #########
 
   fonts.packages = with pkgs; [
+    font-awesome # for waybar
     (nerdfonts.override { fonts = [ "DroidSansMono" "SourceCodePro" ]; })
   ];
 

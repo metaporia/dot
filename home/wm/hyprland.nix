@@ -47,9 +47,15 @@
     brightnessctl
 
     # hyprland specific
+
   ];
 
-  programs.waybar.enable = true;
+  # waybar
+
+  programs.waybar = {
+    enable = true;
+    settings = { };
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
