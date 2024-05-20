@@ -45,6 +45,9 @@
     swaynotificationcenter
     playerctl
     brightnessctl
+    pavucontrol
+
+    dolphin
 
     # hyprland specific
 

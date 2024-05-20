@@ -212,6 +212,8 @@
 
   # rtkit is optional but recommended
   security.rtkit.enable = true;
+  # disable for non-alsa based setups
+  # sound.enable = true; 
   services.pipewire = {
     enable = true;
     alsa.enable = true;
