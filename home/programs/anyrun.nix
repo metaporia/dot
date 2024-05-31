@@ -15,6 +15,22 @@
     };
   };
 
+  xdg.configFile."kidex.ron".text = ''
+    Config(
+      ignored: [ ".git", ".*" ],
+      //max_entries: 3,
+      directories : [
+        WatchDir(
+          path: "/home/aporia",
+          recurse: true,
+          ignored: [ "./src" ],
+        ),
+      ],
+
+    )
+  '';
+
+
   programs.anyrun = {
     enable = true;
     config = {
@@ -27,11 +43,11 @@
           shell
           randr
           stdin
-          symbols
           translate
           websearch
           dictionary
           kidex
+          symbols
         ];
       width = { fraction = 0.3; };
       x = { fraction = 0.5; };
@@ -48,11 +64,13 @@
     extraConfigFiles = {
 
       "kidex.ron".text = ''
+        // <Anyrun config dir>/kidex.ron
         Config(
-          ignored: [ ".git" ],
-          //max_entries: 3,
+          //prefix: ":",
+          max_entries: 6,
         )
       '';
+
 
       "translate.ron".text = ''
         // <Anyrun config dir>/translate.ron
