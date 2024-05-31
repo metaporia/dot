@@ -1,13 +1,28 @@
 { pkgs, inputs, ... }:
 {
+  # TODO:
+  # - add nixos-option search; see https://github.com/n3oney/anyrun-nixos-options
   imports = [ inputs.anyrun.homeManagerModules.default ];
+  home.packages = with pkgs; [ kidex ];
+
+  systemd.user.services = {
+    kidex = {
+      Unit = { Description = "Kidex file indexer"; };
+      Service = {
+        ExecStart = "${pkgs.kidex}/bin/kidex";
+      };
+      Install = { WantedBy = [ "multi-user.target" ]; };
+    };
+  };
+
   programs.anyrun = {
     enable = true;
     config = {
       # enable plugins via flake output or here?
       plugins =
         with inputs.anyrun.packages.${pkgs.system};
-        [ # plugin order determines result ordering in picker
+        [
+          # plugin order determines result ordering in picker
           applications
           shell
           randr
@@ -31,6 +46,13 @@
     };
 
     extraConfigFiles = {
+
+      "kidex.ron".text = ''
+        Config(
+          ignored: [ ".git" ],
+          //max_entries: 3,
+        )
+      '';
 
       "translate.ron".text = ''
         // <Anyrun config dir>/translate.ron
