@@ -49,7 +49,7 @@
           kidex
           symbols
         ];
-      width = { fraction = 0.3; };
+      width = { fraction = 0.5; };
       x = { fraction = 0.5; };
       y = { fraction = 0.5; };
       hideIcons = false;
@@ -57,7 +57,7 @@
       layer = "overlay";
       hidePluginInfo = false;
       closeOnClick = true;
-      showResultsImmediately = false;
+      showResultsImmediately = true;
       maxEntries = null;
     };
 
