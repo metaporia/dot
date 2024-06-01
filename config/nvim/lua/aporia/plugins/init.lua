@@ -3,6 +3,22 @@
 return {
 
   {
+    "folke/todo-comments.nvim",
+
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      signs = true, -- show signs in column
+      merge_keywords = true, -- merge opts.keywords with default table
+      keywords = {
+        TMP = { icon = "⏲ ", color = "test" },
+      },
+
+      comments_only = true, -- use treesitter
+
+    }
+  },
+
+  {
     'ziontee113/color-picker.nvim',
     ft = { 'css' },
 
@@ -25,13 +41,13 @@ return {
         -- ["icons"] = { "", "" },
         ["icons"] = { "ﱢ", "" },
         ["border"] = "rounded", -- none | single | double | rounded | solid | shadow
-        ["keymap"] = {   -- mapping example:
+        ["keymap"] = {          -- mapping example:
           ["U"] = "<Plug>ColorPickerSlider5Decrease",
           ["O"] = "<Plug>ColorPickerSlider5Increase",
         },
-        ["background_highlight_group"] = "Normal", -- default
+        ["background_highlight_group"] = "Normal",  -- default
         ["border_highlight_group"] = "FloatBorder", -- default
-        ["text_highlight_group"] = "Normal", --default
+        ["text_highlight_group"] = "Normal",        --default
       })
     end
 
@@ -136,10 +152,11 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-fzf-native.nvim' },
     config = function()
       local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-      vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+      vim.keymap.set('n', '<leader>lf', builtin.find_files, {})
+      vim.keymap.set('n', '<leader>lg', builtin.live_grep, {})
+      vim.keymap.set('n', '<leader>lb', function() builtin.live_grep({ grep_open_files = true }) end, {})
       vim.keymap.set('n', '<leader>b', builtin.buffers, {})
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+      vim.keymap.set('n', '<leader>lh', builtin.help_tags, {})
     end,
   },
 
@@ -417,7 +434,6 @@ return {
         float = { border = _border },
         virtual_text = { prefix = '●' }
       }
-
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -481,6 +497,7 @@ return {
       --vim.o.completopt = 'menu,menuone,noselect'
       --
       local cmd_keymap = {
+        ["<C-y>"] = cmp.mapping.abort(),
         ["<C-e>"] = cmp.mapping(function(_)
           cmp.confirm({ select = true })
         end, { 'i', 'c', 's' }),
@@ -498,7 +515,23 @@ return {
             fallback()
           end
         end, { 'i', 'c', 's' }),
+
+        --['<C-n>'] = cmp.mapping(function(fallback)
+        --  if cmp.visible() then
+        --    cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        --  else
+        --    fallback()
+        --  end
+        --end, { 'i', 'c', 's' }),
+        --['<C-P>'] = cmp.mapping(function(fallback)
+        --  if cmp.visible() then
+        --  cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        --  else
+        --    fallback()
+        --  end
+        --end, { 'i', 'c', 's' }),
       }
+
 
       -- close completion menu when opening cmdline window from cmdline with
       -- `<C-f>`
@@ -579,6 +612,9 @@ return {
         }),
 
 
+        -- TODO
+        -- * if completion window visible, C-n/p navigate completion
+        -- suggestions rather than command history.
         cmp.setup.cmdline(':', {
           mapping = cmd_keymap,
           sources = cmp.config.sources({
