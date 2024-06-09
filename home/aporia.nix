@@ -22,6 +22,7 @@
     just
     docker
     scripts
+    getoptions
     firefox
     discord
     eza # TODO fix scripts to use eza
@@ -34,6 +35,7 @@
     #gnomeExtensions.hide-top-bar
     nixos-option
     git-lfs
+    gh
     #nottetris2 # FIXME
     nix-prefetch-git
     nixpkgs-fmt
@@ -203,9 +205,13 @@
     config = { theme = "TwoDark"; };
   };
 
+
   programs.kitty = {
     enable = true;
     shellIntegration.enableFishIntegration = true;
+    settings = {
+      startup_session = "~/.config/kitty/tmux_session.conf";
+    };
     extraConfig = ''
       modify_font underline_thickness 150%
       modify_font underline_position 2
@@ -220,6 +226,12 @@
     keybindings = { };
 
   };
+
+  # Add tmux session so that kitty always runs tmux on startup unless overriden
+  # with the `--session` option.
+  xdg.configFile."kitty/tmux_session.conf".text = ''
+    launch tmux
+  '';
 
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
