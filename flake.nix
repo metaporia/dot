@@ -21,6 +21,9 @@
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
 
+    hyprswitch.url = "github:h3rmt/hyprswitch/release";
+    hyprswitch.inputs.nixpkgs.follows ="nixpkgs";
+
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, scripts, anyrun, ... }:

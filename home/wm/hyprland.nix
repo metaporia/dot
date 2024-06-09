@@ -51,6 +51,9 @@
 
     # hyprland specific
 
+    # window switcher
+    inputs.hyprswitch.packages.${pkgs.system}.default
+
   ];
 
   # waybar
