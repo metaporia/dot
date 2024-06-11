@@ -3,17 +3,57 @@
 return {
 
   {
+    "folke/trouble.nvim",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
+  },
+
+  {
     "folke/todo-comments.nvim",
 
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
-      signs = true, -- show signs in column
+      signs = true,          -- show signs in column
       merge_keywords = true, -- merge opts.keywords with default table
       keywords = {
         TMP = { icon = "⏲ ", color = "test" },
       },
 
-      comments_only = true, -- use treesitter
+      highlight = {
+        comments_only = false, -- use treesitter
+      },
 
     }
   },
@@ -23,7 +63,6 @@ return {
     ft = { 'css' },
 
     config = function()
-      require('color-picker').setup()
       local opts = { noremap = true, silent = true }
 
       -- TODO sensible leader prefix for misc bindings
@@ -99,7 +138,7 @@ return {
     'tiagovla/tokyodark.nvim', -- TODO replace with folke's?
     opts = {},
     config = function(_, opts)
-      --require("tokyodark").setup(opts)
+      require("tokyodark").setup(opts)
       --vim.cmd [[colorscheme tokyodark]]
     end
   },
@@ -111,7 +150,7 @@ return {
         style = 'darker',
 
       }
-      --require('onedark').load()
+      require('onedark').load()
     end
   },
 
@@ -120,7 +159,7 @@ return {
     config = function()
       vim.o.background = 'dark'
       vim.g.gruvbox_material_background = 'hard' -- hard, medium, soft
-      vim.cmd [[colorscheme gruvbox-material]]
+      --vim.cmd [[colorscheme gruvbox-material]]
     end
   },
 
@@ -151,6 +190,10 @@ return {
     tag = '0.1.4',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-fzf-native.nvim' },
     config = function()
+      require('telescope').setup {
+        defaults = { layout_strategy = 'flex' },
+      }
+
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<leader>lf', builtin.find_files, {})
       vim.keymap.set('n', '<leader>lg', builtin.live_grep, {})
@@ -168,17 +211,11 @@ return {
 
   {
     'echasnovski/mini.surround',
-    version = '*',
-    lazy = false,
-    config = function()
-      require('mini.surround').setup()
-    end
+    config = true,
   },
   {
     'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup()
-    end
+    config = true,
   },
 
   {
@@ -203,24 +240,29 @@ return {
   {
     -- TODO lazy load
     url = 'https://gitlab.com/metaporia/muse-vim',
-    lazy = false,
     init = function()
       vim.g.muse_vim_log_dir = "~/sputum/muse"
     end
   },
 
   -- Non-lspconfig haskell plugin, handles lsp,
-  -- see ~/.config/nvim/after/ftplugin/haskell.lua for keymaps
+  -- see ~/.config/nvim/after/ftplugin/hasknll.lua for keymaps
+  -- TODO: move to lazy plugin
   {
     'mrcjkb/haskell-tools.nvim',
     version = '^3', -- Recommended
     dependencies = { 'nvim-telescope/telescope.nvim' },
     ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
+    -- for searching signature under cursor with hoogle, package-local file
+    -- search, &c.
+    config = function()
+      require('telescope').load_extension('ht')
+    end
   },
 
   {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
+    build = ':TSUpdate',
     event = "BufRead",
     config = function()
       local configs = require 'nvim-treesitter.configs'
@@ -270,12 +312,8 @@ return {
 
   {
     "Robitx/gp.nvim",
-    config = function()
-      local conf = {
-        -- chat_model = "gpt-3.5",
-      }
-      --require('gp').setup(conf)
-    end
+    lazy = true,
+    config = true,
   },
 
   -- lspconfig revision
@@ -449,7 +487,7 @@ return {
           vim.keymap.set({ 'n', 'v' }, 'gd', vim.lsp.buf.definition, opts)
           vim.keymap.set({ 'n', 'v' }, 'K', vim.lsp.buf.hover, opts)
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+          vim.keymap.set({ 'n', 'v' }, 'gk', vim.lsp.buf.signature_help, opts)
           vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
           vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
           vim.keymap.set('n', '<space>wl', function()
@@ -469,6 +507,8 @@ return {
 
   { 'L3MON4D3/LuaSnip' },
   { 'mrcjkb/haskell-snippets.nvim' },
+  -- TODO: fix dependency order/factorize lsp & cmp config
+  -- see: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/coding.lua
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -543,6 +583,16 @@ return {
       })
 
       cmp.setup({
+        formatting = {
+          -- TODO: move to rust config? as it only breaks there
+          --expandable_indicator = true,
+          format = function(entry, vim_item)
+            vim_item.menu = nil
+            return vim_item
+          end,
+          fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind }
+        },
+
         experimental = {
           ghost_text = true,
         },

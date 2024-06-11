@@ -17,4 +17,4 @@ vim.keymap.set('n', '<leader>rf', function()
 end, def_opts)
 vim.keymap.set('n', '<leader>rq', ht.repl.quit, def_opts)
 
-vim.cmd[[HlsStart]]
+--vim.cmd[[HlsStart]]

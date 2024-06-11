@@ -30,7 +30,7 @@
 {
   dconf.settings = {
 
-    "org/gtk/settings/debug/enable-inspector-keybinding" = true;
+    "org/gtk/settings/debug" = { enable-inspector-keybinding = true; };
 
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
