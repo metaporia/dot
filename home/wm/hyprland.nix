@@ -25,6 +25,7 @@
     ];
   };
 
+
   programs.ssh = {
     enable = true;
   };
@@ -52,9 +53,12 @@
     # hyprland specific
 
     # window switcher
-    inputs.hyprswitch.packages.${pkgs.system}.default
+    inputs.hyprswitch.packages.${system}.default
 
   ];
+
+  # hyprswitch
+  xdg.configFile."hypr/hyprswitch.css".source = ./hyprswitch.css;
 
   # waybar
 

@@ -84,7 +84,7 @@
       "shell.ron".text = ''
         // <Anyrun config dir>/shell.ron
         Config(
-          prefix: ":sh",
+          prefix: "!",
           // Override the shell used to launch the command
           shell: bash,
         )

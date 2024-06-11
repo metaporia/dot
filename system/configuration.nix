@@ -58,7 +58,7 @@
 
   # Enable nix flakes 
   # what does this do?
-  nix.package = pkgs.nixUnstable;
+  nix.package = pkgs.nixVersions.latest;
 
 
   ################### 
@@ -106,21 +106,22 @@
     };
   };
 
+  # Enable touchpad see `man libinput` for more options
+  services.libinput = {
+    enable = true;
+    touchpad = {
+      disableWhileTyping = true;
+      tapping = true;
+    };
+  };
+
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
 
     # forcefully kill X
     enableCtrlAltBackspace = true;
-
-    # Enable touchpad see `man libinput` for more options
-    libinput = {
-      enable = true;
-      touchpad = {
-        disableWhileTyping = true;
-        tapping = true;
-      };
-    };
 
     # for hyprland, why the fuck does it need to be disabled?
     # it should default to false
