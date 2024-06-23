@@ -33,3 +33,5 @@ opt.listchars = 'eol:¶,space:.,tab:|·,trail:·,extends:»,precedes:«'
 
 --opt.timeoutlen = 150
 --opt.ttimeoutlen = 50
+
+opt.cursorline = true

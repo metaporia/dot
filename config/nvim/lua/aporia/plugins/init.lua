@@ -4,7 +4,14 @@ return {
 
   {
     "folke/trouble.nvim",
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    opts = {
+      auto_preview = false,
+      preview = {
+        --type = "split",
+        --relative = "win",
+
+      },
+    },
     cmd = "Trouble",
     keys = {
       {
@@ -240,6 +247,7 @@ return {
   {
     -- TODO lazy load
     url = 'https://gitlab.com/metaporia/muse-vim',
+    lazy = false,
     init = function()
       vim.g.muse_vim_log_dir = "~/sputum/muse"
     end
@@ -291,6 +299,7 @@ return {
         --ignore_install = { "javascript" },
         highlight = {
           enable = true,
+          --additional_vim_regex_highlighting = true,
         },
         indent = {
           enable = true,
@@ -505,14 +514,12 @@ return {
     end
   },
 
-  { 'L3MON4D3/LuaSnip' },
-  { 'mrcjkb/haskell-snippets.nvim' },
   -- TODO: fix dependency order/factorize lsp & cmp config
   -- see: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/coding.lua
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
-      --'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
@@ -523,10 +530,11 @@ return {
     },
     config = function()
       local cmp = require 'cmp'
+      local cmp_buffer = require('cmp_buffer')
       local luasnip = require 'luasnip'
       -- does this lazy load or doesn't it matter for snippets?
       local haskell_snippets = require('haskell-snippets').all
-      luasnip.add_snippets('haskell', haskell_snippets, { key = 'haskell' })
+      --luasnip.add_snippets('haskell', haskell_snippets, { key = 'haskell' })
 
       local has_words_before = function()
         unpack = unpack or table.unpack
@@ -644,13 +652,37 @@ return {
           }),
         },
 
+        -- from cmp-buffer, may break comparators
+        --sorting = {
+        --  priority_weight = 2,
+        --
+
+        --  comparators = {
+        --    function (...) return cmp_buffer:compare_locality(...) end,
+        --  },
+        --},
+
         sources = cmp.config.sources({
           { name = 'nvim_lsp', },
           { name = 'luasnip', },
           { name = 'nvim_lua', },
-          { name = 'buffer', },
-          { name = 'omni', },
+          -- Complete words from all open buffers
+          -- TODO: disable completion of words from buffers opened with, e.g.,
+          -- K or goto source
+          {
+            name = 'buffer',
+            keyword_length = 3,
+
+            option = {
+              get_bufnrs = function()
+                return vim.api.nvim_list_bufs()
+              end
+            }
+          },
+          --{ name = 'omni', },
           { name = 'path', },
+
+          -- TODO: tmux completions
         }),
         -- Use buffer source for `/` and `?` (if you enabled `native_menu`,
         -- this won't work anymore).
