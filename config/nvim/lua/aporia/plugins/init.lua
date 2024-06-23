@@ -194,27 +194,42 @@ return {
 
   {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.4',
-    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-fzf-native.nvim' },
-    config = function()
-      require('telescope').setup {
+    tag          = '0.1.4',
+    dependencies = { 'nvim-lua/plenary.nvim',
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build =
+        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+      },
+    },
+
+    opts         = function()
+      return {
         defaults = { layout_strategy = 'flex' },
+
+        --extensions = {
+        --  resession = {
+        --    --path_substitutions = { { find = "/home/aporia", replace = "~" }, },
+        --  }
+        --}
       }
-
-      local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>lf', builtin.find_files, {})
-      vim.keymap.set('n', '<leader>lg', builtin.live_grep, {})
-      vim.keymap.set('n', '<leader>lb', function() builtin.live_grep({ grep_open_files = true }) end, {})
-      vim.keymap.set('n', '<leader>b', builtin.buffers, {})
-      vim.keymap.set('n', '<leader>lh', builtin.help_tags, {})
     end,
+    keys         = {
+
+
+      { '<leader>lf', "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+      { '<leader>lg', "<cmd>Telescope live_grep<cr>",  desc = "Live grep" },
+      --{'<leader>lg', builtin.live_grep, {}) },
+      {
+        '<leader>lb',
+        function() require('telescope.builtin').live_grep({ grep_open_files = true }) end,
+        desc = "Live grep open files"
+      },
+      { '<leader>b',  "<cmd>Telescope buffers<cr>",   desc = "Buffers" },
+      { '<leader>lh', "<cmd>Telescope help_tags<cr>", desc = "Help tags" },
+    },
   },
 
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build =
-    'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
-  },
 
   {
     'echasnovski/mini.surround',
@@ -708,4 +723,82 @@ return {
       })
     end
   },
+
+
+  -- resession
+  {
+    -- NOTE: this kind of plugin spec extension/override must come /after/ the
+    -- plugin it is extending
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "scottmckendry/telescope-resession.nvim" },
+    keys = {
+      {
+        "<leader>ll",
+        function() require('telescope').extensions.resession.resession() end,
+        desc = "Telescope resession"
+      }
+    },
+    opts = function(_, opts)
+      return vim.tbl_deep_extend('force', opts.extensions or {},
+        {
+          extensions = {
+            resession = {
+              path_substitutions = { { find = "/home/aporia", replace = "~" }, },
+              prompt_title = "Find sessions 2",
+              dir = "session"
+            }
+          }
+        })
+    end
+
+  },
+
+  {
+    'stevearc/resession.nvim',
+    dependencies = {},
+    lazy = false,
+    config = function()
+      local opts = {
+        autosave =
+        {
+          enabled = true,
+          interval = 60,
+          notify = true,
+        },
+      }
+      local resession = require('resession')
+      resession.setup(opts)
+
+      -- Always save a special session named "last"
+      vim.api.nvim_create_autocmd("VimLeavePre", {
+        desc = "Resession: save last & save dirsession",
+        callback = function()
+          resession.save("last")
+          resession.save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
+        end,
+      })
+
+      -- Always save a special session named "last"
+      vim.api.nvim_create_autocmd("VimEnter", {
+        desc = "Resession: create directory sessions",
+
+        callback = function()
+          -- Only load the session if nvim was started with no args
+          if vim.fn.argc(-1) == 0 then
+            -- Save these to a different directory, so our manual sessions don't get polluted
+            resession.load(vim.fn.getcwd(), { dir = "dirsession", silence_errors = true })
+          end
+        end,
+        nested = true,
+      })
+
+      vim.keymap.set("n", "<leader>ss", resession.save)
+      vim.keymap.set("n", "<leader>sl", resession.load)
+      vim.keymap.set("n", "<leader>sd", resession.delete)
+
+      --vim.api.nvim_create_user_command('')
+    end,
+  },
+
+
 }
