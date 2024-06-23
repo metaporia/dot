@@ -105,7 +105,7 @@ abbr -a gc 'gcide -ne'
 # muse
 abbr m 'muse -c search '
 abbr mp 'muse parse'
-abbr -a -- log 'nvim -cLogToday -- ~/sputum/muse/{*,(today)}'
+abbr -a -- log 'nvim -cLogToday -- ~/sputum/muse/*'
 
 
 # misc
