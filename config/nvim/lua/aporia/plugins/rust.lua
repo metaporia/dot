@@ -4,7 +4,51 @@ return {
   {
     'mrcjkb/rustaceanvim',
     version = '^4', -- Recommended
-    lazy = false, -- This plugin is already lazy
+    ft = { "rust" },
+    opts = {
+      tools = {
+        float_win_config = { auto_focus = true },
+      },
+      server = {
+
+
+        on_attach = function(_, bufnr)
+          vim.keymap.set("n", "<space>d", function()
+              vim.cmd.RustLsp('openDocs')
+            end,
+            { desc = "Open Cargo Docs", silent = true, buffer = bufnr }
+          )
+
+          vim.keymap.set("n", "<space>a", function()
+              vim.cmd.RustLsp('codeAction')
+            end,
+            { desc = "Code Action (Rust)", silent = true, buffer = bufnr }
+          )
+
+          vim.keymap.set("n", "<space>rd", function()
+              vim.cmd.RustLsp('renderDiagnostic')
+            end,
+            { desc = "Render Diagnostics (Rust)", silent = true, buffer = bufnr }
+          )
+
+        end
+
+        --default_settings = {
+        --["rust-analyzer"] = {
+        --  keys = {
+        --    { "<space>a",  "<cmd>RustLsp codeAction<cr>",        desc = "Code Actions (Rust)" },
+        --    { "<space>d",  "<cmd>RustLsp openDocs<cr>",          desc = "Open docs.rs (Rust)" },
+        --    { "<space>rd", "<cmd>RustLsp renderDiagnostics<cr>", desc = "Render Diagnostics (Rust)" },
+        --  }
+        --},
+        --},
+      },
+    },
+    config = function(_, opts)
+      vim.g.rustaceanvim = vim.tbl_deep_extend("force",
+        {},
+        opts or {})
+    end
   },
 
   {
