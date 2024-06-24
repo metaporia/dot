@@ -11,7 +11,7 @@
       Service = {
         ExecStart = "${pkgs.kidex}/bin/kidex";
       };
-      Install = { WantedBy = [ "multi-user.target" ]; };
+      Install = { WantedBy = [ "default.target" ]; };
     };
   };
 
@@ -41,7 +41,6 @@
           # plugin order determines result ordering in picker
           applications
           shell
-          randr
           stdin
           translate
           websearch
