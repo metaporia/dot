@@ -63,6 +63,10 @@ label.module {
 }
 */
 
+#temperature.critical {
+  background-color: red;
+}
+
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 /*#battery.critical:not(.charging) { */
 #battery.critical:not(.charging) {
