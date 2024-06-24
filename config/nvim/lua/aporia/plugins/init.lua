@@ -205,13 +205,16 @@ return {
 
     opts         = function()
       return {
-        defaults = { layout_strategy = 'flex' },
-
-        --extensions = {
-        --  resession = {
-        --    --path_substitutions = { { find = "/home/aporia", replace = "~" }, },
-        --  }
-        --}
+        defaults = {
+          layout_strategy = 'flex',
+          layout_config = {
+            -- TODO: make this dynamic based on width:height ratio
+            flip_columns = 200,
+            preview_cutoff = 20,
+            vertical = { },
+            horizontal = { },
+          },
+        },
       }
     end,
     keys         = {
@@ -726,32 +729,30 @@ return {
 
 
   -- resession
-  {
-    -- NOTE: this kind of plugin spec extension/override must come /after/ the
-    -- plugin it is extending
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "scottmckendry/telescope-resession.nvim" },
-    keys = {
-      {
-        "<leader>ll",
-        function() require('telescope').extensions.resession.resession() end,
-        desc = "Telescope resession"
-      }
-    },
-    opts = function(_, opts)
-      return vim.tbl_deep_extend('force', opts.extensions or {},
+    {
+      -- NOTE: this kind of plugin spec extension/override must come /after/ the
+      -- plugin it is extending
+      "nvim-telescope/telescope.nvim",
+      dependencies = { "scottmckendry/telescope-resession.nvim" },
+      keys = {
         {
-          extensions = {
+          "<leader>ll",
+          function() require('telescope').extensions.resession.resession() end,
+          desc = "Telescope resession"
+        }
+      },
+      opts = function(_, opts)
+      return vim.tbl_deep_extend('force', opts.extensions or {},
+          {
             resession = {
               path_substitutions = { { find = "/home/aporia", replace = "~" }, },
-              prompt_title = "Find sessions 2",
+              prompt_title = "Sessions",
               dir = "session"
             }
-          }
         })
-    end
-
-  },
+      end
+  
+    },
 
   {
     'stevearc/resession.nvim',
