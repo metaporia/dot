@@ -1,6 +1,134 @@
 -- default plugin spec. all files in ../plugins/ will be merged into single
 -- spec and loaded by lazy.nvim
 return {
+  --
+  --  {
+  --    "mfussenegger/nvim-dap",
+  --    lazy = true,
+  --    config = true,
+  --    keys = {
+  --
+  --      {
+  --        '<F5>',
+  --        function() require('dap').continue() end,
+  --        mode = { "n" },
+  --        desc = "continue (DAP)"
+  --      },
+  --      {
+  --        '<F6>',
+  --        function() require('dap').step_into() end,
+  --        mode = { "n" },
+  --        desc = "step into (DAP)"
+  --      },
+  --      {
+  --        '<F7>',
+  --        function() require('dap').step_over() end,
+  --        mode = { "n" },
+  --        desc = "step over (DAP)"
+  --      },
+  --      {
+  --        '<F8>',
+  --        function() require('dap').step_out() end,
+  --        mode = { "n" },
+  --        desc = "step out (DAP)"
+  --      },
+  --      {
+  --        '<space>dp',
+  --        function() require('dap').pause() end,
+  --        mode = { "n" },
+  --        desc = "pause (DAP)"
+  --      },
+  --
+  --      {
+  --        '<space>dl',
+  --        function() require('dap').run_last() end,
+  --        mode = { "n" },
+  --        desc = "run last (DAP)"
+  --      },
+  --      {
+  --        '<space>dt',
+  --        function() require('dap').toggle_breakpoint() end,
+  --        mode = { "n" },
+  --        desc = "toggle breakpoint (DAP)"
+  --      },
+  --    },
+  --  },
+  --
+  --  {
+  --    "rcarriga/nvim-dap-ui",
+  --    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+  --    lazy = true,
+  --    config = true,
+  --    keys = {
+  --      {
+  --        '<space>do',
+  --        function() require('dapui').toggle() end
+  --        ,
+  --        mode = { 'n' },
+  --        desc = 'toggle (dap-ui)'
+  --      },
+  --      {
+  --        '<M-d>',
+  --        function() require('dapui').eval() end
+  --        ,
+  --        mode = { 'n', 'v' },
+  --        desc = 'close (dap-ui)'
+  --      },
+  --      --{
+  --      --  '<space>do',
+  --      --  function() require('dapui').open() end
+  --      --  ,
+  --      --  mode = { 'n' },
+  --      --  desc = 'open (dap-ui)'
+  --      --},
+  --      --{
+  --      --  '<space>do',
+  --      --  function() require('dapui').open() end
+  --      --  ,
+  --      --  mode = { 'n' },
+  --      --  desc = 'open (dap-ui)'
+  --      --},
+  --    },
+  --  },
+
+  {
+    "chrishrb/gx.nvim",
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+    init = function()
+      vim.g.netrw_nogx = 1 -- disable netrw gx
+    end,
+    submodules = false,
+    opts = {
+      handlers = {
+        plugin = true,
+        search = true, -- just google it as fallback
+      }
+    },
+  },
+
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = function()
+      local opts = {
+        check_ts = true, -- check treesitter
+        map_c_h = true,
+        map_c_w = true
+      }
+      require("nvim-autopairs").setup({ opts })
+      local npairs = require("nvim-autopairs")
+      local rule = require("nvim-autopairs.rule")
+      local cond = require("nvim-autopairs.conds")
+      npairs.add_rules({ rule("|", "|"
+      , { "rust", "lua" }):with_move(cond.after_regex("|")) })
+    end
+
+    -- use opts = {} for passing setup options
+    -- this is equalent to setup({}) function
+
+
+  },
 
   {
     "folke/trouble.nvim",
@@ -141,24 +269,29 @@ return {
   -- COLORSCHEMES --
   ------------------
 
+
   {
-    'tiagovla/tokyodark.nvim', -- TODO replace with folke's?
-    opts = {},
-    config = function(_, opts)
-      require("tokyodark").setup(opts)
-      --vim.cmd [[colorscheme tokyodark]]
-    end
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = function()
+      local util = require('tokyonight.util')
+      return {
+        style = 'night',
+        on_highlights = function(highlights, colors)
+          highlights.WinSeparator = {
+            bold = true,
+            fg = util.darken(colors.purple, 0.6),
+          }
+        end
+      }
+    end,
+
   },
 
   {
     'navarasu/onedark.nvim',
-    config = function()
-      require('onedark').setup {
-        style = 'darker',
-
-      }
-      require('onedark').load()
-    end
+    opts = { style = 'darker' },
   },
 
   {
@@ -166,30 +299,60 @@ return {
     config = function()
       vim.o.background = 'dark'
       vim.g.gruvbox_material_background = 'hard' -- hard, medium, soft
-      --vim.cmd [[colorscheme gruvbox-material]]
+      --vim.cmd
     end
   },
 
   {
     'nvim-lualine/lualine.nvim',
+
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('lualine').setup {
-        sections = {
-          lualine_a = { 'mode' },
-          lualine_b = { 'branch' },
-          lualine_c = {
-            {
-              'filename',
-              path = 1
-            }
-          },
-          lualine_x = { 'diagnostics' },
-          lualine_y = { 'filetype' },
-          lualine_z = { 'progress', 'location' }
-        }
-      }
-    end
+    opts =
+    {
+      options = {
+        theme = 'tokyonight',
+        globalstatus = true,
+      },
+
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch' },
+        lualine_c = {
+          {
+            'filename',
+            path = 1
+          }
+        },
+        lualine_x = { 'diagnostics' },
+        lualine_y = { 'filetype' },
+        lualine_z = { 'progress', 'location' }
+      },
+      winbar = {
+        lualine_a = {
+        },
+        lualine_b = { 'filetype' },
+        lualine_c = {
+          {
+            'filename',
+            path = 4,
+            --shorting_target = 50,
+          }
+        },
+      },
+      inactive_winbar = {
+        lualine_a = {
+        },
+        lualine_b = { 'filetype' },
+        lualine_c = {
+          {
+            'filename',
+            path = 4,
+            --shorting_target = 50,
+          }
+        },
+      },
+
+    }
   },
 
   {
@@ -203,21 +366,31 @@ return {
       },
     },
 
-    opts         = function()
+
+    opts = function()
       return {
+        pickers = {
+          buffers = {
+            mappings = {
+              -- TODO:
+            },
+          },
+        },
         defaults = {
           layout_strategy = 'flex',
           layout_config = {
             -- TODO: make this dynamic based on width:height ratio
-            flip_columns = 200,
+            flex = {
+              flip_columns = 180,
+            },
             preview_cutoff = 20,
-            vertical = { },
-            horizontal = { },
+            --vertical = { },
+            --horizontal = { },
           },
         },
       }
     end,
-    keys         = {
+    keys = {
 
 
       { '<leader>lf', "<cmd>Telescope find_files<cr>", desc = "Find Files" },
@@ -228,8 +401,39 @@ return {
         function() require('telescope.builtin').live_grep({ grep_open_files = true }) end,
         desc = "Live grep open files"
       },
-      { '<leader>b',  "<cmd>Telescope buffers<cr>",   desc = "Buffers" },
-      { '<leader>lh', "<cmd>Telescope help_tags<cr>", desc = "Help tags" },
+      {
+        '<leader>b',
+        function()
+          local builtin = require('telescope.builtin')
+          local action_state = require('telescope.actions.state')
+          builtin.buffers({
+            --initial_mode = "normal",
+            attach_mappings = function(prompt_bufnr, map)
+              local delete_buf = function()
+                local current_picker = action_state.get_current_picker(prompt_bufnr)
+                current_picker:delete_selection(function(selection)
+                  vim.api.nvim_buf_delete(selection.bufnr, { force = true })
+                end)
+              end
+
+              map('n', '<c-k>', delete_buf)
+              map('i', '<c-k>', delete_buf)
+
+              return true
+            end
+          }, {
+            sort_lastused = true,
+            sort_mru = true,
+            theme = "dropdown"
+          })
+        end
+        ,
+        desc = "Buffers"
+      },
+      { '<leader>lh', "<cmd>Telescope help_tags<cr>",                     desc = "Help tags" },
+      { '<leader>lr', "<cmd>Telescope resume<cr>",                        desc = "Telescope Resume" },
+      { '<space>s',   "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Telescope Workspace Symbols (LSP)" },
+
     },
   },
 
@@ -286,56 +490,6 @@ return {
     end
   },
 
-  {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    event = "BufRead",
-    config = function()
-      local configs = require 'nvim-treesitter.configs'
-      configs.setup {
-        auto_install = false,
-        sync_install = false,
-        ignore_install = {},
-        modules = {},
-        -- TODO:
-        --  * lua indent
-        --  * cpp clangd, clang-format, indentation
-        ensure_installed =
-        { "markdown",
-          "markdown_inline",
-          "haskell",
-          "cpp",
-          "nix",
-          "lua",
-          "vim",
-          "vimdoc",
-          "query",
-          "json",
-          "bash"
-        },
-        --auto_install = true,
-        --ignore_install = { "javascript" },
-        highlight = {
-          enable = true,
-          --additional_vim_regex_highlighting = true,
-        },
-        indent = {
-          enable = true,
-          disable = { "markdown", "markdown_inline" },
-        },
-        incremental_selection = {
-          enable = true,
-        }
-      }
-
-      -- normal mode 'zi' to enable folding
-      vim.opt.foldmethod = 'expr'
-      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-      vim.opt.foldlevelstart = 2
-      vim.opt.foldenable = false
-    end
-
-  },
 
   {
     "Robitx/gp.nvim",
@@ -419,11 +573,18 @@ return {
             diagnostics = {
               globals = { "vim" },
             },
+            format = {
+              enable = true,
+              defaultConfig = {
+                indent_size = 2,
+                max_line_length = 79,
+              },
+            },
             -- Make the server aware of Neovim runtime files
             workspace = {
               checkThirdParty = false,
               --library = {
-              --  -- https://stackoverflow.com/questions/75880481/cant-use-lua-lsp-in-neovim
+              --   https://stackoverflow.com/questions/75880481/cant-use-lua-lsp-in-neovim
               --  --(vim.env.VIMRUNTIME .. "/lua"),
               --  --(vim.fn.stdpath "data" .. "/lazy"), -- ~/.local/share/nvim
               --  --(vim.fn.stdpath "data" .. "/lazy"), -- ~/.local/share/nvim
@@ -444,10 +605,15 @@ return {
       }
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = "Diagnostic open float" })
+      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Goto prev diagnostic" })
+      vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Goto next diagnostic" })
+      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = "Set loclist with diagnostics" })
+      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = "Set loclist with diagnostics" })
+      vim.keymap.set('n', '<space>td',
+        function()
+          vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+        end, { desc = "Toggle diagnostics" })
 
       -- Add border to lsp floating windows
       local _border = "rounded"
@@ -509,24 +675,26 @@ return {
 
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
-          local opts = { buffer = ev.buf }
-          vim.keymap.set({ 'n', 'v' }, 'gD', vim.lsp.buf.declaration, opts)
-          vim.keymap.set({ 'n', 'v' }, 'gd', vim.lsp.buf.definition, opts)
-          vim.keymap.set({ 'n', 'v' }, 'K', vim.lsp.buf.hover, opts)
-          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-          vim.keymap.set({ 'n', 'v' }, 'gk', vim.lsp.buf.signature_help, opts)
-          vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-          vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+          local function opts(description)
+            return { buffer = ev.buf, desc = description }
+          end
+          vim.keymap.set({ 'n', 'v' }, 'gD', vim.lsp.buf.declaration, opts('Go to declaration (Lsp)'))
+          vim.keymap.set({ 'n', 'v' }, 'gd', vim.lsp.buf.definition, opts('Go to definition (LSP)'))
+          vim.keymap.set({ 'n', 'v' }, 'K', vim.lsp.buf.hover, opts('Hover (LSP)'))
+          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts('Go to implementation (LSP)'))
+          vim.keymap.set({ 'n', 'v' }, 'gk', vim.lsp.buf.signature_help, opts('Signature help (LSP)'))
+          vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts('Add workspace folder (LSP)'))
+          vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts('Remove workspace folder (LSP)'))
           vim.keymap.set('n', '<space>wl', function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, opts)
-          vim.keymap.set('n', '<space>d', vim.lsp.buf.type_definition, opts)
-          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-          vim.keymap.set({ 'n', 'v' }, '<space>a', vim.lsp.buf.code_action, opts)
-          vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+          end, opts('List workspace folders (LSP)'))
+          vim.keymap.set('n', '<space>d', vim.lsp.buf.type_definition, opts('Type definition (LSP)'))
+          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts('Rename (LSP)'))
+          vim.keymap.set({ 'n', 'v' }, '<space>a', vim.lsp.buf.code_action, opts('Code action (LSP)'))
+          vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts('Quickfix references (LSP)'))
           vim.keymap.set('n', '<space>f', function()
             vim.lsp.buf.format { async = true }
-          end, opts)
+          end, opts('Format (LSP)'))
         end,
       })
     end
@@ -729,30 +897,33 @@ return {
 
 
   -- resession
-    {
-      -- NOTE: this kind of plugin spec extension/override must come /after/ the
-      -- plugin it is extending
-      "nvim-telescope/telescope.nvim",
-      dependencies = { "scottmckendry/telescope-resession.nvim" },
-      keys = {
+  {
+    -- NOTE: this kind of plugin spec extension/override must come /after/ the
+    -- plugin it is extending
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "scottmckendry/telescope-resession.nvim" },
+    keys = {
+      {
+        "<leader>ll",
+        function() require('telescope').extensions.resession.resession() end,
+        desc = "Telescope resession"
+      }
+    },
+    opts = function(_, opts)
+      return vim.tbl_deep_extend('force', opts or {},
         {
-          "<leader>ll",
-          function() require('telescope').extensions.resession.resession() end,
-          desc = "Telescope resession"
-        }
-      },
-      opts = function(_, opts)
-      return vim.tbl_deep_extend('force', opts.extensions or {},
-          {
+          extensions = {
+
             resession = {
               path_substitutions = { { find = "/home/aporia", replace = "~" }, },
               prompt_title = "Sessions",
               dir = "session"
             }
+          }
         })
-      end
-  
-    },
+    end
+
+  },
 
   {
     'stevearc/resession.nvim',

@@ -3,7 +3,7 @@
 local opt = vim.o
 
 opt.expandtab = true -- Use spaces instead of tabs
-opt.ignorecase = true -- Ignore case
+opt.ignorecase = true
 opt.undofile = true
 opt.backup = false
 
@@ -35,3 +35,11 @@ opt.listchars = 'eol:¶,space:.,tab:|·,trail:·,extends:»,precedes:«'
 --opt.ttimeoutlen = 50
 
 opt.cursorline = true
+
+
+-- support formatting bulleted lists within comments
+vim.cmd [[set formatoptions+=n]]
+
+-- vim.opt.formatoptions:insert({'n'})
+-- :set formatlistpat=^\\s*[\\-\\+\\*]\\+\\s\\+
+opt.formatlistpat = '^\\s*[\\-\\+\\*]\\+\\s\\+'

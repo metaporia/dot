@@ -7,17 +7,28 @@ return {
     ft = { "rust" },
     opts = {
       tools = {
-        float_win_config = { auto_focus = true },
+        float_win_config = { auto_focus = true, border = 'rounded' },
       },
       server = {
+        default_settings = {
+          ['rust-analyzer'] = {
+          },
+        },
 
 
         on_attach = function(_, bufnr)
           vim.keymap.set("n", "<space>d", function()
               vim.cmd.RustLsp('openDocs')
             end,
-            { desc = "Open Cargo Docs", silent = true, buffer = bufnr }
+            { desc = "Open Cargo Docs (Rust)", silent = true, buffer = bufnr }
           )
+
+          vim.keymap.set("n", "<space>e", function()
+              vim.cmd.RustLsp('explainError')
+            end,
+            { desc = "Explain Error (Rust)", silent = true, buffer = bufnr }
+          )
+
 
           vim.keymap.set("n", "<space>a", function()
               vim.cmd.RustLsp('codeAction')
@@ -30,7 +41,6 @@ return {
             end,
             { desc = "Render Diagnostics (Rust)", silent = true, buffer = bufnr }
           )
-
         end
 
         --default_settings = {

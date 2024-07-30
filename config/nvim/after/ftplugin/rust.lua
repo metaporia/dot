@@ -11,3 +11,5 @@
 --  end,
 --  { silent = true, buffer = bufnr }
 --)
+
+vim.o.textwidth = 79
