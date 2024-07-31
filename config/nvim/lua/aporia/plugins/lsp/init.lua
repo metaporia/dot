@@ -133,17 +133,6 @@ return {
 				callback = set_hl_for_floating_window,
 			})
 
-			-- for square popups
-			local __border = {
-				{ "🭽", "FloatBorder" },
-				{ "▔", "FloatBorder" },
-				{ "🭾", "FloatBorder" },
-				{ "▕", "FloatBorder" },
-				{ "🭿", "FloatBorder" },
-				{ "▁", "FloatBorder" },
-				{ "🭼", "FloatBorder" },
-				{ "▏", "FloatBorder" },
-			}
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 				border = _border,
 			})
@@ -162,33 +151,63 @@ return {
 
 					-- Buffer local mappings.
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
-					local function opts(description)
+					local function per_buffer_with_desc(description)
 						return { buffer = ev.buf, desc = description }
 					end
-					vim.keymap.set({ "n", "v" }, "gD", vim.lsp.buf.declaration, opts("Go to declaration (Lsp)"))
-					vim.keymap.set({ "n", "v" }, "gd", vim.lsp.buf.definition, opts("Go to definition (LSP)"))
-					vim.keymap.set({ "n", "v" }, "K", vim.lsp.buf.hover, opts("Hover (LSP)"))
-					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts("Go to implementation (LSP)"))
-					vim.keymap.set({ "n", "v" }, "gk", vim.lsp.buf.signature_help, opts("Signature help (LSP)"))
+					vim.keymap.set(
+						{ "n", "v" },
+						"gD",
+						vim.lsp.buf.declaration,
+						per_buffer_with_desc("Go to declaration (Lsp)")
+					)
+					vim.keymap.set(
+						{ "n", "v" },
+						"gd",
+						vim.lsp.buf.definition,
+						per_buffer_with_desc("Go to definition (LSP)")
+					)
+					vim.keymap.set({ "n", "v" }, "K", vim.lsp.buf.hover, per_buffer_with_desc("Hover (LSP)"))
+					vim.keymap.set(
+						"n",
+						"gi",
+						vim.lsp.buf.implementation,
+						per_buffer_with_desc("Go to implementation (LSP)")
+					)
+					vim.keymap.set(
+						{ "n", "v" },
+						"gk",
+						vim.lsp.buf.signature_help,
+						per_buffer_with_desc("Signature help (LSP)")
+					)
 					vim.keymap.set(
 						"n",
 						"<space>wa",
 						vim.lsp.buf.add_workspace_folder,
-						opts("Add workspace folder (LSP)")
+						per_buffer_with_desc("Add workspace folder (LSP)")
 					)
 					vim.keymap.set(
 						"n",
 						"<space>wr",
 						vim.lsp.buf.remove_workspace_folder,
-						opts("Remove workspace folder (LSP)")
+						per_buffer_with_desc("Remove workspace folder (LSP)")
 					)
 					vim.keymap.set("n", "<space>wl", function()
 						print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-					end, opts("List workspace folders (LSP)"))
-					vim.keymap.set("n", "<space>d", vim.lsp.buf.type_definition, opts("Type definition (LSP)"))
-					vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts("Rename (LSP)"))
-					vim.keymap.set({ "n", "v" }, "<space>a", vim.lsp.buf.code_action, opts("Code action (LSP)"))
-					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts("Quickfix references (LSP)"))
+					end, per_buffer_with_desc("List workspace folders (LSP)"))
+					vim.keymap.set(
+						"n",
+						"<space>d",
+						vim.lsp.buf.type_definition,
+						per_buffer_with_desc("Type definition (LSP)")
+					)
+					vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, per_buffer_with_desc("Rename (LSP)"))
+					vim.keymap.set(
+						{ "n", "v" },
+						"<space>a",
+						vim.lsp.buf.code_action,
+						per_buffer_with_desc("Code action (LSP)")
+					)
+					vim.keymap.set("n", "gr", vim.lsp.buf.references, per_buffer_with_desc("Quickfix references (LSP)"))
 					--vim.keymap.set('n', '<space>f', function()
 					--  vim.lsp.buf.format { async = true }
 					--end, opts('Format (LSP)'))

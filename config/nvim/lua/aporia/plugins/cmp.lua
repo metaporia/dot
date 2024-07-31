@@ -4,7 +4,7 @@ return {
 	-- see: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/coding.lua
 	{
 		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
+		event = { "InsertEnter", "CmdlineEnter"},
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			--'hrsh7th/cmp-nvim-lua',
@@ -17,7 +17,7 @@ return {
 		},
 		opts = function()
 			local cmp = require("cmp")
-			local cmp_buffer = require("cmp_buffer")
+			--local cmp_buffer = require("cmp_buffer")
 			--local luasnip = require 'luasnip'
 
 			-- from luansip supertab config
@@ -158,6 +158,20 @@ return {
 
 					-- TODO: tmux completions
 				}),
+
+				-- TODO
+				-- * if completion window visible, C-n/p navigate completion
+				-- suggestions rather than command history.
+				cmp.setup.cmdline(":", {
+					--mapping = cmp.mapping.preset.cmdline(),
+					mapping = cmd_keymap,
+					sources = cmp.config.sources({
+						{ name = "path" },
+					}, {
+						{ name = "cmdline" },
+					}),
+				}),
+
 				-- Use buffer source for `/` and `?` (if you enabled `native_menu`,
 				-- this won't work anymore).
 				cmp.setup.cmdline({ "/", "?" }, {
@@ -167,17 +181,6 @@ return {
 					},
 				}),
 
-				-- TODO
-				-- * if completion window visible, C-n/p navigate completion
-				-- suggestions rather than command history.
-				cmp.setup.cmdline(":", {
-					mapping = cmd_keymap,
-					sources = cmp.config.sources({
-						{ name = "path" },
-					}, {
-						{ name = "cmdline" },
-					}),
-				}),
 			}
 		end,
 	},
