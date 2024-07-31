@@ -27,7 +27,7 @@ opt.relativenumber = true
 
 opt.termguicolors = true
 
-opt.listchars = 'eol:¶,space:.,tab:|·,trail:·,extends:»,precedes:«'
+opt.listchars = "eol:¶,space:.,tab:|·,trail:·,extends:»,precedes:«"
 -- jtcqln
 --opt.formatoptions = 'tcroq
 
@@ -36,10 +36,9 @@ opt.listchars = 'eol:¶,space:.,tab:|·,trail:·,extends:»,precedes:«'
 
 opt.cursorline = true
 
-
 -- support formatting bulleted lists within comments
-vim.cmd [[set formatoptions+=n]]
+vim.cmd([[set formatoptions+=n]])
 
 -- vim.opt.formatoptions:insert({'n'})
 -- :set formatlistpat=^\\s*[\\-\\+\\*]\\+\\s\\+
-opt.formatlistpat = '^\\s*[\\-\\+\\*]\\+\\s\\+'
+opt.formatlistpat = "^\\s*[\\-\\+\\*]\\+\\s\\+"
