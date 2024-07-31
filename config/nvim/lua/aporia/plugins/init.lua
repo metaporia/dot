@@ -91,8 +91,7 @@ return {
 	--    },
 	--  },
 
-
-  -- overide vim.ui.select
+	-- overide vim.ui.select
 	{
 		"stevearc/dressing.nvim",
 		opts = {},
@@ -520,7 +519,7 @@ return {
 		lazy = false,
 		opts = {
 			-- exclude directories from session creation
-			exclude_dirs = { "/home/aporia/" },
+			exclude_dirs = { "/home/aporia" },
 			autosave = {
 				enabled = true,
 				interval = 60,
@@ -531,14 +530,13 @@ return {
 			local resession = require("resession")
 			resession.setup(opts)
 
-			-- Always save a special session named "last"
-			-- vim.api.nvim_create_autocmd("VimLeavePre", {
-			--   desc = "Resession: save last & save dirsession",
-			--   callback = function()
-			--     resession.save("last")
-			--     resession.save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
-			--   end,
-			-- })
+      -- create session from current directory on exit
+			vim.api.nvim_create_autocmd("VimLeavePre", {
+				desc = "Resession: save dirsession",
+				callback = function()
+					resession.save(vim.fn.getcwd(), { dir = "dirsession", notify = true })
+				end,
+			})
 
 			-- Always save a special session named "last"
 			vim.api.nvim_create_autocmd("VimEnter", {
@@ -547,16 +545,17 @@ return {
 				callback = function()
 					-- Only load the session if nvim was started with no args
 					if vim.fn.argc(-1) == 0 then
-						local cwd = vim.fn.getcwd()
 						-- apply opts.exclude_dirs
-						for i, dir in ipairs(opts.exclude_dirs) do
-							if dir == cwd then
-								return
-							end
-						end
+
+						--local cwd = vim.fn.getcwd()
+						-- for _, dir in ipairs(opts.exclude_dirs) do
+						-- 	if dir == cwd then
+						-- 		return
+						-- 	end
+						-- end
 
 						-- Save these to a different directory, so our manual sessions don't get polluted
-						resession.load(vim.fn.getcwd(), { dir = "dirsession", silence_errors = true })
+						resession.load(vim.fn.getcwd(), { dir = "dirsession", silence_errors = false })
 					end
 				end,
 				nested = true,
@@ -564,8 +563,7 @@ return {
 
 			vim.keymap.set("n", "<leader>ss", resession.save, { desc = "Resession save" })
 			vim.keymap.set("n", "<leader>sl", resession.load, { desc = "Resession load" })
-			vim.keymap.set("n", "<leader>sd", resession.delete, { desc = "Ression delete" })
-
+			vim.keymap.set("n", "<leader>sd", resession.delete, { desc = "Resession delete" })
 			--vim.api.nvim_create_user_command('')
 		end,
 	},
