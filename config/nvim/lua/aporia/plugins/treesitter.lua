@@ -2,7 +2,7 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
+    event = { "BufReadPost", "BufWritePre", "BufNewFile", "VeryLazy" },
     -- from LazyVim [treesitter.lua](https://github.com/LazyVim/LazyVim/blob/12818a6cb499456f4903c5d8e68af43753ebc869/lua/lazyvim/plugins/treesitter.lua)
     init = function(plugin)
       -- PERF; add nvim-treesitter queries to the rtp and it's custom query
@@ -16,9 +16,14 @@ return {
       require("lazy.core.loader").add_to_rtp(plugin)
       require("nvim-treesitter.query_predicates")
     end,
-    config = function()
-      local configs = require 'nvim-treesitter.configs'
-      configs.setup {
+    opts = function()
+      -- normal mode 'zi' to enable folding
+      vim.opt.foldmethod = 'expr'
+      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+      vim.opt.foldlevelstart = 2
+      vim.opt.foldenable = false
+
+      return {
         auto_install = false,
         sync_install = false,
         ignore_install = {},
@@ -54,13 +59,10 @@ return {
           enable = true,
         }
       }
-
-      -- normal mode 'zi' to enable folding
-      vim.opt.foldmethod = 'expr'
-      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-      vim.opt.foldlevelstart = 2
-      vim.opt.foldenable = false
-    end
+    end,
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
 
   },
 
@@ -69,17 +71,17 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     event = "VeryLazy",
-    enabled = true,
-    config = function()
-      local util = require('aporia.util')
+    --enabled = true,
+    config = false,
+      --local util = require('aporia.util')
 
       -- from LazyVim treesitter.lua:
       --
       -- If treesitter is already loaded, we need to run config again for textobjects
-      if util.is_loaded("nvim-treesitter") then
-        local opts = {}
-        require("nvim-treesitter.configs").setup(opts)
-      end
-    end,
+      --if util.is_loaded("nvim-treesitter") then
+      --  require("nvim-treesitter.configs").setup({
+      --    textobjects = { move = { enable = true, set_jumps = true } },
+      --  })
+      --end
   }
 }
