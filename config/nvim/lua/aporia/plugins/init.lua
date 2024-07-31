@@ -91,6 +91,13 @@ return {
 	--    },
 	--  },
 
+
+  -- overide vim.ui.select
+	{
+		"stevearc/dressing.nvim",
+		opts = {},
+	},
+
 	{
 		"chrishrb/gx.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
