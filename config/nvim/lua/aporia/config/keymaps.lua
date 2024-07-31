@@ -3,7 +3,7 @@
 local k = vim.keymap
 
 local function noremap(mode, lhs, rhs)
-	vim.keymap.set(mode, lhs, rhs, { noremap = true })
+	vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true })
 end
 
 noremap("n", "\\", ",")
@@ -50,7 +50,7 @@ noremap("n", "<Leader>p", '"+p') -- past system clip
 noremap("n", "<Leader>is", '"*p') -- past system sel
 
 -- terminal maps
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
-vim.keymap.set("t", "<C-k>", ":bd!<CR>", { noremap = true })
-vim.keymap.set("t", "jk", [[<C-\><C-n>]], { noremap = true })
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
+vim.keymap.set("t", "<C-k>", ":bd!<CR>", { noremap = true, silent = true })
+vim.keymap.set("t", "jk", [[<C-\><C-n>]], { noremap = true, silent = true })

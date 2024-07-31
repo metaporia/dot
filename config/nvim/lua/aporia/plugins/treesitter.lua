@@ -44,6 +44,7 @@ return {
 					"query",
 					"json",
 					"bash",
+          "regex"
 				},
 				--auto_install = true,
 				--ignore_install = { "javascript" },
