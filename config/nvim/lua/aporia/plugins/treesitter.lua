@@ -19,9 +19,9 @@ return {
 		opts = function()
 			-- normal mode 'zi' to enable folding
 			vim.opt.foldmethod = "expr"
-			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-			vim.opt.foldlevelstart = 2
-			vim.opt.foldenable = false
+			--vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+			--vim.opt.foldlevelstart = 2
+			--vim.opt.foldenable = false
 
 			return {
 				auto_install = false,
