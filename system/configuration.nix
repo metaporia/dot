@@ -49,7 +49,7 @@
 
 
       substituters = [
-        "https::/cache.nixos.org"
+        "https://cache.nixos.org"
         "https://cache.iog.io"
         "https://anyrun.cachix.org"
       ];
