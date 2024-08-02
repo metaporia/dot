@@ -42,12 +42,14 @@
 
       # Binary Cache for Haskell.nix
       trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
         "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       ];
 
 
       substituters = [
+        "https::/cache.nixos.org"
         "https://cache.iog.io"
         "https://anyrun.cachix.org"
       ];
