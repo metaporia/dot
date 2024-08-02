@@ -228,6 +228,17 @@
 
   };
 
+  programs = {
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      config = {
+        hide_env_diff = true;
+      };
+    };
+    fish.enable = true;
+  };
+
   # Add tmux session so that kitty always runs tmux on startup unless overriden
   # with the `--session` option.
   xdg.configFile."kitty/tmux_session.conf".text = ''
