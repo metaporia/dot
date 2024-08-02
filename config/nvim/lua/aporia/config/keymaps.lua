@@ -9,7 +9,7 @@ end
 noremap("n", "\\", ",")
 
 noremap("i", "jk", "<Esc>")
-noremap("n", "<Leader>w", ":w<CR>")
+noremap("n", "<leader>w", ":w<CR>")
 
 noremap("n", "<Leader>r", require("aporia.reload").reload_config)
 -- TODO make interactive function that:

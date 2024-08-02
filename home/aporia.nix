@@ -63,6 +63,7 @@
     zoom-us
     # nvim deps
     nixd
+    stylua
 
   ];
 

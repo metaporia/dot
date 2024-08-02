@@ -83,6 +83,9 @@ return {
 		},
 		opts = {
 			lsp = {
+        hover = {
+          silent = true, -- don't show message if hover unavailable
+        },
 				override = {
 					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 					["vim.lsp.util.stylize_markdown"] = true,
@@ -106,6 +109,7 @@ return {
 				bottom_search = true,
 				command_palette = false,
 				long_message_to_split = true,
+        lsp_doc_border = true,
 			},
 			cmdline = { enabled = true, view = "cmdline_popup" },
 		},

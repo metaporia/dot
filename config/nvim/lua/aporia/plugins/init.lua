@@ -264,6 +264,7 @@ return {
 		opts = function()
 			local util = require("tokyonight.util")
 			return {
+        styles = { sidebars = "dark"},
 				style = "night",
 				on_highlights = function(highlights, colors)
 					highlights.WinSeparator = {
@@ -428,9 +429,70 @@ return {
 		"echasnovski/mini.surround",
 		config = true,
 	},
+
 	{
 		"lewis6991/gitsigns.nvim",
-		config = true,
+		dependencies = { "folke/tokyonight.nvim" },
+		event = { "BufReadPost", "BufWritePre", "BufNewFile" },
+		opts = function()
+			vim.cmd([[:highlight GitSignsAdd guifg=#A4CF69]])
+			vim.cmd([[:highlight GitSignsChange guifg=#63c1e6]])
+			vim.cmd([[:highlight GitSignsDelete guifg=#d74f56]])
+
+			return {
+				signs = {
+					add = { text = "┃", h1 = "GitSignsAdd" },
+					change = { text = "┃", h1 = "GitSignsChange" },
+					delete = { text = "", h1 = "GitSignsDelete" },
+					topdelete = { text = "" },
+					changedelete = { text = "┃" },
+					untracked = { text = "┃" },
+				},
+				signs_staged = {
+					add = { text = "┃", h1 = "GitSignsAdd" },
+					change = { text = "┃", h1 = "GitSignsChange" },
+					delete = { text = "", h1 = "GitSignsDelete" },
+					topdelete = { text = "┃" }, --text = "" ,
+					changedelete = { text = "┃" },
+				},
+				on_attach = function(buffer)
+					local gs = package.loaded.gitsigns
+
+					local function map(mode, l, r, desc)
+						vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+					end
+
+      -- stylua: ignore start
+      map("n", "]h", function()
+        if vim.wo.diff then
+          vim.cmd.normal({ "]c", bang = true })
+        else
+          gs.nav_hunk("next")
+        end
+      end, "Next Hunk")
+      map("n", "[h", function()
+        if vim.wo.diff then
+          vim.cmd.normal({ "[c", bang = true })
+        else
+          gs.nav_hunk("prev")
+        end
+      end, "Prev Hunk")
+      map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
+      map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
+      map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+      map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+      map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
+      map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
+      map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
+      map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
+      map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
+      map("n", "<leader>ghB", function() gs.blame() end, "Blame Buffer")
+      map("n", "<leader>ghd", gs.diffthis, "Diff This")
+      map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+      map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+				end,
+			}
+		end,
 	},
 
 	{
@@ -523,14 +585,14 @@ return {
 			autosave = {
 				enabled = true,
 				interval = 60,
-				notify = true,
+				notify = false,
 			},
 		},
 		config = function(_, opts)
 			local resession = require("resession")
 			resession.setup(opts)
 
-      -- create session from current directory on exit
+			-- create session from current directory on exit
 			vim.api.nvim_create_autocmd("VimLeavePre", {
 				desc = "Resession: save dirsession",
 				callback = function()
@@ -561,10 +623,19 @@ return {
 				nested = true,
 			})
 
-			vim.keymap.set("n", "<leader>ss", resession.save, { desc = "Resession save" })
-			vim.keymap.set("n", "<leader>sl", resession.load, { desc = "Resession load" })
-			vim.keymap.set("n", "<leader>sd", resession.delete, { desc = "Resession delete" })
+			vim.keymap.set("n", "<leader>ss", resession.save, { desc = "Resession save", silent = true, })
+			vim.keymap.set("n", "<leader>sl", resession.load, { desc = "Resession load" , silent = true,})
+			vim.keymap.set("n", "<leader>sd", resession.delete, { desc = "Resession delete" , silent = true,})
 			--vim.api.nvim_create_user_command('')
 		end,
 	},
+
+	{
+		"norcalli/nvim-colorizer.lua",
+    cmds = {"ColorizerToggle", "ColorizerAttachToBuffer"},
+		--ft = { "lua" },
+		config = true,
+	},
+
 }
+

@@ -16,6 +16,8 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
+vim.o.termguicolors = true
+
 -- 'plugins' is a directory of (lazy) plugin specifications
 -- 'opts' is lazy.nvim configuration
 require("lazy").setup({ { import = "aporia.plugins.ui" }, { import = "aporia.plugins" } })
