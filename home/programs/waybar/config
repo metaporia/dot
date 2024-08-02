@@ -29,7 +29,8 @@
     "battery",
     "battery#bat2",
     "clock",
-    "tray"
+    "tray",
+    "custom/notification"
   ],
 
   "hyprland/workspaces": {
@@ -151,7 +152,7 @@
   "battery": {
     "states": {
        //"good": 95,
-      "warning": 25,
+      "warning": 30,
       "critical": 15
     },
     "format": "{capacity}% {icon}",
@@ -161,7 +162,9 @@
     "format-alt": "{time} {icon}",
     // "format-good": "", // An empty format will hide the module
     // "format-full": "",
-    "format-icons": ["", "", "", "", ""]
+    "format-icons": ["", "", "", "", ""],
+    "exec-if": "test {capacity} -le 50",
+    "exec": "notify-send -a Waybar --wait --urgency critical \"Warning: battery low\"",
   },
   "battery#bat2": {
     "bat": "BAT2"
@@ -244,4 +247,27 @@
   //    "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
   //    // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
   //}
+  
+  "custom/notification": {
+    "tooltip": "false",
+    "format": "{} {icon}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "",
+      "dnd-notification": " ",
+      "dnd-none": "󰂛",
+      "inhibited-notification": " ",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": " ",
+      "dnd-inhibited-none": " ",
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "sleep 0.1 && swaync-client -t -sw",
+    "on-click-right": "sleep 0.1 && swaync-client -d -sw",
+    "escape": "true",
+  },
+
+
 }

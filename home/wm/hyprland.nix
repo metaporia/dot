@@ -55,6 +55,9 @@
     # window switcher
     inputs.hyprswitch.packages.${system}.default
 
+    # swaync
+    libnotify
+
   ];
 
   # hyprswitch
@@ -62,10 +65,18 @@
 
   # waybar
 
+  # wants swaync
   programs.waybar = {
     enable = true;
     settings = { };
   };
+
+  services.swaync = {
+    enable = true;
+    #style = '' '';
+
+  };
+
 
   wayland.windowManager.hyprland = {
     enable = true;

@@ -23,7 +23,7 @@
         WatchDir(
           path: "/home/aporia",
           recurse: true,
-          ignored: [ "./src" ],
+          ignored: [ "src", "build", "Games" ],
         ),
       ],
 

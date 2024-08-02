@@ -171,7 +171,8 @@
 
   services.automatic-timezoned.enable = true;
 
-  # services.geoclue.enable = true;
+  # FIXME: automatic-timezoned is broken idk if this helps
+  services.geoclue2.enableWifi = true;
 
   #services.dictd = {
   #  enable = true;
