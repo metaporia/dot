@@ -9,7 +9,14 @@ return {
 			-- OPTIONAL:
 			--   `nvim-notify` is only needed, if you want to use the notification view.
 			--   If not available, we use `mini` as the fallback
-			"rcarriga/nvim-notify",
+			{
+				"rcarriga/nvim-notify",
+				opts = {
+					on_open = function(win)
+						vim.api.nvim_win_set_config(win, { focusable = false })
+					end,
+				},
+			},
 		},
 		keys = {
 			--{ "<leader>sn", "", desc = "+noice" },
@@ -56,46 +63,60 @@ return {
 				end,
 				desc = "Noice Picker (Telescope/FzfLua)",
 			},
-			{
-				"<c-f>",
-				function()
-					if not require("noice.lsp").scroll(4) then
-						return "<c-f>"
-					end
-				end,
-				silent = true,
-				expr = true,
-				desc = "Scroll Forward",
-				mode = { "i", "n", "s" },
-			},
-			{
-				"<c-b>",
-				function()
-					if not require("noice.lsp").scroll(-4) then
-						return "<c-b>"
-					end
-				end,
-				silent = true,
-				expr = true,
-				desc = "Scroll Backward",
-				mode = { "i", "n", "s" },
-			},
+			-- {
+			-- 	"<c-f>",
+			-- 	function()
+			-- 		if not require("noice.lsp").scroll(4) then
+			-- 			return "<c-f>"
+			-- 		end
+			-- 	end,
+			-- 	silent = true,
+			-- 	expr = true,
+			-- 	desc = "Scafterroll Forward",
+			-- 	mode = { "i", "n", "s" },
+			-- },
+			-- {
+			-- 	"<c-b>",
+			-- 	function()
+			-- 		if not require("noice.lsp").scroll(-4) then
+			-- 			return "<c-b>"
+			-- 		end
+			-- 	end,
+			-- 	silent = true,
+			-- 	expr = true,
+			-- 	desc = "Scroll Backward",
+			-- 	mode = { "i", "n", "s" },
+			-- },
 		},
+		-- configuration
+		-- TODO: fix <c-f> and <c-b> to go forward/bock char in insert mode
 		opts = {
 			lsp = {
-        hover = {
-          silent = true, -- don't show message if hover unavailable
-        },
+				hover = {
+					silent = true, -- don't show message if hover unavailable
+				},
 				override = {
 					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 					["vim.lsp.util.stylize_markdown"] = true,
-					["cmp.entry.get_documentation"] = true,
+					["cmp.entry.get_documenttion"] = true,
 				},
 			},
 			routes = {
 				{
 					filter = {
-						event = "msg_show",
+						-- Exclude messages here. `find = <pattern>` to match against
+						-- message contents, and `event` will probably be "msg_show".
+						any = {
+							-- search string not found
+							{ event = "msg_show", find = "E486" },
+							{ event = "msg_show", find = "E553" },
+							{ event = "msg_show", find = "E19" },
+						},
+					},
+					opts = { skip = true },
+				},
+				{
+					filter = {
 						any = {
 							{ find = "%d+L, %d+B" },
 							{ find = "; after #%d+" },
@@ -109,9 +130,18 @@ return {
 				bottom_search = true,
 				command_palette = false,
 				long_message_to_split = true,
-        lsp_doc_border = true,
+				lsp_doc_border = true,
 			},
-			cmdline = { enabled = true, view = "cmdline_popup" },
+			cmdline = {
+				enabled = true,
+				view = "cmdline_popup",
+			},
+			views = {
+				hover = { border = { style = "rounded" } },
+				mini = {
+					focusable = false,
+				},
+			},
 		},
 		config = function(_, opts)
 			-- clear lazy.nvim messages
@@ -121,5 +151,4 @@ return {
 			require("noice").setup(opts)
 		end,
 	},
-
 }

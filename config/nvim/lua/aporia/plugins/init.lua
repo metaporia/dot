@@ -444,16 +444,16 @@ return {
 					add = { text = "┃", h1 = "GitSignsAdd" },
 					change = { text = "┃", h1 = "GitSignsChange" },
 					delete = { text = "", h1 = "GitSignsDelete" },
-					topdelete = { text = "" },
-					changedelete = { text = "┃" },
-					untracked = { text = "┃" },
+					topdelete = { text = "", h1 = "GitSignsTopDelete"},
+					changedelete = { text = "┃", h1 ="GitSignsChangeDelete"},
+					untracked = { text = "┃", h1 = "GitSignsUntracked" },
 				},
 				signs_staged = {
 					add = { text = "┃", h1 = "GitSignsAdd" },
 					change = { text = "┃", h1 = "GitSignsChange" },
 					delete = { text = "", h1 = "GitSignsDelete" },
-					topdelete = { text = "┃" }, --text = "" ,
-					changedelete = { text = "┃" },
+					topdelete = { text = "┃", },-- h1 ="GitSignsTopDelete" }, --text = "" ,
+					changedelete = { text = "┃",  },
 				},
 				on_attach = function(buffer)
 					local gs = package.loaded.gitsigns
