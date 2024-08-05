@@ -15,21 +15,44 @@ return {
 				},
 
 				on_attach = function(_, bufnr)
-					vim.keymap.set("n", "<space>d", function()
-						vim.cmd.RustLsp("openDocs")
-					end, { desc = "Open Cargo Docs (Rust)", silent = true, buffer = bufnr })
+					vim.keymap.set(
+						"n",
+						"<space>d",
+						function()
+							vim.cmd.RustLsp("openDocs")
+						end,
+						{ desc = "Open Cargo Docs (Rust)", silent = true, buffer = bufnr }
+					)
 
-					vim.keymap.set("n", "<space>e", function()
-						vim.cmd.RustLsp("explainError")
-					end, { desc = "Explain Error (Rust)", silent = true, buffer = bufnr })
+					vim.keymap.set(
+						"n",
+						"<space>e",
+						function()
+							vim.cmd.RustLsp("explainError")
+						end,
+						{ desc = "Explain Error (Rust)", silent = true, buffer = bufnr }
+					)
 
 					vim.keymap.set("n", "<space>a", function()
 						vim.cmd.RustLsp("codeAction")
-					end, { desc = "Code Action (Rust)", silent = true, buffer = bufnr })
+					end, {
+						desc = "Code Action (Rust)",
+						silent = true,
+						buffer = bufnr,
+					})
 
-					vim.keymap.set("n", "<space>rd", function()
-						vim.cmd.RustLsp("renderDiagnostic")
-					end, { desc = "Render Diagnostics (Rust)", silent = true, buffer = bufnr })
+					vim.keymap.set(
+						"n",
+						"<space>rd",
+						function()
+							vim.cmd.RustLsp("renderDiagnostic")
+						end,
+						{
+							desc = "Render Diagnostics (Rust)",
+							silent = true,
+							buffer = bufnr,
+						}
+					)
 				end,
 
 				--default_settings = {
@@ -50,9 +73,10 @@ return {
 
 	{
 		"nvim-treesitter/nvim-treesitter",
-		opts = function(_, opts)
-			opts.ensure_installed = opts.ensure_installed or {}
-			vim.list_extend(opts.ensure_installed, { "ron", "rust", "toml" })
-		end,
+		opts =  { ensure_installed = { "ron", "rust", "toml"}}
+    --function(_, opts)
+		--	opts.ensure_installed = opts.ensure_installed or {}
+		--	vim.list_extend(opts.ensure_installed, { "ron", "rust", "toml" })
+		--end,
 	},
 }
