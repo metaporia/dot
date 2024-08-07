@@ -126,7 +126,9 @@ return {
 			local npairs = require("nvim-autopairs")
 			local rule = require("nvim-autopairs.rule")
 			local cond = require("nvim-autopairs.conds")
-			npairs.add_rules({ rule("|", "|", { "rust", "lua" }):with_move(cond.after_regex("|")) })
+			npairs.add_rules({
+				rule("|", "|", { "rust", "lua" }):with_move(cond.after_regex("|")),
+			})
 		end,
 
 		-- use opts = {} for passing setup options
@@ -183,6 +185,22 @@ return {
 		event = { "VeryLazy" },
 
 		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = {
+			{
+				"]t",
+				function()
+					require("todo-comments").jump_next({keywords = {"FIXME", "TODO"}})
+				end,
+				{ mode = "n", desc = "Next todo comment" },
+			},
+			{
+				"[t",
+				function()
+					require("todo-comments").jump_prev({keywords = {"FIXME", "TODO"}})
+				end,
+				{ mode = "n", desc = "Previous todo comment" },
+			},
+		},
 		opts = {
 			signs = true, -- show signs in column
 			merge_keywords = true, -- merge opts.keywords with default table
@@ -264,7 +282,7 @@ return {
 		opts = function()
 			local util = require("tokyonight.util")
 			return {
-        styles = { sidebars = "dark"},
+				styles = { sidebars = "dark" },
 				style = "night",
 				on_highlights = function(highlights, colors)
 					highlights.WinSeparator = {
@@ -396,7 +414,8 @@ return {
 						--initial_mode = "normal",
 						attach_mappings = function(prompt_bufnr, map)
 							local delete_buf = function()
-								local current_picker = action_state.get_current_picker(prompt_bufnr)
+								local current_picker =
+									action_state.get_current_picker(prompt_bufnr)
 								current_picker:delete_selection(function(selection)
 									vim.api.nvim_buf_delete(selection.bufnr, { force = true })
 								end)
@@ -444,16 +463,16 @@ return {
 					add = { text = "┃", h1 = "GitSignsAdd" },
 					change = { text = "┃", h1 = "GitSignsChange" },
 					delete = { text = "", h1 = "GitSignsDelete" },
-					topdelete = { text = "", h1 = "GitSignsTopDelete"},
-					changedelete = { text = "┃", h1 ="GitSignsChangeDelete"},
+					topdelete = { text = "", h1 = "GitSignsTopDelete" },
+					changedelete = { text = "┃", h1 = "GitSignsChangeDelete" },
 					untracked = { text = "┃", h1 = "GitSignsUntracked" },
 				},
 				signs_staged = {
 					add = { text = "┃", h1 = "GitSignsAdd" },
 					change = { text = "┃", h1 = "GitSignsChange" },
 					delete = { text = "", h1 = "GitSignsDelete" },
-					topdelete = { text = "┃", },-- h1 ="GitSignsTopDelete" }, --text = "" ,
-					changedelete = { text = "┃",  },
+					topdelete = { text = "┃" }, -- h1 ="GitSignsTopDelete" }, --text = "" ,
+					changedelete = { text = "┃" },
 				},
 				on_attach = function(buffer)
 					local gs = package.loaded.gitsigns
@@ -499,7 +518,11 @@ return {
 		"metaporia/dico-vim",
 		event = "VeryLazy",
 		keys = {
-			{ "<leader>dd", "<cmd>call Define('h', expand('<cword>'))<CR>", desc = "Define word" },
+			{
+				"<leader>dd",
+				"<cmd>call Define('h', expand('<cword>'))<CR>",
+				desc = "Define word",
+			},
 		},
 		config = function()
 			vim.g.dico_vim_map_keys = 1
@@ -596,7 +619,10 @@ return {
 			vim.api.nvim_create_autocmd("VimLeavePre", {
 				desc = "Resession: save dirsession",
 				callback = function()
-					resession.save(vim.fn.getcwd(), { dir = "dirsession", notify = true })
+					resession.save(
+						vim.fn.getcwd(),
+						{ dir = "dirsession", notify = true }
+					)
 				end,
 			})
 
@@ -617,25 +643,41 @@ return {
 						-- end
 
 						-- Save these to a different directory, so our manual sessions don't get polluted
-						resession.load(vim.fn.getcwd(), { dir = "dirsession", silence_errors = false })
+						resession.load(
+							vim.fn.getcwd(),
+							{ dir = "dirsession", silence_errors = false }
+						)
 					end
 				end,
 				nested = true,
 			})
 
-			vim.keymap.set("n", "<leader>ss", resession.save, { desc = "Resession save", silent = true, })
-			vim.keymap.set("n", "<leader>sl", resession.load, { desc = "Resession load" , silent = true,})
-			vim.keymap.set("n", "<leader>sd", resession.delete, { desc = "Resession delete" , silent = true,})
+			vim.keymap.set(
+				"n",
+				"<leader>ss",
+				resession.save,
+				{ desc = "Resession save", silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>sl",
+				resession.load,
+				{ desc = "Resession load", silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>sd",
+				resession.delete,
+				{ desc = "Resession delete", silent = true }
+			)
 			--vim.api.nvim_create_user_command('')
 		end,
 	},
 
 	{
 		"norcalli/nvim-colorizer.lua",
-    cmds = {"ColorizerToggle", "ColorizerAttachToBuffer"},
+		cmds = { "ColorizerToggle", "ColorizerAttachToBuffer" },
 		--ft = { "lua" },
 		config = true,
 	},
-
 }
-
