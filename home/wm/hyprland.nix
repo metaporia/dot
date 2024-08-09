@@ -65,10 +65,11 @@
 
   # waybar
 
+  xdg.configFile."waybar/config".source = ../programs/waybar/config;
   # wants swaync
   programs.waybar = {
     enable = true;
-    settings = { };
+    #settings = { };
   };
 
   services.swaync = {
