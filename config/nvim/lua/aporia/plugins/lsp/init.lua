@@ -77,9 +77,9 @@ return {
 							nixos = {
 								expr = '(builtins.getFlake "/home/aporia/dot").nixosConfigurations.kerfuffle.options',
 							},
-							home_manager = {
-								expr = '(builtins.getFlake "/home/aporia/dot").homeConfigurations."aporia@kerfuffle".options',
-							},
+							-- home_manager = {
+							-- 	expr = '(builtins.getFlake "/home/aporia/dot").homeConfigurations."aporia@kerfuffle".options',
+							-- },
 						},
 					},
 				},
