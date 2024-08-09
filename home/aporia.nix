@@ -31,6 +31,7 @@
     hyperfine
     vlc
     tmux
+    just
     #chrome-gnome-shell
     #gnomeExtensions.hide-top-bar
     nixos-option

@@ -68,6 +68,9 @@
       gg = "git pull";
       ta = "tmux attach -t";
       t = "tmux new -A -s"; # attach or create <sesh>
+      j = "just";
+      jr = "just run";
+      jb = "just build";
       tks = "tmux kill-session -t";
       ts = "tmux list-sessions";
       tp = "tmux list-panes";
