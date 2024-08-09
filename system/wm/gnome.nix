@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     xclip
     wmctrl
-    gnome.gnome-tweaks
+    gnome-tweaks
   ];
 
   # Enable the X11 windowing system.

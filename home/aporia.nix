@@ -53,12 +53,13 @@
     nixpkgs-fmt
     # compiler toolchains
     # cs19
-    lldb_12
-    clang_12
-    llvmPackages_12.libcxx
-    clang-tools_12
-    sshfs
-    cling
+    #lldb_12
+    #clang_12
+    #llvmPackages_12.libcxx
+    #clang-tools_12
+    #sshfs
+    #cling
+
     gdb
     cmake # for nvim telescope fzf native extension
     zoom-us

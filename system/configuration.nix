@@ -158,8 +158,13 @@
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
   # Use the GRUB 2 boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    # only keey last 10 generations
+    systemd-boot.configurationLimit = 10;
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
+
   # boot.loader.grub.efiSupport = true;
   # boot.loader.grub.efiInstallAsRemovable = true;
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";

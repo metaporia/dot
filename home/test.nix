@@ -13,12 +13,12 @@
     ripgrep
     xclip
     tmux
-    gnome.gnome-tweaks
+    gnome-tweaks
     # cpp nixpkgs test
-    clang_12
-    lldb_12
-    llvmPackages_12.libcxx
-    clang-tools_12
+    #clang_12
+    #lldb_12
+    #llvmPackages_12.libcxx
+    #clang-tools_12
   ];
 
   imports = [ 
