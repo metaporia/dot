@@ -68,6 +68,21 @@ return {
 
 			lspconfig.nixd.setup({
 				capabilities = caps,
+				settings = {
+					nixd = {
+						nixpkgs = {
+							expr = " import <nixpkgs> {}",
+						},
+						options = {
+							nixos = {
+								expr = '(builtins.getFlake "/home/aporia/dot").nixosConfigurations.kerfuffle.options',
+							},
+							home_manager = {
+								expr = '(builtins.getFlake "/home/aporia/dot").homeConfigurations."aporia@kerfuffle".options',
+							},
+						},
+					},
+				},
 			})
 
 			lspconfig.lua_ls.setup({
