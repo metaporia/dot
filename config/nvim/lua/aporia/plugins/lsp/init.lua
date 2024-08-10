@@ -122,11 +122,36 @@ return {
 
 			-- Global mappings.
 			-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-			vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Diagnostic open float" })
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Goto prev diagnostic" })
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Goto next diagnostic" })
-			vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, { desc = "Set loclist with diagnostics" })
-			vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, { desc = "Set loclist with diagnostics" })
+			vim.keymap.set(
+				"n",
+				"<space>e",
+				vim.diagnostic.open_float,
+				{ desc = "Diagnostic open float" }
+			)
+			vim.keymap.set(
+				"n",
+				"[d",
+				vim.diagnostic.goto_prev,
+				{ desc = "Goto prev diagnostic" }
+			)
+			vim.keymap.set(
+				"n",
+				"]d",
+				vim.diagnostic.goto_next,
+				{ desc = "Goto next diagnostic" }
+			)
+			vim.keymap.set(
+				"n",
+				"<space>q",
+				vim.diagnostic.setloclist,
+				{ desc = "Set loclist with diagnostics" }
+			)
+			vim.keymap.set(
+				"n",
+				"<space>q",
+				vim.diagnostic.setloclist,
+				{ desc = "Set loclist with diagnostics" }
+			)
 			vim.keymap.set("n", "<space>td", function()
 				vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 			end, { desc = "Toggle diagnostics" })
@@ -153,13 +178,15 @@ return {
 				callback = set_hl_for_floating_window,
 			})
 
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-				border = _border,
-			})
+			vim.lsp.handlers["textDocument/hover"] =
+				vim.lsp.with(vim.lsp.handlers.hover, {
+					border = _border,
+				})
 
-			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-				border = _border,
-			})
+			vim.lsp.handlers["textDocument/signatureHelp"] =
+				vim.lsp.with(vim.lsp.handlers.signature_help, {
+					border = _border,
+				})
 
 			-- Use LspAttach autocommand to only map the following keys
 			-- after the language server attaches to the current buffer
@@ -186,7 +213,12 @@ return {
 						vim.lsp.buf.definition,
 						per_buffer_with_desc("Go to definition (LSP)")
 					)
-					vim.keymap.set({ "n", "v" }, "K", vim.lsp.buf.hover, per_buffer_with_desc("Hover (LSP)"))
+					vim.keymap.set(
+						{ "n", "v" },
+						"K",
+						vim.lsp.buf.hover,
+						per_buffer_with_desc("Hover (LSP)")
+					)
 					vim.keymap.set(
 						"n",
 						"gi",
@@ -220,14 +252,24 @@ return {
 						vim.lsp.buf.type_definition,
 						per_buffer_with_desc("Type definition (LSP)")
 					)
-					vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, per_buffer_with_desc("Rename (LSP)"))
+					vim.keymap.set(
+						"n",
+						"<space>rn",
+						vim.lsp.buf.rename,
+						per_buffer_with_desc("Rename (LSP)")
+					)
 					vim.keymap.set(
 						{ "n", "v" },
 						"<space>a",
 						vim.lsp.buf.code_action,
 						per_buffer_with_desc("Code action (LSP)")
 					)
-					vim.keymap.set("n", "gr", vim.lsp.buf.references, per_buffer_with_desc("Quickfix references (LSP)"))
+					vim.keymap.set(
+						"n",
+						"gr",
+						vim.lsp.buf.references,
+						per_buffer_with_desc("Quickfix references (LSP)")
+					)
 					--vim.keymap.set('n', '<space>f', function()
 					--  vim.lsp.buf.format { async = true }
 					--end, opts('Format (LSP)'))
