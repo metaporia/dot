@@ -21,9 +21,14 @@ vim.o.termguicolors = true
 -- 'plugins' is a directory of (lazy) plugin specifications
 -- 'opts' is lazy.nvim configuration
 require("lazy").setup({
-	{ import = "aporia.plugins" },
+	--{ import = "aporia.plugins" },
 	{ import = "aporia.plugins.ui" },
+	{ import = "aporia.plugins.lsp" },
 	{ import = "aporia.plugins.langs" },
+	--{ import = "aporia.plugins.include"},
+	{ import = "aporia.plugins.code" },
+	{ import = "aporia.plugins.editor" },
+	--{ import = "aporia.plugins.quarantine"}
 })
 
 require("aporia.config.keymaps")
@@ -31,3 +36,13 @@ require("aporia.config.options")
 require("aporia.config.misc")
 
 vim.cmd([[colorscheme tokyonight]])
+
+-- FIXME: broken macro key, 'q'
+-- it's one of these:
+-- ○ noice.nvim
+-- ○ nui.nvim
+-- ○ nvim-notify
+-- ○ tmux.nvim
+-- ○ which-key.nvim
+
+

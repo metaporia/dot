@@ -3,6 +3,7 @@ return {
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
+		--cond = function() return false end,
 		dependencies = {
 			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",
@@ -13,7 +14,7 @@ return {
 				"rcarriga/nvim-notify",
 				opts = {
 					on_open = function(win)
-						vim.api.nvim_win_set_config(win, { focusable = false })
+						--vim.api.nvim_win_set_config(win, { focusable = false })
 					end,
 				},
 			},
@@ -102,6 +103,11 @@ return {
 				},
 			},
 			routes = {
+        -- notify on  @recording messages
+				-- {
+				-- 	view = "notify",
+				-- 	filter = { event = "msg_showmode" },
+				-- },
 				{
 					filter = {
 						-- Exclude messages here. `find = <pattern>` to match against
@@ -151,4 +157,5 @@ return {
 			require("noice").setup(opts)
 		end,
 	},
+
 }

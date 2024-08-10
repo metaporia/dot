@@ -1,6 +1,7 @@
 return {
 	{
 		"folke/which-key.nvim",
+    enable = false,
 		event = "VeryLazy",
 		opts = {
 			-- your configuration comes here
