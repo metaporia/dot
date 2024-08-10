@@ -66,7 +66,7 @@
     # nvim deps
     nixd
     stylua
-
+    moreutils # tmux-resurrect script needs 'sponge'
   ];
 
   # This value determines the Home Manager release that your
@@ -193,7 +193,6 @@
 
   home.file = {
 
-    ".tmux.conf".source = ../config/tmux/tmux.conf;
     ".ssh/config".source = ../config/ssh/sshconfig;
     ".config/gtk-3.0/gtk.css".source = ../config/gtk/gtk.css;
     # ".config/alacritty/alacritty.yml".source = "../alacritty.yml"
@@ -201,6 +200,28 @@
     ".gitconfig".source = ../config/git/gitconfig_global;
     ".dico".source = ../config/dico/.dico;
 
+  };
+
+  # TMUX
+  #home.file.".tmux.conf".source = ../config/tmux/tmux.conf;
+  programs.tmux = {
+    enable = true;
+    plugins = with pkgs.tmuxPlugins; [{
+      plugin = resurrect;
+      # use nvim-resession to populate nvim pane, so strip all arguments from
+      # command in tmux_resurrect_*.txt 
+      extraConfig = ''
+        set -g @resurrect-strategy-vim 'session'
+        set -g @resurrect-strategy-nvim 'session'
+        set -g @resurrect-capture-pane-contents 'on'
+
+        resurrect_dir="$HOME/.tmux/resurrect"
+        set -g @resurrect-dir $resurrect_dir
+        set -g @resurrect-hook-post-save-all '${pkgs.scripts}/bin/tmuxResurrectHook'
+        set -g @resurrect-processes '"~nvim"'
+      '';
+    }];
+    extraConfig = builtins.readFile ../config/tmux/tmux.conf;
   };
 
   programs.bat = {
@@ -291,15 +312,15 @@
           };
 
 
-            };
-        };
-        mimeApps = {
-          enable = true;
-          defaultApplications = {
-            "text/plain" = [ "nvim.desktop" ]; # "kitty.desktop" ];
-            "video/mp4" = [ "vlc.desktop" ];
-          };
         };
       };
+      mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "text/plain" = [ "nvim.desktop" ]; # "kitty.desktop" ];
+          "video/mp4" = [ "vlc.desktop" ];
+        };
+      };
+    };
 
-    }
+}
