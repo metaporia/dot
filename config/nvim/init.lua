@@ -23,11 +23,11 @@ vim.o.termguicolors = true
 require("lazy").setup({
 	{ import = "aporia.plugins" },
 	{ import = "aporia.plugins.ui" },
+	{ import = "aporia.plugins.editor" },
 	{ import = "aporia.plugins.lsp" },
+	{ import = "aporia.plugins.code" },
 	{ import = "aporia.plugins.langs" },
 	--{ import = "aporia.plugins.include"},
-	{ import = "aporia.plugins.code" },
-	{ import = "aporia.plugins.editor" },
 	--{ import = "aporia.plugins.quarantine"}
 })
 

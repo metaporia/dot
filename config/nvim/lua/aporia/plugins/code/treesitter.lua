@@ -24,6 +24,7 @@ return {
 			--vim.opt.foldenable = false
 
 			return {
+        opts_extend = { "ensure_installed"},
 				auto_install = false,
 				sync_install = false,
 				ignore_install = {},
@@ -32,6 +33,7 @@ return {
 				--  * lua indent
 				--  * cpp clangd, clang-format, indentation
 				ensure_installed = {
+          "just",
 					"markdown",
 					"markdown_inline",
 					"haskell",
