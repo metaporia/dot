@@ -21,7 +21,7 @@ vim.o.termguicolors = true
 -- 'plugins' is a directory of (lazy) plugin specifications
 -- 'opts' is lazy.nvim configuration
 require("lazy").setup({
-	--{ import = "aporia.plugins" },
+	{ import = "aporia.plugins" },
 	{ import = "aporia.plugins.ui" },
 	{ import = "aporia.plugins.lsp" },
 	{ import = "aporia.plugins.langs" },
