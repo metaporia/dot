@@ -30,7 +30,6 @@
     ripgrep
     hyperfine
     vlc
-    tmux
     just
     #chrome-gnome-shell
     #gnomeExtensions.hide-top-bar
@@ -67,6 +66,11 @@
     nixd
     stylua
     moreutils # tmux-resurrect script needs 'sponge'
+
+    # tmux
+    tmux
+    bc # for tokyo-night-tmux's netspeed and git widgets
+
   ];
 
   # This value determines the Home Manager release that your
@@ -231,6 +235,28 @@
     {
       enable = true;
       plugins = with pkgs.tmuxPlugins; [
+        { plugin = tmux-thumbs; 
+          extraConfig = ''
+            set -g @thumbs-key f
+            set -g @thumbs-alphabet dvorak-homerow
+            set -g @thumbs-command 'echo -n {} | xclip -i -selection clip'
+          '';
+        }
+        {
+          plugin = tokyo-night-tmux;
+          extraConfig = ''
+            set -g @tokyo-night-tmux_show_music 0
+
+            # battery
+            set -g @tokyo-night-tmux_show_battery_widget 0
+            #set -g @tokyo-night-tmux_battery_name "BAT2"  # some linux distro have 'BAT0'
+            #set -g @tokyo-night-tmux_battery_low_threshold 21 # default
+
+            set -g @tokyo-night-tmux_show_wbg 0
+            set -g @tokyo-night-tmux_show_netspeed 0
+            set -g @tokyo-night-tmux_show_git 0
+          '';
+        }
         {
           plugin = tmux-nvim;
           extraConfig = ''
