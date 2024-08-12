@@ -206,6 +206,8 @@
 
   };
 
+  programs.nix-index.enable = true;
+
   # TMUX
 
   # Add tmux session so that kitty always runs tmux on startup unless overriden
