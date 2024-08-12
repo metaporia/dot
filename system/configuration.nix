@@ -155,7 +155,7 @@
   # use latest kernel for framework laptop wifi card support
   # see kvark/dotfiles on github for full (working) framework laptop config
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = [ "mem_sleep_default=deep" ];
+  #boot.kernelParams = [ "mem_sleep_default=deep" ];
 
   # Use the GRUB 2 boot loader.
   boot.loader = {

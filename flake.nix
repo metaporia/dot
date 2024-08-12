@@ -22,11 +22,20 @@
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
-    hyprswitch.inputs.nixpkgs.follows ="nixpkgs";
+    hyprswitch.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, scripts, anyrun, ... }:
+  outputs =
+    inputs@{ self
+    , nixpkgs
+    , home-manager
+    , scripts
+    , anyrun
+    , nixos-hardware
+    , ...
+    }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -51,7 +60,18 @@
           specialArgs = { inherit inputs; };
           inherit system;
           modules = [
+            # for nixos-hardware framework profile
+            {
+              services.fwupd.enable = true;
+              # stable BIOS versions are marked as test versions
+              services.fwupd.extraRemotes = [ "lvfs-testing" ];
+              # Might be necessary once to make the update succeed
+              services.fwupd.uefiCapsuleSettings.DisableCapsuleUpdateOnDisk = true;
+            }
+            nixos-hardware.nixosModules.framework-11th-gen-intel
+
             ./system/configuration.nix
+
             home-manager.nixosModules.home-manager
             {
               # Use system pkgs for hm; disables nixpkgs.* options in
