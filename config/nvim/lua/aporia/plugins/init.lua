@@ -347,7 +347,7 @@ return {
 		keys = {
 			{
 				"<leader>dd",
-				"<cmd>call Define('h', expand('<cword>'))<CR>",
+				"<cmd>silent call Define('h', expand('<cword>'))<CR>",
 				desc = "Define word",
 			},
 		},
