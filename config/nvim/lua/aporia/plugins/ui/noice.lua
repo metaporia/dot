@@ -10,14 +10,17 @@ return {
 			-- OPTIONAL:
 			--   `nvim-notify` is only needed, if you want to use the notification view.
 			--   If not available, we use `mini` as the fallback
+
 			{
 				"rcarriga/nvim-notify",
 				opts = {
+			       max_height = 25,
 					on_open = function(win)
 						--vim.api.nvim_win_set_config(win, { focusable = false })
 					end,
 				},
 			},
+
 		},
 		keys = {
 			--{ "<leader>sn", "", desc = "+noice" },
@@ -121,6 +124,14 @@ return {
 					},
 					opts = { skip = true },
 				},
+        -- reroute long messages to split
+        {
+          filter = {
+            --event = "notify",
+            min_height = 15,
+          },
+          view = 'split',
+        },
 				{
 					filter = {
 						any = {
