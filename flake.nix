@@ -82,6 +82,7 @@
               # ./home/aporia.nix.
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "backup";
               #
               # Pass augmented nixpkgs to all modules.
               #
