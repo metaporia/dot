@@ -90,6 +90,21 @@ return {
 	--      --},
 	--    },
 	--  },
+	--
+
+	{ "echasnovski/mini.doc", version = "*", opts = { silent = true } },
+
+	{
+		-- dir = "~/src/dico.nvim",
+		-- name = "dico.nvim",
+		"metaporia/dico.nvim",
+
+		event = { "VeryLazy" },
+		opts = {
+			map_prefix = "<leader>",
+			default_split = "h",
+		},
+	},
 
 	-- overide vim.ui.select
 	{
@@ -112,7 +127,6 @@ return {
 			},
 		},
 	},
-
 
 	{
 		"folke/trouble.nvim",
@@ -168,14 +182,14 @@ return {
 			{
 				"]t",
 				function()
-					require("todo-comments").jump_next({keywords = {"FIXME", "TODO"}})
+					require("todo-comments").jump_next({ keywords = { "FIXME", "TODO" } })
 				end,
 				{ mode = "n", desc = "Next todo comment" },
 			},
 			{
 				"[t",
 				function()
-					require("todo-comments").jump_prev({keywords = {"FIXME", "TODO"}})
+					require("todo-comments").jump_prev({ keywords = { "FIXME", "TODO" } })
 				end,
 				{ mode = "n", desc = "Previous todo comment" },
 			},
@@ -254,7 +268,6 @@ return {
 	-- COLORSCHEMES --
 	------------------
 
-
 	-- {
 	--   'navarasu/onedark.nvim',
 	--   opts = { style = 'darker' },
@@ -268,8 +281,6 @@ return {
 	--     --vim.cmd
 	--   end
 	-- },
-
-
 
 	{
 		"echasnovski/mini.surround",
@@ -341,45 +352,45 @@ return {
 		end,
 	},
 
-	{
-		"metaporia/dico-vim",
-		event = "VeryLazy",
-		keys = {
-			{
-				"<leader>dd",
-				"<cmd>silent call Define('h', expand('<cword>'))<CR>",
-				desc = "Define word",
-			},
-		},
-		config = function()
-			vim.g.dico_vim_map_keys = 1
-			-- Trial to see whether to use dedicated key or leader plus repeat.
-			-- A dedicated key is faster but the leader+repeat leaves more keys
-			-- unmapped.
-			--vim.keymap.set('n',
-			--  '<space>d',
-			--  ":call Define('h', expand('<cword>'))<CR>",
-			--  { noremap = true })
-			--vim.keymap.set('n',
-			--  '<Leader>dd',
-			--  ":call Define('h', expand('<cword>'))<CR>",
-			--  { noremap = true })
-		end,
-		--init = function()
-		--  vim.g.dico_vim_map_keys = 1
-		--  -- Trial to see whether to use dedicated key or leader plus repeat.
-		--  -- A dedicated key is faster but the leader+repeat leaves more keys
-		--  -- unmapped.
-		--  vim.keymap.set('n',
-		--    '<space>d',
-		--    ":call Define('h', expand('<cword>'))<CR>",
-		--    { noremap = true })
-		--  vim.keymap.set('n',
-		--    '<Leader>dd',
-		--    ":call Define('h', expand('<cword>'))<CR>",
-		--    { noremap = true })
-		--end
-	},
+	-- {
+	-- 	"metaporia/dico-vim",
+	-- 	event = "VeryLazy",
+	-- 	keys = {
+	-- 		{
+	-- 			"<leader>dd",
+	-- 			"<cmd>silent call Define('h', expand('<cword>'))<CR>",
+	-- 			desc = "Define word",
+	-- 		},
+	-- 	},
+	-- 	config = function()
+	-- 		vim.g.dico_vim_map_keys = 1
+	-- 		-- Trial to see whether to use dedicated key or leader plus repeat.
+	-- 		-- A dedicated key is faster but the leader+repeat leaves more keys
+	-- 		-- unmapped.
+	-- 		--vim.keymap.set('n',
+	-- 		--  '<space>d',
+	-- 		--  ":call Define('h', expand('<cword>'))<CR>",
+	-- 		--  { noremap = true })
+	-- 		--vim.keymap.set('n',
+	-- 		--  '<Leader>dd',
+	-- 		--  ":call Define('h', expand('<cword>'))<CR>",
+	-- 		--  { noremap = true })
+	-- 	end,
+	-- 	--init = function()
+	-- 	--  vim.g.dico_vim_map_keys = 1
+	-- 	--  -- Trial to see whether to use dedicated key or leader plus repeat.
+	-- 	--  -- A dedicated key is faster but the leader+repeat leaves more keys
+	-- 	--  -- unmapped.
+	-- 	--  vim.keymap.set('n',
+	-- 	--    '<space>d',
+	-- 	--    ":call Define('h', expand('<cword>'))<CR>",
+	-- 	--    { noremap = true })
+	-- 	--  vim.keymap.set('n',
+	-- 	--    '<Leader>dd',
+	-- 	--    ":call Define('h', expand('<cword>'))<CR>",
+	-- 	--    { noremap = true })
+	-- 	--end
+	-- },
 
 	{
 		-- TODO: rewrite in lua with setup() to lazy load
@@ -397,7 +408,6 @@ return {
 	},
 
 	-- resession
-
 
 	{
 		"norcalli/nvim-colorizer.lua",

@@ -20,4 +20,20 @@ function M.is_loaded(name)
 	return Config.plugins[name] and Config.plugins[name]._.loaded
 end
 
+-- globals
+
+P = vim.print
+
+local function execute_buffer()
+	vim.print("Sourcing current buffer")
+	vim.cmd([[write | source %]])
+end
+
+vim.keymap.set(
+	"n",
+	"<leader><leader>s",
+	execute_buffer,
+	{ noremap = true, silent = true }
+)
+
 return M
