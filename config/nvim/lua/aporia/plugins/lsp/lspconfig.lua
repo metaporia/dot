@@ -68,19 +68,19 @@ return {
 
 			lspconfig.nixd.setup({
 				capabilities = caps,
-				cmd = { "nixd", "--inlay-hints=true", "--semantic-tokens=true" },
+				--cmd = { "nixd", "--inlay-hints=true", "--semantic-tokens=true" },
 				settings = {
 					nixd = {
 						nixpkgs = {
 							expr = " import <nixpkgs> {}",
-              --expr = 'import (builtins.getFlake "/home/aporia/dot").inputs.nixpkgs',
+							--expr = 'import (builtins.getFlake "/home/aporia/dot").inputs.nixpkgs',
 						},
 						options = {
 							nixos = {
 								expr = '(builtins.getFlake "/home/aporia/dot").nixosConfigurations.kerfuffle.options',
 							},
 							home_manager = {
-								expr = '(builtins.getFlake "/home/aporia/dot").nixosConfigurations.kerfuffle.options.home-manager',
+								expr = '(builtins.getFlake "/home/aporia/dot").nixosConfigurations.kerfuffle.options.home-manager.users.options',
 							},
 						},
 						diagnostic = {
