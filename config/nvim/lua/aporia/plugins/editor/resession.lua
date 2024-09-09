@@ -37,12 +37,12 @@ return {
 					if vim.fn.argc(-1) == 0 then
 						-- apply opts.exclude_dirs
 
-						--local cwd = vim.fn.getcwd()
-						-- for _, dir in ipairs(opts.exclude_dirs) do
-						-- 	if dir == cwd then
-						-- 		return
-						-- 	end
-						-- end
+						local cwd = vim.fn.getcwd()
+						for _, dir in ipairs(opts.exclude_dirs) do
+							if dir == cwd then
+								return
+							end
+						end
 
 						-- Save these to a different directory, so our manual sessions don't get polluted
 						resession.load(
@@ -81,7 +81,7 @@ return {
 		-- plugin it is extending
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "scottmckendry/telescope-resession.nvim" },
-    --cond = function() return false end,
+		--cond = function() return false end,
 		keys = {
 			{
 				"<leader>ll",
