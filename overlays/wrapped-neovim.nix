@@ -2,8 +2,8 @@
 final: prev:
 {
 
-  neovim = prev.neovim.overrideAttrs (oldAttrs:  {
-    buildInputs = oldAttrs.buildInputs ++ [ prev.lua5_1 ];
+  neovim = prev.neovim.overrideAttrs (old:  {
+    buildInputs = [ prev.lua5_1 ];
   });
 
 }

@@ -66,12 +66,37 @@
     nixd
     stylua
     moreutils # tmux-resurrect script needs 'sponge'
+    imagemagick
+    imagemagick.dev
+
+    #lua51Packages.luarocks
+    #lua51Packages.lua
+
+    #lua51Packages.magick
+
+    luajitPackages.luarocks
+    luajitPackages.lua
+    # this needs to be added to ~/.config/nvim/nix/package-path.lua
+    luajitPackages.magick
+    luajit
+
+    #lua51Packages.lua
+
 
     # tmux
     tmux
     bc # for tokyo-night-tmux's netspeed and git widgets
 
   ];
+
+  # nvim package.path
+  # we should add a home-manager module for neovim packages,
+  # and generate the package-path.lua for it
+  xdg.configFile."nvim/lua/nix/generated-package-path.lua".text = ''
+    package.path = package.path .. "";" .. ${pkgs.luajitPackages.magick}/share/lua/5.1/?/init.lua"
+    package.path = package.path .. ";" .. ${pkgs.luajitPackages.magick}/share/lua/5.1/?.lua"
+  '';
+
 
   # nixd flags
   home.sessionVariables.NIXD_FLAGS =
@@ -212,11 +237,11 @@
 
   };
 
-  programs.nix-index = {
-    enable = true;
-    symlinkToCacheHome = true;
-  };
-  programs.nix-index-database.comma.enable = true;
+  #programs.nix-index = {
+  #  enable = true;
+  #  symlinkToCacheHome = false;
+  #};
+  #programs.nix-index-database.comma.enable = true;
 
 
   programs.bat = {

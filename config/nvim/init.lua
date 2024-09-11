@@ -1,4 +1,9 @@
+-- add nix-managed lua-modules to 'package.path'
+require('nix.generated-package-path')
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+
 
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -27,6 +32,7 @@ require("lazy").setup({
 	{ import = "aporia.plugins.lsp" },
 	{ import = "aporia.plugins.code" },
 	{ import = "aporia.plugins.langs" },
+	{ import = "aporia.plugins.neorg" },
 	--{ import = "aporia.plugins.include"},
 	--{ import = "aporia.plugins.quarantine"}
 })
@@ -44,5 +50,3 @@ vim.cmd([[colorscheme tokyonight]])
 -- ○ nvim-notify
 -- ○ tmux.nvim
 -- ○ which-key.nvim
-
-
