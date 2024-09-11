@@ -13,7 +13,7 @@
 
     # pandoc/latex
     pandoc
-    texliveSmall
+    texliveMedium # neorg latex requires dvipng 
 
     dico
     #dictdDBs.wordnet
@@ -79,6 +79,8 @@
     # this needs to be added to ~/.config/nvim/nix/package-path.lua
     luajitPackages.magick
     luajit
+
+    # nvim: neorg: latex rendering
 
     #lua51Packages.lua
 
