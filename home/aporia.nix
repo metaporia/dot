@@ -13,7 +13,13 @@
 
     # pandoc/latex
     pandoc
-    texliveMedium # neorg latex requires dvipng 
+    # neorg latex requires dvipng 
+
+    texliveFull
+    #texlivePackages.standalone
+    #texlivePackages.amsmath
+    #texlivePackages.amssyb
+    #texlivePackages.graphicx
 
     dico
     #dictdDBs.wordnet
@@ -69,6 +75,11 @@
     imagemagick
     imagemagick.dev
 
+    tree-sitter # to generate parsers from grammar
+    # neorg (from overlay)
+    norg-fmt
+
+
     #lua51Packages.luarocks
     #lua51Packages.lua
 
@@ -95,8 +106,8 @@
   # we should add a home-manager module for neovim packages,
   # and generate the package-path.lua for it
   xdg.configFile."nvim/lua/nix/generated-package-path.lua".text = ''
-    package.path = package.path .. "";" .. ${pkgs.luajitPackages.magick}/share/lua/5.1/?/init.lua"
-    package.path = package.path .. ";" .. ${pkgs.luajitPackages.magick}/share/lua/5.1/?.lua"
+    package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?/init.lua"
+    package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?.lua"
   '';
 
 

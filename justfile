@@ -6,3 +6,6 @@ build:
 
 update-firmware:
   fwupdmgr update
+
+update-pkg PKG:
+  nix-update --flake 'legacyPackages.x86_64-linux'.{{PKG}}

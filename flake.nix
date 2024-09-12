@@ -9,6 +9,10 @@
   # Rebuild system with `cd ~/dot; sudo nixos-rebuild switch --flake '.#kerfuffle"`
 
   inputs = {
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -59,6 +63,10 @@
       # TODO use flake-compat to apply overlays for nix-* tools
     in
     {
+      # add legacyPackages: expose package set nixpkgs // overlays for
+      # nix-update
+      # from https://github.com/jtojnar/nixfiles : flake.nix
+      legacyPackages.x86_64-linux = pkgs;
       nixosConfigurations = {
         kerfuffle = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
