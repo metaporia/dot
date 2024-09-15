@@ -7,6 +7,8 @@
 #   flake-parts, though massively overkill, would work.
 
 # see https://wiki.archlinux.org/title/Hyprland
+
+# -mdepends on scripts/raise_dots
 { config, inputs, pkgs, ... }:
 {
 
@@ -59,7 +61,14 @@
     # swaync
     libnotify
 
+    # for wl_raise_dots
+    #ydotool
+
   ];
+
+  #programs.ydotool = { enable = true; };
+  #users.users.aporia.extraGroups = [ "ydotool" ];
+
 
   # hyprswitch
   xdg.configFile."hypr/hyprswitch.css".source = ./hyprswitch.css;

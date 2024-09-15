@@ -40,6 +40,7 @@
     #chrome-gnome-shell
     #gnomeExtensions.hide-top-bar
     nixos-option
+    nix-update
     git-lfs
     gh
     #nottetris2 # FIXME
@@ -78,6 +79,7 @@
     tree-sitter # to generate parsers from grammar
     # neorg (from overlay)
     norg-fmt
+    shfmt
 
 
     #lua51Packages.luarocks

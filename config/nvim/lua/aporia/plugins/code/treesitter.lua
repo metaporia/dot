@@ -4,6 +4,7 @@ return {
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufWritePre", "BufNewFile", "VeryLazy" },
 		-- from LazyVim [treesitter.lua](https://github.com/LazyVim/LazyVim/blob/12818a6cb499456f4903c5d8e68af43753ebc869/lua/lazyvim/plugins/treesitter.lua)
+		lazy = vim.fn.argc(-1) == 0,
 		init = function(plugin)
 			-- PERF; add nvim-treesitter queries to the rtp and it's custom query
 			-- predicates early This is needed because a bunch of plugins no longer
@@ -15,54 +16,53 @@ return {
 			-- TLDR: most plugins which depend on treesitter don't have to require it
 			require("lazy.core.loader").add_to_rtp(plugin)
 			require("nvim-treesitter.query_predicates")
+
+			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 		end,
-		opts = function()
-			-- normal mode 'zi' to enable folding
-			vim.opt.foldmethod = "expr"
+
+		opts_extend = { "ensure_installed" },
+		-- normal mode 'zi' to enable folding
+		--vim.opt.foldmethod = "expr"
+		opts = {
 			--vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 			--vim.opt.foldlevelstart = 2
 			--vim.opt.foldenable = false
+			auto_install = true,
+			sync_install = true,
+			ignore_install = {},
+			modules = {},
+			-- TODO:
+			--  * lua indent
+			--  * cpp clangd, clang-format, indentation
+			ensure_installed = {
+				"bash",
+				"cpp",
+				"haskell",
+				"json",
+				"lua",
+				"markdown",
+				"markdown_inline",
+				"nix",
+				"query",
+				"regex",
+				"vim",
+				"vimdoc",
+			},
+			--auto_install = true,
+			--ignore_install = { "javascript" },
+			highlight = {
+				enable = true,
+				--additional_vim_regex_highlighting = true,
+			},
+			indent = {
+				enable = true,
+				disable = { "markdown", "markdown_inline" },
+			},
+			incremental_selection = {
+				enable = true,
+			},
+		},
 
-			return {
-        opts_extend = { "ensure_installed"},
-				auto_install = false,
-				sync_install = false,
-				ignore_install = {},
-				modules = {},
-				-- TODO:
-				--  * lua indent
-				--  * cpp clangd, clang-format, indentation
-				ensure_installed = {
-          "just",
-					"markdown",
-					"markdown_inline",
-					"haskell",
-					"rust",
-					"cpp",
-					"nix",
-					"lua",
-					"vim",
-					"vimdoc",
-					"query",
-					"json",
-					"bash",
-          "regex"
-				},
-				--auto_install = true,
-				--ignore_install = { "javascript" },
-				highlight = {
-					enable = true,
-					--additional_vim_regex_highlighting = true,
-				},
-				indent = {
-					enable = true,
-					disable = { "markdown", "markdown_inline" },
-				},
-				incremental_selection = {
-					enable = true,
-				},
-			}
-		end,
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
 		end,
