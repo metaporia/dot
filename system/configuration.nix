@@ -325,7 +325,14 @@
     isNormalUser = true;
     shell = pkgs.fish;
     home = "/home/aporia";
-    extraGroups = [ "wheel" "docker" "networkmanager" "plocate" "libvirtd" ];
+    extraGroups = [
+      "wheel"
+      "docker"
+      "networkmanager"
+      "plocate"
+      "libvirtd"
+      "ydotool"
+    ];
     hashedPassword =
       "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
     packages = with pkgs; [ git home-manager ];

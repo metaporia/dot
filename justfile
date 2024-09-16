@@ -11,10 +11,17 @@ update-firmware:
 update-pkg PKG:
   nix-update --flake 'legacyPackages.x86_64-linux'.{{PKG}}
 
-# TODO: untoggle before `build`
-toggle-hyprland-conf:
-  toggle-link ~/.config/hypr/hyprland.conf -s ~/dot/home/wm/hyprland.conf
-
 
 update-input FLAKE:
   nix flake update {{FLAKE}}
+
+
+# Toggles
+
+toggle-hyprland FLAGS='':
+  toggle-link {{FLAGS }} ~/.config/hypr/hyprland.conf -s ~/dot/home/wm/hyprland.conf
+
+untoggle-hyprland: (toggle-hyprland '--untoggle')
+
+list-toggles:
+  toggle-link --list

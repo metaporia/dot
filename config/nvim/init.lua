@@ -42,7 +42,7 @@ require("aporia.config.keymaps")
 require("aporia.config.options")
 require("aporia.config.misc")
 
-vim.cmd([[colorscheme tokyonight]])
+vim.cmd([[colorscheme tokyonight-moon]])
 
 -- FIXME: broken macro key, 'q'
 -- it's one of these:
