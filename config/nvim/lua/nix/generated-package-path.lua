@@ -1,1 +1,0 @@
-/nix/store/ccigl9r3sibh0g69i43bhdy5xhfnhql1-home-manager-files/.config/nvim/lua/nix/generated-package-path.lua

@@ -255,7 +255,8 @@
     # Is it necessary to add package here? or will enabling it with the
     # home-manager module suffice?
     #inputs.anyrun.packages.${system}.anyrun-with-all-plugins 
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #wrapped-neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim
     wget
     firefox
     git

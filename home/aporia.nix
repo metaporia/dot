@@ -69,6 +69,7 @@
     gdb
     cmake # for nvim telescope fzf native extension
     zoom-us
+    #wrapped-neovim
     # nvim deps
     nixd
     stylua
@@ -107,10 +108,20 @@
   # nvim package.path
   # we should add a home-manager module for neovim packages,
   # and generate the package-path.lua for it
-  xdg.configFile."nvim/lua/nix/generated-package-path.lua".text = ''
+  # 
+  # Adding the generated file to ~/.config/nvim keeps ~/dot dirty, so we'll put
+  # 'em in the nvim package's runtime path
+  xdg.enable = true;
+  xdg.dataFile."nvim/nix/generated-package-path.lua".text = ''
     package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?/init.lua"
     package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?.lua"
   '';
+
+  # xdg.configFile."nvim/lua/nix/generated-package-path.lua".text = ''
+  #   package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?/init.lua"
+  #   package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?.lua"
+  # '';
+
 
 
   # nixd flags

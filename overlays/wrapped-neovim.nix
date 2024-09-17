@@ -1,9 +1,25 @@
 # Wraps neovim
 final: prev:
+
+let
+  generated-package-path = final.writeTextFile rec {
+    name = "generated-package-path.lua";
+    text = ''
+      package.path = package.path .. ";" .. "${final.luajitPackages.magick}/share/lua/5.1/?/init.lua"
+      package.path = package.path .. ";" .. "${final.luajitPackages.magick}/share/lua/5.1/?.lua"
+    '';
+    destination = "/share/nvim/runtime/lua/${name}";
+
+  };
+in
 {
 
-  neovim = prev.neovim.overrideAttrs (old:  {
-    buildInputs = [ prev.lua5_1 ];
-  });
+  wrapped-neovim = final.symlinkJoin {
+    name = "wrapped-neovim";
+    paths = [
+      prev.neovim
+      #generated-package-path 
+    ];
+  };
 
 }
