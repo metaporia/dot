@@ -1,28 +1,24 @@
 -- add nix-managed lua-modules to 'package.path'
--- Add nix managed plugin dirs (for non-lazy). Currently only contains 
+-- Add nix managed plugin dirs (for non-lazy). Currently only contains
 -- 'generated-package-path.lua'
 --
 -- - Add lua module path: ~/.local/share/nvim/nix
 --
 -- - These modules/plugins/packages, what have you, will not be autoloaded, and
 --   must be `required`.
-local nix_pack_path = vim.fn.stdpath("data") .. "/nix"
----@diagnostic disable-next-line: undefined-field
-if vim.loop.fs_stat(nix_pack_path) then
-  -- for `nix/plugin/init.lua`
-  package.path = package.path .. ";" .. nix_pack_path .. "/?/init.lua"
-  -- for `nix/plugin.lua`
-  package.path = package.path .. ";" .. nix_pack_path .. "/?.lua"
-end
-
--- we need lua rock magick and lazy couldn't jive with nix so I just patched it
--- in 
-require("generated-package-path")
-
---vim.cmd.runtime("generated-package-path.lua")
-
+-- 
+-- - Example: load simple lua module
+-- ```lua
 -- local example = require('nix.example')
 -- example.hello()
+-- ```
+
+local nix_pack_path = vim.fn.stdpath("data") .. "/nix"
+vim.opt.rtp:prepend(nix_pack_path)
+
+-- we need lua rock magick and lazy couldn't jive with nix so I just patched it in
+require("generated-package-path")
+
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
@@ -38,6 +34,8 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
+
+-- require('dico.nvim').setup()
 
 -- apparrently, mapleader must be set before lazy is loaded
 vim.g.mapleader = ","

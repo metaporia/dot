@@ -112,7 +112,7 @@
   # Adding the generated file to ~/.config/nvim keeps ~/dot dirty, so we'll put
   # 'em in the nvim package's runtime path
   xdg.enable = true;
-  xdg.dataFile."nvim/nix/generated-package-path.lua".text = ''
+  xdg.dataFile."nvim/nix/lua/generated-package-path.lua".text = ''
     package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?/init.lua"
     package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?.lua"
   '';
