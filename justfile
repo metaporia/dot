@@ -5,7 +5,7 @@ default:
 
 build: untoggle-hyprland
   NIX_SSHOPTS="-tt" NIXOS_LABEL=$(nixos-generate-label) nixos-rebuild switch \
-  --use-remote-sudo  -v --flake '/home/aporia/dot#kerfuffle' --show-trace
+  -v --flake '/home/aporia/dot#kerfuffle' --show-trace
 
 update-firmware:
   fwupdmgr update
