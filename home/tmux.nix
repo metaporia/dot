@@ -1,4 +1,4 @@
-{pkgs, ... }: {
+{pkgs, scripts, ... }: {
   # TMUX
 
   # Add tmux session so that kitty always runs tmux on startup unless overriden
@@ -75,7 +75,7 @@
 
             resurrect_dir="$HOME/.tmux/resurrect"
             set -g @resurrect-dir $resurrect_dir
-            set -g @resurrect-hook-post-save-all '${pkgs.scripts}/bin/tmuxResurrectHook'
+            set -g @resurrect-hook-post-save-all '${scripts.sets.misc-bash-utils}/bin/tmuxResurrectHook'
             set -g @resurrect-processes '"~nvim"'
           '';
         }

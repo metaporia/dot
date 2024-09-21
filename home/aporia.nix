@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, scripts, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -21,13 +21,13 @@
     #texlivePackages.amssyb
     #texlivePackages.graphicx
 
+    scripts.all
     dico
     #dictdDBs.wordnet
     #dictdDBs.wiktionary
     killall
     just
     docker
-    scripts
     getoptions
     firefox
     discord
@@ -81,6 +81,8 @@
     # neorg (from overlay)
     norg-fmt
     shfmt
+    shellcheck
+    bash-language-server
 
 
     #lua51Packages.luarocks

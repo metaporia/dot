@@ -38,7 +38,6 @@
     inputs@{ self
     , nixpkgs
     , home-manager
-    , scripts
     , anyrun
     , nixos-hardware
     , nix-index-database
@@ -58,8 +57,9 @@
         # Alternatively, overlays can be specified in the NixOS home-manager
         # module as follows:
         # > nixpkgs.overlays = (import ./overlays); # ++ [scriptsOverlay]
-        overlays = [ scripts.overlay ] ++ (import ./my-overlays.nix);
+        overlays = (import ./my-overlays.nix);
       };
+      scripts = inputs.scripts.packages.${system};
       # TODO use flake-compat to apply overlays for nix-* tools
     in
     {
@@ -116,7 +116,7 @@
                 useUserPackages = true;
                 backupFileExtension = "backup";
 
-                extraSpecialArgs = { inherit inputs; };
+                extraSpecialArgs = { inherit inputs scripts; };
 
                 sharedModules = [
 
