@@ -5,7 +5,8 @@ return {
 			windows = {
 				preview = true,
 				width_focus = 30,
-				width_preview = 30,
+        width_no_focus = 15,
+				width_preview = 40,
 			},
 			options = {
 				-- Whether to use for editing directories
