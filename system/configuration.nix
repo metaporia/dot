@@ -147,7 +147,7 @@
     };
   };
 
-  programs.ydotool.enable = true;
+  #programs.ydotool.enable = true;
 
 
   imports = [
@@ -273,7 +273,7 @@
     nix-doc
     gcc
     gnumake
-    lutris
+    #lutris
     #wine
     kitty
   ];
@@ -341,7 +341,7 @@
       "networkmanager"
       "plocate"
       "libvirtd"
-      "ydotool"
+      #"ydotool"
     ];
     hashedPassword =
       "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
