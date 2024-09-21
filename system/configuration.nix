@@ -67,6 +67,14 @@
   # Hyprland Config #
   ################### 
 
+  mine.wm.hyprland = {
+    enable = true;
+    greetd = {
+      enable = true;
+      default-user = "aporia";
+    };
+  };
+
   security.polkit.enable = true;
 
   #systemd = {
@@ -90,23 +98,23 @@
   ##  nixpkgs.flake = inputs.nixpkgs;
   ##  unstable.flake = inputs.nixpkgs;
   ##};
-  programs.hyprland.enable = true;
-  system.nixos.tags = [ "hypr" ];
-  # see https://github.com/erictossell/nixflakes/blob/main/modules/hyprland/greetd/default.nix
-  services.greetd = {
-    enable = true;
-    restart = false;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
-        user = "aporia";
-      };
-      initial_session = {
-        command = "Hyprland";
-        user = "aporia";
-      };
-    };
-  };
+  # programs.hyprland.enable = true;
+  # system.nixos.tags = [ "hypr" ];
+  # # see https://github.com/erictossell/nixflakes/blob/main/modules/hyprland/greetd/default.nix
+  # services.greetd = {
+  #   enable = true;
+  #   restart = false;
+  #   settings = {
+  #     default_session = {
+  #       command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+  #       user = "aporia";
+  #     };
+  #     initial_session = {
+  #       command = "Hyprland";
+  #       user = "aporia";
+  #     };
+  #   };
+  # };
 
   # Enable touchpad see `man libinput` for more options
   services.libinput = {
@@ -149,6 +157,7 @@
     # for some reason when both are imported
     # ./wm/gnome.nix
     # ./wm/i3.nix
+    ../modules/nixos/wm.nix
   ];
 
   # Allow installation of proprietary packages
@@ -338,5 +347,9 @@
       "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
     packages = with pkgs; [ git home-manager ];
   };
+
+
+  #home-manager.sharedModules = [ ../modules/home/wm.nix ];
+
 
 }

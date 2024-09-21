@@ -187,7 +187,7 @@
 
   systemd.user.startServices = "sd-switch"; # requires dbus session
 
-  # Now defined in ./modules/dicod.nix
+  # Now defined in ../modules/home/dicod.nix
   #systemd.user.services = {
   #  dicod = {
   #    Unit = { Description = "GNU Dico DICT server"; };
@@ -245,9 +245,9 @@
     ./fish.nix
     #./gnome-kbd-shortcuts.nix
     ./dicod.nix
-    ./modules/dicod.nix
+    ../modules/home/dicod.nix
     #./i3.nix
-    ./wm/hyprland.nix
+    #./wm/hyprland.nix
     ./tmux.nix
     ./kitty.nix
   ];

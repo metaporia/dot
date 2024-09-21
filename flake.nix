@@ -67,6 +67,14 @@
       # nix-update
       # from https://github.com/jtojnar/nixfiles : flake.nix
       legacyPackages.x86_64-linux = pkgs;
+      # expose standalone home configuration for `nixd`
+      homeConfigurations.aporia = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./home/aporia.nix ];
+        extraSpecialArgs = {
+          inherit inputs system;
+        };
+      };
       nixosConfigurations = {
         kerfuffle = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
@@ -88,35 +96,45 @@
             {
               # Use system pkgs for hm; disables nixpkgs.* options in
               # ./home/aporia.nix.
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.backupFileExtension = "backup";
-              #
+              home-manager = {
+
+                # Instead of letting the module system pass `pkgs` and `config` to
+                # `./home/aporia.nix`, we can specify them ourselves like so:
+                #
+                # ```
+                # home-manager.users.aporia = import ./home/aporia.nix {
+                #   inherit pkgs;
+                #   config = pkgs.config;
+                # };
+                # ```
+                users = {
+                  aporia.imports = [ ./home/aporia.nix ];
+                  test.imports = [ ./home/test.nix ];
+                };
+
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = "backup";
+
+                extraSpecialArgs = { inherit inputs; };
+
+                sharedModules = [
+
+                  # checks for system toggle: `mine.wm.hyprland` and loads
+                  # appropriate modules. 
+                  ./modules/home/wm.nix
+
+                  nix-index-database.hmModules.nix-index
+                  #anyrun.homeManagerModules.default
+                ];
+              };
+
               # Pass augmented nixpkgs to all modules.
               #
               # Our customized package set won't be used by home-manager without
               # this (or at least the pkgs.config won't be passed along).
               nixpkgs.pkgs = pkgs;
 
-              # Instead of letting the module system pass `pkgs` and `config` to
-              # `./home/aporia.nix`, we can specify them ourselves like so:
-              #
-              # ```
-              # home-manager.users.aporia = import ./home/aporia.nix {
-              #   inherit pkgs;
-              #   config = pkgs.config;
-              # };
-              # ```
-              home-manager.users.aporia.imports = [ ./home/aporia.nix ];
-              home-manager.users.test.imports = [ ./home/test.nix ];
-
-              home-manager.extraSpecialArgs = { inherit inputs; };
-
-              home-manager.sharedModules = [
-
-                nix-index-database.hmModules.nix-index
-                #anyrun.homeManagerModules.default
-              ];
 
             }
           ];

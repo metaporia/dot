@@ -1,11 +1,17 @@
 alias b := build
 
+flake_attr := "/home/aporia/dot#kerfuffle"
+rebuild_flags := "--verbose --show-trace"
+
 default:
   just --choose
 
 build: untoggle-hyprland
-  NIX_SSHOPTS="-tt" NIXOS_LABEL=$(nixos-generate-label) nixos-rebuild switch \
-  -v --flake '/home/aporia/dot#kerfuffle' --show-trace
+  NIX_SSHOPTS="-tt" NIXOS_LABEL=$(nixos-generate-label) \
+  sudo nixos-rebuild switch {{rebuild_flags}} --flake {{flake_attr}} 
+
+check FLAGS=rebuild_flags:
+  nixos-rebuild dry-build {{FLAGS}} --flake {{flake_attr}}
 
 update-firmware:
   fwupdmgr update

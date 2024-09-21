@@ -11,7 +11,7 @@
     scripts
     eza
     ripgrep
-    xclip
+    #xclip
     tmux
     gnome-tweaks
     # cpp nixpkgs test
