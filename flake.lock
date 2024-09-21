@@ -203,11 +203,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726887247,
-        "narHash": "sha256-fpGvoQ5IKyJL1kOEg7JASierjmDE4yT3kVgvZkznyt0=",
+        "lastModified": 1726888350,
+        "narHash": "sha256-HhxQGJ/scYQrRUkCrR/uUBVF9z89Ccg6NxVOwmHP1k4=",
         "owner": "metaporia",
         "repo": "scripts",
-        "rev": "7fd4f219e821156c26a5371c27d1a37d6bc6f8ca",
+        "rev": "f39958ad6a964ac075a7b8c82d85c56a19e6ea19",
         "type": "gitlab"
       },
       "original": {
