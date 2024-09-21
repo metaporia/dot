@@ -14,13 +14,13 @@ return {
 			{
 				"rcarriga/nvim-notify",
 				opts = {
-			       max_height = 25,
+					max_height = 25,
+          max_width = 60,
 					on_open = function(win)
 						--vim.api.nvim_win_set_config(win, { focusable = false })
 					end,
 				},
 			},
-
 		},
 		keys = {
 			--{ "<leader>sn", "", desc = "+noice" },
@@ -106,7 +106,7 @@ return {
 				},
 			},
 			routes = {
-        -- notify on  @recording messages
+				-- notify on  @recording messages
 				-- {
 				-- 	view = "notify",
 				-- 	filter = { event = "msg_showmode" },
@@ -124,14 +124,14 @@ return {
 					},
 					opts = { skip = true },
 				},
-        -- reroute long messages to split
-        {
-          filter = {
-            --event = "notify",
-            min_height = 15,
-          },
-          view = 'split',
-        },
+				-- reroute long messages to split
+				-- {
+				--   filter = {
+				--     --event = "notify",
+				--     min_height = 15,
+				--   },
+				--   view = 'split',
+				-- },
 				{
 					filter = {
 						any = {
@@ -146,7 +146,7 @@ return {
 			presets = {
 				bottom_search = true,
 				command_palette = false,
-				long_message_to_split = true,
+				long_message_to_split = false,
 				lsp_doc_border = true,
 			},
 			cmdline = {
@@ -154,7 +154,8 @@ return {
 				view = "cmdline_popup",
 			},
 			views = {
-				hover = { border = { style = "rounded" } },
+				popup = { size = { width = "95%" } },
+				hover = { border = { style = "rounded" }, size = { max_width = 80 } },
 				mini = {
 					focusable = false,
 				},
@@ -168,5 +169,4 @@ return {
 			require("noice").setup(opts)
 		end,
 	},
-
 }

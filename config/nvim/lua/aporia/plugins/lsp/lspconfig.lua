@@ -62,25 +62,28 @@ return {
 				require("cmp_nvim_lsp").default_capabilities()
 			)
 
+			lspconfig.bashls.setup({})
+
 			lspconfig.clangd.setup({
 				capabilities = caps,
 			})
 
 			lspconfig.nixd.setup({
 				capabilities = caps,
-				--cmd = { "nixd", "--inlay-hints=true", "--semantic-tokens=true" },
+				command = { "nixd" },
+				args = { "--inlay-hints=true", "-log=verbose" },
 				settings = {
 					nixd = {
 						nixpkgs = {
-							expr = " import <nixpkgs> {}",
-							--expr = 'import (builtins.getFlake "/home/aporia/dot").inputs.nixpkgs',
+							--expr = " import <nixpkgs> {}",
+							expr = 'import (builtins.getFlake "/home/aporia/dot").inputs.nixpkgs {}',
 						},
 						options = {
 							nixos = {
 								expr = '(builtins.getFlake "/home/aporia/dot").nixosConfigurations.kerfuffle.options',
 							},
 							home_manager = {
-								expr = '(builtins.getFlake "/home/aporia/dot").nixosConfigurations.kerfuffle.options.home-manager.users.options',
+								expr = '(builtins.getFlake "/home/aporia/dot").homeConfigurations.aporia.options',
 							},
 						},
 						diagnostic = {
@@ -277,4 +280,15 @@ return {
 			})
 		end,
 	},
+
+	-- {
+	-- 	"tamago324/nlsp-settings.nvim",
+	-- 	opts = {
+	-- 		config_home = vim.fn.stdpath("config") .. "/nlsp-settings",
+	-- 		local_settings_dir = ".nlsp-settings",
+	-- 		local_settings_root_markers_fallback = { ".git" },
+	-- 		append_default_schemas = true,
+	-- 		loader = "json",
+	-- 	},
+	-- },
 }

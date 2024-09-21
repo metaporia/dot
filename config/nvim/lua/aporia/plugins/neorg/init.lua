@@ -7,7 +7,7 @@ return {
 		--keys = { "<leader>f", "<Esc>gg=G<C-O>", ft = "norg", desc = "Format file" },
 		dependencies = {
 			"3rd/image.nvim",
-			--cond = function() return false end,
+			cond = function() return false end,
 			ft = { "norg" },
 		},
 		--ft = { "norg" },
@@ -106,15 +106,15 @@ return {
 					["core.defaults"] = {},
 					["core.concealer"] = {},
 					["core.autocommands"] = {},
-					["core.latex.renderer"] = {
-						config = {
-							conceal = true,
-							render_on_enter = true,
-						},
-					},
-					["core.integrations.image"] = {},
-					["core.integrations.nvim-cmp"] = {},
 					["core.integrations.treesitter"] = {},
+					-- ["core.latex.renderer"] = {
+					-- 	config = {
+					-- 		conceal = true,
+					-- 		render_on_enter = true,
+					-- 	},
+					-- },
+          --["core.integrations.image"] = {},
+					["core.integrations.nvim-cmp"] = {},
 					["core.text-objects"] = {},
 					["core.neorgcmd"] = {},
 					["core.dirman"] = {
