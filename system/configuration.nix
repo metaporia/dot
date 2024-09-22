@@ -137,6 +137,10 @@
     # it should default to false
     displayManager = {
       lightdm.enable = false;
+      autoLogin = {
+        enable = true;
+        user = "aporia";
+      };
     };
 
     # Configure keymap in X11
