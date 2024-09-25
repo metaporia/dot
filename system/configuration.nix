@@ -162,10 +162,17 @@
     # ./wm/gnome.nix
     # ./wm/i3.nix
     ../modules/nixos/wm.nix
+    ../modules/nixos/windows-file-share.nix
   ];
 
   # Allow installation of proprietary packages
   #nixpkgs.config.allowUnfree = true;
+
+  mine.windows-file-share = {
+    enable = true;
+    host = "192.168.1.40";
+    sharePath = "Valorant_OBS";
+  };
 
   # use latest kernel for framework laptop wifi card support
   # see kvark/dotfiles on github for full (working) framework laptop config
