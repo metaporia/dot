@@ -27,7 +27,6 @@ elpa
 !emacs.d/*.org
 !emacs.d/*.el
 history.el
-lazy-lock.json
 
 tmp
 
