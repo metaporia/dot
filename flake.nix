@@ -60,12 +60,15 @@
         overlays = (import ./overlays.nix);
       };
       scripts = inputs.scripts.packages.${system};
+      # fancy (that is, usable) lua repl
+      croissant = (pkgs.callPackage ./pkgs {}).croissant;
       # TODO use flake-compat to apply overlays for nix-* tools
     in
     {
       # add legacyPackages: expose package set nixpkgs // overlays for
       # nix-update
       # from https://github.com/jtojnar/nixfiles : flake.nix
+      inherit croissant;
       legacyPackages.x86_64-linux = pkgs;
       # expose standalone home configuration for `nixd`
       homeConfigurations.aporia = home-manager.lib.homeManagerConfiguration {
@@ -116,7 +119,7 @@
                 useUserPackages = true;
                 backupFileExtension = "backup";
 
-                extraSpecialArgs = { inherit inputs scripts; };
+                extraSpecialArgs = { inherit inputs scripts croissant; };
 
                 sharedModules = [
 

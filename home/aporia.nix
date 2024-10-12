@@ -1,4 +1,4 @@
-{ pkgs, config, scripts, ... }:
+{ pkgs, config, scripts, croissant, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -95,6 +95,9 @@
     # this needs to be added to ~/.config/nvim/nix/package-path.lua
     luajitPackages.magick
     luajit
+    croissant # lua 5.1
+    luarocks-nix
+    luarocks-packages-updater
 
     # nvim: neorg: latex rendering
 
