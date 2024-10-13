@@ -14,44 +14,30 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			--"folke/neodev.nvim",
 		},
-		opts = function()
-			return {
-				diagnostics = {
-					underline = true,
-					update_in_insert = false,
-					float = { border = "rounded" },
-					virtual_text = { prefix = "●" },
-					severity_sort = true,
-				},
-				-- Lsp cursor word highlighting
-				-- LazyVim custom feature
-				--document_highlight = { enabled = true, }
-			}
-		end,
+		-- the spec for nvim-lspconfig is split into multiple files, one per
+		-- language. The top lovel spec ./lsp.lua collects and merges the `opts`
+		-- tables for each language server
+		opts = {
+			-- put any servers you want installed by default here, otherwise put them
+			-- in a language specific file in ./lsp
+			servers = {
+				lua_ls = {},
+				bashls = {},
+				clangd = {},
+			},
+			diagnostics = {
+				underline = true,
+				update_in_insert = false,
+				float = { border = "rounded" },
+				virtual_text = { prefix = "●" },
+				severity_sort = true,
+			},
+			-- Lsp cursor word highlighting
+			-- LazyVim custom feature
+			--document_highlight = { enabled = true, }
+		},
 		config = function(_, opts)
-			--require('neodev').setup({
-			--  override = function(root_dir, library)
-			--    if root_dir:find("/home/aporia/dot/config/nvim", 1, true) == 1 then
-			--      library.enabled = true
-			--      library.plugins = true
-			--    end
-			--  end
-			--})
-
-			--
 			local lspconfig = require("lspconfig")
-
-			--lspconfig.clangd.setup {
-			--  on_attach = on_attach,
-			--  --capabilities = lspconfig.capabilities,
-			--  --cmd = {
-			--  --  "clangd",
-			--  --  "--background-index",
-			--  --  "--suggest-missing-includes",
-			--  --  "--all-scopes-completion",
-			--  --  "--completion-stlye=detailed",
-			--  --},
-			--}
 
 			local lsp_defaults = lspconfig.util.default_config
 
@@ -62,64 +48,13 @@ return {
 				require("cmp_nvim_lsp").default_capabilities()
 			)
 
-			lspconfig.bashls.setup({})
-
-			lspconfig.clangd.setup({
-				capabilities = caps,
-			})
-
-			lspconfig.nixd.setup({
-				capabilities = caps,
-				command = { "nixd" },
-				args = { "--inlay-hints=true", "-log=verbose" },
-				settings = {
-					nixd = {
-						nixpkgs = {
-							--expr = " import <nixpkgs> {}",
-							expr = 'import (builtins.getFlake "/home/aporia/dot").inputs.nixpkgs {}',
-						},
-						options = {
-							nixos = {
-								expr = '(builtins.getFlake "/home/aporia/dot").nixosConfigurations.kerfuffle.options',
-							},
-							home_manager = {
-								expr = '(builtins.getFlake "/home/aporia/dot").homeConfigurations.aporia.options',
-							},
-						},
-						diagnostic = {
-							suppress = { "sema-escaping-with" },
-						},
-					},
-				},
-			})
-
-			lspconfig.lua_ls.setup({
-				capabilities = caps,
-				settings = {
-					Lua = {
-						workspace = {
-							checkThirdParty = false,
-						},
-						codeLens = {
-							enable = true,
-						},
-						completion = {
-							callSnippet = "Replace",
-						},
-						doc = {
-							privateName = { "^_" },
-						},
-						hint = {
-							enable = true,
-							setType = false,
-							paramType = true,
-							paramName = "Disable",
-							semicolon = "Disable",
-							arrayIndex = "Disable",
-						},
-					},
-				},
-			})
+			-- ###########
+			-- # SERVERS #
+			-- ###########
+			for server, server_opts in pairs(opts.servers) do
+				server_opts.capabilities = caps
+				lspconfig[server].setup(server_opts)
+			end
 
 			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
@@ -130,24 +65,6 @@ return {
 				"<space>e",
 				vim.diagnostic.open_float,
 				{ desc = "Diagnostic open float" }
-			)
-			vim.keymap.set(
-				"n",
-				"[d",
-				vim.diagnostic.goto_prev,
-				{ desc = "Goto prev diagnostic" }
-			)
-			vim.keymap.set(
-				"n",
-				"]d",
-				vim.diagnostic.goto_next,
-				{ desc = "Goto next diagnostic" }
-			)
-			vim.keymap.set(
-				"n",
-				"<space>q",
-				vim.diagnostic.setloclist,
-				{ desc = "Set loclist with diagnostics" }
 			)
 			vim.keymap.set(
 				"n",
