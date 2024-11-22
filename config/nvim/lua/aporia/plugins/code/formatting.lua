@@ -25,6 +25,7 @@ return {
 				rust = { "rustfmt" },
 				norg = { "norg_fmt" },
 				bash = { "shfmt" },
+        python = { "black"},
 				sh = { "shfmt" },
 			},
 			default_format_opts = {

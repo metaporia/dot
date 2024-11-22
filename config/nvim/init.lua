@@ -1,3 +1,6 @@
+-- print(vim.inspect(vim.api.nvim_list_runtime_paths()))
+-- print(vim.inspect(vim.api.nvim_get_runtime_file('parser', true)))
+
 -- add nix-managed lua-modules to 'package.path'
 -- Add nix managed plugin dirs (for non-lazy). Currently only contains
 -- 'generated-package-path.lua'
@@ -6,7 +9,7 @@
 --
 -- - These modules/plugins/packages, what have you, will not be autoloaded, and
 --   must be `required`.
--- 
+--
 -- - Example: load simple lua module
 -- ```lua
 -- local example = require('nix.example')
@@ -18,7 +21,6 @@ vim.opt.rtp:prepend(nix_pack_path)
 
 -- we need lua rock magick and lazy couldn't jive with nix so I just patched it in
 require("generated-package-path")
-
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
@@ -46,16 +48,43 @@ vim.o.termguicolors = true
 -- 'plugins' is a directory of (lazy) plugin specifications
 -- 'opts' is lazy.nvim configuration
 require("lazy").setup({
-	{ import = "aporia.plugins" },
-	{ import = "aporia.plugins.ui" },
-	{ import = "aporia.plugins.editor" },
-	{ import = "aporia.plugins.lsp" },
-	{ import = "aporia.plugins.code" },
-	{ import = "aporia.plugins.langs" },
-	{ import = "aporia.plugins.neorg" },
-	--{ import = "aporia.plugins.include"},
-	--{ import = "aporia.plugins.quarantine"}
+	spec = {
+		{ import = "aporia.plugins" },
+		{ import = "aporia.plugins.ui" },
+		{ import = "aporia.plugins.editor" },
+		{ import = "aporia.plugins.lsp" },
+		{ import = "aporia.plugins.code" },
+		{ import = "aporia.plugins.langs" },
+		{ import = "aporia.plugins.neorg" },
+		--{ import = "aporia.plugins.include"},
+		--{ import = "aporia.plugins.quarantine"}
+	},
+
+	check = { enabled = false },
+	install = { colorscheme = { "tokyonight" } },
+	dev = { path = nix_pack_path, fallback = false },
+	performance = {
+		reset_packpath = true,
+		-- TODO: export `nix_rtp()` from `nix.utils` and add custom rtp here
+		rtp = { reset = true, paths = { nix_pack_path } },
+		-- does this reset immediately or after plugins are loaded?
+		-- probably first, right?
+	},
+	profiling = {
+		-- Enables extra stats on the debug tab related to the loader cache.
+		-- Additionally gathers stats about all package.loaders
+		loader = false,
+		-- Track each new require in the Lazy profiling tab
+		require = false,
+	},
 })
+
+
+-- for latex module we need:
+-- * install latex parser (latex.so) or compile from grammar.js
+-- * tell nvim-treesitter about it in order to enable the queries and
+--   highlights
+vim.treesitter.language.register("latex", { filetype = "latex" })
 
 require("aporia.config.keymaps")
 require("aporia.config.options")

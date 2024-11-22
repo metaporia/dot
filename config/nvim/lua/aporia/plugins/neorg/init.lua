@@ -2,13 +2,16 @@ return {
 
 	{
 		-- wiki https://github.com/nvim-neorg/neorg/wiki
+    -- ~/src/norg-specs
 		"nvim-neorg/neorg",
-		ft = { "norg" },
+		--ft = { "norg" },
 		--keys = { "<leader>f", "<Esc>gg=G<C-O>", ft = "norg", desc = "Format file" },
 		dependencies = {
 			"3rd/image.nvim",
-			cond = function() return false end,
-			ft = { "norg" },
+			cond = function()
+				return false
+			end,
+			--ft = { "norg" },
 		},
 		--ft = { "norg" },
 		--keys = {
@@ -25,7 +28,7 @@ return {
 		--		desc = "Open new journal entry (Neorg)",
 		--	},
 		--},
-		lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+		lazy = true, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
 		version = "*", -- Pin Neorg to the latest stable release
 		keys = {
 			{
@@ -110,10 +113,10 @@ return {
 					-- ["core.latex.renderer"] = {
 					-- 	config = {
 					-- 		conceal = true,
-					-- 		render_on_enter = true,
+					-- 		-- render_on_enter = false,
 					-- 	},
 					-- },
-          --["core.integrations.image"] = {},
+					--["core.integrations.image"] = {},
 					["core.integrations.nvim-cmp"] = {},
 					["core.text-objects"] = {},
 					["core.neorgcmd"] = {},
@@ -134,12 +137,30 @@ return {
 
 	{
 		"3rd/image.nvim",
-		ft = { "markdown", "norg" },
+		--ft = { "markdown", "norg" },
 		--dependencies = { "leafo/magick" },
 		opts = {
 			neorg = {
-				enabled = true,
+				enabled = false,
 			},
 		},
+	},
+
+	{
+		"jbyuki/nabla.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			--opts = { ensure_installed = { "latex" } },
+		},
+		keys = {
+			{
+				"<space>p",
+				function()
+					require("nabla").popup({ border = "rounded" })
+				end,
+				{ desc = "Show popup" },
+			},
+		},
+		config = true,
 	},
 }

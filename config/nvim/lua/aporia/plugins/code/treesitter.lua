@@ -18,6 +18,24 @@ return {
 			require("nvim-treesitter.query_predicates")
 
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+			-- register latex parser
+			-- https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#adding-parsers
+
+			-- local parser_config =
+			-- 	require("nvim-treesitter.parsers").get_parser_configs()
+			-- parser_config.latex = {
+			-- 	install_info = {
+			-- 		url = "~/.local/share/nvim/nix", -- local path or git repo
+			-- 		files = { "latex.so" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+			-- 		-- optional entries:
+			-- 		branch = "main", -- default branch in case of git repo if different from master
+			-- 		generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+			-- 		requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+			-- 	},
+			-- 	filetype = "zu", -- if filetype does not match the parser name
+			-- }
+
 		end,
 
 		opts_extend = { "ensure_installed" },
@@ -27,14 +45,15 @@ return {
 			--vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 			--vim.opt.foldlevelstart = 2
 			--vim.opt.foldenable = false
-			auto_install = true,
-			sync_install = true,
+			auto_install = false,
+			sync_install = false,
 			ignore_install = {},
 			modules = {},
 			-- TODO:
 			--  * lua indent
 			--  * cpp clangd, clang-format, indentation
 			ensure_installed = {
+        "python",
 				"bash",
 				"cpp",
 				"haskell",

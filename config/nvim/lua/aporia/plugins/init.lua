@@ -260,6 +260,7 @@ return {
 					highlight = { "Function", "Label" },
 					include = { node_type = { nix = { "attrset_expression" } } },
 				},
+				exclude = { filetypes = { "norg" } },
 			})
 		end,
 	},

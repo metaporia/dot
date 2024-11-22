@@ -101,6 +101,8 @@
 
     # nvim: neorg: latex rendering
 
+    tree-sitter-grammars.tree-sitter-latex
+
     #lua51Packages.lua
 
 
@@ -122,11 +124,17 @@
   # 
   # Adding the generated file to ~/.config/nvim keeps ~/dot dirty, so we'll put
   # 'em in the nvim package's runtime path
+  #
+  #vim.opt.runtimepath:prepend("${pkgs.tree-sitter-grammars.tree-sitter-latex}/lib")
   xdg.enable = true;
   xdg.dataFile."nvim/nix/lua/generated-package-path.lua".text = ''
     package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?/init.lua"
     package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?.lua"
   '';
+
+  # add tree-sitter-grammars.tree-sitter-latex to ~/.local/share/nvim/site/
+
+  #xdg.dataFile."nvim/site/parser/latex.so.source" = path:${pkgs.tree-sitter-grammars.tree-sitter-latex}/lib/latex.so;
 
   # xdg.configFile."nvim/lua/nix/generated-package-path.lua".text = ''
   #   package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?/init.lua"
@@ -295,6 +303,15 @@
       };
     };
     fish.enable = true;
+  };
+
+  programs.neovim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      #(nvim-treesitter.withPlugins (ps: with ps; [ zig python]))
+      nvim-treesitter-parsers.zig
+      fugitive
+    ];
   };
 
   dconf.settings = {

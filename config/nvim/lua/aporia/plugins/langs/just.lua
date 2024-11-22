@@ -21,9 +21,10 @@ return {
 	{
 		"al1-ce/just.nvim",
 		keys = {
-			{ "<leader>jd", "<cmd>JustDefault<CR>", desc = "just default" },
-			{ "<leader>js", "<cmd>JustSelect<CR>", desc = "just select" },
-			{ "<leader>jb", "<cmd>JustBuild<CR>", desc = "just build" },
+			{ "<space>jd", "<cmd>JustDefault<CR>", desc = "just default" },
+			{ "<space>js", "<cmd>JustSelect<CR>", desc = "just select" },
+			{ "<space>jb", "<cmd>JustBuild<CR>", desc = "just build" },
+			{ "<space>jr", "<cmd>JustRun<CR>", desc = "just run" },
 		},
 		dependencies = {
 			"nvim-lua/plenary.nvim",

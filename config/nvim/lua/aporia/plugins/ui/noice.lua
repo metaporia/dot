@@ -3,7 +3,7 @@ return {
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
-		--cond = function() return false end,
+		cond = function() return false end,
 		dependencies = {
 			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",
@@ -24,14 +24,14 @@ return {
 		},
 		keys = {
 			--{ "<leader>sn", "", desc = "+noice" },
-			{
-				"<M-Enter>",
-				function()
-					require("noice").redirect(vim.fn.getcmdline())
-				end,
-				mode = "c",
-				desc = "Redirect Cmdline",
-			},
+			-- {
+			-- 	"<M-Enter>",
+			-- 	function()
+			-- 		require("noice").redirect(vim.fn.getcmdline())
+			-- 	end,
+			-- 	mode = "c",
+			-- 	desc = "Redirect Cmdline",
+			-- },
 			{
 				"<leader>snl",
 				function()
