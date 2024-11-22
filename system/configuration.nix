@@ -163,6 +163,7 @@
     # ./wm/i3.nix
     ../modules/nixos/wm.nix
     ../modules/nixos/windows-file-share.nix
+    ../modules/nixos/wordpress.nix
   ];
 
   # Allow installation of proprietary packages

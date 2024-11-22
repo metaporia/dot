@@ -90,7 +90,7 @@
 
     #lua51Packages.magick
 
-    luajitPackages.luarocks
+    # luajitPackages.luarocks
     luajitPackages.lua
     # this needs to be added to ~/.config/nvim/nix/package-path.lua
     luajitPackages.magick
@@ -107,6 +107,12 @@
     # tmux
     tmux
     bc # for tokyo-night-tmux's netspeed and git widgets
+
+    # image viewer
+    feh
+
+    # nasturtiumfilms
+    awscli2
 
   ];
 
