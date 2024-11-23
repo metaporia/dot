@@ -84,7 +84,7 @@ require("lazy").setup({
 -- * install latex parser (latex.so) or compile from grammar.js
 -- * tell nvim-treesitter about it in order to enable the queries and
 --   highlights
-vim.treesitter.language.register("latex", { filetype = "latex" })
+-- vim.treesitter.language.register("latex", { filetype = "latex" })
 
 require("aporia.config.keymaps")
 require("aporia.config.options")

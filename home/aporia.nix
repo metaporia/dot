@@ -305,14 +305,14 @@
     fish.enable = true;
   };
 
-  programs.neovim = {
-    enable = true;
-    plugins = with pkgs.vimPlugins; [
-      #(nvim-treesitter.withPlugins (ps: with ps; [ zig python]))
-      nvim-treesitter-parsers.zig
-      fugitive
-    ];
-  };
+  # programs.neovim = {
+  #   enable = true;
+  #   plugins = with pkgs.vimPlugins; [
+  #     #(nvim-treesitter.withPlugins (ps: with ps; [ zig python]))
+  #     nvim-treesitter-parsers.zig
+  #     fugitive
+  #   ];
+  # };
 
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
