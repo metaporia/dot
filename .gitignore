@@ -31,3 +31,6 @@ history.el
 tmp
 
 *.ignore.*
+**/eln-cache
+**/ido.last
+overlays/tree-sitter

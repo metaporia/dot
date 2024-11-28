@@ -56,9 +56,9 @@
 
     # hyprland specific
 
-    # screenshot tool, see https://wiki.hyprland.org/FAQ/#how-do-i-screenshot
-    grim # grab images from wayland
-    slurp # select region in wayland
+    # screenshot tool (option #2), 
+    # see https://wiki.hyprland.org/FAQ/#how-do-i-screenshot
+    hyprshot
 
     # window switcher
     inputs.hyprswitch.packages.${system}.default
@@ -74,6 +74,8 @@
   #programs.ydotool = { enable = true; };
   #users.users.aporia.extraGroups = [ "ydotool" ];
 
+  # hyprshot
+  home.sessionVariables = { HYPRSHOT_DIR = "~/Pictures/Screenshots/";};
 
   # hyprswitch
   xdg.configFile."hypr/hyprswitch.css".source = ./hyprswitch.css;
