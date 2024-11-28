@@ -56,6 +56,10 @@
 
     # hyprland specific
 
+    # screenshot tool, see https://wiki.hyprland.org/FAQ/#how-do-i-screenshot
+    grim # grab images from wayland
+    slurp # select region in wayland
+
     # window switcher
     inputs.hyprswitch.packages.${system}.default
 
