@@ -84,7 +84,7 @@
       mp = "muse parse";
       mu = "mupdf";
       open = "xdg-open";
-      log = "nvim -cLogToday -- ~/sputum/muse/{*,(today)}";
+      log = "nvim -cLogToday -- ~/sputum/muse/{*,(date +'%y.%m.%d')}";
     };
   };
 }

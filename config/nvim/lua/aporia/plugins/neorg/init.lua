@@ -2,7 +2,7 @@ return {
 
 	{
 		-- wiki https://github.com/nvim-neorg/neorg/wiki
-    -- ~/src/norg-specs
+		-- ~/src/norg-specs
 		"nvim-neorg/neorg",
 		--ft = { "norg" },
 		--keys = { "<leader>f", "<Esc>gg=G<C-O>", ft = "norg", desc = "Format file" },
@@ -14,23 +14,21 @@ return {
 			--ft = { "norg" },
 		},
 		--ft = { "norg" },
-		--keys = {
-		--	{
-		--		"<leader>nj",
-		--		function()
-		--			local dirman = require("neorg").modules.get_module("core.dirman")
-		--			dirman.create_file(vim.fn.strftime("%y.%m.%d"), "sputum", {
-		--				no_open = false, -- open file after creation?
-		--				force = false, -- overwrite file if exists
-		--				metadata = {}, -- key-value table for metadata fields
-		--			})
-		--		end,
-		--		desc = "Open new journal entry (Neorg)",
-		--	},
-		--},
-		lazy = true, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+		lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
 		version = "*", -- Pin Neorg to the latest stable release
 		keys = {
+			{
+				"<leader>nj",
+				function()
+					local dirman = require("neorg").modules.get_module("core.dirman")
+					dirman.create_file(vim.fn.strftime("%y.%m.%d"), "sputum", {
+						no_open = false, -- open file after creation?
+						force = false, -- overwrite file if exists
+						metadata = {}, -- key-value table for metadata fields
+					})
+				end,
+				desc = "Open new journal entry (Neorg)",
+			},
 			{
 				"<leader>nt",
 				"<cmd>Neorg tangle current-file<CR>",
@@ -107,7 +105,14 @@ return {
 			require("neorg").setup({
 				load = {
 					["core.defaults"] = {},
+					["core.esupports.metagen"] = {
+						config = {
+							author = "aporia",
+							type = "auto", -- generate metadata if not present
+						},
+					},
 					["core.concealer"] = {},
+          ["core.summary"] = {},
 					["core.autocommands"] = {},
 					["core.integrations.treesitter"] = {},
 					-- ["core.latex.renderer"] = {

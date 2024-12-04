@@ -52,7 +52,8 @@
     transmission-qt
     sqlitebrowser
     path-of-building
-    libsForQt5.okular
+    #libsForQt5.okular
+    zathura
     # lsps
     lua-language-server
     nil

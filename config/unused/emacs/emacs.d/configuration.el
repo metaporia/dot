@@ -15,11 +15,30 @@
 (menu-bar-mode -1)
 (visual-line-mode t)
 
-(set-face-attribute 'default nil :height 120)
+(set-face-attribute 'default nil :height 140)
 (set-face-attribute 'mode-line nil :height 140)
 
-(setq default-frame-alist '((font . "Iosevka-16")))
-;;(set-frame-font "-CYEL-Iosevka-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1")
+
+
+(savehist-mode) ;; save command history
+
+(defun tangle-and-reload ()
+  "Tangle org config and reload init.el"
+  (interactive)
+  (org-babel-tangle-file "~/.emacs.d/configuration.org")
+  (load-file user-init-file)
+  )
+
+(evil-leader/set-key "xr" 'tangle-and-reload)
+
+(use-package helpful :ensure t
+  :bind (
+         ("C-h v" . helpful-variable)
+         ("C-h k" . helpful-key)
+         ("C-h x" . helpful-command)
+         ("C-h f" . helpful-callable)
+         )
+  )
 
 (use-package elisp-slime-nav
   :ensure t
@@ -32,15 +51,22 @@
 (use-package ido
   :config
   (ido-mode t)
+  (setq ido-ignore-buffers '("^ " "*Completions*" "*Shell Command Output*"
+                             "*Messages*" "Async Shell Command"))
   (setq ido-everywhere t)
   (setq ido-enable-flex-matching t)
-  ; Use the current window when visiting files and buffers with ido
+                                        ; Use the current window when visiting files and buffers with ido
   (setq ido-default-file-method 'selected-window)
+  (setq ido-virtual-buffers t)
   (setq ido-default-buffer-method 'selected-window)
-  ; Use the current window for indirect buffer display
-  ;(setq org-indirect-buffer-display 'current-window)
-  (use-package ido-completing-read+ :ensure t)
-  (ido-ubiquitous-mode 1))
+                                        ; Use the current window for indirect buffer display
+                                        ;(setq org-indirect-buffer-display 'current-window)
+  )
+(use-package ido-completing-read+ :ensure t :requires ido
+  :init
+  (ido-ubiquitous-mode t)
+  )
+;;(use-package ido-ubiquitous :ensure t :requires ido :config (ido-ubiquitous-mode 1))
 
 (defun define-word-wrapped (word)
   "Read a word and pass it to dico(1)."
@@ -52,13 +78,158 @@
   (interactive)
   (define-word-wrapped (thing-at-point 'word () )))
 
-(use-package company
+(use-package evil
   :ensure t
-  :commands global-company-mode
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-u-delete t)
+  (setq evil-undo-system 'undo-redo)
+  (setq evil-want-C-i-jump t)
   :config
-  (add-hook 'after-init-hook 'global-company-mode)
-  (define-key company-active-map(kbd "C-n") 'company-select-next-or-abort)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))
+  (evil-mode t)
+
+  ;;(setq evil-emacs-state-modes (delq 'ibuffer-mode evil-emacs-state-modes))
+
+  ;;(setq evil-emacs-state-modes (delq 'completion-list-mode evil-emacs-state-modes))
+
+
+  ;; (define-key evil-insert-state-map (kbd "C-u")
+  ;;             (lambda ()
+  ;;               (interactive)
+  ;;               (if (looking-back "^" 0)
+  ;;                   (backward-delete-char 1)
+  ;;                 (if (looking-back "^\s*" 0)
+  ;;                     (delete-region (point) (line-beginning-position))
+  ;;                   (evil-delete (+ (line-beginning-position) (current-indentation)) (point))))))
+
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-delete-buffer)
+  ;;(define-key evil-org-mode-map (kbd "TAB") 'evil-delete-buffer)
+
+  ;; slime-nav documentation lookup
+  (evil-define-key 'normal emacs-lisp-mode-map (kbd "K")
+    'elisp-slime-nav-describe-elisp-thing-at-point)
+
+  (use-package evil-escape
+    :ensure t
+    :config
+    (evil-escape-mode)
+    (setq-default evil-escape-key-sequence "jk"))
+
+  (use-package evil-leader
+    :ensure t
+    :init
+    (setq evil-want-keybinding nil)
+    :config
+    (progn
+      (evil-leader/set-leader ",")
+      ;; other leader bindings (?)
+      (evil-leader/set-key
+        "w" 'save-buffer
+        "," 'other-window
+        "h" 'dired-jump ;; tentative
+        "e" 'pp-eval-last-sexp
+        "b" 'ibuffer ;; tentative
+        "d" 'define-word)
+      )
+    (global-evil-leader-mode))
+
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode))
+  )
+
+(use-package evil-collection
+  :after evil
+  :init
+  ;;(setq evil-collection-want-company-extended-keybindings t)
+  :ensure t
+  :config
+  (evil-collection-init))
+
+(use-package corfu
+  :after evil
+  :ensure t
+  :custom
+  ;; Enable cycling for `corfu-next/previous'
+  (corfu-cycle t)
+  (corfu-count 14)
+  (corfu-scroll-margin 4)
+  (corfu-preselect-first t)
+  ;; (corfu-preview-current t)
+  :init
+  ;;(corfu-popupinfo-mode) ;; show doc previews
+  (global-corfu-mode)
+
+
+  ;; unbind org tab
+  :config
+  (evil-define-key 'insert 'org-mode-map (kbd "TAB") nil)
+  (evil-define-key nil 'evil-insert-state-map (kbd "TAB") nil)
+  (evil-define-key 'insert 'evil-org-mode (kbd "TAB") #'completion-at-point)
+  (define-key evil-insert-state-map (kbd "C-n")  #'completion-at-point)
+  (define-key evil-insert-state-map (kbd "C-e")  #'corfu-complete)
+  )
+
+;; Enable Corfu completion UI
+;; See the Corfu README for more configuration tips.
+(use-package corfu
+  :init
+  (global-corfu-mode))
+
+
+;; A few more useful configurations...
+(use-package emacs
+  :custom
+  ;; TAB cycle if there are only few candidates
+  ;; (completion-cycle-threshold 3)
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (tab-always-indent 'complete)
+
+  ;; Emacs 30 and newer: Disable Ispell completion function.
+  ;; Try `cape-dict' as an alternative.
+  (text-mode-ispell-word-completion nil)
+
+
+  ;; Hide commands in M-x which do not apply to the current mode.  Corfu
+  ;; commands are hidden, since they are not used via M-x. This setting is
+  ;; useful beyond Corfu.
+  (read-extended-command-predicate #'command-completion-default-include-p))
+
+;; Add extensions
+(use-package cape
+  :ensure t
+  ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
+  ;; Press C-c p ? to for help.
+  :bind ("C-c p" . cape-prefix-map) ;; Alternative keys: M-p, M-+, ...
+  ;; Alternatively bind Cape commands individually.
+  ;; :bind (("C-c p d" . cape-dabbrev)
+  ;;        ("C-c p h" . cape-history)
+  ;;        ("C-c p f" . cape-file)
+  ;;        ...)
+  :init
+  ;; Add to the global default value of `completion-at-point-functions' which is
+  ;; used by `completion-at-point'.  The order of the functions matters, the
+  ;; first function returning a result wins.  Note that the list of buffer-local
+  ;; completion functions takes precedence over the global list.
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block)
+  ;; (add-hook 'completion-at-point-functions #'cape-history)
+  ;; ...
+  )
+
+(use-package kind-icon
+  :ensure t
+  :after corfu
+  :custom
+  (kind-icon-blend-background t)
+  (kind-icon-default-face 'corfu-default) ; only needed with blend-background
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (setq initial-buffer-choice "~/org/todo.org")
 
@@ -68,10 +239,21 @@
 
 (setq vc-follow-symlinks t)
 
+(display-line-numbers-mode)
+(setq display-line-numbers 'relative)
+
+;; (se-package linum-relative :ensure t
+ ;;  :init
+ ;;  ;; Use `display-line-number-mode` as linum-mode's backend for smooth performance
+ ;;  (setq linum-relative-backend 'display-line-numbers-mode)
+ ;;  :config
+ ;;  (linum-relative-mode)
+ ;;  )
+
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
   :config
-  (color-theme-sanityinc-tomorrow-bright))
+  (load-theme 'sanityinc-tomorrow-night t))
 
 (use-package smart-mode-line
   :ensure t
@@ -80,133 +262,6 @@
   (sml/setup)
   ;(load-theme 'deeper-blue) ; uncomment to set dark blue theme
   )
-
-(use-package undo-tree :ensure t)
-
-(use-package evil
-  :ensure t
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  :config
-  (evil-mode t)
-
-  (setq evil-want-C-i-jump t)
-
-  (setq evil-emacs-state-modes (delq 'ibuffer-mode
-				     ;; from:
-				     evil-emacs-state-modes))
-  
-  (setq evil-emacs-state-modes (delq 'completion-list-mode
-				     ;; from:
-				     evil-emacs-state-modes))
-				     
-  (define-key evil-insert-state-map (kbd "C-u")
-    (lambda ()
-      (interactive)
-      (if (looking-back "^" 0)
-	  (backward-delete-char 1)
-      (if (looking-back "^\s*" 0)
-	  (delete-region (point) (line-beginning-position))
-          (evil-delete (+ (line-beginning-position) (current-indentation)) (point))))))
-  (define-key evil-normal-state-map (kbd "C-k") 'evil-delete-buffer)
-
-  ; slime-nav documentation lookup
-  (evil-define-key 'normal emacs-lisp-mode-map (kbd "K")
-    'elisp-slime-nav-describe-elisp-thing-at-point)
-
-  (use-package evil-escape
-    :ensure t
-    :config
-    (evil-escape-mode)
-    (setq-default evil-escape-key-sequence "jk"))
-  
-  (use-package evil-leader
-    :ensure t
-    
-    :config
-    (progn
-	(evil-leader/set-leader ",")
-	;; other leader bindings (?)
-	(evil-leader/set-key
-	  "w" 'save-buffer
-	  "," 'other-window
-	  "h" 'dired-jump ;; tentative
-	  "e" 'pp-eval-last-sexp
-	  "b" 'ibuffer ;; tentative
-	  "d" 'define-word)
-	)
-    (global-evil-leader-mode))
-  
-  (use-package evil-surround
-    :ensure t
-    :config
-    (global-evil-surround-mode))
-
-  (use-package evil-magit
-    :ensure t)
-  )
-
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
-
-(use-package haskell-mode
-  :ensure t
-  :config
-  ;; bindings
-  ;;(define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
-  ;;(define-key haskell-mode-map (kbd "C-c C-i") 'haskell-do-info)
-  ;; (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
-
-  ;; tags
-  (setq haskell-tags-on-save t)
-  )
-
-;; intero
-(use-package intero
-  :ensure t
-  :config
-  (define-key intero-mode-map (kbd "M-.") 'intero-goto-definition)
-  (define-key intero-mode-map (kbd "<f8>") 'haskell-navigate-imports)
-  ;(define-key intero-repl-mode-map (kbd "C-l") 'intero-repl-clear-buffer)
-  (define-key intero-repl-mode-map (kbd "C-l") 'recenter-top-bottom)
-
-  (defun codex-update ()
-    (when (eq major-mode 'intero-mode)
-      (async-shell-command  "codex update")
-      ))
-
-  (add-hook 'haskell-mode-hook 'intero-mode)
-  (add-hook 'after-save-hook 'codex-update)
-  (add-hook 'haskell-mode-hook 'linum-relative-mode)
-  )
-
-;; hoogle
-(defun hoogle-search (term)
-  "Search for given string in hoogle."
-  (with-output-to-temp-buffer "*hoogle-search*"
-    (shell-command (concat "stack hoogle search -- " term) "*hoogle-search*" "*Messages*")
-  (pop-to-buffer "*hoogle-search*")))
-
-(defun hoogle-info (term)
-  "Search for given string in hoogle. Return documentation of first match."
-  (with-output-to-temp-buffer "*hoogle-info*"
-    (shell-command (concat "stack hoogle search -- -i " term) "*hoogle-info*" "*Messages*")
-  (pop-to-buffer "*hoogle-info*")))
-
-(defun hoogle-search-interactive ()
-  (interactive)
-  (hoogle-search (thing-at-point 'word () )))
-
-
-
-(defun hoogle-info-interactive ()
-  (interactive)
-  (hoogle-info (thing-at-point 'word () )))
 
 (use-package which-key
   :ensure t
@@ -228,11 +283,14 @@
 (setq org-list-allow-alphabetical t)
 (setq org-fast-tag-selection-single-key t)
 
+;; display remote inline images
+(setq org-display-remote-inline-images 'download)
+
 (setq org-tag-alist '(("code" . ?c)
-		      ("meta" . ?m)
-		      ("note" . ?n)
-		      ("personal" . ?p)
-		      ("school" . ?s)
+                      ("meta" . ?m)
+                      ("note" . ?n)
+                      ("personal" . ?p)
+                      ("school" . ?s)
                   ("music" . ?u)
                   ))
 
@@ -243,7 +301,7 @@
     ;; "/" enables dependency enforcement.
     ;;
     (quote ((sequence "TODO(t!)" "NEXT(n!)" "|" "DONE(d!)")
-	    (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@!)"))))
+            (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@!)"))))
 
 (setq org-enforce-todo-dependencies t)
 (setq org-enforce-todo-checkbox-dependencies t)
@@ -282,7 +340,7 @@
 
 ;; targets include agenda files up to depth=9
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
-			       (org-agenda-files :maxlevel . 9))))
+                               (org-agenda-files :maxlevel . 9))))
 
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
@@ -323,8 +381,56 @@
 (setq doc-view-resolution 300)
 ;; shrink high-res image to appropriate size
 
+
 ;; FIXME these are interactive functions, dummy. The resolution fix
 ;;is unaffected by there abscence however
 
 ;;(doc-view-fit-page-to-window)
 ;;(doc-view-fit-height-to-window) (doc-view-fit-width-to-window)
+
+(use-package xenops
+  :ensure t
+  :config 
+  (setq xenops-math-image-scale-factor 1.8)
+  :hook
+  ((latex-mode . xenops-mode)
+   (LaTeX-mode . xenops-mode))
+  )
+
+(use-package org-download :ensure t
+  :after evil
+  :init
+  (evil-leader/set-key "ld" 'org-download-yank)
+  )
+
+(use-package pandoc-mode
+  ;; init (add-hook 'markdown-mode-hook 'pandoc-mode)
+  :ensure t
+  )
+
+(use-package pdf-tools
+  :ensure t
+  :init
+  (pdf-loader-install)
+  )
+
+(org-babel-do-load-languages 'org-babel-load-languages '( (shell . t)))
+
+(use-package yasnippet
+  :ensure t
+  ;; :hook (
+  ;;        ( text-mode
+  ;;          progmode
+  ;;          conf-mode
+  ;;          snippet-mode) . yas-minor-mode-on
+  ;;        )
+:init 
+(setq yas-snippet-dir "~/.emacs.d/snippets")
+(setq yas-prompt-functions '(yas-ido-prompt))
+:config
+(yas-reload-all)
+(yas-global-mode 1))
+
+;; (yas-reload-all)
+;; (add-hook 'after-init-hook #'yas-minor-mode)
+(use-package  yasnippet-snippets :ensure t)

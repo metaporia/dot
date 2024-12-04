@@ -3,11 +3,11 @@
 ;; Enable package management with ='package=. By default do /not/
 ;; activate installed packages at startup.
 (require 'package)
-(setq package-enable-at-startup nil)
+;;(setq package-enable-at-startup nil)
 
 ;; Declare intent to manually control package loading with
 ;; =use-package=.
-(package-initialize)
+;;(package-initialize)
 
 ;; Add package registries.
 (setq package-archives
@@ -22,7 +22,11 @@
   (package-install 'use-package))
 
 (require 'use-package)
-(use-package org :ensure t)
+(use-package org
+  :init
+  (setq org-display-remote-inline-images 'download)
+
+  :ensure t)
 
 ;; Load org config 
 (org-babel-load-file (expand-file-name "configuration.org" user-emacs-directory))
@@ -31,7 +35,7 @@
 
 ;;;; General Configuration
 
-(add-to-list 'load-path (concat user-emacs-directory "config"))
+;;(add-to-list 'load-path (concat user-emacs-directory "config"))
 ;; Enable to manually install themes
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 	     

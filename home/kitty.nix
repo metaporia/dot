@@ -8,6 +8,7 @@
     settings = {
       startup_session = "~/.config/kitty/tmux_session.conf";
     };
+    # TODO: cursor_smear 3 (or cursor_trail?)
     extraConfig = ''
       modify_font underline_thickness 150%
       modify_font underline_position 2
