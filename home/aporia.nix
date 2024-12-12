@@ -49,7 +49,7 @@
     # apps
     love_0_7
     nottetris2
-    transmission-qt
+    transmission_4-qt
     sqlitebrowser
     path-of-building
     #libsForQt5.okular

@@ -3,7 +3,7 @@
   programs.kitty = {
     enable = true;
     # make terminal theme a bit light to differentiate from nvim panes
-    theme = "Tokyo Night Storm";
+    themeFile = "tokyo_night_storm";
     shellIntegration.enableFishIntegration = true;
     settings = {
       startup_session = "~/.config/kitty/tmux_session.conf";

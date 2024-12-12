@@ -23,6 +23,9 @@ update-pkg PKG:
 update-input FLAKE:
   nix flake update {{FLAKE}}
 
+update:
+  nix flake update
+
 
 # Toggles
 

@@ -197,9 +197,10 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
+  # leave unset if using `automatic-timezoned`
   time.timeZone = "America/Los_Angeles";
 
-  services.automatic-timezoned.enable = true;
+  #services.automatic-timezoned.enable = true;
 
   # FIXME: automatic-timezoned is broken idk if this helps
   services.geoclue2.enableWifi = true;
@@ -313,8 +314,9 @@
   fonts.packages = with pkgs; [
     font-awesome # for waybar
     noto-fonts
-    (nerdfonts.override { fonts = [ "DroidSansMono" "SourceCodePro" ]; })
-  ];
+    #(nerdfonts.override { fonts = [ "DroidSansMono" "SourceCodePro" ]; })
+    # nerdfonts -> nerd-fonts.<font-name>
+  ] ++ (with nerd-fonts; [ droid-sans-mono sauce-code-pro]);
 
 
 
