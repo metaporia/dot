@@ -28,6 +28,17 @@ elpa
 !emacs.d/*.el
 history.el
 
+config/unused/emacs/emacs.d/.cache/
+config/unused/emacs/emacs.d/Org/
+config/unused/emacs/emacs.d/bookmarks
+config/unused/emacs/emacs.d/configuration.bash
+config/unused/emacs/emacs.d/configuration.latex
+config/unused/emacs/emacs.d/history
+config/unused/emacs/emacs.d/ltximg/
+config/unused/emacs/emacs.d/pandoc-mode/
+config/unused/emacs/emacs.d/xenops/
+test.png
+
 tmp
 
 *.ignore.*
