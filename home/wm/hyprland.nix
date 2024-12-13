@@ -69,6 +69,9 @@
     # for wl_raise_dots
     #ydotool
 
+    # wallpaper
+    swaybg
+
   ];
 
   #programs.ydotool = { enable = true; };
@@ -105,6 +108,9 @@
     # enable hyprland-session.target on hyprland startup
     # unclear what this does
     systemd.enable = true;
+
+    plugins = [ pkgs.hyprlandPlugins.hyprfocus ];
+
 
     extraConfig = builtins.readFile ./hyprland.conf;
 
