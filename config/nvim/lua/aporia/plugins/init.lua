@@ -95,7 +95,7 @@ return {
 	{ "echasnovski/mini.doc", version = "*", opts = { silent = true } },
 
 	{
-		-- dir = "~/src/dico.nvim",
+		dir = "~/src/dico.nvim",
 		-- name = "dico.nvim",
 		"metaporia/dico.nvim",
 
@@ -395,8 +395,10 @@ return {
 
 	{
 		-- TODO: rewrite in lua with setup() to lazy load
-		url = "https://gitlab.com/metaporia/muse-vim",
-		cmd = { "LogToday", "LogEntry", "LastRead" },
+		--url = "https://gitlab.com/metaporia/muse-vim",
+	   dir = "~/src/muse-vim",
+	   lazy = false,
+		--cmd = { "LogToday", "LogEntry", "LastRead" },
 		init = function()
 			vim.g.muse_vim_log_dir = "~/sputum/muse"
 		end,
