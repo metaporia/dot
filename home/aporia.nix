@@ -9,6 +9,12 @@
   home.packages = with pkgs; [
     # editors
     emacs
+    # aspell for emacs flyspell
+
+    (aspellWithDicts (dicts: with dicts; [ 
+      en en-computers 
+      en-science]))
+
     # DICO
 
     # pandoc/latex
@@ -21,10 +27,13 @@
     #texlivePackages.amssyb
     #texlivePackages.graphicx
 
+    # shell utils
+
     scripts.all
     dico
     #dictdDBs.wordnet
     #dictdDBs.wiktionary
+    btop
     killall
     just
     docker
@@ -66,6 +75,11 @@
     #clang-tools_12
     #sshfs
     #cling
+
+    tldr
+
+    zip
+    unzip
 
     gdb
     cmake # for nvim telescope fzf native extension
