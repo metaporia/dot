@@ -78,12 +78,33 @@
   (interactive)
   (define-word-wrapped (thing-at-point 'word () )))
 
+(use-package evil-leader
+  :ensure t
+  :init
+  (setq evil-want-keybinding nil)
+  :config
+  (progn
+    (evil-leader/set-leader ",")
+    ;; other leader bindings (?)
+    (evil-leader/set-key
+      "w" 'save-buffer
+      "," 'other-window
+      "h" 'dired-jump ;; tentative
+      "e" 'pp-eval-last-sexp
+      "b" 'ibuffer ;; tentative
+      "d" 'define-word)
+    )
+  (global-evil-leader-mode))
+
 (use-package evil
+  :after evil-leader
+
   :ensure t
   :init
   (setq evil-want-integration t)
-  (setq evil-want-C-u-scroll t)
+  (setq evil-want-keybinding nil)
   (setq evil-want-C-u-delete t)
+  (setq evil-want-C-u-scroll t)
   (setq evil-undo-system 'undo-redo)
   (setq evil-want-C-i-jump t)
   :config
@@ -109,40 +130,27 @@
   ;; slime-nav documentation lookup
   (evil-define-key 'normal emacs-lisp-mode-map (kbd "K")
     'elisp-slime-nav-describe-elisp-thing-at-point)
-
-  (use-package evil-escape
-    :ensure t
-    :config
-    (evil-escape-mode)
-    (setq-default evil-escape-key-sequence "jk"))
-
-  (use-package evil-leader
-    :ensure t
-    :init
-    (setq evil-want-keybinding nil)
-    :config
-    (progn
-      (evil-leader/set-leader ",")
-      ;; other leader bindings (?)
-      (evil-leader/set-key
-        "w" 'save-buffer
-        "," 'other-window
-        "h" 'dired-jump ;; tentative
-        "e" 'pp-eval-last-sexp
-        "b" 'ibuffer ;; tentative
-        "d" 'define-word)
-      )
-    (global-evil-leader-mode))
-
-  (use-package evil-surround
-    :ensure t
-    :config
-    (global-evil-surround-mode))
   )
+
+(use-package evil-escape
+  :after evil
+  :ensure t
+  :config
+  (evil-escape-mode)
+  (setq-default evil-escape-key-sequence "jk"))
+
+
+
+(use-package evil-surround
+  :after evil
+  :ensure t
+  :config
+  (global-evil-surround-mode))
 
 (use-package evil-collection
   :after evil
   :init
+  (setq evil-want-keybinding nil)
   ;;(setq evil-collection-want-company-extended-keybindings t)
   :ensure t
   :config
@@ -398,7 +406,7 @@
   )
 
 (use-package org-download :ensure t
-  :after evil
+  :after evil-leader
   :init
   (evil-leader/set-key "ld" 'org-download-yank)
   )
