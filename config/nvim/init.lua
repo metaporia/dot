@@ -87,7 +87,13 @@ require("lazy").setup({
 -- vim.treesitter.language.register("latex", { filetype = "latex" })
 
 require("aporia.config.keymaps")
-require("aporia.config.options")
+-- having these after ft plugins (eg muse) seems to not apply tabstop,
+-- shiftwidth, and expandtab but putting 'options' before plugins are loaded
+-- get's them overridden. Idk how to apply nice defaults. perhaps apply them
+-- first, and then override per filetype as needed (if, say, a plugin changes
+-- the tabstop, I suppose we have to change it back for just that filetype;
+-- rather that than requiring 'options' twice)
+require("aporia.config.options") 
 require("aporia.config.misc")
 
 vim.cmd([[colorscheme tokyonight-moon]])
