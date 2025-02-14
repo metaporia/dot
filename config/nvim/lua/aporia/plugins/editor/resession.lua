@@ -4,9 +4,15 @@ return {
 		dependencies = {},
 		--cond = function() return false end,
 		lazy = false,
+
 		opts = {
 			-- exclude directories from session creation
+
+			-- custom (my) options, must use full path (no "~") and omit trailing
+			-- slash; otherwise, it won't trigger
+			allowed_dirs = { "/home/aporia/dot", "/home/aporia/dot/config/nvim" },
 			exclude_dirs = { "/home/aporia" },
+
 			autosave = {
 				enabled = true,
 				interval = 60,
@@ -14,41 +20,38 @@ return {
 			},
 		},
 		config = function(_, opts)
+			local util = require("aporia.util")
 			local resession = require("resession")
 			resession.setup(opts)
-
 			-- create session from current directory on exit
 			vim.api.nvim_create_autocmd("VimLeavePre", {
 				desc = "Resession: save dirsession",
 				callback = function()
-					resession.save(
-						vim.fn.getcwd(),
-						{ dir = "dirsession", notify = true }
-					)
+					print("resession saving")
+					local cwd = vim.fn.getcwd()
+					resession.save(cwd, { dir = "dirsession", notify = true })
 				end,
 			})
 
-			-- Always save a special session named "last"
 			vim.api.nvim_create_autocmd("VimEnter", {
 				desc = "Resession: create directory sessions",
 
 				callback = function()
 					-- Only load the session if nvim was started with no args
 					if vim.fn.argc(-1) == 0 then
-						-- apply opts.exclude_dirs
-
+						-- apply opts.exclude_dirs and opts.allowed_dirs
 						local cwd = vim.fn.getcwd()
-						for _, dir in ipairs(opts.exclude_dirs) do
-							if dir == cwd then
-								return
-							end
+						if
+							util.has_value(opts.allowed_dirs, cwd)
+							and not util.has_value(opts.exclude_dirs, cwd)
+						then
+							print("resession loading")
+							-- Save these to a different directory, so our manual sessions don't get polluted
+							resession.load(
+								vim.fn.getcwd(),
+								{ dir = "dirsession", silence_errors = false }
+							)
 						end
-
-						-- Save these to a different directory, so our manual sessions don't get polluted
-						resession.load(
-							vim.fn.getcwd(),
-							{ dir = "dirsession", silence_errors = false }
-						)
 					end
 				end,
 				nested = true,
@@ -72,6 +75,15 @@ return {
 				resession.delete,
 				{ desc = "Resession delete", silent = true }
 			)
+
+			-- load dirsession
+			vim.keymap.set("n", "<leader>sr", function()
+				resession.load(
+					vim.fn.getcwd(),
+					{ dir = "dirsession", silence_errors = true }
+				)
+			end, { desc = "Resession load dirsession", silent = true })
+
 			--vim.api.nvim_create_user_command('')
 		end,
 	},
