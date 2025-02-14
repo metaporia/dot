@@ -28,6 +28,9 @@
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
     hyprswitch.inputs.nixpkgs.follows = "nixpkgs";
 
+    hyprpanel.inputs.nixpkgs.follows = "nixpkgs";
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     nix-index-database.url = "github:nix-community/nix-index-database";
@@ -57,7 +60,7 @@
         # Alternatively, overlays can be specified in the NixOS home-manager
         # module as follows:
         # > nixpkgs.overlays = (import ./overlays); # ++ [scriptsOverlay]
-        overlays = (import ./overlays.nix);
+        overlays = (import ./overlays.nix) ++ [ inputs.hyprpanel.overlay ];
       };
       scripts = inputs.scripts.packages.${system};
       # fancy (that is, usable) lua repl

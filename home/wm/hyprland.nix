@@ -72,6 +72,11 @@
     # wallpaper
     swaybg
 
+    # top bar (waybar replacement)
+    hyprpanel
+    # TODO: add upower service so hyprpanel can see battery level
+    upower
+
   ];
 
   #programs.ydotool = { enable = true; };
@@ -88,12 +93,12 @@
   xdg.configFile."waybar/config".source = ../programs/waybar/config;
   # wants swaync
   programs.waybar = {
-    enable = true;
+    enable = false;
     #settings = { };
   };
 
   services.swaync = {
-    enable = true;
+    enable = false;
     #style = '' '';
 
   };

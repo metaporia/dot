@@ -39,12 +39,14 @@
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
       builders-use-substitutes = true;
+      allow-import-from-derivation = true;
 
       # Binary Cache for Haskell.nix
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
         "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+        # "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
 
 
@@ -52,7 +54,10 @@
         "https://cache.nixos.org"
         "https://cache.iog.io"
         "https://anyrun.cachix.org"
+        # "https://devenv.cachix.org"
       ];
+
+      trusted-users = [ "root" "aporia" "@wheel" ];
     };
 
   };
@@ -170,7 +175,7 @@
   #nixpkgs.config.allowUnfree = true;
 
   mine.windows-file-share = {
-    enable = true;
+    enable = false;
     host = "192.168.1.40";
     sharePath = "Valorant_OBS";
   };
@@ -264,6 +269,18 @@
 
   programs.ssh.startAgent = true;
 
+
+  services.upower = { 
+    enable = true;
+    percentageCritical = 10;
+    percentageLow = 25;
+    
+  };
+
+  programs.nm-applet = { 
+    enable = true; 
+    indicator = true;
+  };
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
