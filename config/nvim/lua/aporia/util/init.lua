@@ -78,4 +78,17 @@ vim.keymap.set(
 	{ noremap = true, silent = true, desc = "Pretty print rtp to scratch buf" }
 )
 
+-- nice lua functions
+
+-- check if string is in array
+-- from https://stackoverflow.com/questions/33510736/check-if-array-contains-specific-value
+function M.has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+    return false
+end
+
 return M

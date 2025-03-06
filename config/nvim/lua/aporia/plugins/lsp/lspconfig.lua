@@ -24,6 +24,7 @@ return {
 				lua_ls = {},
 				bashls = {},
 				clangd = {},
+        -- hls = {}
 			},
 			diagnostics = {
 				underline = true,

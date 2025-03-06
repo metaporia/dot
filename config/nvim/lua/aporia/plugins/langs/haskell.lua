@@ -3,11 +3,13 @@ return {
 	-- Non-lspconfig haskell plugin, handles lsp,
 	-- see ~/.config/nvim/after/ftplugin/hasknll.lua for keymaps
 	-- TODO: move to lazy plugin
+
 	{
 		"mrcjkb/haskell-tools.nvim",
-		version = "^3", -- Recommended
+		version = "^4", -- Recommended
 		dependencies = { "nvim-telescope/telescope.nvim" },
-		ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
+	   lazy = false,
+		-- ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
 		-- for searching signature under cursor with hoogle, package-local file
 		-- search, &c.
 		config = function()
