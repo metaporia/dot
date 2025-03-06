@@ -52,7 +52,18 @@
     brightnessctl
     pavucontrol
 
-    dolphin
+    # file manager
+    kdePackages.dolphin
+    kdePackages.kio
+    kdePackages.kio-extras
+    kdePackages.breeze-icons
+    kdePackages.dolphin-plugins
+    kdePackages.qtimageformats
+    kdePackages.ffmpegthumbs
+    kdePackages.taglib
+    kdePackages.kdegraphics-thumbnailers
+    kdePackages.kimageformats
+
 
     # hyprland specific
 

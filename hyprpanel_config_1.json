@@ -1,0 +1,74 @@
+{
+  "bar.customModules.updates.pollingInterval": 1440000,
+  "theme.font.size": "0.9rem",
+  "theme.font.weight": 600,
+  "terminal": "kitty",
+  "tear": true,
+  "scalingPriority": "hyprland",
+  "theme.bar.scaling": 90,
+  "theme.bar.buttons.enableBorders": false,
+  "theme.bar.border.location": "none",
+  "theme.bar.floating": false,
+  "theme.bar.location": "top",
+  "menus.volume.raiseMaximumVolume": true,
+  "menus.clock.time.military": true,
+  "menus.clock.weather.enabled": false,
+  "menus.dashboard.powermenu.avatar.name": "NixOS",
+  "bar.network.showWifiInfo": true,
+  "bar.bluetooth.label": true,
+  "theme.bar.buttons.battery.enableBorder": false,
+  "bar.battery.hideLabelWhenFull": false,
+  "menus.bluetooth.showBattery": false,
+  "menus.power.lowBatteryNotification": true,
+  "menus.power.confirmation": true,
+  "bar.layouts": {
+    "0": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "network",
+        "battery",
+        "systray",
+        "clock",
+        "notifications"
+      ]
+    },
+    "1": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "clock",
+        "notifications"
+      ]
+    },
+    "2": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "clock",
+        "notifications"
+      ]
+    }
+  }
+}
