@@ -98,6 +98,8 @@
     shfmt
     shellcheck
     bash-language-server
+    emmet-language-server
+
 
 
     #lua51Packages.luarocks
