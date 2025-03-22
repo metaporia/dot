@@ -46,6 +46,12 @@
         commandline -i "$prepend "
         commandline -C (math $old_cursor + (echo $prepend | wc -c))
       '';
+    }; 
+
+    shellAliases = {
+      ns = "nix-search-tv print | fzf --preview 'nix-search-tv preview {}' --scheme history";
+      g = "";
+      "..." = "cd ../..";
     };
 
     shellAbbrs = {

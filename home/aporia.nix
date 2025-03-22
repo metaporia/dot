@@ -1,4 +1,4 @@
-{ pkgs, config, scripts, croissant, ... }:
+{ pkgs, config, scripts, croissant, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -50,6 +50,11 @@
     #gnomeExtensions.hide-top-bar
     nixos-option
     nix-update
+
+    # NixOS fuzzy package search
+    inputs.nix-search-tv.packages.x86_64-linux.default
+    fzf
+
     git-lfs
     gh
     #nottetris2 # FIXME
@@ -99,6 +104,8 @@
     shellcheck
     bash-language-server
     emmet-language-server
+    nodePackages.js-beautify
+
 
 
 
