@@ -15,7 +15,14 @@
       en en-computers 
       en-science]))
 
+    # pdf-tools (emacs) deps
+    # https://discourse.nixos.org/t/how-can-i-get-emacs-pdf-tools-working/10270
+    # I think we gotta to `emacsWithPackages ... (pdf-tools)`
+    # and possibly write a derivation for epdfinfo
+
     # DICO
+
+    dioxionary
 
     # pandoc/latex
     pandoc
@@ -36,9 +43,11 @@
     btop
     killall
     just
+    watchexec # run command on file change
     docker
     getoptions
     firefox
+    google-chrome
     discord
     eza # TODO fix scripts to use eza
     fd
@@ -105,6 +114,7 @@
     bash-language-server
     emmet-language-server
     nodePackages.js-beautify
+    dart-sass
 
 
 
