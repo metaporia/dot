@@ -15,28 +15,45 @@ return {
 				function()
 					require("conform").format({ async = true })
 				end,
+        mode = "",
 				desc = "Format",
 			},
 		},
 
-		opts = {
-			formatters_by_ft = {
-				lua = { "stylua" },
-				rust = { "rustfmt" },
-				norg = { "norg_fmt" },
-				bash = { "shfmt" },
-        python = { "black"},
-				sh = { "shfmt" },
-			},
-			default_format_opts = {
-				lsp_format = "fallback",
-			},
-			formatters = {
-				norg_fmt = {
-					command = "norg-fmt",
-					args = { "--verify", "--newline-after-headings", "$FILENAME" },
-				},
-			},
-		},
-	},
+    opts = {
+      log_level = vim.log.levels.TRACE,
+      formatters_by_ft = {
+        lua = { "stylua" },
+        rust = { "rustfmt" },
+        norg = { "norg_fmt" },
+        bash = { "shfmt" },
+        python = { "black" },
+        sh = { "shfmt" },
+        html = { "html_beautify" },
+        css = { "css_beautify" },
+        js = { "js_beautify"},
+        -- run on filetypes without formatters
+        ["_"] = { "trim_whitespace" },
+      },
+      default_format_opts = {
+        lsp_format = "fallback",
+      },
+      formatters = {
+        html_beautify = {
+          prepend_args = { "--indent-size", "2" },
+        },
+        js_beautify = {
+          prepend_args = { "--indent-size", "2" },
+        },
+        css_beautify = {
+          prepend_args = { "-p", "--indent_size", "2" },
+        },
+        norg_fmt = {
+          command = "norg-fmt",
+          args = { "--verify", "--newline-after-headings", "$FILENAME" },
+        },
+      },
+    },
+  },
 }
+-- vim.print(require('conform').get_formatter_config
