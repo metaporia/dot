@@ -66,12 +66,12 @@
 
     git-lfs
     gh
-    #nottetris2 # FIXME
+    nottetris2 # FIXME
     nix-prefetch-git
     nixpkgs-fmt
     # apps
-    love_0_7
-    nottetris2
+    # love_0_7
+    # nottetris2
     transmission_4-qt
     sqlitebrowser
     path-of-building
