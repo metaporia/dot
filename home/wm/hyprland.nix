@@ -44,7 +44,7 @@
     wl-clipboard-x11 # for neovim/tmux compatibility
 
     # authentication agent
-    polkit-kde-agent
+    kdePackages.polkit-kde-agent-1
 
     wev
     swaynotificationcenter
@@ -59,7 +59,7 @@
     kdePackages.breeze-icons
     kdePackages.dolphin-plugins
     kdePackages.qtimageformats
-    kdePackages.ffmpegthumbs
+    kdePackages.ffmpegthumbs # NOTE: expensive to build
     kdePackages.taglib
     kdePackages.kdegraphics-thumbnailers
     kdePackages.kimageformats
@@ -125,7 +125,7 @@
     # unclear what this does
     systemd.enable = true;
 
-    plugins = [ pkgs.hyprlandPlugins.hyprfocus ];
+    # plugins = [ pkgs.hyprlandPlugins.hyprfocus ];
 
 
     extraConfig = builtins.readFile ./hyprland.conf;
