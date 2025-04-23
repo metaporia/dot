@@ -12,7 +12,17 @@
 { config, inputs, pkgs, ... }:
 {
 
-  imports = [ ../programs/anyrun.nix ];
+  imports = [ ../programs/anyrun.nix inputs.hyprpanel.homeManagerModules.hyprpanel];
+
+  # top bar (waybar replacement)
+  programs.hyprpanel = {
+    enable = true;
+    systemd.enable = true;
+
+    settings = {
+      theme.font = { size = "0.8rem";};
+    };
+  };
 
   # see https://www.funtoo.org/OpenSSH_Key_Management,_Part_1
   programs.keychain = {
@@ -83,8 +93,6 @@
     # wallpaper
     swaybg
 
-    # top bar (waybar replacement)
-    hyprpanel
     # TODO: add upower service so hyprpanel can see battery level
     upower
 
