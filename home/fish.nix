@@ -29,6 +29,14 @@
     '';
 
     functions = {
+      posix-source = ''
+        function posix-source
+          for i in (cat $argv)
+            set arr (echo $i |tr = \n)
+              set -gx $arr[1] $arr[2]
+          end
+        end
+      '';
       prepend_command = ''
         set -l prepend $argv[1]
         if test -z "$prepend"

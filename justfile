@@ -29,8 +29,10 @@ update:
 
 # Toggles
 
+
 toggle-hyprland FLAGS='':
-  toggle-link {{FLAGS }} ~/.config/hypr/hyprland.conf -s ~/dot/home/wm/hyprland.conf
+  toggle-link {{FLAGS }} ~/.config/hypr/hyprland.conf -s ~/dot/home/wm/hyprland.conf  && \
+  hyprctl reload
 
 untoggle-hyprland: (toggle-hyprland '--untoggle')
 

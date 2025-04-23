@@ -43,7 +43,7 @@
     inputs@{ self
     , nixpkgs
     , home-manager
-    , anyrun
+    # , anyrun
     , nixos-hardware
     , nix-index-database
     , nix-search-tv
@@ -54,6 +54,7 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true; # from hlissner's dotfiles--redundant?
+        config.allowBroken = true; 
 
         # marked insecure; see issue: CVE-2024-27297
         config.permittedInsecurePackages = [

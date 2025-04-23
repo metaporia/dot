@@ -4,7 +4,7 @@ rustPlatform.buildRustPackage rec {
   pname = "kidex";
   version = "0.1.1";
   #cargoLock.lockFile = ./Cargo.lock;
-  cargoHash = "sha256-BkpiJZZ83RrSSmbxM/TBl8rx5wIxLwYDZvFWdTwlUSI=";
+  cargoHash = "sha256-JhGsWYUQOpPfRAjeL1NNz1B1j+jONBgynDRnvLfH7PM=";
   src = fetchFromGitHub {
     owner = "Kirottu";
     repo = "kidex";

@@ -2,7 +2,7 @@
 {
   # TODO:
   # - add nixos-option search; see https://github.com/n3oney/anyrun-nixos-options
-  imports = [ inputs.anyrun.homeManagerModules.default ];
+  # imports = [ inputs.anyrun.homeManagerModules.default ];
   home.packages = with pkgs; [ kidex ];
 
   systemd.user.services = {

@@ -82,6 +82,14 @@
 
   security.polkit.enable = true;
 
+  # temp fix for python watchdog error on nixos-rebuild switch complaining
+  # about too many open files
+
+  # - nixos discourse thread about the issue: https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094/7
+  # - imperative temp fix: `ulimit -n 4096`
+  systemd.extraConfig =  "DefaultLimitNOFILE=2048"; # defaults to 1024 if unset
+
+
   #systemd = {
   #  user.services.polkit-gnome-authentication-agent-1 = {
   #    description = "polkit-gnome-authentication-agent-1";
@@ -130,6 +138,12 @@
     };
   };
 
+  services.pulseaudio.enable = false;
+
+  services.displayManager.autoLogin = { 
+    enable =  true; 
+    user = "aporia"; 
+  };
 
   # Enable the X11 windowing system.
   services.xserver = {
@@ -142,10 +156,10 @@
     # it should default to false
     displayManager = {
       lightdm.enable = false;
-      autoLogin = {
-        enable = true;
-        user = "aporia";
-      };
+      # autoLogin = {
+      #   enable = true;
+      #   user = "aporia";
+      # };
     };
 
     # Configure keymap in X11
@@ -219,7 +233,6 @@
     enable = true;
     package = pkgs.plocate;
     interval = "hourly";
-    localuser = null;
   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
