@@ -30,5 +30,5 @@
   hardware.enableAllFirmware = true;
   # high-resolution display
   #hardware.video.hidpi.enable = lib.mkDefault true;
-  hardware.pulseaudio.enable = false;
+  # hardware.pulseaudio.enable = false;
 }

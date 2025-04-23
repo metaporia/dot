@@ -17,7 +17,7 @@
   # top bar (waybar replacement)
   programs.hyprpanel = {
     enable = true;
-    systemd.enable = true;
+    # systemd.enable = true;
 
     settings = {
       theme.font = { size = "0.8rem";};
