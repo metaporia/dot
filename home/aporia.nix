@@ -22,7 +22,8 @@
 
     # DICO
 
-    dioxionary
+    dioxionary # iffy cli interface to stardicts, spits out html for SOED
+    goldendict-ng
 
     # pandoc/latex
     pandoc
