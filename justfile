@@ -38,3 +38,10 @@ untoggle-hyprland: (toggle-hyprland '--untoggle')
 
 list-toggles:
   toggle-link --list
+
+# Expects $DERIVATION to be a nix function returning a derivation in the current working dir
+
+[no-cd]
+build-derivation DERIVATION FLAGS='':
+  nix build {{FLAGS}} --impure --expr "let pkgs = import <nixpkgs> {};  in pkgs.callPackage ./{{DERIVATION}} {}"
+
