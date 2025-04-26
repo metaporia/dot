@@ -49,8 +49,23 @@ noremap("v", "<Leader>s", '"*y')
 noremap("n", "<Leader>p", '"+p') -- past system clip
 noremap("n", "<Leader>is", '"*p') -- past system sel
 
+
 -- terminal maps
 -- vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
 -- vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
 vim.keymap.set("t", "<C-k>", [[<C-\><C-n>:bd!<CR>]], { noremap = true, silent = true })
 vim.keymap.set("t", "jk", [[<C-\><C-n>]], { noremap = true, silent = true })
+
+-- FIXME: move to dico.nvim
+
+function GoldenDict(word)
+  local cmd = "silent !goldendict "  .. "" .. word .. " & disown"
+  vim.cmd(cmd)
+  --  switch focus to goldendict
+  vim.cmd[[silent !hyprctl dispatch focuswindow class:GoldenDict-ng ]]
+end
+-- GoldenDict("modulate")
+
+vim.keymap.set("n", "<leader>dg", function () GoldenDict(vim.fn.expand('<cword>')) end)
+
+
