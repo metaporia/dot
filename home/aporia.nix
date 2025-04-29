@@ -20,6 +20,10 @@
     # I think we gotta to `emacsWithPackages ... (pdf-tools)`
     # and possibly write a derivation for epdfinfo
 
+    # italian learning
+
+    anki-bin
+
     # DICO
 
     dioxionary # iffy cli interface to stardicts, spits out html for SOED
