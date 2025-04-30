@@ -80,8 +80,12 @@
     transmission_4-qt
     sqlitebrowser
     path-of-building
-    #libsForQt5.okular
+
+    # PDFS
     zathura
+    kdePackages.okular
+
+
     # lsps
     lua-language-server
     nil
