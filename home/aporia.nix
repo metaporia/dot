@@ -408,6 +408,7 @@
         defaultApplications = {
           "text/plain" = [ "nvim.desktop" ]; # "kitty.desktop" ];
           "video/mp4" = [ "vlc.desktop" ];
+          "application/pdf" = [ "okular.desktop" "zathura.desktop" "firefox.desktop"];
         };
       };
     };
