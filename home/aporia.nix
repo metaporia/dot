@@ -408,8 +408,14 @@
         defaultApplications = {
           "text/plain" = [ "nvim.desktop" ]; # "kitty.desktop" ];
           "video/mp4" = [ "vlc.desktop" ];
+          "application/pdf" = [ "okularApplication_pdf.desktop" "zathura.desktop" "firefox.desktop"];
+        };
+        associations.removed = { 
+          "application/pdf" = [ "applications/google-chrome.desktop" ];
+          "image/png" = [ "applications/google-chrome.desktop" ];
         };
       };
+
     };
 
 }
