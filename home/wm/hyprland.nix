@@ -17,10 +17,18 @@
   # top bar (waybar replacement)
   programs.hyprpanel = {
     enable = true;
+    # let gui overwrite home-manager config.json
+    overwrite.enable = true;
     # systemd.enable = true;
 
     settings = {
       theme.font = { size = "0.8rem";};
+      scalingPriority = "hyprland";
+      bar.windowtitle = {
+        class_name = false;
+        custom_title = false;
+      };
+
     };
   };
 
