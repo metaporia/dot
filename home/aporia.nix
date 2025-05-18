@@ -73,7 +73,8 @@
     gh
     nottetris2 # FIXME
     nix-prefetch-git
-    nixpkgs-fmt
+    # nixpkgs-fmt
+    nixfmt
     # apps
     # love_0_7
     # nottetris2
