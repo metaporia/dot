@@ -11,8 +11,7 @@ let
     destination = "/share/nvim/runtime/lua/${name}";
 
   };
-in
-{
+in {
 
   wrapped-neovim = final.symlinkJoin {
     name = "wrapped-neovim";

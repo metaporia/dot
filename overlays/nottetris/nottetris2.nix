@@ -10,27 +10,24 @@ let
     comment = "It's like tetris, but it's not";
     desktopName = "nottetris2";
     genericName = "nottetris2";
-    categories = ["Game"];
+    categories = [ "Game" ];
   };
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   # aporia override source
   src = fetchFromGitHub {
-      owner = "metaporia";
-      repo = "nottetris2";
-      rev = "dee1e1451ae38c6b4b5680b7fd41d2a289861b83";
-      sha256 = "0rjlmvcm4c69yln0panj4p0mms5w6b0w5c5bnjrpmylkbgqncipy";
-    };
+    owner = "metaporia";
+    repo = "nottetris2";
+    rev = "dee1e1451ae38c6b4b5680b7fd41d2a289861b83";
+    sha256 = "0rjlmvcm4c69yln0panj4p0mms5w6b0w5c5bnjrpmylkbgqncipy";
+  };
 
   nativeBuildInputs = [ zip makeWrapper ];
   buildInputs = [ love_0_7 ];
 
-  installPhase =
-  ''
+  installPhase = ''
     mkdir -p $out/bin $out/share/games/lovegames $out/share/applications
     zip -9 -r ${pname}.love ./*
     mv ${pname}.love $out/share/games/lovegames/${pname}.love

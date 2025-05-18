@@ -5,12 +5,11 @@
 
 # NB. ./default.nix or ./auto.nix is excluded as it's the final overlay
 let
-  collectOverlays = with builtins; path: map (n: import (path + ("/" + n)))
-    (filter
-      (n: (match "[^.].*\\.nix" n != null && n != "default.nix"
-      ) ||
-      pathExists (path + ("/" + n + "/default.nix")))
+  collectOverlays = with builtins;
+    path:
+    map (n: import (path + ("/" + n))) (filter (n:
+      (match "[^.].*\\.nix" n != null && n != "default.nix")
+      || pathExists (path + ("/" + n + "/default.nix")))
       (attrNames (readDir path)));
-in
 
-collectOverlays ./overlays
+in collectOverlays ./overlays

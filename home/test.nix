@@ -20,14 +20,8 @@
     #clang-tools_12
   ];
 
-  imports = [ 
-    ./fish.nix
-    ./gnome-kbd-shortcuts.nix
-  ];
+  imports = [ ./fish.nix ./gnome-kbd-shortcuts.nix ];
 
-  home.file = {
-    ".tmux.conf".source = ../config/tmux/tmux.conf;
-  };
+  home.file = { ".tmux.conf".source = ../config/tmux/tmux.conf; };
 }
-
 

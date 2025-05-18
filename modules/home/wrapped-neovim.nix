@@ -6,7 +6,7 @@ let cfg = config.programs.neovim-packages;
 in {
   options.programs.neovim-packages = {
     # string is injected into description
-    enable = mkEnableOption "neovim packages"; 
+    enable = mkEnableOption "neovim packages";
   };
   config = mkIf cfg.enable {
     # add packages to ~/.local/share/nvim/nix

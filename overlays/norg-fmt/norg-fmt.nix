@@ -15,10 +15,9 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = "${src}/Cargo.lock";
     outputHashes = {
-      "rust-norg-0.1.0" =  "sha256-SIAnp6W5O7tWBotI/jNU9mVdxmQcMTioFp5h+3E/9+Y=";
+      "rust-norg-0.1.0" = "sha256-SIAnp6W5O7tWBotI/jNU9mVdxmQcMTioFp5h+3E/9+Y=";
     };
   };
-
 
   #cargoDeps = rustPlatform.importCargoLock {
   #  lockFile = "${src}/Cargo.lock";

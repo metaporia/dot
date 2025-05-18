@@ -1,5 +1,5 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
-  kidex = pkgs.callPackage ./kidex.nix {};
+  kidex = pkgs.callPackage ./kidex.nix { };
 }
