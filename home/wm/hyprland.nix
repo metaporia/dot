@@ -21,12 +21,22 @@
     overwrite.enable = true;
     # systemd.enable = true;
 
+    # write exec-once hyprpanel to hyprland.conf, unused rn
+    hyprland.enable = false;
+
     settings = {
       theme.font = { size = "0.8rem";};
       scalingPriority = "hyprland";
       bar.windowtitle = {
         class_name = false;
         custom_title = false;
+      };
+
+      menus.clock = {
+        time = {
+          military = true;
+          hideSeconds = true;
+        };
       };
 
     };
@@ -103,6 +113,7 @@
 
     # TODO: add upower service so hyprpanel can see battery level
     upower
+    wireplumber
 
   ];
 
