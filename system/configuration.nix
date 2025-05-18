@@ -14,25 +14,21 @@
 
 {
 
-
-
   # FIXME nix-path
   nix = {
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = let path = toString ../.; in
-      [
-        "nixos-config=${path}"
-        "repl=${path}/repl.nix"
-        "nixpkgs-overlays=${path}/overlays"
-      ] ++
-      lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+    nixPath = let path = toString ../.;
+    in [
+      "nixos-config=${path}"
+      "repl=${path}/repl.nix"
+      "nixpkgs-overlays=${path}/overlays"
+    ] ++ lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+    config.nix.registry;
 
     # pin system nixpkgs to that of the flake input
-
-
 
     settings = {
       # FIXME nix-path
@@ -49,7 +45,6 @@
         # "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
 
-
       substituters = [
         "https://cache.nixos.org"
         "https://cache.iog.io"
@@ -62,11 +57,9 @@
 
   };
 
-
   # Enable nix flakes 
   # what does this do?
   nix.package = pkgs.nixVersions.latest;
-
 
   ################### 
   # Hyprland Config #
@@ -87,8 +80,7 @@
 
   # - nixos discourse thread about the issue: https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094/7
   # - imperative temp fix: `ulimit -n 4096`
-  systemd.extraConfig =  "DefaultLimitNOFILE=2048"; # defaults to 1024 if unset
-
+  systemd.extraConfig = "DefaultLimitNOFILE=2048"; # defaults to 1024 if unset
 
   #systemd = {
   #  user.services.polkit-gnome-authentication-agent-1 = {
@@ -140,9 +132,9 @@
 
   services.pulseaudio.enable = false;
 
-  services.displayManager.autoLogin = { 
-    enable =  true; 
-    user = "aporia"; 
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "aporia";
   };
 
   # Enable the X11 windowing system.
@@ -171,7 +163,6 @@
   };
 
   #programs.ydotool.enable = true;
-
 
   imports = [
     # Include the results of the hardware scan.
@@ -282,16 +273,15 @@
 
   programs.ssh.startAgent = true;
 
-
-  services.upower = { 
+  services.upower = {
     enable = true;
     percentageCritical = 10;
     percentageLow = 25;
-    
+
   };
 
-  programs.nm-applet = { 
-    enable = true; 
+  programs.nm-applet = {
+    enable = true;
     indicator = true;
   };
 
@@ -321,7 +311,6 @@
     kitty
   ];
 
-
   # Virtualisation
 
   # virtualbox
@@ -335,20 +324,17 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
-
-
   #########
   # FONTS #
   #########
 
-  fonts.packages = with pkgs; [
-    font-awesome # for waybar
-    noto-fonts
-    #(nerdfonts.override { fonts = [ "DroidSansMono" "SourceCodePro" ]; })
-    # nerdfonts -> nerd-fonts.<font-name>
-  ] ++ (with nerd-fonts; [ droid-sans-mono sauce-code-pro]);
-
-
+  fonts.packages = with pkgs;
+    [
+      font-awesome # for waybar
+      noto-fonts
+      #(nerdfonts.override { fonts = [ "DroidSansMono" "SourceCodePro" ]; })
+      # nerdfonts -> nerd-fonts.<font-name>
+    ] ++ (with nerd-fonts; [ droid-sans-mono sauce-code-pro ]);
 
   programs.dconf.enable = true;
 
@@ -392,8 +378,6 @@
     packages = with pkgs; [ git home-manager ];
   };
 
-
   #home-manager.sharedModules = [ ../modules/home/wm.nix ];
-
 
 }

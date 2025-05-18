@@ -1,8 +1,7 @@
 { lib, config, pkgs, ... }:
 with lib;
 let cfg = config.mine.wm.hyprland;
-in
-{
+in {
   options.mine.wm.hyprland = {
     enable = mkOption {
       type = types.bool;
@@ -28,7 +27,6 @@ in
     #   description = "List of paths to home-manager modules"
     # };
 
-
   };
   config = mkIf cfg.enable {
     # enable system module
@@ -36,13 +34,13 @@ in
     system.nixos = mkIf cfg.tag { tags = [ "hypr" ]; };
     # enable greeter
 
-
     services.greetd = mkIf cfg.greetd.enable {
       enable = true;
       restart = false;
       settings = mkIf (cfg.greetd.default-user != "") {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+          command =
+            "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
           user = cfg.greetd.default-user;
         };
         initial_session = {
@@ -55,6 +53,4 @@ in
   };
 
 }
-
-
 

@@ -4,7 +4,8 @@
 { osConfig, ... }:
 
 {
-  imports =
-    (if osConfig.mine.wm.hyprland.enable then [ ../../home/wm/hyprland.nix ]
-    else [ ]);
+  imports = (if osConfig.mine.wm.hyprland.enable then
+    [ ../../home/wm/hyprland.nix ]
+  else
+    [ ]);
 }

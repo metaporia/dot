@@ -11,9 +11,7 @@
     emacs
     # aspell for emacs flyspell
 
-    (aspellWithDicts (dicts: with dicts; [ 
-      en en-computers 
-      en-science]))
+    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
 
     # pdf-tools (emacs) deps
     # https://discourse.nixos.org/t/how-can-i-get-emacs-pdf-tools-working/10270
@@ -86,7 +84,6 @@
     zathura
     kdePackages.okular
 
-
     # lsps
     lua-language-server
     nil
@@ -126,9 +123,6 @@
     nodePackages.js-beautify
     dart-sass
 
-
-
-
     #lua51Packages.luarocks
     #lua51Packages.lua
 
@@ -148,7 +142,6 @@
     tree-sitter-grammars.tree-sitter-latex
 
     #lua51Packages.lua
-
 
     # tmux
     tmux
@@ -184,8 +177,6 @@
   #   package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?/init.lua"
   #   package.path = package.path .. ";" .. "${pkgs.luajitPackages.magick}/share/lua/5.1/?.lua"
   # '';
-
-
 
   # nixd flags
   home.sessionVariables.NIXD_FLAGS =
@@ -230,22 +221,21 @@
     enable = true;
     # TODO: enable dicod module support for dictDBS.*
     # TODO: gcide is enabled in dico overlay
-    packages =
-      let dictdDBs = pkgs.dictdDBs;
-      in with pkgs.dicts; [
-        # for now enable all from dict-dbs
-        devils
-        dictdDBs.wiktionary
-        dictdDBs.wordnet
-        easton
-        elements
-        foldoc
-        hitchcock
-        jargon
-        moby-thesaurus
-        vera
-        world95
-      ];
+    packages = let dictdDBs = pkgs.dictdDBs;
+    in with pkgs.dicts; [
+      # for now enable all from dict-dbs
+      devils
+      dictdDBs.wiktionary
+      dictdDBs.wordnet
+      easton
+      elements
+      foldoc
+      hitchcock
+      jargon
+      moby-thesaurus
+      vera
+      world95
+    ];
   };
 
   systemd.user.startServices = "sd-switch"; # requires dbus session
@@ -265,8 +255,6 @@
   #xdg.configFile."nix/nix.conf".source = ../nix.conf;
 
   xdg.configFile."clangd/config.yaml".source = ../config/clangd-config.yaml;
-
-
 
   ##########
   # NEOVIM #
@@ -332,7 +320,6 @@
   #};
   #programs.nix-index-database.comma.enable = true;
 
-
   programs.bat = {
     enable = true;
     config = { theme = "TwoDark"; };
@@ -342,58 +329,49 @@
     direnv = {
       enable = true;
       nix-direnv.enable = true;
-      config = {
-        hide_env_diff = true;
-      };
+      config = { hide_env_diff = true; };
     };
     fish.enable = true;
   };
 
-  programs.yazi =
-    {
-      enable = true;
-      enableFishIntegration = true;
-      shellWrapperName = "y";
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+    shellWrapperName = "y";
 
-      settings = {
-        log = {
-          enabled = false;
-        };
-        manager = {
-          show_hidden = false;
-          sort_by = "mtime";
-          sort_dir_first = true;
-          sort_reverse = true;
-        };
-      } ;
-      plugins = with pkgs.yaziPlugins; {
-        inherit 
-        no-status 
-        toggle-pane 
-        rich-preview
-        full-border;
+    settings = {
+      log = { enabled = false; };
+      manager = {
+        show_hidden = false;
+        sort_by = "mtime";
+        sort_dir_first = true;
+        sort_reverse = true;
       };
-
-      initLua = ''
-        require("full-border"):setup()
-      '';
-
-      keymap = {
-        manager.prepend_keymap = [
-          {
-            on = "T";
-            run = "plugin toggle-pane max-preview";
-            desc = "Maximize or restore the preview pane";
-          }
-          {
-            on = ["c" "m"];
-            run = "plugin chmod";
-            desc = "Chmod on selected files";
-          }
-        ];
-      };
-
     };
+    plugins = with pkgs.yaziPlugins; {
+      inherit no-status toggle-pane rich-preview full-border;
+    };
+
+    initLua = ''
+      require("full-border"):setup()
+    '';
+
+    keymap = {
+      manager.prepend_keymap = [
+        {
+          on = "T";
+          run = "plugin toggle-pane max-preview";
+          desc = "Maximize or restore the preview pane";
+        }
+        {
+          on = [ "c" "m" ];
+          run = "plugin chmod";
+          desc = "Chmod on selected files";
+        }
+      ];
+    };
+
+  };
 
   # programs.neovim = {
   #   enable = true;
@@ -412,57 +390,58 @@
   };
 
   # Set default applications: firefox, kitty/tmux, nvim
-  xdg =
-    {
-      desktopEntries = {
-        nvim = {
-          name = "nvim";
-          genericName = "Text Editor";
-          exec = "kitty -- nvim %F";
-          type = "Application";
-          categories = [ "Utility" "TextEditor" ];
-          startupNotify = false;
-          terminal = false;
-          mimeType =
-            [
-              "text/english"
-              "text/plain"
-              "text/x-makefile"
-              "text/x-c++hdr"
-              "text/x-c++src"
-              "text/x-chdr"
-              "text/x-csrc"
-              "text/x-java"
-              "text/x-moc"
-              "text/x-pascal"
-              "text/x-tcl"
-              "text/x-tex"
-              "application/x-shellscript"
-              "text/x-c"
-              "text/x-c++"
-            ];
+  xdg = {
+    desktopEntries = {
+      nvim = {
+        name = "nvim";
+        genericName = "Text Editor";
+        exec = "kitty -- nvim %F";
+        type = "Application";
+        categories = [ "Utility" "TextEditor" ];
+        startupNotify = false;
+        terminal = false;
+        mimeType = [
+          "text/english"
+          "text/plain"
+          "text/x-makefile"
+          "text/x-c++hdr"
+          "text/x-c++src"
+          "text/x-chdr"
+          "text/x-csrc"
+          "text/x-java"
+          "text/x-moc"
+          "text/x-pascal"
+          "text/x-tcl"
+          "text/x-tex"
+          "application/x-shellscript"
+          "text/x-c"
+          "text/x-c++"
+        ];
 
-          settings = {
-            Keywords = "Text;editor";
-            #TryExec = "nvim";
-          };
-
-
+        settings = {
+          Keywords = "Text;editor";
+          #TryExec = "nvim";
         };
+
       };
-      mimeApps = {
-        enable = true;
-        defaultApplications = {
-          "text/plain" = [ "nvim.desktop" ]; # "kitty.desktop" ];
-          "video/mp4" = [ "vlc.desktop" ];
-          "application/pdf" = [ "okularApplication_pdf.desktop" "zathura.desktop" "firefox.desktop"];
-        };
-        associations.removed = {
-          "application/pdf" = [ "google-chrome.desktop" ];
-          "image/png" = [ "google-chrome.desktop" ];
-        };
-      };
-
     };
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "text/plain" = [ "nvim.desktop" ]; # "kitty.desktop" ];
+        "video/mp4" = [ "vlc.desktop" ];
+        "application/pdf" = [
+          "okularApplication_pdf.desktop"
+          "zathura.desktop"
+          "firefox.desktop"
+        ];
+      };
+      associations.removed = {
+        "application/pdf" = [ "google-chrome.desktop" ];
+        "image/png" = [ "google-chrome.desktop" ];
+      };
+    };
+
+  };
 
 }

@@ -1,13 +1,5 @@
-{ argparse
-, buildLuarocksPackage
-, compat53
-, fetchFromGitHub
-, fetchurl
-, hump
-, lpeg
-, luaOlder
-, sirocco
-}:
+{ argparse, buildLuarocksPackage, compat53, fetchFromGitHub, fetchurl, hump
+, lpeg, luaOlder, sirocco }:
 buildLuarocksPackage {
   pname = "croissant";
   version = "0.0.1-6";

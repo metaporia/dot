@@ -2,7 +2,7 @@
 
 let
   # aporia override source
-  
+
   src = fetchFromGitHub {
     owner = "ferdnyc";
     repo = "dictd-dicts";
@@ -32,8 +32,7 @@ let
       };
     };
 
-in
-{
+in {
 
   devils = makeDictdDB "devils";
   easton = makeDictdDB "easton";
@@ -48,4 +47,4 @@ in
   web1913 = makeDictdDB "web1913";
   # wn = makeDictdDB "wn";
   world95 = makeDictdDB "world95";
-} 
+}

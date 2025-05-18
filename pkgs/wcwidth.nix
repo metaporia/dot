@@ -3,7 +3,7 @@ buildLuarocksPackage {
   pname = "wcwidth";
   version = "0.5-1";
   knownRockspec = (fetchurl {
-    url    = "mirror://luarocks/wcwidth-0.5-1.rockspec";
+    url = "mirror://luarocks/wcwidth-0.5-1.rockspec";
     sha256 = "0hyl8f3fvmiq2grhafz1cbnkp60mb58y2p8jg7yafin9kk69zg64";
   }).outPath;
   src = fetchFromGitHub {

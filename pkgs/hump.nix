@@ -1,4 +1,4 @@
-{ luaPackages, fetchFromGitHub, fetchurl}:
+{ luaPackages, fetchFromGitHub, fetchurl }:
 with luaPackages;
 buildLuarocksPackage {
   pname = "hump";

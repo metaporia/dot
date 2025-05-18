@@ -1,16 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config
-, SDL, libGLU, libGL, openal, lua
-, libdevil, freetype, physfs
-, libmodplug, mpg123, libvorbis, libogg
-, libmng
-}:
+{ lib, stdenv, fetchurl, pkg-config, SDL, libGLU, libGL, openal, lua, libdevil
+, freetype, physfs, libmodplug, mpg123, libvorbis, libogg, libmng }:
 
 stdenv.mkDerivation rec {
   pname = "love";
   version = "0.7.2";
 
   src = fetchurl {
-    url = "https://github.com/love2d/love/releases/download/${version}/love-${version}-linux-src.tar.gz";
+    url =
+      "https://github.com/love2d/love/releases/download/${version}/love-${version}-linux-src.tar.gz";
     sha256 = "0s7jywkvydlshlgy11ilzngrnybmq5xlgzp2v2dhlffwrfqdqym5";
   };
 
@@ -19,8 +16,19 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
-    SDL libGLU libGL openal lua
-    libdevil freetype physfs libmodplug mpg123 libvorbis libogg libmng
+    SDL
+    libGLU
+    libGL
+    openal
+    lua
+    libdevil
+    freetype
+    physfs
+    libmodplug
+    mpg123
+    libvorbis
+    libogg
+    libmng
   ];
 
   preConfigure = ''

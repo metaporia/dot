@@ -32,7 +32,6 @@
 
     "org/gtk/settings/debug" = { enable-inspector-keybinding = true; };
 
-
     "org/gnome/settings-daemon/plugins/media-keys" = {
       custom-keybindings = let
         numberOfCustomKeybindings = 5;

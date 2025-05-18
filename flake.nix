@@ -39,27 +39,18 @@
     nix-search-tv.url = "github:3timeslazy/nix-search-tv";
   };
 
-  outputs =
-    inputs@{ self
-    , nixpkgs
-    , home-manager
+  outputs = inputs@{ self, nixpkgs, home-manager
     # , anyrun
-    , nixos-hardware
-    , nix-index-database
-    , nix-search-tv
-    , ...
-    }:
+    , nixos-hardware, nix-index-database, nix-search-tv, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true; # from hlissner's dotfiles--redundant?
-        config.allowBroken = true; 
+        config.allowBroken = true;
 
         # marked insecure; see issue: CVE-2024-27297
-        config.permittedInsecurePackages = [
-          "nix-2.16.2"
-        ];
+        config.permittedInsecurePackages = [ "nix-2.16.2" ];
 
         # Alternatively, overlays can be specified in the NixOS home-manager
         # module as follows:
@@ -68,10 +59,9 @@
       };
       scripts = inputs.scripts.packages.${system};
       # fancy (that is, usable) lua repl
-      croissant = (pkgs.callPackage ./pkgs {}).croissant;
+      croissant = (pkgs.callPackage ./pkgs { }).croissant;
       # TODO use flake-compat to apply overlays for nix-* tools
-    in
-    {
+    in {
       # add legacyPackages: expose package set nixpkgs // overlays for
       # nix-update
       # from https://github.com/jtojnar/nixfiles : flake.nix
@@ -81,9 +71,7 @@
       homeConfigurations.aporia = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./home/aporia.nix ];
-        extraSpecialArgs = {
-          inherit inputs system;
-        };
+        extraSpecialArgs = { inherit inputs system; };
       };
       nixosConfigurations = {
         kerfuffle = nixpkgs.lib.nixosSystem {
@@ -96,7 +84,8 @@
               # stable BIOS versions are marked as test versions
               services.fwupd.extraRemotes = [ "lvfs-testing" ];
               # Might be necessary once to make the update succeed
-              services.fwupd.uefiCapsuleSettings.DisableCapsuleUpdateOnDisk = true;
+              services.fwupd.uefiCapsuleSettings.DisableCapsuleUpdateOnDisk =
+                true;
             }
             nixos-hardware.nixosModules.framework-11th-gen-intel
 
@@ -144,7 +133,6 @@
               # Our customized package set won't be used by home-manager without
               # this (or at least the pkgs.config won't be passed along).
               nixpkgs.pkgs = pkgs;
-
 
             }
           ];

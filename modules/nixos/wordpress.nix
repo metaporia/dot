@@ -1,23 +1,19 @@
-{config, lib, pkgs, ... }: 
-{
+{ config, lib, pkgs, ... }: {
 
   # ok, so attempt #3 with devenv
 
-  environment.systemPackages = with pkgs; [
-    devenv
-  ];
-
+  environment.systemPackages = with pkgs; [ devenv ];
 
 }
-  # nasturtiumfilms wordpress setup
+# nasturtiumfilms wordpress setup
 
-  # current version: wordpress 6.7.1
+# current version: wordpress 6.7.1
 
-  # see https://nixos.wiki/wiki/Wordpress
-  # for configuration help
+# see https://nixos.wiki/wiki/Wordpress
+# for configuration help
 
-  # scaffold and plugin derivation generation from:
-  # https://carlosvaz.com/posts/setting-up-a-wordpress-website-on-nixos/
+# scaffold and plugin derivation generation from:
+# https://carlosvaz.com/posts/setting-up-a-wordpress-website-on-nixos/
 #   let 
 #   domain = "localhost";
 #

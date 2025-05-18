@@ -1,5 +1,5 @@
 final: prev:
 
 {
-  norg-fmt= prev.callPackage ./norg-fmt.nix { };
+  norg-fmt = prev.callPackage ./norg-fmt.nix { };
 }

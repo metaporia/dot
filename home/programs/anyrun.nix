@@ -1,5 +1,4 @@
-{ pkgs, inputs, ... }:
-{
+{ pkgs, inputs, ... }: {
   # TODO:
   # - add nixos-option search; see https://github.com/n3oney/anyrun-nixos-options
   # imports = [ inputs.anyrun.homeManagerModules.default ];
@@ -8,9 +7,7 @@
   systemd.user.services = {
     kidex = {
       Unit = { Description = "Kidex file indexer"; };
-      Service = {
-        ExecStart = "${pkgs.kidex}/bin/kidex";
-      };
+      Service = { ExecStart = "${pkgs.kidex}/bin/kidex"; };
       Install = { WantedBy = [ "default.target" ]; };
     };
   };
@@ -30,24 +27,21 @@
     )
   '';
 
-
   programs.anyrun = {
     enable = true;
     config = {
       # enable plugins via flake output or here?
-      plugins =
-        with inputs.anyrun.packages.${pkgs.system};
-        [
-          # plugin order determines result ordering in picker
-          applications
-          shell
-          stdin
-          translate
-          websearch
-          dictionary
-          kidex
-          symbols
-        ];
+      plugins = with inputs.anyrun.packages.${pkgs.system}; [
+        # plugin order determines result ordering in picker
+        applications
+        shell
+        stdin
+        translate
+        websearch
+        dictionary
+        kidex
+        symbols
+      ];
       width = { fraction = 0.5; };
       x = { fraction = 0.5; };
       y = { fraction = 0.5; };
@@ -69,7 +63,6 @@
           max_entries: 6,
         )
       '';
-
 
       "translate.ron".text = ''
         // <Anyrun config dir>/translate.ron

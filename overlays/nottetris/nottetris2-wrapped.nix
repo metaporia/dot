@@ -1,5 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
-
+{ pkgs ? import <nixpkgs> { } }:
 
 let
   # using nixpkgs revision before flake bump in April 2025
@@ -7,11 +6,12 @@ let
   # libs and then it gets ugly. The alternative (short of finishing the rust
   # rewrite of nottetris) is to spin up a vm with gpu passthrough 
   pkgArchive = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/574d1eac1c200690e27b8eb4e24887f8df7ac27c.tar.gz";
+    url =
+      "https://github.com/NixOS/nixpkgs/archive/574d1eac1c200690e27b8eb4e24887f8df7ac27c.tar.gz";
     sha256 = "sha256:0s6h7r9jin9sd8l85hdjwl3jsvzkddn3blggy78w4f21qa3chymz";
-  }) { inherit (pkgs) system;};
+  }) { inherit (pkgs) system; };
 
-  love_0_7 = pkgArchive.callPackage ./love_0_7.nix { lua=pkgArchive.lua5_1;};
+  love_0_7 = pkgArchive.callPackage ./love_0_7.nix { lua = pkgArchive.lua5_1; };
 
   # pkgs = import (builtins.fetchGit { 
   #   name = "nixpkgs-old";
@@ -33,19 +33,19 @@ let
   # - https://lazamar.github.io/download-specific-package-version-with-nix/
   # - https://lazamar.co.uk/nix-versions/?package=love&version=0.7.2&fullName=love-0.7.2&keyName=love_0_7&revision=f76bef61369be38a10c7a1aa718782a60340d9ff&channel=nixpkgs-unstable#instructions
 
-#   pkgArchive = import (builtins.fetchGit {
-# # Descriptive name to make the store path easier to identify
-#       name = "archived_love_0_7";
-#       url = "https://github.com/NixOS/nixpkgs/";
-#       ref = "refs/heads/nixpkgs-unstable";
-#       rev = "f76bef61369be38a10c7a1aa718782a60340d9ff";
-#   }) {};
+  #   pkgArchive = import (builtins.fetchGit {
+  # # Descriptive name to make the store path easier to identify
+  #       name = "archived_love_0_7";
+  #       url = "https://github.com/NixOS/nixpkgs/";
+  #       ref = "refs/heads/nixpkgs-unstable";
+  #       rev = "f76bef61369be38a10c7a1aa718782a60340d9ff";
+  #   }) {};
 
   # love_0_7 = pkgArchive.love_0_7;
 
-# in pkgs.writeShellScriptBin name ''
+  # in pkgs.writeShellScriptBin name ''
   # exec ${love_0_7}/bin/love "${src}/Not Tetris 2.love"
-      # ''
+  # ''
 
 in {
 

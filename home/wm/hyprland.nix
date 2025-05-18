@@ -9,10 +9,10 @@
 # see https://wiki.archlinux.org/title/Hyprland
 
 # -mdepends on scripts/raise_dots
-{ config, inputs, pkgs, ... }:
-{
+{ config, inputs, pkgs, ... }: {
 
-  imports = [ ../programs/anyrun.nix inputs.hyprpanel.homeManagerModules.hyprpanel];
+  imports =
+    [ ../programs/anyrun.nix inputs.hyprpanel.homeManagerModules.hyprpanel ];
 
   # top bar (waybar replacement)
   programs.hyprpanel = {
@@ -25,7 +25,7 @@
     hyprland.enable = false;
 
     settings = {
-      theme.font = { size = "0.8rem";};
+      theme.font = { size = "0.8rem"; };
       scalingPriority = "hyprland";
       bar.windowtitle = {
         class_name = false;
@@ -55,11 +55,7 @@
     ];
   };
 
-
-  programs.ssh = {
-    enable = true;
-  };
-
+  programs.ssh = { enable = true; };
 
   #home.file.".config/hypr/hyprland.conf".source = ../config/hyprland.conf;
   home.packages = with pkgs; [
@@ -92,7 +88,6 @@
     kdePackages.kdegraphics-thumbnailers
     kdePackages.kimageformats
 
-
     # hyprland specific
 
     # screenshot tool (option #2), 
@@ -121,7 +116,7 @@
   #users.users.aporia.extraGroups = [ "ydotool" ];
 
   # hyprshot
-  home.sessionVariables = { HYPRSHOT_DIR = "~/Pictures/Screenshots/";};
+  home.sessionVariables = { HYPRSHOT_DIR = "~/Pictures/Screenshots/"; };
 
   # hyprswitch
   xdg.configFile."hypr/hyprswitch.css".source = ./hyprswitch.css;
@@ -141,7 +136,6 @@
 
   };
 
-
   wayland.windowManager.hyprland = {
     enable = true;
     #package = pkgs.hyprland;
@@ -153,7 +147,6 @@
     systemd.enable = true;
 
     # plugins = [ pkgs.hyprlandPlugins.hyprfocus ];
-
 
     extraConfig = builtins.readFile ./hyprland.conf;
 
@@ -175,7 +168,5 @@
     #};
   };
 
-
 }
-
 

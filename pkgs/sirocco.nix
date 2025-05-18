@@ -1,9 +1,10 @@
-{ bit32, buildLuarocksPackage, compat53, fetchFromGitHub, fetchurl, hump, lua-term, luaOlder, wcwidth }:
+{ bit32, buildLuarocksPackage, compat53, fetchFromGitHub, fetchurl, hump
+, lua-term, luaOlder, wcwidth }:
 buildLuarocksPackage {
   pname = "sirocco";
   version = "0.0.1-5";
   knownRockspec = (fetchurl {
-    url    = "mirror://luarocks/sirocco-0.0.1-5.rockspec";
+    url = "mirror://luarocks/sirocco-0.0.1-5.rockspec";
     sha256 = "0bs2zcy8sng4x16clfz47cn4l6fw43rj224vjgmnkfvp9nznd4b4";
   }).outPath;
 
