@@ -32,6 +32,7 @@ return {
         html = { "html_beautify" },
         css = { "css_beautify" },
         js = { "js_beautify"},
+        nix = {"nixfmt"},
         -- run on filetypes without formatters
         ["_"] = { "trim_whitespace" },
       },
