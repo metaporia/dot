@@ -348,25 +348,51 @@
     fish.enable = true;
   };
 
-  programs.yazi = {
-    enable = true;
-    enableFishIntegration = true;
-    shellWrapperName = "y";
+  programs.yazi =
+    {
+      enable = true;
+      enableFishIntegration = true;
+      shellWrapperName = "y";
 
-    settings = {
-      log = {
-        enabled = false;
+      settings = {
+        log = {
+          enabled = false;
+        };
+        manager = {
+          show_hidden = false;
+          sort_by = "mtime";
+          sort_dir_first = true;
+          sort_reverse = true;
+        };
+      } ;
+      plugins = with pkgs.yaziPlugins; {
+        inherit 
+        no-status 
+        toggle-pane 
+        rich-preview
+        full-border;
       };
-      manager = {
-        show_hidden = false;
-        sort_by = "mtime";
-        sort_dir_first = true;
-        sort_reverse = true;
-      };
-    }
-    ;
 
-  };
+      initLua = ''
+        require("full-border"):setup()
+      '';
+
+      keymap = {
+        manager.prepend_keymap = [
+          {
+            on = "T";
+            run = "plugin toggle-pane max-preview";
+            desc = "Maximize or restore the preview pane";
+          }
+          {
+            on = ["c" "m"];
+            run = "plugin chmod";
+            desc = "Chmod on selected files";
+          }
+        ];
+      };
+
+    };
 
   # programs.neovim = {
   #   enable = true;
@@ -430,9 +456,9 @@
           "video/mp4" = [ "vlc.desktop" ];
           "application/pdf" = [ "okularApplication_pdf.desktop" "zathura.desktop" "firefox.desktop"];
         };
-        associations.removed = { 
-          "application/pdf" = [ "applications/google-chrome.desktop" ];
-          "image/png" = [ "applications/google-chrome.desktop" ];
+        associations.removed = {
+          "application/pdf" = [ "google-chrome.desktop" ];
+          "image/png" = [ "google-chrome.desktop" ];
         };
       };
 
