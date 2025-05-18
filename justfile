@@ -6,7 +6,7 @@ rebuild_flags := "--verbose --show-trace"
 default:
   just --choose
 
-build: untoggle-hyprland
+build: untoggle-hyprland hyprpanel-quit
   NIX_SSHOPTS="-tt" NIXOS_LABEL=$(nixos-generate-label) \
   sudo nixos-rebuild switch {{rebuild_flags}} --flake {{flake_attr}} 
 
@@ -26,6 +26,8 @@ update-input FLAKE:
 update:
   nix flake update
 
+hyprpanel-quit:
+  hyprpanel --quit
 
 # Toggles
 
