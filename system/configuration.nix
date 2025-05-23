@@ -176,6 +176,16 @@
     ../modules/nixos/wordpress.nix
   ];
 
+  # # IPFS node daemon & cli
+  # # TODO: move to module
+  # services.kubo = {
+  #   enable = true;
+  # }; 
+
+
+
+
+
   # Allow installation of proprietary packages
   #nixpkgs.config.allowUnfree = true;
 

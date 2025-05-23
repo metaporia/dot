@@ -27,7 +27,7 @@ update:
   nix flake update
 
 hyprpanel-quit:
-  hyprpanel --quit
+  hyprpanel --quit || true
 
 # Toggles
 
