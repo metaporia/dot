@@ -1,7 +1,7 @@
 return {
 	{
 		"NeogitOrg/neogit",
-    disable = true,
+		-- disable = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- required
 			"sindrets/diffview.nvim", -- optional - Diff integration
@@ -20,6 +20,22 @@ return {
 			},
 		},
 
-		config = true,
+		opts = {
+			graph_style = "kitty",
+			disable_line_numbers = false,
+			disable_relative_line_numbers = false,
+			integrations = {
+				-- use telescope for picker in place of nvim.ui.select
+				-- telescope = true,
+				snacks = true,
+			},
+			mappings = {
+				rebase_editor = {
+          -- move drop from "d" -> "D" so "dd" deletes lines as usual
+					["D"] = "Drop",
+          ["d"] = false
+				},
+			},
+		},
 	},
 }
