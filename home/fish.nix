@@ -63,6 +63,8 @@
     };
 
     shellAbbrs = {
+      # nix QOL
+      nr = "nix run self#"; # `self` refers to system flake's custom nixpkgs instance
       cb = "cd -";
       g = "git";
       gs = "git status --short";

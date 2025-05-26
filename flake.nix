@@ -46,7 +46,10 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfree = true; # from hlissner's dotfiles--redundant?
+        # the pkgs configured here sets nixpkgs for the nixos and home-manager
+        # to use it with, eg, `nix run`, use the `self` attribute in the
+        # registry, with `nix run self#some-unfree-package`
+        config.allowUnfree = true; 
         config.allowBroken = true;
 
         # marked insecure; see issue: CVE-2024-27297

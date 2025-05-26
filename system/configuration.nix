@@ -187,7 +187,8 @@
 
 
   # Allow installation of proprietary packages
-  #nixpkgs.config.allowUnfree = true;
+  # N.B. doesn't work with custom nixpkgs instance
+  # nixpkgs.config.allowUnfree = true;
 
   mine.windows-file-share = {
     enable = false;
