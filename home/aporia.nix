@@ -22,6 +22,8 @@
 
     anki-bin
 
+    obsidian
+
     # DICO
 
     dioxionary # iffy cli interface to stardicts, spits out html for SOED
