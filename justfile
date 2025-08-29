@@ -6,9 +6,10 @@ rebuild_flags := "--verbose --show-trace"
 default:
   just --choose
 
-build: untoggle-hyprland hyprpanel-quit
+build: untoggle-hyprland hyprpanel-quit && hyprpanel-start
   NIX_SSHOPTS="-tt" NIXOS_LABEL=$(nixos-generate-label) \
   sudo nixos-rebuild switch {{rebuild_flags}} --flake {{flake_attr}} 
+
 
 check FLAGS=rebuild_flags:
   nixos-rebuild dry-build {{FLAGS}} --flake {{flake_attr}}
@@ -27,7 +28,11 @@ update:
   nix flake update
 
 hyprpanel-quit:
-  hyprpanel --quit || true
+  -hyprpanel --quit 
+  -pkill swaync
+
+hyprpanel-start:
+  hyprpanel >/dev/null 2>&1 & disown
 
 # Toggles
 
