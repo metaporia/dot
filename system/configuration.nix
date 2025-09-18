@@ -80,7 +80,8 @@
 
   # - nixos discourse thread about the issue: https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094/7
   # - imperative temp fix: `ulimit -n 4096`
-  systemd.extraConfig = "DefaultLimitNOFILE=2048"; # defaults to 1024 if unset
+  # defaults to 1024 if unset
+  systemd.settings.Manager = { "DefaultLimitNOFILE" = "2048"; };
 
   #systemd = {
   #  user.services.polkit-gnome-authentication-agent-1 = {
@@ -182,10 +183,6 @@
   #   enable = true;
   # }; 
 
-
-
-
-
   # Allow installation of proprietary packages
   # N.B. doesn't work with custom nixpkgs instance
   # nixpkgs.config.allowUnfree = true;
@@ -254,8 +251,16 @@
   # TODO is this necessary?
   services.dbus.enable = true;
 
+  services.tlp.enable = false;
   # cpu temp fix
-  services.auto-cpufreq.enable = true;
+  services.auto-cpufreq = {
+    enable = true;
+    settings = {
+      battery = { turbo = "never"; };
+      charger = { turbo = "auto"; };
+    };
+  };
+
   services.thermald.enable = true;
 
   # enable xkb keymap in console
