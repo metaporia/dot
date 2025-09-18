@@ -13,6 +13,7 @@ return {
 					}),
 					-- function
 					f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+					F = ai.gen_spec.treesitter({ a = "@call.outer", i = "@call.inner" }),
 					-- class
 					c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
 					--tags

@@ -396,8 +396,8 @@ return {
 	{
 		-- TODO: rewrite in lua with setup() to lazy load
 		--url = "https://gitlab.com/metaporia/muse-vim",
-	   dir = "~/src/muse-vim",
-	   lazy = false,
+		dir = "~/src/muse-vim",
+		lazy = false,
 		--cmd = { "LogToday", "LogEntry", "LastRead" },
 		init = function()
 			vim.g.muse_vim_log_dir = "~/sputum/muse"
@@ -411,11 +411,119 @@ return {
 	},
 
 	-- resession
-
 	{
 		"norcalli/nvim-colorizer.lua",
 		cmds = { "ColorizerToggle", "ColorizerAttachToBuffer" },
 		--ft = { "lua" },
 		config = true,
+	},
+
+	-- snacks
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			bigfile = { enabled = false },
+			dashboard = { enabled = false },
+			explorer = { enabled = false },
+			indent = { enabled = false },
+			input = { enabled = false },
+			picker = { enabled = false },
+			notifier = { enabled = false },
+			quickfile = { enabled = false },
+			scope = { enabled = false },
+			scroll = { enabled = false },
+			statuscolumn = { enabled = true },
+			words = { enabled = false },
+		},
+	},
+
+	-- nvim-ufo
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = { "kevinhwang91/promise-async" },
+		opts = {
+			filetype_exclude = {
+				"help",
+				"alpha",
+				"dashboard",
+				"neo-tree",
+				"Trouble",
+				"lazy",
+				"mason",
+			},
+		},
+		config = function(_, opts)
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup(
+					"local_detach_ufo",
+					{ clear = true }
+				),
+				pattern = opts.filetype_exclude,
+				callback = function()
+					require("ufo").detach()
+				end,
+			})
+
+			vim.o.foldcolumn = "1"
+			vim.o.foldlevel = 99
+			vim.o.foldenable = true
+			vim.opt.foldlevelstart = 99
+			require("ufo").setup(opts)
+		end,
+	},
+
+	{
+		"rareitems/anki.nvim",
+		-- enable = false
+
+		-- don't lazy it, it tries to be as lazy possible and it needs to add a
+		-- filetype association
+		lazy = false,
+		-- NOTE: check AnkiConnect is available at http://localhost:8765
+		-- NB: Anki MUST be running in background
+
+		keys = {
+			{
+				"<leader>ac",
+				function()
+					require("anki").ankiWithDeck(
+						"italian-basic-vocab",
+						"BasicTypeReverse"
+					)
+				end,
+				mode = { "n" },
+			},
+			{
+				"<leader>as",
+				function()
+					require("anki").send()
+				end,
+				mode = { "n" },
+			},
+      { "<leader>au", "<cmd>AnkiUnlock<cr>"}
+		},
+
+		opts = {
+			{
+				-- this function will add support for associating '.anki' extension with both
+				-- 'anki' and 'tex' filetype.
+				tex_support = false,
+				move_cursor_after_creation = true,
+				models = {
+					-- Here you specify which notetype should be associated with which deck
+          NoteType = "PathToDeck",
+					["italian-basic-vocab"] = "BasicTypeReverse",
+					["BasicTypeReverse"] = "italian-basic-vocab",
+					-- ["Basic"] = "Deck",
+					-- ["Super Basic"] = "Deck::ChildDeck",
+				},
+			},
+		},
 	},
 }

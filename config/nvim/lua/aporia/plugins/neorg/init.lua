@@ -1,9 +1,48 @@
 return {
+	{
+		"nvim-orgmode/orgmode",
+		event = "VeryLazy",
+		ft = { "org" },
+		dependencies = {
+			{
+				"nvim-treesitter/nvim-treesitter",
+				opts = { ignore_install = { "org" } },
+			},
+			{ "akinsho/org-bullets.nvim" },
+			{ "danilshvalov/org-modern.nvim" },
+		},
+		config = function()
+			local Menu = require("org-modern.menu")
+			-- Setup orgmode
+			require("orgmode").setup({
+				org_agenda_files = "~/org/**/*",
+				org_default_notes_file = "~/org/refile.org",
+				ui = {
+					menu = {
+						handler = function(data)
+							Menu:new():open(data)
+						end,
+					},
+				},
+			})
+
+
+			require("org-bullets").setup()
+
+			-- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
+			-- add ~org~ to ignore_install
+			-- require('nvim-treesitter.configs').setup({
+			--   ensure_installed = 'all',
+			--   ignore_install = { 'org' },
+			-- })
+		end,
+	},
 
 	{
 		-- wiki https://github.com/nvim-neorg/neorg/wiki
 		-- ~/src/norg-specs
 		"nvim-neorg/neorg",
+		enabled = false,
 		--ft = { "norg" },
 		--keys = { "<leader>f", "<Esc>gg=G<C-O>", ft = "norg", desc = "Format file" },
 		dependencies = {
@@ -112,9 +151,9 @@ return {
 						},
 					},
 					["core.concealer"] = {},
-          ["core.summary"] = {},
+					["core.summary"] = {},
 					["core.autocommands"] = {},
-					["core.integrations.treesitter"] = {},
+					-- ["core.integrations.treesitter"] = {},
 					-- ["core.latex.renderer"] = {
 					-- 	config = {
 					-- 		conceal = true,
@@ -142,6 +181,7 @@ return {
 
 	{
 		"3rd/image.nvim",
+		enabled = false,
 		--ft = { "markdown", "norg" },
 		--dependencies = { "leafo/magick" },
 		opts = {
@@ -153,6 +193,7 @@ return {
 
 	{
 		"jbyuki/nabla.nvim",
+		enabled = false,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			--opts = { ensure_installed = { "latex" } },

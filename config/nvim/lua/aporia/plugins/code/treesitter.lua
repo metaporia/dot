@@ -38,7 +38,7 @@ return {
 			--
 		end,
 
-		opts_extend = { "ensure_installed" },
+		opts_extend = { "ensure_installed", "ignore_install" },
 		-- normal mode 'zi' to enable folding
 		--vim.opt.foldmethod = "expr"
 		opts = {
@@ -83,8 +83,8 @@ return {
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
 
-			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-			vim.opt.foldlevelstart = 2
+			-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+			-- vim.opt.foldlevelstart = 2
 			-- vim.opt.foldenable = false
 		end,
 	},
