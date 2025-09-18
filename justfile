@@ -6,6 +6,8 @@ rebuild_flags := "--verbose --show-trace"
 default:
   just --choose
 
+
+# NB: `recipe: cmd1 && cmd2` runs cmd1 -> recipe -> cmd2
 build: untoggle-hyprland hyprpanel-quit && hyprpanel-start
   NIX_SSHOPTS="-tt" NIXOS_LABEL=$(nixos-generate-label) \
   sudo nixos-rebuild switch {{rebuild_flags}} --flake {{flake_attr}} 
