@@ -324,14 +324,18 @@
 
   programs.bat = {
     enable = true;
-    config = { theme = "TwoDark"; };
+    config = {
+      theme = "TwoDark";
+    };
   };
 
   programs = {
     direnv = {
       enable = true;
       nix-direnv.enable = true;
-      config = { hide_env_diff = true; };
+      config = {
+        hide_env_diff = true;
+      };
     };
     fish.enable = true;
   };
@@ -342,7 +346,9 @@
     shellWrapperName = "y";
 
     settings = {
-      log = { enabled = false; };
+      log = {
+        enabled = false;
+      };
       manager = {
         show_hidden = false;
         sort_by = "mtime";
@@ -351,7 +357,12 @@
       };
     };
     plugins = with pkgs.yaziPlugins; {
-      inherit no-status toggle-pane rich-preview full-border;
+      inherit
+        no-status
+        toggle-pane
+        rich-preview
+        full-border
+        ;
     };
 
     initLua = ''
@@ -359,14 +370,17 @@
     '';
 
     keymap = {
-      manager.prepend_keymap = [
+      mgr.prepend_keymap = [
         {
           on = "T";
           run = "plugin toggle-pane max-preview";
           desc = "Maximize or restore the preview pane";
         }
         {
-          on = [ "c" "m" ];
+          on = [
+            "c"
+            "m"
+          ];
           run = "plugin chmod";
           desc = "Chmod on selected files";
         }
@@ -399,7 +413,10 @@
         genericName = "Text Editor";
         exec = "kitty -- nvim %F";
         type = "Application";
-        categories = [ "Utility" "TextEditor" ];
+        categories = [
+          "Utility"
+          "TextEditor"
+        ];
         startupNotify = false;
         terminal = false;
         mimeType = [
@@ -431,7 +448,10 @@
       enable = true;
       defaultApplications = {
         "text/plain" = [ "nvim.desktop" ]; # "kitty.desktop" ];
+        "text/html" = [ "firefox.desktop" ];
         "video/mp4" = [ "vlc.desktop" ];
+        "x-scheme-handler/https" = [ "firefox.desktop" ];
+        "x-scheme-handler/http" = [ "firefox.desktop" ];
         "application/pdf" = [
           "okularApplication_pdf.desktop"
           "zathura.desktop"
