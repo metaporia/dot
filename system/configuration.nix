@@ -10,7 +10,13 @@
 #   first--or at least check for discrepancies.
 # - run nix-install
 
-{ config, lib, inputs, pkgs, ... }:
+{
+  config,
+  lib,
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
 
@@ -20,13 +26,16 @@
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = let path = toString ../.;
-    in [
-      "nixos-config=${path}"
-      "repl=${path}/repl.nix"
-      "nixpkgs-overlays=${path}/overlays"
-    ] ++ lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
-    config.nix.registry;
+    nixPath =
+      let
+        path = toString ../.;
+      in
+      [
+        "nixos-config=${path}"
+        "repl=${path}/repl.nix"
+        "nixpkgs-overlays=${path}/overlays"
+      ]
+      ++ lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     # pin system nixpkgs to that of the flake input
 
@@ -52,18 +61,22 @@
         # "https://devenv.cachix.org"
       ];
 
-      trusted-users = [ "root" "aporia" "@wheel" ];
+      trusted-users = [
+        "root"
+        "aporia"
+        "@wheel"
+      ];
     };
 
   };
 
-  # Enable nix flakes 
+  # Enable nix flakes
   # what does this do?
   nix.package = pkgs.nixVersions.latest;
 
-  ################### 
+  ###################
   # Hyprland Config #
-  ################### 
+  ###################
 
   mine.wm.hyprland = {
     enable = true;
@@ -81,7 +94,9 @@
   # - nixos discourse thread about the issue: https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094/7
   # - imperative temp fix: `ulimit -n 4096`
   # defaults to 1024 if unset
-  systemd.settings.Manager = { "DefaultLimitNOFILE" = "2048"; };
+  systemd.settings.Manager = {
+    "DefaultLimitNOFILE" = "2048";
+  };
 
   #systemd = {
   #  user.services.polkit-gnome-authentication-agent-1 = {
@@ -100,7 +115,7 @@
   #};
 
   # use nixos nixpkgs for flake commands like 'nix shell nixpkgs#hello'
-  ##nix.registry = { 
+  ##nix.registry = {
   ##  nixpkgs.flake = inputs.nixpkgs;
   ##  unstable.flake = inputs.nixpkgs;
   ##};
@@ -181,7 +196,7 @@
   # # TODO: move to module
   # services.kubo = {
   #   enable = true;
-  # }; 
+  # };
 
   # Allow installation of proprietary packages
   # N.B. doesn't work with custom nixpkgs instance
@@ -246,18 +261,25 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  console = { font = "Lat2-Terminus16"; };
+  console = {
+    font = "Lat2-Terminus16";
+  };
 
   # TODO is this necessary?
   services.dbus.enable = true;
 
+  # FIXME: why is this enabled?
   services.tlp.enable = false;
   # cpu temp fix
   services.auto-cpufreq = {
     enable = true;
     settings = {
-      battery = { turbo = "never"; };
-      charger = { turbo = "auto"; };
+      battery = {
+        turbo = "never";
+      };
+      charger = {
+        turbo = "auto";
+      };
     };
   };
 
@@ -271,7 +293,7 @@
   # rtkit is optional but recommended
   security.rtkit.enable = true;
   # disable for non-alsa based setups
-  # sound.enable = true; 
+  # sound.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -312,11 +334,11 @@
   environment.systemPackages = with pkgs; [
     # Is it necessary to add package here? or will enabling it with the
     # home-manager module suffice?
-    #inputs.anyrun.packages.${system}.anyrun-with-all-plugins 
+    #inputs.anyrun.packages.${system}.anyrun-with-all-plugins
     #wrapped-neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
     wget
-    firefox
+    # firefox
     git
     tmux
     nix-doc
@@ -325,7 +347,18 @@
     #lutris
     #wine
     kitty
+
+    # video en-/decoding
+    ffmpeg-full
+
   ];
+
+  # firefox-bin has proprietary codecs (otherwise yt & twitch crash all the
+  # time)
+  programs.firefox = {
+    enable = true;
+    package = pkgs.firefox-bin;
+  };
 
   # Virtualisation
 
@@ -344,13 +377,18 @@
   # FONTS #
   #########
 
-  fonts.packages = with pkgs;
+  fonts.packages =
+    with pkgs;
     [
       font-awesome # for waybar
       noto-fonts
       #(nerdfonts.override { fonts = [ "DroidSansMono" "SourceCodePro" ]; })
       # nerdfonts -> nerd-fonts.<font-name>
-    ] ++ (with nerd-fonts; [ droid-sans-mono sauce-code-pro ]);
+    ]
+    ++ (with nerd-fonts; [
+      droid-sans-mono
+      sauce-code-pro
+    ]);
 
   programs.dconf.enable = true;
 
@@ -371,9 +409,12 @@
     home = "/home/test";
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "networkmanager" "plocate" ];
-    hashedPassword =
-      "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "plocate"
+    ];
+    hashedPassword = "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
     packages = with pkgs; [ git ];
   };
 
@@ -389,9 +430,11 @@
       "libvirtd"
       #"ydotool"
     ];
-    hashedPassword =
-      "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
-    packages = with pkgs; [ git home-manager ];
+    hashedPassword = "$6$hDmuVM9BSnuYhZOo$EfmduI43DDQ/ep0wgBK0iIxR4PXedpX8C2roy9rQtSvP4ZvBGw/lqMYlJWgNWRCl1aAwutbz2cSsgbddDguHV.";
+    packages = with pkgs; [
+      git
+      home-manager
+    ];
   };
 
   #home-manager.sharedModules = [ ../modules/home/wm.nix ];

@@ -2,14 +2,14 @@
   # TODO:
   # - add nixos-option search; see https://github.com/n3oney/anyrun-nixos-options
   # imports = [ inputs.anyrun.homeManagerModules.default ];
-  home.packages = with pkgs; [ kidex ];
+  # home.packages = with pkgs; [ kidex ];
 
   systemd.user.services = {
-    kidex = {
-      Unit = { Description = "Kidex file indexer"; };
-      Service = { ExecStart = "${pkgs.kidex}/bin/kidex"; };
-      Install = { WantedBy = [ "default.target" ]; };
-    };
+    # kidex = {
+    #   Unit = { Description = "Kidex file indexer"; };
+    #   Service = { ExecStart = "${pkgs.kidex}/bin/kidex"; };
+    #   Install = { WantedBy = [ "default.target" ]; };
+    # };
   };
 
   xdg.configFile."kidex.ron".text = ''
@@ -28,7 +28,7 @@
   '';
 
   programs.anyrun = {
-    enable = true;
+    enable = false;
     config = {
       # enable plugins via flake output or here?
       plugins = with inputs.anyrun.packages.${pkgs.system}; [
@@ -39,7 +39,7 @@
         translate
         websearch
         dictionary
-        kidex
+        # kidex
         symbols
       ];
       width = { fraction = 0.5; };

@@ -27,7 +27,13 @@
   hardware.cpu.intel.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableAllFirmware = true;
+
+  hardware.graphics.extraPackages = with pkgs; [ intel-media-driver intel-ocl intel-vaapi-driver ];
+
   # high-resolution display
   #hardware.video.hidpi.enable = lib.mkDefault true;
   # hardware.pulseaudio.enable = false;
+
+  # add codecs
+
 }

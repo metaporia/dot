@@ -9,23 +9,34 @@
 # see https://wiki.archlinux.org/title/Hyprland
 
 # -mdepends on scripts/raise_dots
-{ config, inputs, pkgs, ... }: {
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
+{
 
-  imports =
-    [ ../programs/anyrun.nix inputs.hyprpanel.homeManagerModules.hyprpanel ];
+  imports = [
+    ../programs/anyrun.nix
+    inputs.hyprshell.homeModules.hyprshell
+  ];
 
   # top bar (waybar replacement)
   programs.hyprpanel = {
     enable = true;
     # let gui overwrite home-manager config.json
-    overwrite.enable = true;
+    # overwrite.enable = true;
     # systemd.enable = true;
+    dontAssertNotificationDaemons = true;
 
     # write exec-once hyprpanel to hyprland.conf, unused rn
-    hyprland.enable = false;
+    # hyprland.enable = false;
 
     settings = {
-      theme.font = { size = "0.8rem"; };
+      theme.font = {
+        size = "0.8rem";
+      };
       scalingPriority = "hyprland";
       bar.windowtitle = {
         class_name = false;
@@ -46,16 +57,23 @@
   programs.keychain = {
     enable = true;
     enableFishIntegration = true;
-    keys = [ "github" "gitlab" ];
+    keys = [
+      "github"
+      "gitlab"
+    ];
     extraFlags = [
       # use ~/.ssh/config IdentityFile to map keys names to paths
-      "--confhost"
+      # "--extended host"
       "--quiet"
 
     ];
   };
 
-  programs.ssh = { enable = true; };
+  # TODO default config soon to be deprecated; add config
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+  };
 
   #home.file.".config/hypr/hyprland.conf".source = ../config/hyprland.conf;
   home.packages = with pkgs; [
@@ -90,12 +108,12 @@
 
     # hyprland specific
 
-    # screenshot tool (option #2), 
+    # screenshot tool (option #2),
     # see https://wiki.hyprland.org/FAQ/#how-do-i-screenshot
     hyprshot
 
     # window switcher
-    inputs.hyprswitch.packages.${system}.default
+    # inputs.hyprswitch.packages.${system}.default
 
     # swaync
     libnotify
@@ -116,7 +134,80 @@
   #users.users.aporia.extraGroups = [ "ydotool" ];
 
   # hyprshot
-  home.sessionVariables = { HYPRSHOT_DIR = "~/Pictures/Screenshots/"; };
+  home.sessionVariables = {
+    HYPRSHOT_DIR = "~/Pictures/Screenshots/";
+  };
+
+  programs.hyprshell = {
+    enable = true;
+    systemd.args = "-v";
+    settings = {
+      layerrules = true;
+      kill_bind = "ctrl+shift+alt; h";
+
+      windows = {
+        enable = true;
+
+        switch = {
+          enable = true;
+          modifier = "alt";
+        };
+
+        scale = 8.5;
+        items_per_row = 5;
+        overview = {
+          enable = true;
+          key = "Tab";
+          modifier = "ctrl";
+          launcher = {
+            default_terminal = "kitty";
+            launch_modifier = "super";
+            width = 650;
+            max_items = 5;
+            show_when_empty = true;
+            plugins = {
+              applications = {
+                run_cache_weeks = 4;
+                show_execs = true;
+                show_actions_submenu = true;
+              };
+              terminal = { };
+              shell = { };
+              websearch = {
+                engines = [
+
+                  {
+                    url = "https://www.google.com/search?q={}";
+                    name = "Google";
+                    key = "g";
+                  }
+                  {
+                    url = "https://en.wikipedia.org/wiki/Special:Search?search={}";
+                    name = "Wikipedia";
+                    key = "w";
+                  }
+                  {
+                    url = "https://www.youtube.com/results?search_query={}";
+                    name = "YouTube";
+                    key = "y";
+                  }
+                  {
+                    url = "https://www.reddit.com/search?q={}";
+                    name = "Reddit";
+                    key = "r";
+                  }
+                ];
+              };
+              calc = { };
+              path = { };
+            };
+          };
+          filter_by = [ ];
+          hide_filtered = false;
+        };
+      };
+    };
+  };
 
   # hyprswitch
   xdg.configFile."hypr/hyprswitch.css".source = ./hyprswitch.css;
@@ -169,4 +260,3 @@
   };
 
 }
-

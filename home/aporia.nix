@@ -1,4 +1,11 @@
-{ pkgs, config, scripts, croissant, inputs, ... }:
+{
+  pkgs,
+  config,
+  scripts,
+  croissant,
+  inputs,
+  ...
+}:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -11,7 +18,13 @@
     emacs
     # aspell for emacs flyspell
 
-    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
+    (aspellWithDicts (
+      dicts: with dicts; [
+        en
+        en-computers
+        en-science
+      ]
+    ))
 
     # pdf-tools (emacs) deps
     # https://discourse.nixos.org/t/how-can-i-get-emacs-pdf-tools-working/10270
@@ -22,16 +35,21 @@
 
     anki-bin
 
+    # outliners
     obsidian
+    
 
     # DICO
 
     dioxionary # iffy cli interface to stardicts, spits out html for SOED
+    # some stardict dicts available here: https://tuxor1337.frama.io/firedict/dictionaries.html
+    # the only tricky ones to find are the SOED and OED--see icloud or google
+    # drive. Phone also has local copy
     goldendict-ng
 
     # pandoc/latex
     pandoc
-    # neorg latex requires dvipng 
+    # neorg latex requires dvipng
 
     texliveFull
     #texlivePackages.standalone
@@ -51,7 +69,7 @@
     watchexec # run command on file change
     docker
     getoptions
-    firefox
+    # firefox
     google-chrome
     discord
     eza # TODO fix scripts to use eza
@@ -117,7 +135,7 @@
 
     tree-sitter # to generate parsers from grammar
     # neorg (from overlay)
-    norg-fmt
+    # norg-fmt
     shfmt
     shellcheck
     bash-language-server
@@ -160,7 +178,7 @@
   # nvim package.path
   # we should add a home-manager module for neovim packages,
   # and generate the package-path.lua for it
-  # 
+  #
   # Adding the generated file to ~/.config/nvim keeps ~/dot dirty, so we'll put
   # 'em in the nvim package's runtime path
   #
@@ -181,8 +199,7 @@
   # '';
 
   # nixd flags
-  home.sessionVariables.NIXD_FLAGS =
-    "--inlay-hints=true -log=error --semantic-tokens=true";
+  home.sessionVariables.NIXD_FLAGS = "--inlay-hints=true -log=error --semantic-tokens=true";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -213,7 +230,7 @@
   # should switch from dico to dict (which may involve making a dict-gcide nix
   # package--see arch's dict-gcide), and then get back to work sanitizing that
   # damn dictionary (remember to update to 0.53--oh god the progress staled!).
-  # 
+  #
   # NB: gcide 0.48 was converted (poorly in spots) to the DICT format.
   # [this](https://github.com/rickysarraf-notmine/gcide) seems to be the likely
   # converter program. It puts it all neatly formatted into a *.dict file, and
@@ -223,21 +240,25 @@
     enable = true;
     # TODO: enable dicod module support for dictDBS.*
     # TODO: gcide is enabled in dico overlay
-    packages = let dictdDBs = pkgs.dictdDBs;
-    in with pkgs.dicts; [
-      # for now enable all from dict-dbs
-      devils
-      dictdDBs.wiktionary
-      dictdDBs.wordnet
-      easton
-      elements
-      foldoc
-      hitchcock
-      jargon
-      moby-thesaurus
-      vera
-      world95
-    ];
+    packages =
+      let
+        dictdDBs = pkgs.dictdDBs;
+      in
+      with pkgs.dicts;
+      [
+        # for now enable all from dict-dbs
+        devils
+        dictdDBs.wiktionary
+        dictdDBs.wordnet
+        easton
+        elements
+        foldoc
+        hitchcock
+        jargon
+        moby-thesaurus
+        vera
+        world95
+      ];
   };
 
   systemd.user.startServices = "sd-switch"; # requires dbus session
@@ -290,7 +311,7 @@
 
   # requires nixos-rebuild with `--impure` flag
   #xdg.configFile."hypr/hyprland.conf" = {
-  #  source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath 
+  #  source = config.lib.file.mkOutOfStoreSymlink (builtins.toPath
   #    ../config/hyprland.conf);
   #
 

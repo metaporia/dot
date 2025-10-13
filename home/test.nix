@@ -7,7 +7,7 @@
   home.stateVersion = "23.05";
 
   home.packages = with pkgs; [
-    firefox
+    # firefox
     eza
     ripgrep
     #xclip
