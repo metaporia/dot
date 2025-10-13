@@ -25,11 +25,10 @@
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprswitch.url = "github:h3rmt/hyprswitch/release";
-    hyprswitch.inputs.nixpkgs.follows = "nixpkgs";
-
-    hyprpanel.inputs.nixpkgs.follows = "nixpkgs";
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+    # hyprswitch.url = "github:h3rmt/hyprswitch/release";
+    # hyprswitch.inputs.nixpkgs.follows = "nixpkgs";
+    hyprshell.url = "github:H3rmt/hyprshell";
+    hyprshell.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -41,6 +40,7 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager
     # , anyrun
+    , hyprshell
     , nixos-hardware, nix-index-database, nix-search-tv, ... }:
     let
       system = "x86_64-linux";
@@ -58,7 +58,7 @@
         # Alternatively, overlays can be specified in the NixOS home-manager
         # module as follows:
         # > nixpkgs.overlays = (import ./overlays); # ++ [scriptsOverlay]
-        overlays = (import ./overlays.nix) ++ [ inputs.hyprpanel.overlay ];
+        overlays = (import ./overlays.nix);
       };
       scripts = inputs.scripts.packages.${system};
       # fancy (that is, usable) lua repl
@@ -126,7 +126,7 @@
                   # appropriate modules. 
                   ./modules/home/wm.nix
 
-                  nix-index-database.hmModules.nix-index
+                  nix-index-database.homeModules.nix-index
                   #anyrun.homeManagerModules.default
                 ];
               };
