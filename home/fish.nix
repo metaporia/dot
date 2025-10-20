@@ -64,6 +64,7 @@
 
     shellAbbrs = {
       # nix QOL
+      oed = "goldendict";
       nr = "nix run self#"; # `self` refers to system flake's custom nixpkgs instance
       cb = "cd -";
       g = "git";
