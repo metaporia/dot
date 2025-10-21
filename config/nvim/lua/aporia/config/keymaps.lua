@@ -59,12 +59,16 @@ vim.keymap.set("t", "jk", [[<C-\><C-n>]], { noremap = true, silent = true })
 -- FIXME: move to dico.nvim
 
 function GoldenDict(word)
-  local cmd = "silent !goldendict "  .. "" .. word .. " & disown"
-  vim.cmd(cmd)
+  -- print('GD: ' .. word)
+  -- local cmd = "silent !goldendict "  .. "" .. word -- .. " & disown"
+  vim.system({ "goldendict", word }, { detach = true })
+  -- vim.cmd(cmd)
   --  switch focus to goldendict
-  vim.cmd[[silent !hyprctl dispatch focuswindow class:GoldenDict-ng ]]
+  vim.system({ "hyprctl", "dispatch", "focuswindow", "class:GoldenDict-ng" }, { detach = true })
 end
--- GoldenDict("modulate")
+
+-- Test/scatch commands
+GoldenDict("modulate")
 
 vim.keymap.set("n", "<leader>dg", function () GoldenDict(vim.fn.expand('<cword>')) end)
 
