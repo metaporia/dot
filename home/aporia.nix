@@ -316,6 +316,7 @@
   #
 
   imports = [
+    ./syncthing.nix
     ./fish.nix
     #./gnome-kbd-shortcuts.nix
     ./dicod.nix
