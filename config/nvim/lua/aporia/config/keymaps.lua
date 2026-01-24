@@ -68,7 +68,7 @@ function GoldenDict(word)
 end
 
 -- Test/scatch commands
-GoldenDict("modulate")
+-- GoldenDict("modulate")
 
 vim.keymap.set("n", "<leader>dg", function () GoldenDict(vim.fn.expand('<cword>')) end)
 
