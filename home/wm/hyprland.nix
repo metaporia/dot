@@ -27,8 +27,8 @@
     enable = true;
     # let gui overwrite home-manager config.json
     # overwrite.enable = true;
-    # systemd.enable = true;
-    dontAssertNotificationDaemons = true;
+    systemd.enable = true;
+    dontAssertNotificationDaemons = false;
 
     # write exec-once hyprpanel to hyprland.conf, unused rn
     # hyprland.enable = false;
@@ -140,7 +140,10 @@
 
   programs.hyprshell = {
     enable = true;
-    systemd.args = "-v";
+    systemd = {
+      enable = true;
+      args = "-v";
+    };
     settings = {
       layerrules = true;
       kill_bind = "ctrl+shift+alt; h";
@@ -158,11 +161,12 @@
         overview = {
           enable = true;
           key = "Tab";
-          modifier = "ctrl";
+          # modifier = "ctrl";
+          modifier = "super";
           launcher = {
             default_terminal = "kitty";
-            launch_modifier = "super";
-            width = 650;
+            launch_modifier = "ctrl";
+            width = 900;
             max_items = 5;
             show_when_empty = true;
             plugins = {
