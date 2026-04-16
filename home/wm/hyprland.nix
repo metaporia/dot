@@ -141,6 +141,7 @@
 
   programs.hyprshell = {
     enable = true;
+    package = inputs.hyprshell.packages.${pkgs.system}.hyprshell-nixpkgs;
     systemd = {
       enable = true;
       args = "-v";
@@ -208,21 +209,20 @@
               actions = {
                 enable = true;
 
-                # actions = [
-                #   {
-                #     custom = {
-                #       names = [
-                #         "d"
-                #         "def"
-                #         "define"
-                #       ];
-                #       details = "Search a word in ng-GoldenDict";
-                #       command = ''goldendict "{}"'';
-                #       # icon = "accessories-dictionary-symbolic";
-                #     };
-                #   }
-                #
-                # ];
+                actions = [
+                  {
+                    custom = {
+                      names = [
+                        "d"
+                        "def"
+                        "define"
+                      ];
+                      details = "Search a word in ng-GoldenDict";
+                      command = ''goldendict "{}"'';
+                      icon = "accessories-dictionary-symbolic";
+                    };
+                  }
+                ];
 
               };
             };
