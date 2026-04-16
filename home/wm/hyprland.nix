@@ -28,7 +28,8 @@
     # let gui overwrite home-manager config.json
     # overwrite.enable = true;
     systemd.enable = true;
-    dontAssertNotificationDaemons = false;
+    #dontAssertNotificationDaemons = false;
+    #notification.daemon.assertions = false;
 
     # write exec-once hyprpanel to hyprland.conf, unused rn
     # hyprland.enable = false;
@@ -145,8 +146,8 @@
       args = "-v";
     };
     settings = {
-      layerrules = true;
-      kill_bind = "ctrl+shift+alt; h";
+      # layerrules = true;
+      #kill_bind = "ctrl+shift+alt; h"; # FIXME
 
       windows = {
         enable = true;
@@ -204,6 +205,26 @@
               };
               calc = { };
               path = { };
+              actions = {
+                enable = true;
+
+                # actions = [
+                #   {
+                #     custom = {
+                #       names = [
+                #         "d"
+                #         "def"
+                #         "define"
+                #       ];
+                #       details = "Search a word in ng-GoldenDict";
+                #       command = ''goldendict "{}"'';
+                #       # icon = "accessories-dictionary-symbolic";
+                #     };
+                #   }
+                #
+                # ];
+
+              };
             };
           };
           filter_by = [ ];

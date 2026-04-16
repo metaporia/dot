@@ -36,11 +36,17 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-search-tv.url = "github:3timeslazy/nix-search-tv";
+
+    # WSL
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager
     # , anyrun
     , hyprshell
+    , nixos-wsl
     , nixos-hardware, nix-index-database, nix-search-tv, ... }:
     let
       system = "x86_64-linux";
@@ -77,6 +83,36 @@
         extraSpecialArgs = { inherit inputs system; };
       };
       nixosConfigurations = {
+
+        # WSL:
+        # todo: 
+        # - wsl module (nixos-wsl flake). How to make input conditional?
+        chonkstation = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs;};
+          inherit system;
+          modules = [
+            nixos-wsl.nixosModules.default
+
+            # home-manager.nixosModules.home-manager
+
+            # TODO: factor out headless (tui/cli only) user (home-manager) and
+            # system (nixos) levl configuration
+            #
+            # E.g. hosts/{kerfuffle.nix, chonkstation.nix}, system/headless-common.nix 
+            # and modules/home/{this.nix, aporia.nix, headless-common.nix}
+            # where:
+            # - system/headless-common.nix : basic tools/config to for, eg., ssh-only
+            #   use of a system
+            # - modules/home/headless-common.nix : home-manager headless config
+            # - kerfuffle.nix has all host specific stuff
+            # and so on.
+            # This is all a first pass and doubtless will be refactored soon.
+
+              
+          ];
+
+        };
+
         kerfuffle = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           inherit system;

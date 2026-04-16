@@ -140,7 +140,7 @@
     shellcheck
     bash-language-server
     emmet-language-server
-    nodePackages.js-beautify
+    # nodePackages.js-beautify # FIXME
     dart-sass
 
     #lua51Packages.luarocks
