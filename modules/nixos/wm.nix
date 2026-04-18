@@ -40,11 +40,11 @@ in {
       settings = mkIf (cfg.greetd.default-user != "") {
         default_session = {
           command =
-            "${pkgs.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+            "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${pkgs.hyprland}/bin/start-hyprland";
           user = cfg.greetd.default-user;
         };
         initial_session = {
-          command = "Hyprland";
+          command = "${pkgs.hyprland}/bin/start-hyprland";
           user = cfg.greetd.default-user;
         };
       };
