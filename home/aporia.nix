@@ -37,7 +37,6 @@
 
     # outliners
     obsidian
-    
 
     # DICO
 
@@ -45,7 +44,22 @@
     # some stardict dicts available here: https://tuxor1337.frama.io/firedict/dictionaries.html
     # the only tricky ones to find are the SOED and OED--see icloud or google
     # drive. Phone also has local copy
-    goldendict-ng
+
+    # goldendict-ng
+
+    # update broke goldendict-ng (some qt-wayland conflict). run it as
+    # `QT_QPA_PLATFORM xcb goldendict-ng`
+    #
+    # see issue: https://github.com/goldendict/goldendict/issues/935
+    (pkgs.symlinkJoin {
+      name = "goldendict";
+      paths = [ pkgs.goldendict-ng ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/goldendict \
+          --set QT_QPA_PLATFORM xcb
+      '';
+    })
 
     # pandoc/latex
     pandoc
