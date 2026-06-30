@@ -1,3 +1,4 @@
+-- Claude-assisted
 -- TODO:
 -- * incremental_selection: was enabled with <C-n> grow. The new nvim-treesitter
 --   main may not ship this module — check after migration and add a keybind or
@@ -18,34 +19,46 @@ return {
 		lazy = false,
 		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter").setup({})
-			require("nvim-treesitter").install({
-				"python",
-				"bash",
-				"cpp",
-				"haskell",
-				"json",
-				"lua",
-				"markdown",
-				"markdown_inline",
-				"nix",
-				"query",
-				"regex",
-				"vim",
-				"vimdoc",
-				"ron",
-				"rust",
-				"toml",
-				"just",
-				"html",
-			})
+			-- { parser, { ft, ... } }
+			-- absent ft list → use parser name as filetype
+			-- empty ft list  → injection-only, skip in FileType pattern
+			local parsers = {
+				{ "python" },
+				{ "bash",            { "bash", "sh" } },
+				{ "cpp",             { "c", "cpp", "objcpp" } },
+				{ "haskell" },
+				{ "json" },
+				{ "lua" },
+				{ "markdown" },
+				{ "markdown_inline", {} },  -- skip, injection only
+				{ "nix" },
+				{ "query" },
+				{ "regex",           {} },  -- skip, injection only
+				{ "vim" },
+				{ "vimdoc",          { "help" } },
+				{ "ron" },
+				{ "rust" },
+				{ "toml" },
+				{ "just" },
+				{ "html" },
+			}
+
+			local parser_names, fts = {}, {}
+			for _, p in ipairs(parsers) do
+				table.insert(parser_names, p[1])
+				local p_fts = p[2]
+        -- if no ft table, use parser name,  
+				if p_fts == nil then
+					table.insert(fts, p[1])
+				else -- NB: if `p_fts` is empty, this is a no-op
+					vim.list_extend(fts, p_fts)
+				end
+			end
+
+			require("nvim-treesitter").install(parser_names)
 
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = {
-					"lua", "python", "bash", "sh", "cpp", "c", "haskell",
-					"nix", "rust", "markdown", "json", "vim", "vimdoc",
-					"toml", "just", "html", "query", "regex",
-				},
+				pattern = fts,
 				callback = function() vim.treesitter.start() end,
 			})
 
