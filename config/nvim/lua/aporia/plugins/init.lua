@@ -96,8 +96,6 @@ return {
 
 	{
 		dir = "~/src/dico.nvim",
-		-- name = "dico.nvim",
-		"metaporia/dico.nvim",
 
 		event = { "VeryLazy" },
 		opts = {
@@ -510,19 +508,16 @@ return {
 		},
 
 		opts = {
-			{
-				-- this function will add support for associating '.anki' extension with both
-				-- 'anki' and 'tex' filetype.
-				tex_support = false,
-				move_cursor_after_creation = true,
-				models = {
-					-- Here you specify which notetype should be associated with which deck
-          NoteType = "PathToDeck",
-					["italian-basic-vocab"] = "BasicTypeReverse",
-					["BasicTypeReverse"] = "italian-basic-vocab",
-					-- ["Basic"] = "Deck",
-					-- ["Super Basic"] = "Deck::ChildDeck",
-				},
+			-- this function will add support for associating '.anki' extension with both
+			-- 'anki' and 'tex' filetype.
+			tex_support = false,
+			move_cursor_after_creation = true,
+			models = {
+				-- Here you specify which notetype should be associated with which deck
+				["italian-basic-vocab"] = "BasicTypeReverse",
+				["BasicTypeReverse"] = "italian-basic-vocab",
+				-- ["Basic"] = "Deck",
+				-- ["Super Basic"] = "Deck::ChildDeck",
 			},
 		},
 	},

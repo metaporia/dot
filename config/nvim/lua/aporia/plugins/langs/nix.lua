@@ -6,7 +6,7 @@ return {
 			servers = {
 				nixd = {
 					command = { "nixd" },
-					args = { "--inlay-hints=true", "-log=verbose" },
+					args = { "--inlay-hints=true"},
 					settings = {
 						nixd = {
 							nixpkgs = {

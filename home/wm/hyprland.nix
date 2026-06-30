@@ -96,8 +96,14 @@
     pavucontrol
 
     # file manager
+    shared-mime-info
+    xdg-utils
+
     kdePackages.dolphin
     kdePackages.kio
+    kdePackages.kservice
+    kdePackages.kde-cli-tools
+    kdePackages.kconfig
     kdePackages.kio-extras
     kdePackages.breeze-icons
     kdePackages.dolphin-plugins

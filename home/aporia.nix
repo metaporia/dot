@@ -180,6 +180,7 @@
     # tmux
     tmux
     bc # for tokyo-night-tmux's netspeed and git widgets
+    wl-clipboard
 
     # image viewer
     feh
@@ -444,6 +445,11 @@
 
   # Set default applications: firefox, kitty/tmux, nvim
   xdg = {
+
+    # portal = {
+    #   enable = true;
+    # };
+
     desktopEntries = {
       nvim = {
         name = "nvim";

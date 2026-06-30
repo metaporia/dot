@@ -30,7 +30,7 @@
         extraConfig = ''
           set -g @thumbs-key f
           set -g @thumbs-alphabet dvorak-homerow
-          set -g @thumbs-command 'echo -n {} | xclip -i -selection clip'
+          set -g @thumbs-command 'echo -n {} | wl-copy'
         '';
       }
       {

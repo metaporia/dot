@@ -1,3 +1,13 @@
+-- TODO: swap to `vim.lsp.config`
+-- - use `lspconfig` for sensible defaults
+-- - most of the config stays the same--it just moves a bit. `on_attach`
+--   keybinds are done natively now, merging server settings (now with a global
+--   default) happens automatically, without `lazy.nvim`
+-- - TO START: move a few simple configs, see if they play nice with existing
+--   ones. If so, move overy incrementally; if not, fuck it and pick one of fix
+--   it and wait.
+-- - for rounded popup borders: `vim.o.windborder = 'rounded'`
+-- - for more info, see https://gpanders.com/blog/whats-new-in-neovim-0-11/
 return {
 	-- lspconfig revision
 	-- desiderata:
@@ -7,6 +17,13 @@ return {
 	-- - formatting
 	-- - treesitter texobjects
 	--
+	--
+	-- # FIXME: Migrate to `vim.lsp.config`
+	--
+	-- - put lsp config files in nvim/lsp/ (`/lsp` in config root, I believe)
+	-- - each config file, e.g., `lang.lua`, should return a `---@type vim.lsp.Config`
+	-- - migration example: https://devpad.net/blog/upgrading-nvim-v010-to-v011
+
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
@@ -50,6 +67,9 @@ return {
 			)
 			caps.textDocument.foldingRange =
 				{ dynamicRegistration = false, lineFoldingOnly = true }
+
+			-- Inlay Hints
+			vim.lsp.inlay_hint.enable(true)
 
 			-- ###########
 			-- # SERVERS #
@@ -119,6 +139,11 @@ return {
 					local function per_buffer_with_desc(description)
 						return { buffer = ev.buf, desc = description }
 					end
+
+					vim.keymap.set("n", "<leader>th", function()
+						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+					end, per_buffer_with_desc("Toggle Inlay Hints"))
+
 					vim.keymap.set(
 						{ "n", "v" },
 						"gD",

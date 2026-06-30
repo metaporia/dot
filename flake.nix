@@ -41,13 +41,25 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
+    # claude
+    nix-claude-code.url = "github:ryoppippi/nix-claude-code";
+
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager
-    # , anyrun
-    , hyprshell
-    , nixos-wsl
-    , nixos-hardware, nix-index-database, nix-search-tv, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      # , anyrun
+      hyprshell,
+      nixos-wsl,
+      nixos-hardware,
+      nix-index-database,
+      nix-search-tv,
+      nix-claude-code,
+      ...
+    }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -55,7 +67,7 @@
         # the pkgs configured here sets nixpkgs for the nixos and home-manager
         # to use it with, eg, `nix run`, use the `self` attribute in the
         # registry, with `nix run self#some-unfree-package`
-        config.allowUnfree = true; 
+        config.allowUnfree = true;
         config.allowBroken = true;
 
         # marked insecure; see issue: CVE-2024-27297
@@ -70,7 +82,8 @@
       # fancy (that is, usable) lua repl
       croissant = (pkgs.callPackage ./pkgs { }).croissant;
       # TODO use flake-compat to apply overlays for nix-* tools
-    in {
+    in
+    {
       # add legacyPackages: expose package set nixpkgs // overlays for
       # nix-update
       # from https://github.com/jtojnar/nixfiles : flake.nix
@@ -79,16 +92,19 @@
       # expose standalone home configuration for `nixd`
       homeConfigurations.aporia = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./home/aporia.nix ];
+        modules = [
+          ./home/aporia.nx
+
+        ];
         extraSpecialArgs = { inherit inputs system; };
       };
       nixosConfigurations = {
 
         # WSL:
-        # todo: 
+        # todo:
         # - wsl module (nixos-wsl flake). How to make input conditional?
         chonkstation = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs;};
+          specialArgs = { inherit inputs; };
           inherit system;
           modules = [
             nixos-wsl.nixosModules.default
@@ -98,7 +114,7 @@
             # TODO: factor out headless (tui/cli only) user (home-manager) and
             # system (nixos) levl configuration
             #
-            # E.g. hosts/{kerfuffle.nix, chonkstation.nix}, system/headless-common.nix 
+            # E.g. hosts/{kerfuffle.nix, chonkstation.nix}, system/headless-common.nix
             # and modules/home/{this.nix, aporia.nix, headless-common.nix}
             # where:
             # - system/headless-common.nix : basic tools/config to for, eg., ssh-only
@@ -108,7 +124,6 @@
             # and so on.
             # This is all a first pass and doubtless will be refactored soon.
 
-              
           ];
 
         };
@@ -123,8 +138,7 @@
               # stable BIOS versions are marked as test versions
               services.fwupd.extraRemotes = [ "lvfs-testing" ];
               # Might be necessary once to make the update succeed
-              services.fwupd.uefiCapsuleSettings.DisableCapsuleUpdateOnDisk =
-                true;
+              services.fwupd.uefiCapsuleSettings.DisableCapsuleUpdateOnDisk = true;
             }
             nixos-hardware.nixosModules.framework-11th-gen-intel
 
@@ -159,7 +173,7 @@
                 sharedModules = [
 
                   # checks for system toggle: `mine.wm.hyprland` and loads
-                  # appropriate modules. 
+                  # appropriate modules.
                   ./modules/home/wm.nix
 
                   nix-index-database.homeModules.nix-index
@@ -174,6 +188,13 @@
               nixpkgs.pkgs = pkgs;
 
             }
+
+            {
+              environment.systemPackages = [
+                nix-claude-code.packages.${system}.default
+              ];
+            }
+
           ];
         };
       };

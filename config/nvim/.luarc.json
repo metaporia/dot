@@ -2,5 +2,8 @@
     "diagnostics.disable": [
         "unused-function",
         "unused-local"
+    ],
+    "diagnostics.globals": [
+        "vim"
     ]
 }

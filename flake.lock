@@ -644,6 +644,24 @@
         "type": "github"
       }
     },
+    "nix-claude-code": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1780791733,
+        "narHash": "sha256-2sVYZ9cIVhR9LCcJUJelsufF/QYVooInli+5b1RCvaQ=",
+        "owner": "ryoppippi",
+        "repo": "nix-claude-code",
+        "rev": "6ce2c98b036d3d977d6c44ffa201ed560efc53a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryoppippi",
+        "repo": "nix-claude-code",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -667,7 +685,7 @@
     "nix-search-tv": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1771465079,
@@ -739,6 +757,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1779560665,
+        "narHash": "sha256-tpyBcxPpcQb8ukyNF7DoCwfSY3VPsxHoYwj00Cayv5o=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "64c08a7ca051951c8eae34e3e3cb1e202fe36786",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1770843696,
         "narHash": "sha256-LovWTGDwXhkfCOmbgLVA10bvsi/P8eDDpRudgk68HA8=",
         "owner": "NixOS",
@@ -753,7 +787,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1776169885,
         "narHash": "sha256-l/iNYDZ4bGOAFQY2q8y5OAfBBtrDAaPuRQqWaFHVRXM=",
@@ -799,11 +833,12 @@
         "flake-compat": "flake-compat",
         "home-manager": "home-manager",
         "hyprshell": "hyprshell",
+        "nix-claude-code": "nix-claude-code",
         "nix-index-database": "nix-index-database",
         "nix-search-tv": "nix-search-tv",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "scripts": "scripts"
       }
     },
