@@ -42,15 +42,4 @@ return {
       require('markview').setup(opts)
 		end,
 	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = {
-			ensure_installed = {
-				"markdown",
-				"markdown_inline",
-				"html",
-				-- "latex",
-			},
-		},
-	},
 }

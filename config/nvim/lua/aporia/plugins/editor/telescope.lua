@@ -22,6 +22,12 @@ return {
 					},
 				},
 				defaults = {
+
+          -- NOTE: disable treesitter syntax highlighting in previews
+          -- (alternatively, downgrade nvim-treesitter to 0.10)
+					preview = {
+						treesitter = false,
+					},
 					layout_strategy = "flex",
 					layout_config = {
 						-- TODO: make this dynamic based on width:height ratio
@@ -85,5 +91,4 @@ return {
 			},
 		},
 	},
-
 }

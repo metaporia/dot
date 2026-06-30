@@ -5,16 +5,6 @@ return {
 	--},
 	--
 
-	{
-		"nvim-treesitter/nvim-treesitter",
-		event = { "VeryLazy" },
-		opts = { ensure_installed = { "just" } },
-		-- opts = function(_, opts)
-		-- 	opts.ensure_installed = opts.ensure_installed or {}
-		-- 	vim.list_extend(opts.ensure_installed, { "ron", "rust", "toml" })
-		-- end,
-	},
-
 	--- keys for this will go under <space> as it's a build tool and thus
 	--- language related. The <space> prefix should mean "give mean lsp and
 	--- language functionality".
