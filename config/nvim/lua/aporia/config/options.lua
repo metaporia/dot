@@ -42,3 +42,7 @@ vim.cmd([[set formatoptions+=n]])
 -- vim.opt.formatoptions:insert({'n'})
 -- :set formatlistpat=^\\s*[\\-\\+\\*]\\+\\s\\+
 opt.formatlistpat = "^\\s*[\\-\\+\\*]\\+\\s\\+"
+
+
+-- UI
+vim.o.winborder = 'rounded'

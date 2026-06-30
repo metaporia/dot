@@ -86,6 +86,7 @@ require("lazy").setup({
 --   highlights
 -- vim.treesitter.language.register("latex", { filetype = "latex" })
 
+require("aporia.config.lsp")
 require("aporia.config.keymaps")
 -- having these after ft plugins (eg muse) seems to not apply tabstop,
 -- shiftwidth, and expandtab but putting 'options' before plugins are loaded
