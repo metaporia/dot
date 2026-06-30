@@ -1,10 +1,153 @@
 return {
+	-- TODO: completion disiderata:
+	-- smart tab copmletion
+	-- signature-help (c-s) (open docs, and keep open while typing signature)
+	-- doc preview scrolling binds
+	-- cmd-line smart c-n/c-p, cycle completion opens when in completion window
+	-- (enter with tab)
+	-- pick option: c-e, abort selection:  c-y ()
+	-- snippets (native?)
+	-- preview window positioning
+	-- completion window border
+	-- c-g or c-c to cancel and exit completion menu
+	-- completion and doc preview ovelap in function signatures
+
+	-- blink.nvim
+	{
+		"saghen/blink.cmp",
+		lazy = false,
+		dependencies = {
+			"saghen/blink.lib",
+			-- optional: provides snippets for the snippet source
+			"rafamadriz/friendly-snippets",
+		},
+
+		-- nixos
+		build = function(plugin)
+			vim
+				.system({
+					"nix",
+					"shell",
+					"nixpkgs#cargo",
+					"nixpkgs#rustc",
+					"nixpkgs#gcc",
+					"nixpkgs#git",
+					"--command",
+					"sh",
+					"-c",
+					"cargo build --release && mkdir -p lib && cp target/release/libblink_cmp_fuzzy.so lib/libblink_cmp_fuzzy.so.$(git rev-parse --short HEAD)",
+				}, { cwd = plugin.dir })
+				:wait()
+		end,
+
+		-- build = function()
+		-- 	-- build the fuzzy matcher, optionally add a timeout to `pwait(timeout_ms)`
+		-- 	-- you can use `gb` in `:Lazy` to rebuild the plugin as needed
+		-- 	require("blink.cmp").build() --:pwait()
+		-- end,
+
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+			-- 'super-tab' for mappings similar to vscode (tab to accept)
+			-- 'enter' for enter to accept
+			-- 'none' for no mappings
+			--
+			-- All presets have the following mappings:
+			-- C-space: Open menu or open docs if already open
+			-- C-n/C-p or Up/Down: Select next/previous item
+			-- C-e: Hide menu
+			-- C-k: Toggle signature help (if signature.enabled = true)
+			--
+			-- See :h blink-cmp-config-keymap for defining your own keymap
+			--
+
+			appearance = {},
+
+      -- old nvim-cmp tab behavior:
+      --["<Tab>"] = cmp.mapping(function(fallback)
+      --  if cmp.visible() then
+      --    cmp.select_next_item()
+      --  elseif luasnip.expand_or_jumpable() then
+      --    luasnip.expand_or_jump()
+      --  elseif has_words_before() then
+      --    cmp.complete()
+      --  else
+      --    fallback()
+      --  end
+
+			keymap = {
+				preset = "super-tab", -- gives C-n/p, C-b/f scroll, C-space open
+				["<C-e>"] = { "select_and_accept" }, -- pick (was cancel in default)
+				["<C-y>"] = { "cancel" }, -- abort (was accept in default)
+				["<C-g>"] = { "cancel" }, -- abort (was accept in default)
+				-- ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
+				-- ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+			},
+
+			-- (Default) Only show the documentation popup when manually triggered
+			completion = {
+				list = {
+					selection = {
+						-- preselect = true,
+						auto_insert = false,
+					},
+				},
+				-- FIXME: ghost text too faint
+				ghost_text = {
+					enabled = true,
+					show_with_menu = true,
+					show_without_menu = true,
+				},
+
+				menu = {
+          scrollbar = false,
+					border = "rounded",
+					-- auto_show = true,
+					-- auto_show_delay_ms = 500,
+					draw = {
+						columns = {
+							{ "label", "label_description", gap = 1 },
+							{ "kind_icon" },
+						},
+					},
+				},
+
+				documentation = { auto_show = true, auto_show_delay_ms = 500 },
+			},
+
+			-- (Default) list of enabled providers defined so that you can extend it
+			-- elsewhere in your config, without redefining it, due to `opts_extend`
+			sources = { default = { "lsp", "path", "snippets", "buffer" } },
+
+			-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+			-- You may use a lua implementation instead by using `implementation = "lua"`
+			-- See the fuzzy documentation for more information
+			fuzzy = { implementation = "prefer_rust" },
+			signature = { enabled = true, window = { border = "rounded" } },
+
+			-- cmdline
+      -- FIXME: different tab behavior in cmdline rn. this is not great
+      --
+			cmdline = {
+				keymap = {
+					-- preset = "inherit",
+					["<C-e>"] = { "select_and_accept" }, -- pick (was cancel in default)
+					["<C-y>"] = { "cancel" }, -- abort (was accept in default)
+					["<C-g>"] = { "cancel" }, -- abort (was accept in default)
+				},
+			},
+		},
+	},
 
 	-- TODO: fix dependency order/factorize lsp & cmp config
 	-- see: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/coding.lua
+	-- nvim-cmp (disabled)
 	{
+		enabled = false,
 		"hrsh7th/nvim-cmp",
-		event = { "InsertEnter", "CmdlineEnter"},
+		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			--'hrsh7th/cmp-nvim-lua',
@@ -97,8 +240,12 @@ return {
 				mapping = {
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-					["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+					["<C-n>"] = cmp.mapping.select_next_item({
+						behavior = cmp.SelectBehavior.Select,
+					}),
+					["<C-p>"] = cmp.mapping.select_prev_item({
+						behavior = cmp.SelectBehavior.Select,
+					}),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<CR>"] = cmp.mapping.confirm({
 						select = false, -- if true,
@@ -180,7 +327,6 @@ return {
 						{ name = "buffer" },
 					},
 				}),
-
 			}
 		end,
 	},

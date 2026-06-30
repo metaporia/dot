@@ -1,3 +1,11 @@
+-- TODO: migration
+-- - [ ] blink.nvim
+-- - [ ] inlay hint customization (overwhelming in lua files with table field
+--   numbering)
+-- - [ ] which-key search
+-- - [ ] lsp config type annotations, autocomplet
+
+--
 -- print(vim.inspect(vim.api.nvim_list_runtime_paths()))
 -- print(vim.inspect(vim.api.nvim_get_runtime_file('parser', true)))
 
@@ -97,7 +105,12 @@ require("aporia.config.keymaps")
 require("aporia.config.options") 
 require("aporia.config.misc")
 
-vim.cmd([[colorscheme tokyonight-moon]])
+
+-- enable experimental ui for cmdline and messages
+require('vim._core.ui2').enable() --let's fucking go this is amazing!
+
+
+vim.cmd([[colorscheme tokyonight]])
 
 -- FIXME: broken macro key, 'q'
 -- it's one of these:

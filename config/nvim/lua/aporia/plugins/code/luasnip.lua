@@ -1,5 +1,5 @@
 return {
-	{
+	{ enable = false,
 		"L3MON4D3/LuaSnip",
 		lazy = true,
 		dependencies = {
@@ -35,6 +35,7 @@ return {
 	},
 
 	{
+    enable = false,
 		"nvim-cmp",
     -- stylua: ignore
     keys = {

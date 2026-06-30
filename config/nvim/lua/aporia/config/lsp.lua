@@ -1,12 +1,11 @@
 -- # Claude-generated
+
 -- cmp-nvim-lsp is lazy but lazy.nvim's module loader handles the require here
 -- since this file runs after lazy.setup() in init.lua
-local caps = require("cmp_nvim_lsp").default_capabilities()
-caps.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
 
-
-
-vim.lsp.config("*", { capabilities = caps })
+-- local caps = require("cmp_nvim_lsp").default_capabilities()
+-- caps.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
+-- vim.lsp.config("*", { capabilities = caps })
 
 vim.lsp.enable({
   "lua_ls",
